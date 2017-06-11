@@ -1,0 +1,36 @@
+#version 330 core
+
+in vec3 vertexColor;
+in vec2 texCoordinates;
+in vec3 interpolatedNormal;
+
+out vec4 color;
+
+uniform float time = 0;
+uniform sampler2D testImage0;
+uniform sampler2D testImage1;
+
+void main()
+{
+    //color = pow(texture(testImage0, texCoordinates), vec4(cos(time * 2) + 1)) + texture(testImage1, texCoordinates);
+    color = vec4(interpolatedNormal, 1.0f);
+
+	float illuminance = dot(interpolatedNormal, normalize(vec3(1.0, 1.0, 1.0)));
+	vec3 finalColor = vec3(illuminance);
+
+
+	finalColor = pow(finalColor, vec3(0.45));
+
+    color = vec4(finalColor, 1.0f);
+
+    //color = texture(testImage1, texCoordinates) + 0.00001f * texture(testImage0, texCoordinates + time);
+
+	//if(cos(time * 5) > 0)
+	//{
+	//	color = texture(testImage0, texCoordinates) * vec4(1,0,0,1);
+	//}
+	//else
+	//{
+	//	color = texture(testImage1, texCoordinates) * vec4(0,1,0,1);
+	//}
+} 

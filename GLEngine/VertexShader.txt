@@ -1,0 +1,19 @@
+#version 330 core
+  
+layout (location = 0) in vec3 position;
+layout (location = 1) in vec2 uvCoordinates;
+layout (location = 2) in vec3 normal;
+
+out vec3 vertexColor;
+out vec2 texCoordinates;
+out vec3 interpolatedNormal;
+
+uniform mat4 transform;
+
+void main()
+{
+	vertexColor = vec3(1, 1, 1);
+	texCoordinates = uvCoordinates;
+	interpolatedNormal = normal;
+    gl_Position = transform * vec4(position.x, position.y, position.z, 1.0);
+}

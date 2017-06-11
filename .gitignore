@@ -1,0 +1,14 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/GLEngine/v15
+/Debug
+/Debug
+/Debug
+/GLEngine/Debug
+/Debug/GLEngine.pdb
+/Debug/GLEngine.ilk
+/Debug/GLEngine.exe
+/Debug/GLEngine.pdb
+/GLEngine/Release
