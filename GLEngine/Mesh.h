@@ -5,6 +5,7 @@
 
 #include "Vector2.h"
 #include "Vector3.h"
+#include "VertexArrayObject.h"
 
 using std::string;
 using std::list;
@@ -19,6 +20,10 @@ namespace GLEngine
 	public:
 		Mesh();
 		~Mesh();
+
+		void InitializeVao();
+
+		VertexArrayObject* GetVao() { return _vao; }
 
 		string GetPath() const { return _path; }
 		void SetPath(const string path) { _path = path; }
@@ -35,6 +40,7 @@ namespace GLEngine
 		virtual list<Vector3*> GetNormalsList() = 0;
 
 	private:
+		VertexArrayObject* _vao;
 		string _path;
 		bool _hasTextureCoordinates = false, _hasNormals = false;
 	};

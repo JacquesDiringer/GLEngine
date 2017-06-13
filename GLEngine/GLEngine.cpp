@@ -18,6 +18,8 @@
 #include "VertexArrayObject.h"
 #include "TextureManager.h"
 #include "PerspectiveCamera.h"
+#include "Model.h"
+#include "SceneManager.h"
 
 // Maths
 #include "Matrix4.h"
@@ -131,7 +133,6 @@ VertexArrayObject* InitBuffers()
 
 void Render(VertexArrayObject* vao, ShaderProgram* shaderProgram, TextureManager* texManager, PerspectiveCamera* camera)
 {
-	// Tests
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 
@@ -150,17 +151,13 @@ void Render(VertexArrayObject* vao, ShaderProgram* shaderProgram, TextureManager
 	//shaderProgram->GetUniform("testImage0")->SetValue((GLuint)tex0->GetBoundUnit());
 	//shaderProgram->GetUniform("testImage1")->SetValue((GLuint)tex1->GetBoundUnit());
 
-	// Transforms
-	/*Matrix4 projectionMatrix = Matrix4::CreateSymetricProjectionFrustum(0.1f, 100.0f, 0.05, 0.05);
-	Matrix4 viewMatrix = Matrix4::CreateTargetPositionCameraYAxis(Vector3(sin(timeValue),cos(timeValue),0), Vector3(0,0,-1));
-	Matrix4 transformMatrix = projectionMatrix * viewMatrix;
-
-	shaderProgram->GetUniform("transform")->SetValue(&transformMatrix);*/
-	Matrix4 viewProjectionMatrix = camera->GetViewProjection();
-	shaderProgram->GetUniform("transform")->SetValue(&viewProjectionMatrix);
+	const Matrix4* projectionMatrix = camera->GetProjection();
+	const Matrix4* viewMatrix = camera->GetView();
+	shaderProgram->GetUniform("projection")->SetValue(projectionMatrix);
+	shaderProgram->GetUniform("view")->SetValue(viewMatrix);
+	shaderProgram->GetUniform("world")->SetValue(new Matrix4());
 
 	vao->Bind();
-	//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 	glDrawElements(GL_TRIANGLES, vao->GetElementsCount(), GL_UNSIGNED_INT, 0);
 	vao->UnBind();
 
@@ -268,12 +265,20 @@ int main()
 	// Models testing
 	OBJLoader* testLoader = new OBJLoader();
 	//OBJMesh* testModel = (OBJMesh*)testLoader->LoadModel("C:/Users/Jacques/Documents/GLEngineMedia/suzanne_sharp.obj");
-	OBJMesh* testModel = (OBJMesh*)testLoader->LoadModel("C:/Users/Jacques/Documents/GLEngineMedia/suzanne_smooth.obj");
+	OBJMesh* testMesh = (OBJMesh*)testLoader->LoadModel("C:/Users/Jacques/Documents/GLEngineMedia/suzanne_smooth.obj");
 	//OBJMesh* testModel = (OBJMesh*)testLoader->LoadModel("C:/Users/Jacques/Documents/GLEngineMedia/flyingCar.obj");
 	//OBJMesh* testModel = (OBJMesh*)testLoader->LoadModel("C:/Users/Jacques/Documents/GLEngineMedia/cube.obj");
 	//OBJMesh* testModel = (OBJMesh*)testLoader->LoadModel("C:/Users/Jacques/Documents/GLEngineMedia/sphere.obj");
 
-	VertexArrayObject* vao = new VertexArrayObject(testModel->GetElementsList(), testModel->GetPositionsList(), testModel->GetNormalsList());
+	testMesh->InitializeVao();
+
+	Model* testModel = new Model(testMesh);
+	testModel->SetShaderProgram(shaderProgram);
+
+	//VertexArrayObject* vao = new VertexArrayObject(testModel->GetElementsList(), testModel->GetPositionsList(), testModel->GetNormalsList());
+
+	SceneManager* manager = new SceneManager();
+	manager->SetCurrentCamera(camera);
 
 	// Game loop
 	while (!glfwWindowShouldClose(window))
@@ -290,7 +295,9 @@ int main()
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		Render(vao, shaderProgram, textureManager, camera);
+		//Render(testModel, shaderProgram, textureManager, camera);
+
+		testModel->Render(manager);
 
 		glfwSwapBuffers(window);
 	}

@@ -6,14 +6,14 @@ layout (location = 2) in vec3 normal;
 
 out vec3 vertexColor;
 out vec2 texCoordinates;
-out vec3 interpolatedNormal;
+out vec3 worldNormal;
 
-uniform mat4 transform;
+uniform mat4 world, view, projection;
 
 void main()
 {
 	vertexColor = vec3(1, 1, 1);
 	texCoordinates = uvCoordinates;
-	interpolatedNormal = normal;
-    gl_Position = transform * vec4(position.x, position.y, position.z, 1.0);
+	worldNormal = (world * vec4(normal, 1)).xyz;
+    gl_Position = projection * view * world * vec4(position.x, position.y, position.z, 1.0);
 }

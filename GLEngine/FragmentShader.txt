@@ -2,7 +2,7 @@
 
 in vec3 vertexColor;
 in vec2 texCoordinates;
-in vec3 interpolatedNormal;
+in vec3 worldNormal;
 
 out vec4 color;
 
@@ -13,9 +13,9 @@ uniform sampler2D testImage1;
 void main()
 {
     //color = pow(texture(testImage0, texCoordinates), vec4(cos(time * 2) + 1)) + texture(testImage1, texCoordinates);
-    color = vec4(interpolatedNormal, 1.0f);
+    color = vec4(worldNormal, 1.0f);
 
-	float illuminance = dot(interpolatedNormal, normalize(vec3(1.0, 1.0, 1.0)));
+	float illuminance = dot(worldNormal, normalize(vec3(1.0, 1.0, 1.0)));
 	vec3 finalColor = vec3(illuminance);
 
 
