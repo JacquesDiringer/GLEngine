@@ -6,7 +6,7 @@
 namespace GLEngine
 {
 	class Model :
-		public Renderable
+		public Renderable, public SceneElement
 	{
 	public:
 		Model();
@@ -16,6 +16,10 @@ namespace GLEngine
 		void Render(SceneManager* sceneManager);
 
 		void SetShaderProgram(ShaderProgram* shader) { _shaderProgram = shader; }
+
+		// Scene element interface.
+		virtual void Accept(SceneElementVisitor* visitor);
+
 
 	private:
 		Mesh* _mesh;

@@ -3,6 +3,7 @@
 namespace GLEngine
 {
 	class SceneNode;
+	class Model;
 
 	class SceneElementVisitor
 	{
@@ -12,5 +13,6 @@ namespace GLEngine
 
 		// Visitor pattern.
 		virtual void Visit(SceneNode* sceneNodeToVisit) = 0;
+		virtual void Visit(Model* modelToVisit) = 0;
 	};
 }

@@ -6,6 +6,7 @@ namespace GLEngine
 {
 	SceneElement::SceneElement()
 	{
+		_parentNode = nullptr;
 	}
 
 

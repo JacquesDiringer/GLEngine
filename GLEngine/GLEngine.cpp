@@ -20,6 +20,7 @@
 #include "PerspectiveCamera.h"
 #include "Model.h"
 #include "SceneManager.h"
+#include "SceneNode.h"
 
 // Maths
 #include "Matrix4.h"
@@ -139,7 +140,7 @@ void Render(VertexArrayObject* vao, ShaderProgram* shaderProgram, TextureManager
 	shaderProgram->Use();
 
 	GLfloat timeValue = glfwGetTime();
-	//shaderProgram->GetUniform("time")->SetValue(timeValue);
+	shaderProgram->GetUniform("time")->SetValue(timeValue);
 
 	// Textures
 	Texture2D* tex0 = texManager->GetTexture("phone4.jpg");
@@ -148,8 +149,8 @@ void Render(VertexArrayObject* vao, ShaderProgram* shaderProgram, TextureManager
 	texManager->AssignTextureToUnit(tex0);
 	texManager->AssignTextureToUnit(tex1);
 
-	//shaderProgram->GetUniform("testImage0")->SetValue((GLuint)tex0->GetBoundUnit());
-	//shaderProgram->GetUniform("testImage1")->SetValue((GLuint)tex1->GetBoundUnit());
+	shaderProgram->GetUniform("testImage0")->SetValue((GLuint)tex0->GetBoundUnit());
+	shaderProgram->GetUniform("testImage1")->SetValue((GLuint)tex1->GetBoundUnit());
 
 	const Matrix4* projectionMatrix = camera->GetProjection();
 	const Matrix4* viewMatrix = camera->GetView();
@@ -189,9 +190,6 @@ void MoveCamera()
 		_globalCameraSpeed = _globalCameraSpeed + Vector3(-_globalAcceleration, 0, 0);
 		_phiSpeed += _globalAcceleration;
 	}
-
-	//_globalCameraPosition = _globalCameraPosition + _globalCameraSpeed;
-	//_globalTargetPosition = _globalTargetPosition + Vector3(0, 0, -1);
 
 	_globalCameraSpeed = _globalCameraSpeed * (1 - _globalFriction);
 	_globalCameraSpeed = _globalCameraSpeed * (1 - _globalFriction);
@@ -247,14 +245,8 @@ int main()
 
 	glViewport(0, 0, width, height);
 
-
-	// Vertex buffer initialization.
-	//VertexArrayObject* vao = InitBuffers();
-
 	// Texture manager.
 	TextureManager* textureManager = new TextureManager();
-	/*Texture2D* testTexture = textureManager->GetTexture("phone4.jpg");
-	Texture2D* testTexture2 = textureManager->GetTexture("strike_vector_background.jpg");*/
 	
 	// Shaders initialization.
 	ShaderProgram* shaderProgram = new ShaderProgram("VertexShader.txt", "FragmentShader.txt", textureManager);
@@ -275,10 +267,16 @@ int main()
 	Model* testModel = new Model(testMesh);
 	testModel->SetShaderProgram(shaderProgram);
 
-	//VertexArrayObject* vao = new VertexArrayObject(testModel->GetElementsList(), testModel->GetPositionsList(), testModel->GetNormalsList());
+	// Scene setting
 
 	SceneManager* manager = new SceneManager();
 	manager->SetCurrentCamera(camera);
+
+	SceneNode* rotationNode = manager->GetRootNode()->CreateChild();
+	
+	SceneNode* extremityNode = rotationNode->CreateChild();
+	extremityNode->SetRelativeTransformation(&Matrix4::CreateTranslation(Vector3(2, 0, 0)));
+	extremityNode->AddSubElement(testModel);
 
 	// Game loop
 	while (!glfwWindowShouldClose(window))

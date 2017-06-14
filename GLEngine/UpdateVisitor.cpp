@@ -21,4 +21,8 @@ namespace GLEngine
 			currentSubElement->Accept(this);
 		}
 	}
+	void UpdateVisitor::Visit(Model * modelToVisit)
+	{
+		// Void
+	}
 }

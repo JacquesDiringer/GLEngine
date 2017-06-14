@@ -5,6 +5,7 @@
 namespace GLEngine
 {
 	SceneNode::SceneNode()
+		: SceneElement()
 	{
 		_relativeTransformation = new Matrix4();
 		_worldTransformation = new Matrix4();
@@ -71,5 +72,13 @@ namespace GLEngine
 				}
 			}
 		}
+	}
+	SceneNode * SceneNode::CreateChild()
+	{
+		SceneNode* child = new SceneNode();
+
+		AddSubElement(child);
+
+		return child;
 	}
 }

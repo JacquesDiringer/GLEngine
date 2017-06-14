@@ -32,6 +32,8 @@ namespace GLEngine
 
 		void SetWorldMatrixIsUpToDate(const bool value);
 
+		SceneNode* CreateChild();
+
 
 	private:
 		Matrix4* _relativeTransformation;

@@ -11,6 +11,7 @@ namespace GLEngine
 
 		// Visitor pattern.
 		virtual void Visit(SceneNode* sceneNodeToVisit);
+		virtual void Visit(Model* modelToVisit);
 	};
 }
 

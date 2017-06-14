@@ -17,6 +17,6 @@ namespace GLEngine
 		void SetParentNode(SceneNode* parent) { _parentNode = parent; }
 
 	private:
-		SceneNode* _parentNode;
+		SceneNode* _parentNode = nullptr;
 	};
 }
