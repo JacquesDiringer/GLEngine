@@ -21,6 +21,7 @@
 #include "Model.h"
 #include "SceneManager.h"
 #include "SceneNode.h"
+#include "SpinnerActor.h"
 
 // Maths
 #include "Matrix4.h"
@@ -238,7 +239,6 @@ int main()
 		return -1;
 	}
 
-
 	// Viewport setting
 	int width, height;
 	glfwGetFramebufferSize(window, &width, &height);
@@ -273,10 +273,15 @@ int main()
 	manager->SetCurrentCamera(camera);
 
 	SceneNode* rotationNode = manager->GetRootNode()->CreateChild();
-	
-	SceneNode* extremityNode = rotationNode->CreateChild();
-	extremityNode->SetRelativeTransformation(&Matrix4::CreateTranslation(Vector3(2, 0, 0)));
+
+	SceneNode* offsetNode = rotationNode->CreateChild();
+	offsetNode->SetRelativeTransformation(&Matrix4::CreateTranslation(Vector3(2, 0, 0)));
+
+	SceneNode* extremityNode = offsetNode->CreateChild();
 	extremityNode->AddSubElement(testModel);
+
+	SpinnerActor* testSpinner = new SpinnerActor(Quaternion(0, 0, 1, 0.1f));
+	extremityNode->AddSubElement(testSpinner);
 
 	// Game loop
 	while (!glfwWindowShouldClose(window))
@@ -294,6 +299,8 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		//Render(testModel, shaderProgram, textureManager, camera);
+
+		manager->Update();
 
 		testModel->Render(manager);
 

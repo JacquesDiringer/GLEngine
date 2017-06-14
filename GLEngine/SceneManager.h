@@ -3,6 +3,7 @@
 #include"SceneNode.h"
 #include "PerspectiveCamera.h"
 #include "RenderingElements.h"
+#include "UpdateVisitor.h"
 
 namespace GLEngine
 {
@@ -26,6 +27,7 @@ namespace GLEngine
 	private:
 		SceneNode* _rootNode;
 		PerspectiveCamera* _currentCamera;
+		UpdateVisitor* _updateVisitor;
 	};
 }
 

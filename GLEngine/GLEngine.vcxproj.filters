@@ -52,6 +52,12 @@
     <Filter Include="Source Files\Render">
       <UniqueIdentifier>{325cab3c-6c75-4a4b-b855-f93bf68df175}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Actor">
+      <UniqueIdentifier>{326dcb20-c96e-4f44-8cfa-36f136d767ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Actor">
+      <UniqueIdentifier>{f6ab524b-64c2-4f75-bb88-9600478399e9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -138,6 +144,12 @@
     <ClInclude Include="Model.h">
       <Filter>Header Files\Render</Filter>
     </ClInclude>
+    <ClInclude Include="SpinnerActor.h">
+      <Filter>Header Files\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>Header Files\Actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -214,6 +226,12 @@
     </ClCompile>
     <ClCompile Include="Model.cpp">
       <Filter>Source Files\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="SpinnerActor.cpp">
+      <Filter>Source Files\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>Source Files\Actor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

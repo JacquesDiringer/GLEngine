@@ -102,6 +102,51 @@ namespace Math
 		return Matrix4::Multiply(a, Matrix4::CreateTranslation(position)).Position();
 	}
 
+	Matrix4 Matrix4::Transpose()
+	{
+		float m00 = this->_m00;
+		float m01 = this->_m01;
+		float m02 = this->_m02;
+		float m03 = this->_m03;
+		 			
+		float m10 = this->_m10;
+		float m11 = this->_m11;
+		float m12 = this->_m12;
+		float m13 = this->_m13;
+		 			
+		float m20 = this->_m20;
+		float m21 = this->_m21;
+		float m22 = this->_m22;
+		float m23 = this->_m23;
+		 			
+		float m30 = this->_m30;
+		float m31 = this->_m31;
+		float m32 = this->_m32;
+		float m33 = this->_m33;
+
+		this->_m00 = m00;
+		this->_m01 = m10;
+		this->_m02 = m20;
+		this->_m03 = m30;
+				  
+		this->_m10 = m01;
+		this->_m11 = m11;
+		this->_m12 = m21;
+		this->_m13 = m31;
+				   
+		this->_m20 = m02;
+		this->_m21 = m12;
+		this->_m22 = m22;
+		this->_m23 = m32;
+				   
+		this->_m30 = m03;
+		this->_m31 = m13;
+		this->_m32 = m23;
+		this->_m33 = m33;
+
+		return *this;
+	}
+
 	Matrix4 Matrix4::CreateTranslation(Vector3 translation)
 	{
 		return Matrix4(translation);
@@ -117,6 +162,30 @@ namespace Math
 						0, 1, 0, 0,
 						-sinus, 0, cosinus, 0,
 						0, 0, 0, 1);
+	}
+
+	Matrix4 Matrix4::CreateRotationMatrixFromQuaternion(Quaternion quaternion)
+	{
+		//float invs = 1 / (quaternion.GetX() + quaternion.GetY() + quaternion.GetZ() + quaternion.GetW());
+		float invs = 1;
+		float x = quaternion.GetX() * invs;
+		float y = quaternion.GetY() * invs;
+		float z = quaternion.GetZ() * invs;
+		float w = quaternion.GetW() * invs;
+
+		Matrix4 tempMatrix = Matrix4(1 - 2 * y*y - 2 * z*z, 2 * x*y - 2 * z*w, 2 * x*z + 2 * y*w, 0,
+			2 * x*y + 2 * z*w, 1 - 2 * x*x - 2 * z*z, 2 * y*z - 2 * x*w, 0,
+			2 * x*z - 2 * y*w, 2 * y*z + 2 * x*w, 1 - 2 * x*x - 2 * y*y, 0,
+			0, 0, 0, 1);
+
+		//tempMatrix.Transpose();
+
+		return tempMatrix;
+
+		/*return Matrix4(		1 - 2 * y*y - 2 * z*z,		2 * x*y - 2 * z*w,		2 * x*z + 2 * y*w,			0,
+							2 * x*y + 2 * z*w,			1 - 2 * x*x - 2 * z*z,	2 * y*z - 2 * x*w,			0,
+							2 * x*z - 2 * y*w,			2 * y*z + 2 * x*w,		1 - 2 * x*x - 2 * y*y,		0,
+							0,							0,						0,							1);*/
 	}
 
 	Matrix4 Matrix4::CreateSymetricProjectionFrustum(float near, float far, float height, float width)

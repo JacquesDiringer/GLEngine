@@ -2,10 +2,15 @@
 #include "UpdateVisitor.h"
 #include "SceneElement.h"
 #include "SceneNode.h"
+#include "Actor.h"
+
+// GLFW
+#include <GLFW/glfw3.h>
 
 namespace GLEngine
 {
 	UpdateVisitor::UpdateVisitor()
+		: _timeSinceLastUpdate(0), _timeAtLastUpdate(0)
 	{
 	}
 
@@ -24,5 +29,17 @@ namespace GLEngine
 	void UpdateVisitor::Visit(Model * modelToVisit)
 	{
 		// Void
+	}
+
+	void UpdateVisitor::Visit(Actor * actorToVisit)
+	{
+		actorToVisit->Increment(GetTimeSinceLastUpdate());
+	}
+
+	void UpdateVisitor::RegisterTime()
+	{
+		double newTime = glfwGetTime();
+		_timeSinceLastUpdate = newTime - _timeAtLastUpdate;
+		_timeAtLastUpdate = newTime;
 	}
 }

@@ -21,9 +21,11 @@ namespace Math
 		Matrix4 operator* (Matrix4 b);
 		Matrix4 operator* (Vector3 b);
 		static Vector3 Multiply(Matrix4 a, Vector3 position);
+		Matrix4 Transpose();
 
 		static Matrix4 CreateTranslation(Vector3 translation);
 		static Matrix4 CreateRotationY(float angle); // angle in degrees
+		static Matrix4 CreateRotationMatrixFromQuaternion(Quaternion quaternion);
 		static Matrix4 CreateSymetricProjectionFrustum(float near, float far, float height, float width);
 		static Matrix4 CreateTargetPositionCameraYAxis(const Vector3 cameraPosition, const Vector3 targetPosition);
 

@@ -12,6 +12,14 @@ namespace GLEngine
 		// Visitor pattern.
 		virtual void Visit(SceneNode* sceneNodeToVisit);
 		virtual void Visit(Model* modelToVisit);
+		virtual void Visit(Actor* actorToVisit);
+
+		void RegisterTime();
+		float GetTimeSinceLastUpdate()const { return (float)_timeSinceLastUpdate; }
+
+	private:
+		double _timeSinceLastUpdate;
+		double _timeAtLastUpdate;
 	};
 }
 

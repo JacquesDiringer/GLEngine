@@ -33,7 +33,7 @@ namespace GLEngine
 			}
 			else
 			{
-				*_worldTransformation = Matrix4::Multiply(*_relativeTransformation, *(GetParentNode()->GetWorldTransformation()));
+				*_worldTransformation = Matrix4::Multiply(*(GetParentNode()->GetWorldTransformation()), *_relativeTransformation);
 			}
 		}
 
