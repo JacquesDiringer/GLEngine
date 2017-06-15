@@ -274,13 +274,15 @@ int main()
 
 	SceneNode* rotationNode = manager->GetRootNode()->CreateChild();
 
-	SceneNode* offsetNode = rotationNode->CreateChild();
-	offsetNode->SetRelativeTransformation(&Matrix4::CreateTranslation(Vector3(2, 0, 0)));
+	SpinnerActor* testSpinner0 = new SpinnerActor(&Matrix4::CreateRotationY(-0.5f));
+	rotationNode->AddSubElement(testSpinner0);
 
-	SceneNode* extremityNode = offsetNode->CreateChild();
+	SceneNode* extremityNode = rotationNode->CreateChild();
+	extremityNode->SetRelativeTransformation(&Matrix4::CreateTranslation(Vector3(2, 0, 0)));
 	extremityNode->AddSubElement(testModel);
 
-	SpinnerActor* testSpinner = new SpinnerActor(Quaternion(0, 0, 1, 0.1f));
+	//SpinnerActor* testSpinner = new SpinnerActor(new Quaternion(0, 0, 1, 0.5f));
+	SpinnerActor* testSpinner = new SpinnerActor(&Matrix4::CreateRotationY(1.0f));
 	extremityNode->AddSubElement(testSpinner);
 
 	// Game loop

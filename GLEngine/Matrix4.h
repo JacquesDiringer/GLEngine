@@ -20,6 +20,7 @@ namespace Math
 		static Matrix4 Multiply(Matrix4 a, Matrix4 b);
 		Matrix4 operator* (Matrix4 b);
 		Matrix4 operator* (Vector3 b);
+		Matrix4 operator* (float b);
 		static Vector3 Multiply(Matrix4 a, Vector3 position);
 		Matrix4 Transpose();
 

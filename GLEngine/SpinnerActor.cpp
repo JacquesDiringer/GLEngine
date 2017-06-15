@@ -10,8 +10,13 @@ namespace GLEngine
 	{
 	}
 
-	SpinnerActor::SpinnerActor(Quaternion rotation)
-		: Actor(), _rotation(rotation)
+	SpinnerActor::SpinnerActor(Quaternion* quaternion)
+		: Actor(), _quaternion(quaternion), _rotationMatrix(nullptr), _quaternionConstructor(true)
+	{
+	}
+
+	SpinnerActor::SpinnerActor(Matrix4 * rotationMatrix)
+		: Actor(), _quaternion(nullptr), _rotationMatrix(rotationMatrix), _quaternionConstructor(false)
 	{
 	}
 
@@ -27,8 +32,19 @@ namespace GLEngine
 		{
 			Matrix4* parentRelative = parentNode->GetRelativeTransformation();
 
-			Matrix4 rotationMatrix = Matrix4::CreateRotationMatrixFromQuaternion(Quaternion(_rotation.GetX(), _rotation.GetY(), _rotation.GetZ(), _rotation.GetW() * deltaTime));
-			//Matrix4 rotationMatrix = Matrix4::CreateRotationY(1.0f);
+			Matrix4 rotationMatrix;
+			
+			if (_quaternionConstructor)
+			{
+				rotationMatrix = Matrix4::CreateRotationMatrixFromQuaternion(Quaternion(_quaternion->GetX(), _quaternion->GetY(), _quaternion->GetZ(), _quaternion->GetW() * deltaTime));
+			}
+			else
+			{
+				rotationMatrix = *_rotationMatrix;
+
+				// TODO: Make it work with the delta time.
+				//rotationMatrix = *_rotationMatrix  * deltaTime;
+			}
 
 			*parentRelative = *parentRelative * rotationMatrix;
 		}

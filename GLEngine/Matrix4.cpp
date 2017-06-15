@@ -97,6 +97,14 @@ namespace Math
 		return Matrix4::Multiply((*this), b);
 	}
 
+	Matrix4 Matrix4::operator*(float b)
+	{
+		return Matrix4(	this->_m00 * b, this->_m01 * b, this->_m02 * b, this->_m03,
+						this->_m10 * b, this->_m11 * b, this->_m12 * b, this->_m13,
+						this->_m20 * b, this->_m21 * b, this->_m22 * b, this->_m23,
+						this->_m30, this->_m31, this->_m32, this->_m33);
+	}
+
 	Vector3 Matrix4::Multiply(Matrix4 a, Vector3 position)
 	{
 		return Matrix4::Multiply(a, Matrix4::CreateTranslation(position)).Position();
@@ -166,26 +174,26 @@ namespace Math
 
 	Matrix4 Matrix4::CreateRotationMatrixFromQuaternion(Quaternion quaternion)
 	{
-		//float invs = 1 / (quaternion.GetX() + quaternion.GetY() + quaternion.GetZ() + quaternion.GetW());
-		float invs = 1;
+		float invs = 1 / sqrtf(quaternion.GetX() * quaternion.GetX() + quaternion.GetY() * quaternion.GetY() + quaternion.GetZ() * quaternion.GetZ() + quaternion.GetW() * quaternion.GetW());
+		//float invs = 1;
 		float x = quaternion.GetX() * invs;
 		float y = quaternion.GetY() * invs;
 		float z = quaternion.GetZ() * invs;
 		float w = quaternion.GetW() * invs;
 
-		Matrix4 tempMatrix = Matrix4(1 - 2 * y*y - 2 * z*z, 2 * x*y - 2 * z*w, 2 * x*z + 2 * y*w, 0,
-			2 * x*y + 2 * z*w, 1 - 2 * x*x - 2 * z*z, 2 * y*z - 2 * x*w, 0,
-			2 * x*z - 2 * y*w, 2 * y*z + 2 * x*w, 1 - 2 * x*x - 2 * y*y, 0,
-			0, 0, 0, 1);
+		Matrix4 tempMatrix = Matrix4(	1 - 2 * y*y - 2 * z*z,	2 * x*y - 2 * z*w,		2 * x*z + 2 * y*w,		0,
+										2 * x*y + 2 * z*w,		1 - 2 * x*x - 2 * z*z,	2 * y*z - 2 * x*w,		0,
+										2 * x*z - 2 * y*w,		2 * y*z + 2 * x*w,		1 - 2 * x*x - 2 * y*y,	0,
+										0,						0,						0,						1);
+
+		/*Matrix4 tempMatrix = Matrix4(	x*x + y*y - z*z - w*w,	2 * y*z - 2 * x*w,		2 * x*z + 2 * y*w,			0,
+										2 * y*z + 2 * x*w,		x*x - y*y + z*z - w*w,	2 * z*w - 2 * x*y,			0,
+										2 * y*w - 2 * x*z,		2 * z*w + 2 * x*y,		x*x - y*y - z*z + w*w,		0,
+										0,						0,						0,							1);*/
 
 		//tempMatrix.Transpose();
 
 		return tempMatrix;
-
-		/*return Matrix4(		1 - 2 * y*y - 2 * z*z,		2 * x*y - 2 * z*w,		2 * x*z + 2 * y*w,			0,
-							2 * x*y + 2 * z*w,			1 - 2 * x*x - 2 * z*z,	2 * y*z - 2 * x*w,			0,
-							2 * x*z - 2 * y*w,			2 * y*z + 2 * x*w,		1 - 2 * x*x - 2 * y*y,		0,
-							0,							0,						0,							1);*/
 	}
 
 	Matrix4 Matrix4::CreateSymetricProjectionFrustum(float near, float far, float height, float width)

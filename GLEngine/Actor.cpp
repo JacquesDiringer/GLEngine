@@ -17,8 +17,4 @@ namespace GLEngine
 	{
 		visitor->Visit(this);
 	}
-
-	void Actor::Increment(float deltaTime)
-	{
-	}
 }
