@@ -4,11 +4,14 @@
 
 namespace GLEngine
 {
-	class Renderable
+	class Renderable :
+		public SceneElement
 	{
 	public:
 		Renderable();
 		~Renderable();
+
+		virtual void Accept(SceneElementVisitor* visitor);
 
 		virtual void Render(SceneManager* sceneManager) = 0;
 	};

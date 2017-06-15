@@ -10,7 +10,6 @@
 namespace GLEngine
 {
 	Model::Model()
-		: SceneElement()
 	{
 	}
 
@@ -50,10 +49,5 @@ namespace GLEngine
 		{
 			throw new std::exception("A Model must have a parent SceneNode to be rendered.");
 		}
-	}
-
-	void Model::Accept(SceneElementVisitor * visitor)
-	{
-		visitor->Visit(this);
 	}
 }

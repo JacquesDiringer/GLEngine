@@ -1,26 +1,25 @@
 #pragma once
 #include "SceneElementVisitor.h"
+#include"SceneManager.h"
 
 namespace GLEngine
 {
-	class UpdateVisitor :
+	class RenderVisitor :
 		public SceneElementVisitor
 	{
 	public:
-		UpdateVisitor();
-		~UpdateVisitor();
+		RenderVisitor();
+		RenderVisitor(SceneManager* sceneManager);
+		~RenderVisitor();
 
 		// Visitor pattern.
 		virtual void Visit(SceneNode* sceneNodeToVisit);
 		virtual void Visit(Renderable* renderableToVisit);
 		virtual void Visit(Actor* actorToVisit);
 
-		void RegisterTime();
-		float GetTimeSinceLastUpdate()const { return (float)_timeSinceLastUpdate; }
+		void SetSceneManager(SceneManager* sceneManager) { _sceneManager = sceneManager; }
 
 	private:
-		double _timeSinceLastUpdate;
-		double _timeAtLastUpdate;
+		SceneManager* _sceneManager;
 	};
 }
-

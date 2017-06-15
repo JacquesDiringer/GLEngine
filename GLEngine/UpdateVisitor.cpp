@@ -3,6 +3,7 @@
 #include "SceneElement.h"
 #include "SceneNode.h"
 #include "Actor.h"
+#include "Renderable.h"
 
 // GLFW
 #include <GLFW/glfw3.h>
@@ -26,7 +27,7 @@ namespace GLEngine
 			currentSubElement->Accept(this);
 		}
 	}
-	void UpdateVisitor::Visit(Model * modelToVisit)
+	void UpdateVisitor::Visit(Renderable * modelToVisit)
 	{
 		// Void
 	}

@@ -161,6 +161,8 @@
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="Renderable.h" />
     <ClInclude Include="RenderingElements.h" />
+    <ClInclude Include="RenderManager.h" />
+    <ClInclude Include="RenderVisitor.h" />
     <ClInclude Include="SceneElement.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SceneNode.h" />
@@ -191,6 +193,8 @@
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="Renderable.cpp" />
     <ClCompile Include="RenderingElements.cpp" />
+    <ClCompile Include="RenderManager.cpp" />
+    <ClCompile Include="RenderVisitor.cpp" />
     <ClCompile Include="SceneElement.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SceneNode.cpp" />

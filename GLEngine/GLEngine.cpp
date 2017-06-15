@@ -22,6 +22,7 @@
 #include "SceneManager.h"
 #include "SceneNode.h"
 #include "SpinnerActor.h"
+#include "RenderManager.h"
 
 // Maths
 #include "Matrix4.h"
@@ -267,12 +268,18 @@ int main()
 	Model* testModel = new Model(testMesh);
 	testModel->SetShaderProgram(shaderProgram);
 
+	OBJMesh* testMesh1 = (OBJMesh*)testLoader->LoadModel("C:/Users/Jacques/Documents/GLEngineMedia/sphere.obj");
+	testMesh1->InitializeVao();
+	Model* testModel1 = new Model(testMesh1);
+	testModel1->SetShaderProgram(shaderProgram);
+
 	// Scene setting
 
-	SceneManager* manager = new SceneManager();
-	manager->SetCurrentCamera(camera);
+	SceneManager* sceneManager = new SceneManager();
+	sceneManager->SetCurrentCamera(camera);
 
-	SceneNode* rotationNode = manager->GetRootNode()->CreateChild();
+	SceneNode* rotationNode = sceneManager->GetRootNode()->CreateChild();
+	rotationNode->AddSubElement(testModel1);
 
 	SpinnerActor* testSpinner0 = new SpinnerActor(&Matrix4::CreateRotationY(-0.5f));
 	rotationNode->AddSubElement(testSpinner0);
@@ -284,6 +291,9 @@ int main()
 	//SpinnerActor* testSpinner = new SpinnerActor(new Quaternion(0, 0, 1, 0.5f));
 	SpinnerActor* testSpinner = new SpinnerActor(&Matrix4::CreateRotationY(1.0f));
 	extremityNode->AddSubElement(testSpinner);
+
+	// Render setting.
+	RenderManager* renderManager = new RenderManager();
 
 	// Game loop
 	while (!glfwWindowShouldClose(window))
@@ -302,9 +312,11 @@ int main()
 
 		//Render(testModel, shaderProgram, textureManager, camera);
 
-		manager->Update();
+		sceneManager->Update();
 
-		testModel->Render(manager);
+		renderManager->Render(sceneManager);
+
+		//testModel->Render(manager);
 
 		glfwSwapBuffers(window);
 	}
