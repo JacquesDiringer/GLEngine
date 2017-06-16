@@ -23,6 +23,7 @@
 #include "SceneNode.h"
 #include "SpinnerActor.h"
 #include "RenderManager.h"
+#include "EnvironmentMapSky.h"
 
 // Maths
 #include "Matrix4.h"
@@ -258,7 +259,7 @@ int main()
 	// Models testing
 	OBJLoader* testLoader = new OBJLoader();
 	//OBJMesh* testModel = (OBJMesh*)testLoader->LoadModel("C:/Users/Jacques/Documents/GLEngineMedia/suzanne_sharp.obj");
-	OBJMesh* testMesh = (OBJMesh*)testLoader->LoadModel("C:/Users/Jacques/Documents/GLEngineMedia/suzanne_smooth.obj");
+	OBJMesh* testMesh = (OBJMesh*)testLoader->LoadModel("C:/Users/jdiringer.OPTISNETWORK/Documents/GLEngineMedia/suzanne_smooth.obj");
 	//OBJMesh* testModel = (OBJMesh*)testLoader->LoadModel("C:/Users/Jacques/Documents/GLEngineMedia/flyingCar.obj");
 	//OBJMesh* testModel = (OBJMesh*)testLoader->LoadModel("C:/Users/Jacques/Documents/GLEngineMedia/cube.obj");
 	//OBJMesh* testModel = (OBJMesh*)testLoader->LoadModel("C:/Users/Jacques/Documents/GLEngineMedia/sphere.obj");
@@ -268,10 +269,19 @@ int main()
 	Model* testModel = new Model(testMesh);
 	testModel->SetShaderProgram(shaderProgram);
 
-	OBJMesh* testMesh1 = (OBJMesh*)testLoader->LoadModel("C:/Users/Jacques/Documents/GLEngineMedia/sphere.obj");
+	OBJMesh* testMesh1 = (OBJMesh*)testLoader->LoadModel("C:/Users/jdiringer.OPTISNETWORK/Documents/GLEngineMedia/sphere.obj");
 	testMesh1->InitializeVao();
 	Model* testModel1 = new Model(testMesh1);
 	testModel1->SetShaderProgram(shaderProgram);
+
+	// Envmap
+	ShaderProgram* envmapShader = new ShaderProgram("VertexShader.txt", "EnvironmentMapFragmentShader.txt", textureManager);
+	//OBJMesh* sphereMesh = (OBJMesh*)testLoader->LoadModel("C:/Users/jdiringer.OPTISNETWORK/Documents/GLEngineMedia/sphere.obj");
+	OBJMesh* sphereMesh = (OBJMesh*)testLoader->LoadModel("C:/Users/jdiringer.OPTISNETWORK/Documents/GLEngineMedia/sphere_UVs.obj");
+	sphereMesh->InitializeVao();
+	//Texture2D* envmap = textureManager->GetTexture("C:/Users/jdiringer.OPTISNETWORK/Documents/GLEngineMedia/01home.jpg");
+
+	EnvironmentMapSky* envmapTest = new EnvironmentMapSky(envmapShader, sphereMesh, string("C:/Users/jdiringer.OPTISNETWORK/Documents/GLEngineMedia/hangar.jpg"), textureManager);
 
 	// Scene setting
 
@@ -287,6 +297,7 @@ int main()
 	SceneNode* extremityNode = rotationNode->CreateChild();
 	extremityNode->SetRelativeTransformation(&Matrix4::CreateTranslation(Vector3(2, 0, 0)));
 	extremityNode->AddSubElement(testModel);
+	extremityNode->AddSubElement(envmapTest);
 
 	//SpinnerActor* testSpinner = new SpinnerActor(new Quaternion(0, 0, 1, 0.5f));
 	SpinnerActor* testSpinner = new SpinnerActor(&Matrix4::CreateRotationY(1.0f));

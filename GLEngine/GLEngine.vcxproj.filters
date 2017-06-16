@@ -67,6 +67,9 @@
     <Text Include="FragmentShader.txt">
       <Filter>Resource Files\Shaders</Filter>
     </Text>
+    <Text Include="EnvironmentMapFragmentShader.txt">
+      <Filter>Resource Files\Shaders</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -154,6 +157,12 @@
       <Filter>Header Files\Render</Filter>
     </ClInclude>
     <ClInclude Include="RenderVisitor.h">
+      <Filter>Header Files\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EnvironmentMapSky.h">
       <Filter>Header Files\Render</Filter>
     </ClInclude>
   </ItemGroup>
@@ -245,5 +254,13 @@
     <ClCompile Include="RenderVisitor.cpp">
       <Filter>Source Files\Render</Filter>
     </ClCompile>
+    <ClCompile Include="EnvironmentMapSky.cpp">
+      <Filter>Source Files\Render</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="GLEngine.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

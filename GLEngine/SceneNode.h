@@ -11,7 +11,8 @@ using Math::Matrix4;
 
 namespace GLEngine
 {
-	class SceneNode : SceneElement
+	class SceneNode
+		: public SceneElement
 	{
 	public:
 		SceneNode();

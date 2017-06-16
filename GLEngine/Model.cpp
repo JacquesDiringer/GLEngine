@@ -47,7 +47,7 @@ namespace GLEngine
 		}
 		else
 		{
-			throw new std::exception("A Model must have a parent SceneNode to be rendered.");
+			throw new std::exception("A Renderable must have a parent SceneNode to be rendered.");
 		}
 	}
 }

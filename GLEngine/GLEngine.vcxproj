@@ -151,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
+    <ClInclude Include="EnvironmentMapSky.h" />
     <ClInclude Include="Matrix4.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshLoader.h" />
@@ -163,6 +164,7 @@
     <ClInclude Include="RenderingElements.h" />
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="RenderVisitor.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SceneElement.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SceneNode.h" />
@@ -182,6 +184,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
+    <Text Include="EnvironmentMapFragmentShader.txt">
+      <FileType>Document</FileType>
+    </Text>
+    <ClCompile Include="EnvironmentMapSky.cpp" />
     <ClCompile Include="GLEngine.cpp" />
     <ClCompile Include="Matrix4.cpp" />
     <ClCompile Include="Mesh.cpp" />
@@ -215,6 +221,9 @@
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="VertexArrayObject.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="GLEngine.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
