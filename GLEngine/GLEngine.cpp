@@ -188,24 +188,24 @@ int main()
 	// Models testing
 	OBJLoader* testLoader = new OBJLoader();
 	//OBJMesh* testModel = (OBJMesh*)testLoader->LoadModel("C:/Users/Jacques/Documents/GLEngineMedia/suzanne_sharp.obj");
-	OBJMesh* testMesh = (OBJMesh*)testLoader->LoadModel("C:/Users/Jacques/Documents/GLEngineMedia/suzanne_smooth.obj");
+	OBJMesh* testMesh = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/suzanne_smooth.obj");
 
 	testMesh->InitializeVao();
 
 	Model* testModel = new Model(testMesh);
 	testModel->SetShaderProgram(shaderProgram);
 
-	OBJMesh* testMesh1 = (OBJMesh*)testLoader->LoadModel("C:/Users/Jacques/Documents/GLEngineMedia/sphere.obj");
+	OBJMesh* testMesh1 = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/sphere.obj");
 	testMesh1->InitializeVao();
 	Model* testModel1 = new Model(testMesh1);
 	testModel1->SetShaderProgram(shaderProgram);
 
 	// Envmap
 	ShaderProgram* envmapShader = new ShaderProgram("VertexShader.txt", "EnvironmentMapFragmentShader.txt", textureManager);
-	OBJMesh* sphereMesh = (OBJMesh*)testLoader->LoadModel("C:/Users/Jacques/Documents/GLEngineMedia/sphere_UVs.obj");
+	OBJMesh* sphereMesh = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/sphere_UVs.obj");
 	sphereMesh->InitializeVao();
 
-	EnvironmentMapSky* envmapTest = new EnvironmentMapSky(envmapShader, sphereMesh, string("C:/Users/Jacques/Documents/GLEngineMedia/neue-galerie-panorama1.jpg"), textureManager);
+	EnvironmentMapSky* envmapTest = new EnvironmentMapSky(envmapShader, sphereMesh, string("C:/Utils/GLEngineMedia/redCliffs.jpg"), textureManager);
 
 	// Scene setting
 
