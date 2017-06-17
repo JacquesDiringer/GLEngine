@@ -219,6 +219,9 @@ namespace Math
 		Vector3 right = Vector3::Cross(yAxis, forward);
 		Vector3 up = Vector3::Cross(forward, right);
 
+		right.Normalize();
+		up.Normalize();
+
 		Matrix4 rotation = Identity();
 		rotation._m00 = right.X();
 		rotation._m01 = right.Y();
