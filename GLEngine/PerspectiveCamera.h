@@ -18,9 +18,12 @@ namespace GLEngine
 		const Matrix4* GetProjection() const { return _projection; }
 		Matrix4 GetViewProjection() const { return *_projection * *_view; };
 
+		Vector3* GetPosition() { return _cameraPosition; }
+
 		void SetPositionAndTarget(Vector3 cameraPosition, Vector3 targetPosition);
 
 	private:
 		Matrix4* _view, * _projection;
+		Vector3* _cameraPosition;
 	};
 }

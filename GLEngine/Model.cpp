@@ -27,9 +27,12 @@ namespace GLEngine
 		SceneNode* parentNode = GetParentNode();
 		if (parentNode != nullptr)
 		{
-			// Enable depth testing.
+			// Enable depth testing and set it.
 			glEnable(GL_DEPTH_TEST);
 			glDepthFunc(GL_LESS);
+
+			// Enable depth writing.
+			glDepthMask(GL_TRUE);
 
 			// Activate the Model's shader.
 			_shaderProgram->Use();

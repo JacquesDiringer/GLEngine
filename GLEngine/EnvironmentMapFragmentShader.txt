@@ -1,5 +1,8 @@
 #version 330 core
 
+const float PI = 3.14159265359f;
+const float INVPI = 0.31830988618f;
+
 in vec3 vertexColor;
 in vec2 texCoordinates;
 in vec3 worldNormal;
@@ -10,9 +13,16 @@ uniform sampler2D envmap;
 
 void main()
 {
-    vec3 finalColor = texture(envmap, texCoordinates).rgb;
+	vec3 worldNormal = normalize(worldNormal);
+
+	float theta = atan(worldNormal.x, worldNormal.z) * INVPI * 0.5f;
+	float phi = - asin(worldNormal.y) * INVPI + 0.5f;
+
+    vec3 finalColor = textureGrad(envmap, vec2(theta, phi), dFdx(abs(vec2(theta, phi))), dFdy(abs(vec2(theta, phi)))).rgb;
 
 	finalColor = pow(finalColor, vec3(0.45));
 
     color = vec4(finalColor, 1.0f);
+    //color = vec4(finalColor * 0.00001f + vec3(theta, phi, 0), 1.0f);
+    //color = vec4(finalColor * 0.00001f + normal, 1.0f);
 }

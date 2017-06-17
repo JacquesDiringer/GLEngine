@@ -54,7 +54,7 @@ namespace Math
 		return Matrix4();
 	}
 
-	Vector3 Matrix4::Position()
+	Vector3 Matrix4::Position() const
 	{
 		return Vector3(_m03, _m13, _m23);
 	}
@@ -233,8 +233,12 @@ namespace Math
 		rotation._m22 = forward.Z();
 
 		Matrix4 translation = Matrix4::CreateTranslation(Vector3() - cameraPosition);
+		//translation.Transpose();
 
 		CopyFromMatrix4(&(rotation * translation));
+		//CopyFromMatrix4(&(translation * rotation));
+
+		//Transpose();
 	}
 
 	Matrix4::Matrix4(Vector3 position)

@@ -34,9 +34,9 @@
 
 using namespace GLEngine;
 
-Vector3 _globalCameraPosition = Vector3(0, 0, 0);
+Vector3 _globalCameraPosition = Vector3(0, 0, 5);
 Vector3 _globalCameraSpeed = Vector3(0, 0, 0);
-Vector3 _globalTargetPosition = Vector3(0, 0, 0);
+Vector3 _globalTargetPosition = Vector3(0, 1, 0);
 
 float _globalAcceleration = 0.01f;
 float _globalFriction = 0.1f;
@@ -197,6 +197,11 @@ void MoveCamera()
 	_globalCameraSpeed = _globalCameraSpeed * (1 - _globalFriction);
 	_globalCameraSpeed = _globalCameraSpeed * (1 - _globalFriction);
 
+	// Arrow translation
+	/*_globalCameraPosition.X(_globalCameraPosition.X() + _globalCameraSpeed.X());
+	_globalCameraPosition.Y(_globalCameraPosition.Y() + _globalCameraSpeed.Y());
+	_globalCameraPosition.Z(_globalCameraPosition.Z() + _globalCameraSpeed.Z());*/
+
 
 	// 3rd view camera.
 	_theta += _thetaSpeed;
@@ -208,6 +213,10 @@ void MoveCamera()
 	_globalCameraPosition.X(_sphereRadius * cosf(_theta) * cosf(_phi));
 	_globalCameraPosition.Y(_sphereRadius * sinf(_theta));
 	_globalCameraPosition.Z(_sphereRadius * cosf(_theta) * sinf(_phi));
+
+
+	// Tests
+	//_globalTargetPosition.X(cos(glfwGetTime() * 5.0));
 }
 
 int main()
@@ -259,7 +268,7 @@ int main()
 	// Models testing
 	OBJLoader* testLoader = new OBJLoader();
 	//OBJMesh* testModel = (OBJMesh*)testLoader->LoadModel("C:/Users/Jacques/Documents/GLEngineMedia/suzanne_sharp.obj");
-	OBJMesh* testMesh = (OBJMesh*)testLoader->LoadModel("C:/Users/jdiringer.OPTISNETWORK/Documents/GLEngineMedia/suzanne_smooth.obj");
+	OBJMesh* testMesh = (OBJMesh*)testLoader->LoadModel("C:/Users/Jacques/Documents/GLEngineMedia/suzanne_smooth.obj");
 	//OBJMesh* testModel = (OBJMesh*)testLoader->LoadModel("C:/Users/Jacques/Documents/GLEngineMedia/flyingCar.obj");
 	//OBJMesh* testModel = (OBJMesh*)testLoader->LoadModel("C:/Users/Jacques/Documents/GLEngineMedia/cube.obj");
 	//OBJMesh* testModel = (OBJMesh*)testLoader->LoadModel("C:/Users/Jacques/Documents/GLEngineMedia/sphere.obj");
@@ -269,7 +278,7 @@ int main()
 	Model* testModel = new Model(testMesh);
 	testModel->SetShaderProgram(shaderProgram);
 
-	OBJMesh* testMesh1 = (OBJMesh*)testLoader->LoadModel("C:/Users/jdiringer.OPTISNETWORK/Documents/GLEngineMedia/sphere.obj");
+	OBJMesh* testMesh1 = (OBJMesh*)testLoader->LoadModel("C:/Users/Jacques/Documents/GLEngineMedia/sphere.obj");
 	testMesh1->InitializeVao();
 	Model* testModel1 = new Model(testMesh1);
 	testModel1->SetShaderProgram(shaderProgram);
@@ -277,27 +286,32 @@ int main()
 	// Envmap
 	ShaderProgram* envmapShader = new ShaderProgram("VertexShader.txt", "EnvironmentMapFragmentShader.txt", textureManager);
 	//OBJMesh* sphereMesh = (OBJMesh*)testLoader->LoadModel("C:/Users/jdiringer.OPTISNETWORK/Documents/GLEngineMedia/sphere.obj");
-	OBJMesh* sphereMesh = (OBJMesh*)testLoader->LoadModel("C:/Users/jdiringer.OPTISNETWORK/Documents/GLEngineMedia/sphere_UVs.obj");
+	OBJMesh* sphereMesh = (OBJMesh*)testLoader->LoadModel("C:/Users/Jacques/Documents/GLEngineMedia/sphere_UVs.obj");
 	sphereMesh->InitializeVao();
 	//Texture2D* envmap = textureManager->GetTexture("C:/Users/jdiringer.OPTISNETWORK/Documents/GLEngineMedia/01home.jpg");
 
-	EnvironmentMapSky* envmapTest = new EnvironmentMapSky(envmapShader, sphereMesh, string("C:/Users/jdiringer.OPTISNETWORK/Documents/GLEngineMedia/hangar.jpg"), textureManager);
+	EnvironmentMapSky* envmapTest = new EnvironmentMapSky(envmapShader, sphereMesh, string("C:/Users/Jacques/Documents/GLEngineMedia/neue-galerie-panorama1.jpg"), textureManager);
 
 	// Scene setting
 
 	SceneManager* sceneManager = new SceneManager();
 	sceneManager->SetCurrentCamera(camera);
 
+	SceneNode* skyNode = sceneManager->GetRootNode()->CreateChild();
+	//skyNode->AddSubElement(envmapTest);
+
 	SceneNode* rotationNode = sceneManager->GetRootNode()->CreateChild();
 	rotationNode->AddSubElement(testModel1);
+	//rotationNode->AddSubElement(envmapTest);
 
 	SpinnerActor* testSpinner0 = new SpinnerActor(&Matrix4::CreateRotationY(-0.5f));
-	rotationNode->AddSubElement(testSpinner0);
+	//rotationNode->AddSubElement(testSpinner0);
 
 	SceneNode* extremityNode = rotationNode->CreateChild();
 	extremityNode->SetRelativeTransformation(&Matrix4::CreateTranslation(Vector3(2, 0, 0)));
 	extremityNode->AddSubElement(testModel);
 	extremityNode->AddSubElement(envmapTest);
+	//extremityNode->AddSubElement(testModel1);
 
 	//SpinnerActor* testSpinner = new SpinnerActor(new Quaternion(0, 0, 1, 0.5f));
 	SpinnerActor* testSpinner = new SpinnerActor(&Matrix4::CreateRotationY(1.0f));

@@ -17,6 +17,8 @@ namespace GLEngine
 		float height = width * ratio;
 		_projection = new Matrix4();
 		*_projection = Matrix4::CreateSymetricProjectionFrustum(near, far, height, width);
+
+		_cameraPosition = new Vector3();
 	}
 
 	PerspectiveCamera::~PerspectiveCamera()
@@ -26,6 +28,7 @@ namespace GLEngine
 	void PerspectiveCamera::SetPositionAndTarget(Vector3 cameraPosition, Vector3 targetPosition)
 	{
 		_view->UpdateTargetPositionCameraYAxis(cameraPosition, targetPosition);
+		*_cameraPosition = cameraPosition;
 	}
 
 }

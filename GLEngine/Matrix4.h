@@ -33,7 +33,7 @@ namespace Math
 		void UpdateTargetPositionCameraYAxis(const Vector3 cameraPosition, const Vector3 targetPosition);
 
 		// Interface
-		Vector3 Position();
+		Vector3 Position() const;
 		Quaternion ComputeQuaternion();
 		float* GetArray() const;
 
