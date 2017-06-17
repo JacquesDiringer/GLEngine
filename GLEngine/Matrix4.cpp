@@ -233,12 +233,8 @@ namespace Math
 		rotation._m22 = forward.Z();
 
 		Matrix4 translation = Matrix4::CreateTranslation(Vector3() - cameraPosition);
-		//translation.Transpose();
 
 		CopyFromMatrix4(&(rotation * translation));
-		//CopyFromMatrix4(&(translation * rotation));
-
-		//Transpose();
 	}
 
 	Matrix4::Matrix4(Vector3 position)
