@@ -161,6 +161,7 @@
     <ClInclude Include="PerspectiveCamera.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="Renderable.h" />
+    <ClInclude Include="RenderableCollectorVisitor.h" />
     <ClInclude Include="RenderingElements.h" />
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="RenderVisitor.h" />
@@ -198,6 +199,7 @@
     <ClCompile Include="PerspectiveCamera.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="Renderable.cpp" />
+    <ClCompile Include="RenderableCollectorVisitor.cpp" />
     <ClCompile Include="RenderingElements.cpp" />
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="RenderVisitor.cpp" />

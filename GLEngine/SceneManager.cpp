@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "SceneManager.h"
+#include "RenderingElements.h"
 
 
 namespace GLEngine

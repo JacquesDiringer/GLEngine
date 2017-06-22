@@ -20,6 +20,11 @@ namespace GLEngine
 	{
 	}
 
+	void EnvironmentMapSky::Accept(SceneElementVisitor * visitor)
+	{
+		visitor->Visit(this);
+	}
+
 	void EnvironmentMapSky::Render(SceneManager * sceneManager)
 	{
 		// Disable depth testing and set it.

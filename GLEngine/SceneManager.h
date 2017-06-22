@@ -2,11 +2,12 @@
 
 #include"SceneNode.h"
 #include "PerspectiveCamera.h"
-#include "RenderingElements.h"
 #include "UpdateVisitor.h"
 
 namespace GLEngine
 {
+	class RenderingElements;
+
 	class SceneManager
 	{
 	public:

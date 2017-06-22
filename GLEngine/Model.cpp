@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Model.h"
 #include "SceneNode.h"
+#include "SceneManager.h"
 
 // GLEW
 #define GLEW_STATIC
@@ -20,6 +21,11 @@ namespace GLEngine
 
 	Model::~Model()
 	{
+	}
+
+	void Model::Accept(SceneElementVisitor * visitor)
+	{
+		visitor->Visit(this);
 	}
 
 	void Model::Render(SceneManager * sceneManager)

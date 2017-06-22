@@ -217,7 +217,7 @@ int main()
 
 	SceneNode* rotationNode = sceneManager->GetRootNode()->CreateChild();
 	rotationNode->AddSubElement(testModel1);
-	//rotationNode->AddSubElement(envmapTest);
+	rotationNode->AddSubElement(envmapTest);
 
 	SpinnerActor* testSpinner0 = new SpinnerActor(&Matrix4::CreateRotationY(-0.5f));
 	rotationNode->AddSubElement(testSpinner0);
@@ -225,7 +225,7 @@ int main()
 	SceneNode* extremityNode = rotationNode->CreateChild();
 	extremityNode->SetRelativeTransformation(&Matrix4::CreateTranslation(Vector3(2, 0, 0)));
 	extremityNode->AddSubElement(testModel);
-	extremityNode->AddSubElement(envmapTest);
+	//extremityNode->AddSubElement(envmapTest);
 
 	SpinnerActor* testSpinner = new SpinnerActor(&Matrix4::CreateRotationY(1.0f));
 	extremityNode->AddSubElement(testSpinner);

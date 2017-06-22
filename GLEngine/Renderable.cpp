@@ -11,9 +11,4 @@ namespace GLEngine
 	Renderable::~Renderable()
 	{
 	}
-
-	void Renderable::Accept(SceneElementVisitor * visitor)
-	{
-		visitor->Visit(this);
-	}
 }

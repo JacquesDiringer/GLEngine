@@ -13,8 +13,8 @@ namespace GLEngine
 		~RenderVisitor();
 
 		// Visitor pattern.
-		virtual void Visit(SceneNode* sceneNodeToVisit);
-		virtual void Visit(Renderable* renderableToVisit);
+		virtual void Visit(Model* modelToVisit);
+		virtual void Visit(EnvironmentMapSky* skyToVisit);
 		virtual void Visit(Actor* actorToVisit);
 
 		void SetSceneManager(SceneManager* sceneManager) { _sceneManager = sceneManager; }

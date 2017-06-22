@@ -2,6 +2,7 @@
 
 #include "SceneManager.h"
 #include "RenderVisitor.h"
+#include "RenderableCollectorVisitor.h"
 
 namespace GLEngine
 {
@@ -15,5 +16,6 @@ namespace GLEngine
 
 	private:
 		RenderVisitor* _renderVisitor;
+		RenderableCollectorVisitor* _collectorVisitor;
 	};
 }

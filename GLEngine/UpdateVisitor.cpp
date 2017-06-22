@@ -3,7 +3,8 @@
 #include "SceneElement.h"
 #include "SceneNode.h"
 #include "Actor.h"
-#include "Renderable.h"
+#include "Model.h"
+#include "EnvironmentMapSky.h"
 
 // GLFW
 #include <GLFW/glfw3.h>
@@ -19,15 +20,12 @@ namespace GLEngine
 	{
 	}
 
-	void UpdateVisitor::Visit(SceneNode * sceneNodeToVisit)
+	void UpdateVisitor::Visit(Model * modelToVisit)
 	{
-		// Visit the sub elements.
-		for each (SceneElement* currentSubElement in sceneNodeToVisit->GetSubElements())
-		{
-			currentSubElement->Accept(this);
-		}
+		// Void
 	}
-	void UpdateVisitor::Visit(Renderable * modelToVisit)
+
+	void UpdateVisitor::Visit(EnvironmentMapSky * skyToVisit)
 	{
 		// Void
 	}

@@ -3,7 +3,8 @@
 #include "SceneElement.h"
 #include "SceneNode.h"
 #include "Actor.h"
-#include "Renderable.h"
+#include "Model.h"
+#include "EnvironmentMapSky.h"
 
 
 namespace GLEngine
@@ -22,22 +23,18 @@ namespace GLEngine
 	{
 	}
 
-	void RenderVisitor::Visit(SceneNode * sceneNodeToVisit)
+	void RenderVisitor::Visit(Model * modelToVisit)
 	{
-		// Visit the sub elements.
-		for each (SceneElement* currentSubElement in sceneNodeToVisit->GetSubElements())
-		{
-			currentSubElement->Accept(this);
-		}
+		modelToVisit->Render(_sceneManager);
 	}
 
-	void RenderVisitor::Visit(Renderable * renderableToVisit)
+	void RenderVisitor::Visit(EnvironmentMapSky * skyToVisit)
 	{
-		renderableToVisit->Render(_sceneManager);
+		skyToVisit->Render(_sceneManager);
 	}
 
 	void RenderVisitor::Visit(Actor * actorToVisit)
 	{
+		// Void
 	}
-
 }

@@ -13,7 +13,9 @@ namespace GLEngine
 		Model(Mesh* mesh);
 		~Model();
 
-		void Render(SceneManager* sceneManager);
+		virtual void Accept(SceneElementVisitor* visitor);
+
+		virtual void Render(SceneManager* sceneManager);
 
 		void SetShaderProgram(ShaderProgram* shader) { _shaderProgram = shader; }
 
