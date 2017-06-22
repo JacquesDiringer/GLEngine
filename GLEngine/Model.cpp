@@ -37,6 +37,10 @@ namespace GLEngine
 			glEnable(GL_DEPTH_TEST);
 			glDepthFunc(GL_LESS);
 
+			// Face culling.
+			glEnable(GL_CULL_FACE);
+			glCullFace(GL_BACK);
+
 			// Enable depth writing.
 			glDepthMask(GL_TRUE);
 
