@@ -4,6 +4,7 @@
 #include "RenderVisitor.h"
 #include "RenderableCollectorVisitor.h"
 #include "NoAlphaRenderQueue.h"
+#include "SkyRenderQueue.h"
 
 namespace GLEngine
 {
@@ -19,5 +20,6 @@ namespace GLEngine
 		RenderVisitor* _renderVisitor;
 		RenderableCollectorVisitor* _collectorVisitor;
 		NoAlphaRenderQueue* _modelsRenderQueue;
+		SkyRenderQueue* _skyRenderQueue;
 	};
 }

@@ -27,13 +27,6 @@ namespace GLEngine
 
 	void EnvironmentMapSky::Render(SceneManager * sceneManager)
 	{
-		// Disable depth testing and set it.
-		glDisable(GL_DEPTH_TEST);
-
-		// Face culling.
-		glEnable(GL_CULL_FACE);
-		glCullFace(GL_FRONT);
-
 		// Activate the Model's shader.
 		_shaderProgram->Use();
 

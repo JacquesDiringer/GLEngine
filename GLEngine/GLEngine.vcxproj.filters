@@ -180,6 +180,9 @@
     <ClInclude Include="NoAlphaRenderQueue.h">
       <Filter>Header Files\RenderQueue</Filter>
     </ClInclude>
+    <ClInclude Include="SkyRenderQueue.h">
+      <Filter>Header Files\RenderQueue</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -279,6 +282,9 @@
       <Filter>Source Files\RenerQueue</Filter>
     </ClCompile>
     <ClCompile Include="NoAlphaRenderQueue.cpp">
+      <Filter>Source Files\RenerQueue</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyRenderQueue.cpp">
       <Filter>Source Files\RenerQueue</Filter>
     </ClCompile>
   </ItemGroup>

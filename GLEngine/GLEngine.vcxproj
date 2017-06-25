@@ -173,6 +173,7 @@
     <ClInclude Include="SceneNode.h" />
     <ClInclude Include="SceneElementVisitor.h" />
     <ClInclude Include="ShaderProgram.h" />
+    <ClInclude Include="SkyRenderQueue.h" />
     <ClInclude Include="SpinnerActor.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -212,6 +213,7 @@
     <ClCompile Include="SceneNode.cpp" />
     <ClCompile Include="SceneElementVisitor.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
+    <ClCompile Include="SkyRenderQueue.cpp" />
     <ClCompile Include="SpinnerActor.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

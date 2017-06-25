@@ -17,7 +17,6 @@ namespace GLEngine
 	{
 		// Remember the old states.
 		glGetBooleanv(GL_DEPTH_TEST, &_oldDepthTestEnabled);
-		glGetIntegerv(GL_DEPTH_FUNC, &_oldDepthFunc);
 		glGetBooleanv(GL_DEPTH_WRITEMASK, &_oldDepthMask);
 		glGetBooleanv(GL_CULL_FACE, &_oldCullingEnabled);
 		glGetIntegerv(GL_CULL_FACE_MODE, &_oldCullFace);
@@ -27,11 +26,6 @@ namespace GLEngine
 		if (!_oldDepthTestEnabled)
 		{
 			glEnable(GL_DEPTH_TEST);
-		}
-
-		if (_oldDepthFunc != GL_LESS)
-		{
-			glDepthFunc(GL_LESS);
 		}
 
 		// Enable depth writing.
@@ -57,11 +51,6 @@ namespace GLEngine
 		if (!_oldDepthTestEnabled)
 		{
 			glDisable(GL_DEPTH_TEST);
-		}
-
-		if (_oldDepthFunc != GL_LESS)
-		{
-			glDepthFunc(_oldDepthFunc);
 		}
 
 		if (!_oldDepthMask)

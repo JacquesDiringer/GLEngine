@@ -10,6 +10,7 @@ namespace GLEngine
 		_renderVisitor = new RenderVisitor();
 		_collectorVisitor = new RenderableCollectorVisitor();
 		_modelsRenderQueue = new NoAlphaRenderQueue();
+		_skyRenderQueue = new SkyRenderQueue();
 	}
 
 
@@ -32,7 +33,9 @@ namespace GLEngine
 		EnvironmentMapSky* sky = collection->GetSky();
 		if (sky != nullptr)
 		{
-			sky->Render(sceneManager);
+			_skyRenderQueue->AddRenderable(sky);
+
+			_skyRenderQueue->Render(sceneManager);
 		}
 
 		// Then the models.
@@ -45,7 +48,8 @@ namespace GLEngine
 		// Then render it.
 		_modelsRenderQueue->Render(sceneManager);
 
-		// Then clear it.
+		// Clear render queues.
+		_skyRenderQueue->ClearRenderables();
 		_modelsRenderQueue->ClearRenderables();
 	}
 
