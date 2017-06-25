@@ -213,11 +213,10 @@ int main()
 	sceneManager->SetCurrentCamera(camera);
 
 	SceneNode* skyNode = sceneManager->GetRootNode()->CreateChild();
-	//skyNode->AddSubElement(envmapTest);
+	skyNode->AddSubElement(envmapTest);
 
 	SceneNode* rotationNode = sceneManager->GetRootNode()->CreateChild();
 	rotationNode->AddSubElement(testModel1);
-	rotationNode->AddSubElement(envmapTest);
 
 	SpinnerActor* testSpinner0 = new SpinnerActor(&Matrix4::CreateRotationY(-0.5f));
 	rotationNode->AddSubElement(testSpinner0);
