@@ -19,9 +19,9 @@ namespace GLEngine
 
 	private:
 		GLboolean _oldDepthTestEnabled;
-		GLenum _oldDepthFunc;
+		GLint _oldDepthFunc;
 		GLboolean _oldDepthMask;
 		GLboolean _oldCullingEnabled;
-		GLenum _oldCullFace;
+		GLint _oldCullFace;
 	};
 }

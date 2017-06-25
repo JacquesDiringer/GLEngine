@@ -17,9 +17,10 @@ namespace GLEngine
 	{
 		// Remember the old states.
 		glGetBooleanv(GL_DEPTH_TEST, &_oldDepthTestEnabled);
-
-		glGetBooleanv(GL_DEPTH_TEST, &_oldDepthMask);
-		glGetBooleanv(GL_DEPTH_TEST, &_oldCullingEnabled);
+		glGetIntegerv(GL_DEPTH_FUNC, &_oldDepthFunc);
+		glGetBooleanv(GL_DEPTH_WRITEMASK, &_oldDepthMask);
+		glGetBooleanv(GL_CULL_FACE, &_oldCullingEnabled);
+		glGetIntegerv(GL_CULL_FACE_MODE, &_oldCullFace);
 
 		// Enable depth testing and set it.
 		// Only if the state actually needs to be changed.
