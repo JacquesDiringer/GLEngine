@@ -35,7 +35,8 @@ namespace GLEngine
 			sky->Render(sceneManager);
 		}
 
-		// Fill the models render queue
+		// Then the models.
+		// Fill the models render queue.
 		for (Model* currentModel = collection->PopModel(); currentModel != nullptr; currentModel = collection->PopModel())
 		{
 			_modelsRenderQueue->AddRenderable(currentModel);

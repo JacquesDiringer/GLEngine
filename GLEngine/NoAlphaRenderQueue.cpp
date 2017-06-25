@@ -15,6 +15,12 @@ namespace GLEngine
 
 	void NoAlphaRenderQueue::SetGpuState()
 	{
+		// Remember the old states.
+		glGetBooleanv(GL_DEPTH_TEST, &_oldDepthTestEnabled);
+
+		glGetBooleanv(GL_DEPTH_TEST, &_oldDepthMask);
+		glGetBooleanv(GL_DEPTH_TEST, &_oldCullingEnabled);
+
 		// Enable depth testing and set it.
 		// Only if the state actually needs to be changed.
 		if (!_oldDepthTestEnabled)

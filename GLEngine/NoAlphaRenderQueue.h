@@ -18,10 +18,10 @@ namespace GLEngine
 		virtual void ResetGpuDefaultState(); // Post rendering. Resets the GPU to it's original state.
 
 	private:
-		bool _oldDepthTestEnabled;
+		GLboolean _oldDepthTestEnabled;
 		GLenum _oldDepthFunc;
-		bool _oldDepthMask;
-		bool _oldCullingEnabled;
+		GLboolean _oldDepthMask;
+		GLboolean _oldCullingEnabled;
 		GLenum _oldCullFace;
 	};
 }
