@@ -9,6 +9,7 @@ namespace GLEngine
 	{
 		_renderVisitor = new RenderVisitor();
 		_collectorVisitor = new RenderableCollectorVisitor();
+		_modelsRenderQueue = new NoAlphaRenderQueue();
 	}
 
 
@@ -34,11 +35,14 @@ namespace GLEngine
 			sky->Render(sceneManager);
 		}
 
-		// Then models.
+		// Fill the models render queue
 		for (Model* currentModel = collection->PopModel(); currentModel != nullptr; currentModel = collection->PopModel())
 		{
-			currentModel->Render(sceneManager);
+			_modelsRenderQueue->AddRenderable(currentModel);
 		}
+
+		// Then render it.
+		_modelsRenderQueue->Render(sceneManager);
 	}
 
 }

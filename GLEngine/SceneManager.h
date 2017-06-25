@@ -22,9 +22,6 @@ namespace GLEngine
 		// Updates the scene graph. Elements should be up to date before being collected.
 		void Update();
 
-		// Browse the scene graph to collect all elements that will contribute to the rendering.
-		RenderingElements* CollectElementsForRendering();
-
 	private:
 		SceneNode* _rootNode;
 		PerspectiveCamera* _currentCamera;

@@ -58,6 +58,12 @@
     <Filter Include="Source Files\Actor">
       <UniqueIdentifier>{f6ab524b-64c2-4f75-bb88-9600478399e9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\RenderQueue">
+      <UniqueIdentifier>{e2a79e6d-695a-46a0-ae73-86dc12cf7256}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\RenerQueue">
+      <UniqueIdentifier>{9dd3a080-6bac-4e0e-9cb4-dc82c823c9ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -168,6 +174,12 @@
     <ClInclude Include="RenderableCollectorVisitor.h">
       <Filter>Header Files\Render</Filter>
     </ClInclude>
+    <ClInclude Include="RenderQueue.h">
+      <Filter>Header Files\RenderQueue</Filter>
+    </ClInclude>
+    <ClInclude Include="NoAlphaRenderQueue.h">
+      <Filter>Header Files\RenderQueue</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -262,6 +274,12 @@
     </ClCompile>
     <ClCompile Include="RenderableCollectorVisitor.cpp">
       <Filter>Source Files\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderQueue.cpp">
+      <Filter>Source Files\RenerQueue</Filter>
+    </ClCompile>
+    <ClCompile Include="NoAlphaRenderQueue.cpp">
+      <Filter>Source Files\RenerQueue</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

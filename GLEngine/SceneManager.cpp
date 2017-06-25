@@ -24,9 +24,4 @@ namespace GLEngine
 		// Update, starting from the root node.
 		_rootNode->Accept(_updateVisitor);
 	}
-
-	RenderingElements * SceneManager::CollectElementsForRendering()
-	{
-		return nullptr;
-	}
 }
