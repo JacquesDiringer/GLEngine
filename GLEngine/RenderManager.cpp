@@ -43,6 +43,9 @@ namespace GLEngine
 
 		// Then render it.
 		_modelsRenderQueue->Render(sceneManager);
+
+		// Then clear it.
+		_modelsRenderQueue->ClearRenderables();
 	}
 
 }
