@@ -19,6 +19,11 @@ namespace GLEngine
 	{
 	}
 
+	Model::Model(Model * resource)
+		: _resource(resource)
+	{
+	}
+
 	Model::~Model()
 	{
 	}
@@ -30,7 +35,14 @@ namespace GLEngine
 
 	void Model::Render(SceneManager * sceneManager)
 	{
-		SceneNode* parentNode = GetParentNode();
+		if (_resource != nullptr)
+		{
+			_resource->RenderResource(sceneManager, GetParentNode());
+		}
+	}
+
+	void Model::RenderResource(SceneManager * sceneManager, SceneNode * parentNode)
+	{
 		if (parentNode != nullptr)
 		{
 			// Activate the Model's shader.

@@ -160,6 +160,11 @@ namespace Math
 		return Matrix4(translation);
 	}
 
+	Matrix4* Matrix4::CreateTranslation(Vector3* translation)
+	{
+		return new Matrix4(*translation);
+	}
+
 	Matrix4 Matrix4::CreateRotationY(float angle)
 	{
 		float rad = angle * M_PI / 180.0f;

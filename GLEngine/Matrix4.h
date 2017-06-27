@@ -25,6 +25,7 @@ namespace Math
 		Matrix4 Transpose();
 
 		static Matrix4 CreateTranslation(Vector3 translation);
+		static Matrix4* CreateTranslation(Vector3* translation);
 		static Matrix4 CreateRotationY(float angle); // angle in degrees
 		static Matrix4 CreateRotationMatrixFromQuaternion(Quaternion quaternion);
 		static Matrix4 CreateSymetricProjectionFrustum(float near, float far, float height, float width);

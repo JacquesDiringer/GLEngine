@@ -187,20 +187,21 @@ int main()
 
 	// Models testing
 	OBJLoader* testLoader = new OBJLoader();
+
+	// Suzanne resource.
 	//OBJMesh* testModel = (OBJMesh*)testLoader->LoadModel("C:/Users/Jacques/Documents/GLEngineMedia/suzanne_sharp.obj");
 	OBJMesh* testMesh = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/suzanne_smooth.obj");
-
 	testMesh->InitializeVao();
-
 	Model* testModel = new Model(testMesh);
 	testModel->SetShaderProgram(shaderProgram);
 
+	// Sphere resource.
 	OBJMesh* testMesh1 = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/sphere.obj");
 	testMesh1->InitializeVao();
 	Model* testModel1 = new Model(testMesh1);
 	testModel1->SetShaderProgram(shaderProgram);
 
-	// Envmap
+	// Envmap.
 	ShaderProgram* envmapShader = new ShaderProgram("VertexShader.txt", "EnvironmentMapFragmentShader.txt", textureManager);
 	OBJMesh* sphereMesh = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/sphere_UVs.obj");
 	sphereMesh->InitializeVao();
@@ -216,18 +217,28 @@ int main()
 	skyNode->AddSubElement(envmapTest);
 
 	SceneNode* rotationNode = sceneManager->GetRootNode()->CreateChild();
-	rotationNode->AddSubElement(testModel1);
+	rotationNode->AddSubElement(new Model(testModel1));
 
 	SpinnerActor* testSpinner0 = new SpinnerActor(&Matrix4::CreateRotationY(-0.5f));
 	rotationNode->AddSubElement(testSpinner0);
 
 	SceneNode* extremityNode = rotationNode->CreateChild();
 	extremityNode->SetRelativeTransformation(&Matrix4::CreateTranslation(Vector3(2, 0, 0)));
-	extremityNode->AddSubElement(testModel);
-	//extremityNode->AddSubElement(envmapTest);
+	extremityNode->AddSubElement(new Model(testModel));
 
 	SpinnerActor* testSpinner = new SpinnerActor(&Matrix4::CreateRotationY(1.0f));
 	extremityNode->AddSubElement(testSpinner);
+
+	// Instancing tests, array.
+	for (int i = -10; i < 10; i++)
+	{
+		for (int j = -10; j < 10; j++)
+		{
+			SceneNode* currentNode = sceneManager->GetRootNode()->CreateChild();
+			currentNode->SetRelativeTransformation(Matrix4::CreateTranslation(new Vector3(i*3, 0, j*3)));
+			currentNode->AddSubElement(new Model(testModel));
+		}
+	}
 
 	// Render setting.
 	RenderManager* renderManager = new RenderManager();
