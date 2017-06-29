@@ -7,7 +7,8 @@ using std::list;
 
 namespace GLEngine
 {
-	class RenderQueue
+	class RenderQueue :
+		public Renderable
 	{
 	public:
 		RenderQueue();

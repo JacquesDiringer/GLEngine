@@ -1,20 +1,16 @@
 #pragma once
 
-//#include "SceneManager.h"
-#include "SceneElement.h"
+#include "SceneManager.h"
 
 namespace GLEngine
 {
 	class SceneManager;
 
-	class Renderable :
-		public SceneElement
+	class Renderable
 	{
 	public:
 		Renderable();
 		~Renderable();
-
-		virtual void Accept(SceneElementVisitor* visitor) = 0;
 
 		virtual void Render(SceneManager* sceneManager) = 0;
 	};

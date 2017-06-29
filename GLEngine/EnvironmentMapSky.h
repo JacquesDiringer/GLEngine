@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Renderable.h"
+#include "SceneElement.h"
 #include "Mesh.h"
 #include "ShaderProgram.h"
 #include "Texture2D.h"
@@ -10,7 +11,7 @@
 namespace GLEngine
 {
 	class EnvironmentMapSky :
-		public Renderable
+		public Renderable, public SceneElement
 	{
 	public:
 		EnvironmentMapSky(ShaderProgram* shaderProgram, Mesh* sphereMesh, string envMapPath, TextureManager* textureManager);
