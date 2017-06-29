@@ -40,7 +40,10 @@ namespace GLEngine
 
 	bool RenderableCollectorVisitor::CheckAndResetCollection()
 	{
-		if (_collectedElements->PopModel() == nullptr)
+		// TODO: this is temporary.
+		_collectedElements->Clear();
+
+		if (_collectedElements->PopInstancedModel() == nullptr)
 		{
 			_collectedElements->SetSky(nullptr);
 

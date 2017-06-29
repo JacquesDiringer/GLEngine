@@ -1,30 +1,41 @@
 #include "stdafx.h"
 #include "RenderingElements.h"
 
+using std::pair;
+
 
 namespace GLEngine
 {
 	RenderingElements::RenderingElements()
 	{
-		_models = list<Model*>();
+		_instancedModels = map<Model*, list<SceneNode*>>();
 	}
 
 	RenderingElements::~RenderingElements()
 	{
 	}
 
-	Model * RenderingElements::PopModel()
+	void RenderingElements::PushModel(Model * model)
 	{
-		if (_models.size() > 0)
+		// Instanced rendering list.
+		Model* resourceModel = model->GetResource();
+		SceneNode* parentNode = model->GetParentNode();
+
+		_instancedModels[resourceModel].push_back(parentNode);
+	}
+
+	InstancedModel* RenderingElements::PopInstancedModel()
+	{
+		if (_instancedModels.size() > 0)
 		{
-			Model* result = _models.front();
-			_models.pop_front();
+			// Find the first element of the map, use it to instanciate our result value, then delete it from the map.
+			map<Model*, list<SceneNode*>>::iterator frontPair = _instancedModels.begin();
+			InstancedModel* result = new InstancedModel((*frontPair).first, (*frontPair).second);
+			_instancedModels.erase(frontPair);
 
 			return result;
 		}
-		else
-		{
-			return nullptr;
-		}
+
+		return nullptr;
 	}
 }

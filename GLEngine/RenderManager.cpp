@@ -40,9 +40,9 @@ namespace GLEngine
 
 		// Then the models.
 		// Fill the models render queue.
-		for (Model* currentModel = collection->PopModel(); currentModel != nullptr; currentModel = collection->PopModel())
+		for (InstancedModel* currentInstancedModel = collection->PopInstancedModel(); currentInstancedModel != nullptr; currentInstancedModel = collection->PopInstancedModel())
 		{
-			_modelsRenderQueue->AddRenderable(currentModel);
+			_modelsRenderQueue->AddRenderable(currentInstancedModel);
 		}
 
 		// Then render it.
@@ -50,7 +50,9 @@ namespace GLEngine
 
 		// Clear render queues.
 		_skyRenderQueue->ClearRenderables();
-		_modelsRenderQueue->ClearRenderables();
+
+		// TODO: this call to clear will not stay necessary, each list should have had all it's elements popped at the end of the render loop.
+		collection->Clear();
 	}
 
 }

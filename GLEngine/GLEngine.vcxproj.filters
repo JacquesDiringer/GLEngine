@@ -183,6 +183,9 @@
     <ClInclude Include="SkyRenderQueue.h">
       <Filter>Header Files\RenderQueue</Filter>
     </ClInclude>
+    <ClInclude Include="InstancedModel.h">
+      <Filter>Header Files\Render</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -286,6 +289,9 @@
     </ClCompile>
     <ClCompile Include="SkyRenderQueue.cpp">
       <Filter>Source Files\RenerQueue</Filter>
+    </ClCompile>
+    <ClCompile Include="InstancedModel.cpp">
+      <Filter>Source Files\Render</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

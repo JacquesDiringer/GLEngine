@@ -2,6 +2,9 @@
 
 #include "Model.h"
 #include "EnvironmentMapSky.h"
+#include "InstancedModel.h"
+
+using std::map;
 
 namespace GLEngine
 {
@@ -14,12 +17,16 @@ namespace GLEngine
 		EnvironmentMapSky* GetSky() { return _sky; }
 		void SetSky(EnvironmentMapSky* sky) { _sky = sky; }
 
-		void PushModel(Model* model) { _models.push_back(model); }
-		Model* PopModel();
+		void PushModel(Model* model);
+
+		InstancedModel* PopInstancedModel();
+
+		void Clear() { _instancedModels.clear(); }
 
 	private:
 		EnvironmentMapSky* _sky;
-		list<Model*> _models;
+		// Stores the resource model pointer as a key, and the list of scene nodes with this model to draw as a key.
+		map<Model*, list<SceneNode*>> _instancedModels;
 	};
 
 }
