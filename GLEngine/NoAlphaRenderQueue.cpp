@@ -46,6 +46,17 @@ namespace GLEngine
 		}
 	}
 
+	void NoAlphaRenderQueue::ClearRenderables()
+	{
+		// Delete all objects in the list.
+		for each (Renderable* currentRenderable in _renderables)
+		{
+			currentRenderable->~Renderable();
+		}
+
+		_renderables.clear();
+	}
+
 	void NoAlphaRenderQueue::ResetGpuDefaultState()
 	{
 		if (!_oldDepthTestEnabled)

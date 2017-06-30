@@ -10,7 +10,7 @@ namespace GLEngine
 	{
 	public:
 		Renderable();
-		~Renderable();
+		virtual ~Renderable();
 
 		virtual void Render(SceneManager* sceneManager) = 0;
 	};

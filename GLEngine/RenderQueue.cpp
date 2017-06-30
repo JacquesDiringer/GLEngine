@@ -14,6 +14,11 @@ namespace GLEngine
 	{
 	}
 
+	void RenderQueue::ClearRenderables()
+	{
+		_renderables.clear();
+	}
+
 	void RenderQueue::Render(SceneManager * sceneManager)
 	{
 		SetGpuState();

@@ -50,6 +50,7 @@ namespace GLEngine
 
 		// Clear render queues.
 		_skyRenderQueue->ClearRenderables();
+		_modelsRenderQueue->ClearRenderables();
 
 		// TODO: this call to clear will not stay necessary, each list should have had all it's elements popped at the end of the render loop.
 		collection->Clear();

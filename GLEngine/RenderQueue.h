@@ -15,7 +15,7 @@ namespace GLEngine
 		~RenderQueue();
 
 		void AddRenderable(Renderable* newRenderable) { _renderables.push_front(newRenderable); }
-		void ClearRenderables() { _renderables.clear(); }
+		virtual void ClearRenderables();
 
 		// Render queue steps.
 		virtual void SetGpuState() = 0; // Prior to rendering. Sets the Gpu to the desired state for rendering.
@@ -23,7 +23,7 @@ namespace GLEngine
 		virtual void ResetGpuDefaultState() = 0; // Post rendering. Resets the GPU to it's original state.
 
 
-	private:
+	protected:
 		list<Renderable*> _renderables;
 	};
 }

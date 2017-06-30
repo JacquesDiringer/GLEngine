@@ -12,6 +12,7 @@ namespace GLEngine
 
 	InstancedModel::~InstancedModel()
 	{
+		_instancesNodes.clear();
 	}
 
 	void InstancedModel::Render(SceneManager * sceneManager)
