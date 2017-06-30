@@ -64,15 +64,11 @@ namespace GLEngine
 	{
 		if (_type == GL_FLOAT_MAT4)
 		{
-			float* matArray = matrix->GetArray();
-			GLfloat* glArray = new GLfloat[16];
+			GLfloat* matArray = matrix->GetArray();
+			
+			glUniformMatrix4fv(_location, 1, GL_TRUE, matArray);
 
-			for (size_t arrayId = 0; arrayId < 16; arrayId++)
-			{
-				glArray[arrayId] = (GLfloat) matArray[arrayId];
-			}
-
-			glUniformMatrix4fv(_location, 1, GL_TRUE, glArray);
+			delete matArray;
 		}
 		else
 		{
