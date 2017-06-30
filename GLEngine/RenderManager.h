@@ -21,5 +21,6 @@ namespace GLEngine
 		RenderableCollectorVisitor* _collectorVisitor;
 		NoAlphaRenderQueue* _modelsRenderQueue;
 		SkyRenderQueue* _skyRenderQueue;
+		int _frameCount = 0;
 	};
 }

@@ -40,7 +40,7 @@ Vector3 _globalTargetPosition = Vector3(0, 1, 0);
 
 float _globalAcceleration = 0.01f;
 float _globalFriction = 0.1f;
-float _sphereRadius = 5.0f;
+float _sphereRadius = 400.0f;
 float _thetaSpeed = 0, _phiSpeed = 0;
 float _theta = 0, _phi = 0;
 
@@ -182,7 +182,7 @@ int main()
 	// Shaders initialization.
 	ShaderProgram* shaderProgram = new ShaderProgram("VertexShader.txt", "FragmentShader.txt", textureManager);
 
-	PerspectiveCamera* camera = new PerspectiveCamera(0.1f, 100.0f, 20.0f, (float)height / (float)width);
+	PerspectiveCamera* camera = new PerspectiveCamera(0.1f, 800.0f, 20.0f, (float)height / (float)width);
 
 
 	// Models testing
@@ -220,19 +220,19 @@ int main()
 	rotationNode->AddSubElement(new Model(testModel1));
 
 	SpinnerActor* testSpinner0 = new SpinnerActor(&Matrix4::CreateRotationY(-0.5f));
-	rotationNode->AddSubElement(testSpinner0);
+	//rotationNode->AddSubElement(testSpinner0);
 
 	SceneNode* extremityNode = rotationNode->CreateChild();
 	extremityNode->SetRelativeTransformation(&Matrix4::CreateTranslation(Vector3(2, 0, 0)));
 	extremityNode->AddSubElement(new Model(testModel));
 
 	SpinnerActor* testSpinner = new SpinnerActor(&Matrix4::CreateRotationY(1.0f));
-	extremityNode->AddSubElement(testSpinner);
+	//extremityNode->AddSubElement(testSpinner);
 
 	// Instancing tests, array.
-	for (int i = -10; i < 10; i++)
+	for (int i = -100; i < 100; i++)
 	{
-		for (int j = -10; j < 10; j++)
+		for (int j = -100; j < 100; j++)
 		{
 			SceneNode* currentNode = sceneManager->GetRootNode()->CreateChild();
 			currentNode->SetRelativeTransformation(Matrix4::CreateTranslation(new Vector3(i*3, 0, j*3)));
@@ -244,8 +244,11 @@ int main()
 	RenderManager* renderManager = new RenderManager();
 
 	// Game loop
+	int frameCount = 0;
 	while (!glfwWindowShouldClose(window))
 	{
+		double timeAtMainLoopStart = glfwGetTime();
+
 		glfwPollEvents();
 
 		// Move the camera "physic" model.
@@ -263,6 +266,16 @@ int main()
 		renderManager->Render(sceneManager);
 
 		glfwSwapBuffers(window);
+
+		double timeAtMainLoopEnd = glfwGetTime();
+
+		double mainLoopTime = timeAtMainLoopEnd - timeAtMainLoopStart;
+
+		if (frameCount % 10 == 0)
+		{
+			std::cout << "Main loop time: " << mainLoopTime * 1000 << "ms; FPS: " << 1 / mainLoopTime << std::endl;
+		}
+		++frameCount;
 	}
 
 	// Clean resources

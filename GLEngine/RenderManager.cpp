@@ -2,6 +2,10 @@
 #include "RenderManager.h"
 #include "RenderableCollectorVisitor.h"
 
+// GLFW
+#include <GLFW/glfw3.h>
+
+#include <iostream>
 
 namespace GLEngine
 {
@@ -20,6 +24,8 @@ namespace GLEngine
 
 	void RenderManager::Render(SceneManager * sceneManager)
 	{
+		double timeAtRenderStart = glfwGetTime();
+
 		_renderVisitor->SetSceneManager(sceneManager);
 
 		// Triggers renderable elements collection.
@@ -54,6 +60,17 @@ namespace GLEngine
 
 		// TODO: this call to clear will not stay necessary, each list should have had all it's elements popped at the end of the render loop.
 		collection->Clear();
+
+		double timeAtRenderEnd = glfwGetTime();
+
+		double renderTime = timeAtRenderEnd - timeAtRenderStart;
+
+		if (_frameCount%10 == 0)
+		{
+			std::cout << "Render time: " << renderTime * 1000 << "ms; FPS: " << 1/renderTime << std::endl;
+		}
+
+		++_frameCount;
 	}
 
 }
