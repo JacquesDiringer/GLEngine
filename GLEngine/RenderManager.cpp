@@ -11,7 +11,6 @@ namespace GLEngine
 {
 	RenderManager::RenderManager()
 	{
-		_renderVisitor = new RenderVisitor();
 		_collectorVisitor = new RenderableCollectorVisitor();
 		_modelsRenderQueue = new NoAlphaRenderQueue();
 		_skyRenderQueue = new SkyRenderQueue();
@@ -22,11 +21,9 @@ namespace GLEngine
 	{
 	}
 
-	void RenderManager::Render(SceneManager * sceneManager)
+	void RenderManager::Render(SceneManager * sceneManager, GraphicsResourceManager* graphicsResourceManager)
 	{
 		double timeAtRenderStart = glfwGetTime();
-
-		_renderVisitor->SetSceneManager(sceneManager);
 
 		// Triggers renderable elements collection.
 		sceneManager->GetRootNode()->Accept(_collectorVisitor);
@@ -41,7 +38,7 @@ namespace GLEngine
 		{
 			_skyRenderQueue->AddRenderable(sky);
 
-			_skyRenderQueue->Render(sceneManager);
+			_skyRenderQueue->Render(sceneManager, graphicsResourceManager);
 		}
 
 		// Then the models.
@@ -52,7 +49,7 @@ namespace GLEngine
 		}
 
 		// Then render it.
-		_modelsRenderQueue->Render(sceneManager);
+		_modelsRenderQueue->Render(sceneManager, graphicsResourceManager);
 
 		// Clear render queues.
 		_skyRenderQueue->ClearRenderables();

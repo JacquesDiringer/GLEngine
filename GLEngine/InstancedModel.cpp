@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "InstancedModel.h"
 
+// GLEW
+#define GLEW_STATIC
+#include <GL/glew.h>
+
 
 namespace GLEngine
 {
@@ -15,11 +19,11 @@ namespace GLEngine
 		_instancesNodes.clear();
 	}
 
-	void InstancedModel::Render(SceneManager * sceneManager)
+	void InstancedModel::Render(SceneManager * sceneManager, GraphicsResourceManager* graphicsResourceManager)
 	{
 		for each (SceneNode* currentNode in _instancesNodes)
 		{
-			_resource->RenderResource(sceneManager, currentNode);
+			_resource->RenderResource(sceneManager, graphicsResourceManager, currentNode);
 		}
 	}
 }

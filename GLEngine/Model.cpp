@@ -33,25 +33,28 @@ namespace GLEngine
 		visitor->Visit(this);
 	}
 
-	void Model::Render(SceneManager * sceneManager)
+	void Model::Render(SceneManager * sceneManager, GraphicsResourceManager* graphicsResourceManager)
 	{
 		if (_resource != nullptr)
 		{
-			_resource->RenderResource(sceneManager, GetParentNode());
+			_resource->RenderResource(sceneManager, graphicsResourceManager, GetParentNode());
 		}
 	}
 
-	void Model::RenderResource(SceneManager * sceneManager, SceneNode * parentNode)
+	void Model::RenderResource(SceneManager * sceneManager, GraphicsResourceManager* graphicsResourceManager, SceneNode * parentNode)
 	{
 		if (parentNode != nullptr)
 		{
+			// Get the Model's shader.
+			ShaderProgram* modelShader = graphicsResourceManager->GetLambertianShader();
+
 			// Activate the Model's shader.
-			_shaderProgram->Use();
+			modelShader->Use();
 
 			// Set the world, view, projection matrices.
-			_shaderProgram->GetUniform("projection")->SetValue(sceneManager->GetCurrentCamera()->GetProjection());
-			_shaderProgram->GetUniform("view")->SetValue(sceneManager->GetCurrentCamera()->GetView());
-			_shaderProgram->GetUniform("world")->SetValue(parentNode->GetWorldTransformation());
+			modelShader->GetUniform("projection")->SetValue(sceneManager->GetCurrentCamera()->GetProjection());
+			modelShader->GetUniform("view")->SetValue(sceneManager->GetCurrentCamera()->GetView());
+			modelShader->GetUniform("world")->SetValue(parentNode->GetWorldTransformation());
 
 			_mesh->GetVao()->Bind();
 			{

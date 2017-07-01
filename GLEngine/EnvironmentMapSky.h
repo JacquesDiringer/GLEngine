@@ -19,12 +19,11 @@ namespace GLEngine
 
 		virtual void Accept(SceneElementVisitor* visitor);
 
-		virtual void Render(SceneManager* sceneManager);
+		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager);
 
 	private:
 		Mesh* _sphereMesh;
 		ShaderProgram* _shaderProgram;
 		Texture2D* _environmentMap;
-		TextureManager* _textureManager;
 	};
 }

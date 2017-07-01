@@ -1,7 +1,6 @@
 #pragma once
 
 #include "SceneManager.h"
-#include "RenderVisitor.h"
 #include "RenderableCollectorVisitor.h"
 #include "NoAlphaRenderQueue.h"
 #include "SkyRenderQueue.h"
@@ -14,10 +13,9 @@ namespace GLEngine
 		RenderManager();
 		~RenderManager();
 
-		void Render(SceneManager* sceneManager);
+		void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager);
 
 	private:
-		RenderVisitor* _renderVisitor;
 		RenderableCollectorVisitor* _collectorVisitor;
 		NoAlphaRenderQueue* _modelsRenderQueue;
 		SkyRenderQueue* _skyRenderQueue;

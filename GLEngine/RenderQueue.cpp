@@ -19,13 +19,13 @@ namespace GLEngine
 		_renderables.clear();
 	}
 
-	void RenderQueue::Render(SceneManager * sceneManager)
+	void RenderQueue::Render(SceneManager * sceneManager, GraphicsResourceManager* graphicsResourceManager)
 	{
 		SetGpuState();
 
 		for each (Renderable* currentRenderable in _renderables)
 		{
-			currentRenderable->Render(sceneManager);
+			currentRenderable->Render(sceneManager, graphicsResourceManager);
 		}
 
 		ResetGpuDefaultState();

@@ -16,11 +16,15 @@ namespace GLEngine
 		InstancedModel(Model* resource, list<SceneNode*> instancesNodes);
 		~InstancedModel();
 
-		virtual void Render(SceneManager* sceneManager);
+		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager);
+
+		void SetInstanciationThreshold(int threshold) { _instanciationThreshold = threshold; }
 
 	private:
 		Model* _resource;
 		list<SceneNode*> _instancesNodes;
+		// Minimum entity number necessary to trigger instanciation.
+		int _instanciationThreshold = 100;
 	};
 }
 

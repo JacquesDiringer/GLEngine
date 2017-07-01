@@ -19,7 +19,7 @@ namespace GLEngine
 
 		// Render queue steps.
 		virtual void SetGpuState() = 0; // Prior to rendering. Sets the Gpu to the desired state for rendering.
-		virtual void Render(SceneManager* sceneManager); // Render all renderables inside the queue, with no gpu state changes in between.
+		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager); // Render all renderables inside the queue, with no gpu state changes in between.
 		virtual void ResetGpuDefaultState() = 0; // Post rendering. Resets the GPU to it's original state.
 
 

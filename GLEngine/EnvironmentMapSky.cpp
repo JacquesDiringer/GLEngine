@@ -10,7 +10,7 @@
 namespace GLEngine
 {
 	EnvironmentMapSky::EnvironmentMapSky(ShaderProgram* shaderProgram, Mesh* sphereMesh, string envMapPath, TextureManager* textureManager)
-		: Renderable(), _shaderProgram(shaderProgram), _sphereMesh(sphereMesh), _textureManager(textureManager)
+		: Renderable(), _shaderProgram(shaderProgram), _sphereMesh(sphereMesh)
 	{
 		_environmentMap = textureManager->GetTexture(envMapPath);
 	}
@@ -25,7 +25,7 @@ namespace GLEngine
 		visitor->Visit(this);
 	}
 
-	void EnvironmentMapSky::Render(SceneManager * sceneManager)
+	void EnvironmentMapSky::Render(SceneManager * sceneManager, GraphicsResourceManager* graphicsResourceManager)
 	{
 		// Activate the Model's shader.
 		_shaderProgram->Use();
@@ -43,7 +43,7 @@ namespace GLEngine
 		//_shaderProgram->GetUniform("world")->SetValue(new Matrix4());
 			
 		// Textures
-		_textureManager->AssignTextureToUnit(_environmentMap);
+		graphicsResourceManager->GetTextureManager()->AssignTextureToUnit(_environmentMap);
 		_shaderProgram->GetUniform("envmap")->SetValue((GLuint)_environmentMap->GetBoundUnit());
 
 		_sphereMesh->GetVao()->Bind();
@@ -52,6 +52,6 @@ namespace GLEngine
 		}
 		_sphereMesh->GetVao()->UnBind();
 
-		_textureManager->FreeUnits();
+		graphicsResourceManager->GetTextureManager()->FreeUnits();
 	}
 }

@@ -20,7 +20,7 @@ namespace GLEngine
 	class ShaderProgram
 	{
 	public:
-		ShaderProgram(string vertexShaderFile, string fragmentShaderFile, TextureManager* textureManager);
+		ShaderProgram(string vertexShaderFile, string fragmentShaderFile);
 		~ShaderProgram();
 
 		void Use();
@@ -31,6 +31,5 @@ namespace GLEngine
 	private:
 		GLuint _shaderProgramId;
 		map<string, Uniform*> _uniforms;
-		TextureManager* _textureManager;
 	};
 }

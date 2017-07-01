@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SceneManager.h"
+#include "GraphicsResourceManager.h"
 
 namespace GLEngine
 {
@@ -12,6 +13,6 @@ namespace GLEngine
 		Renderable();
 		virtual ~Renderable();
 
-		virtual void Render(SceneManager* sceneManager) = 0;
+		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager) = 0;
 	};
 }

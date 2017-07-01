@@ -152,6 +152,7 @@
   <ItemGroup>
     <ClInclude Include="Actor.h" />
     <ClInclude Include="EnvironmentMapSky.h" />
+    <ClInclude Include="GraphicsResourceManager.h" />
     <ClInclude Include="InstancedModel.h" />
     <ClInclude Include="Matrix4.h" />
     <ClInclude Include="Mesh.h" />
@@ -167,7 +168,6 @@
     <ClInclude Include="RenderingElements.h" />
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="RenderQueue.h" />
-    <ClInclude Include="RenderVisitor.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SceneElement.h" />
     <ClInclude Include="SceneManager.h" />
@@ -194,6 +194,7 @@
     </Text>
     <ClCompile Include="EnvironmentMapSky.cpp" />
     <ClCompile Include="GLEngine.cpp" />
+    <ClCompile Include="GraphicsResourceManager.cpp" />
     <ClCompile Include="InstancedModel.cpp" />
     <ClCompile Include="Matrix4.cpp" />
     <ClCompile Include="Mesh.cpp" />
@@ -209,7 +210,6 @@
     <ClCompile Include="RenderingElements.cpp" />
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="RenderQueue.cpp" />
-    <ClCompile Include="RenderVisitor.cpp" />
     <ClCompile Include="SceneElement.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SceneNode.cpp" />

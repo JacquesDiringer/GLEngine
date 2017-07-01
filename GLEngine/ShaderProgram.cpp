@@ -5,8 +5,7 @@
 namespace GLEngine
 {
 	// Reads a vertex shader file and a fragment shader file, and creates the associated a shader program.
-	ShaderProgram::ShaderProgram(string vertexShaderFile, string fragmentShaderFile, TextureManager* textureManager)
-		: _textureManager(textureManager)
+	ShaderProgram::ShaderProgram(string vertexShaderFile, string fragmentShaderFile)
 	{
 		// Vertex shader
 		GLuint vertexShader;

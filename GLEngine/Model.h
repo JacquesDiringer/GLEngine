@@ -18,16 +18,15 @@ namespace GLEngine
 
 		virtual void Accept(SceneElementVisitor* visitor);
 
-		virtual void Render(SceneManager* sceneManager);
-		void RenderResource(SceneManager* sceneManager, SceneNode* parentNode);
+		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager);
+		void RenderResource(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager, SceneNode* parentNode);
 
 		Model* GetResource() const { return _resource; }
 
-		void SetShaderProgram(ShaderProgram* shader) { _shaderProgram = shader; }
+		VertexArrayObject* GetVao() { return _mesh->GetVao(); }
 
 	private:
 		Model* _resource = nullptr;
 		Mesh* _mesh;
-		ShaderProgram* _shaderProgram;
 	};
 }

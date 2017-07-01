@@ -180,7 +180,7 @@ int main()
 	TextureManager* textureManager = new TextureManager();
 	
 	// Shaders initialization.
-	ShaderProgram* shaderProgram = new ShaderProgram("VertexShader.txt", "FragmentShader.txt", textureManager);
+	ShaderProgram* shaderProgram = new ShaderProgram("VertexShader.txt", "FragmentShader.txt");
 
 	PerspectiveCamera* camera = new PerspectiveCamera(0.1f, 800.0f, 20.0f, (float)height / (float)width);
 
@@ -193,16 +193,14 @@ int main()
 	OBJMesh* testMesh = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/suzanne_smooth.obj");
 	testMesh->InitializeVao();
 	Model* testModel = new Model(testMesh);
-	testModel->SetShaderProgram(shaderProgram);
 
 	// Sphere resource.
 	OBJMesh* testMesh1 = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/sphere.obj");
 	testMesh1->InitializeVao();
 	Model* testModel1 = new Model(testMesh1);
-	testModel1->SetShaderProgram(shaderProgram);
 
 	// Envmap.
-	ShaderProgram* envmapShader = new ShaderProgram("VertexShader.txt", "EnvironmentMapFragmentShader.txt", textureManager);
+	ShaderProgram* envmapShader = new ShaderProgram("VertexShader.txt", "EnvironmentMapFragmentShader.txt");
 	OBJMesh* sphereMesh = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/sphere_UVs.obj");
 	sphereMesh->InitializeVao();
 
@@ -243,6 +241,9 @@ int main()
 	// Render setting.
 	RenderManager* renderManager = new RenderManager();
 
+	// Graphics Resource Manager.
+	GraphicsResourceManager* graphicsResourceManager = new GraphicsResourceManager(textureManager);
+
 	// Game loop
 	int frameCount = 0;
 	while (!glfwWindowShouldClose(window))
@@ -263,7 +264,7 @@ int main()
 
 		sceneManager->Update();
 
-		renderManager->Render(sceneManager);
+		renderManager->Render(sceneManager, graphicsResourceManager);
 
 		glfwSwapBuffers(window);
 
