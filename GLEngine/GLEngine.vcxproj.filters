@@ -76,6 +76,9 @@
     <Text Include="EnvironmentMapFragmentShader.txt">
       <Filter>Resource Files\Shaders</Filter>
     </Text>
+    <Text Include="InstancedVertexShader.txt">
+      <Filter>Resource Files\Shaders</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">

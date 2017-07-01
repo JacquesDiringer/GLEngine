@@ -24,4 +24,14 @@ namespace GLEngine
 		return _lambertianShader;
 	}
 
+	ShaderProgram * GraphicsResourceManager::GetLambertianInstancedShader()
+	{
+		if (_lambertianInstancedShader == nullptr)
+		{
+			_lambertianInstancedShader = new ShaderProgram("InstancedVertexShader.txt", "FragmentShader.txt");
+		}
+
+		return _lambertianInstancedShader;
+	}
+
 }

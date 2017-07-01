@@ -27,6 +27,11 @@ namespace GLEngine
 
 		int GetElementsCount() const { return _elementsCount; }
 
+		// VertexArrayObject has to be bound before these twis function is called.
+		void EnableInstancingAttributes();
+		// VertexArrayObject has to be bound before these twis function is called.
+		void DisableInstancingAttributes();
+
 		// Binds the associated VAO id to the OpenGL context.
 		void Bind();
 		// Unbind the VAO by bindint the ID 0.

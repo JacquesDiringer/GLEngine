@@ -228,9 +228,9 @@ int main()
 	//extremityNode->AddSubElement(testSpinner);
 
 	// Instancing tests, array.
-	for (int i = -100; i < 100; i++)
+	for (int i = -200; i < 200; i++)
 	{
-		for (int j = -100; j < 100; j++)
+		for (int j = -200; j < 200; j++)
 		{
 			SceneNode* currentNode = sceneManager->GetRootNode()->CreateChild();
 			currentNode->SetRelativeTransformation(Matrix4::CreateTranslation(new Vector3(i*3, 0, j*3)));

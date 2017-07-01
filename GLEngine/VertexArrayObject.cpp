@@ -299,6 +299,32 @@ namespace GLEngine
 	VertexArrayObject::~VertexArrayObject()
 	{
 	}
+	void VertexArrayObject::EnableInstancingAttributes()
+	{
+		// Add the vertex instanced attributes.
+		glEnableVertexAttribArray(3);
+		glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, 16 * sizeof(GLfloat), (void*)0);
+		glEnableVertexAttribArray(4);
+		glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, 16 * sizeof(GLfloat), (void*)(4 * sizeof(GLfloat)));
+		glEnableVertexAttribArray(5);
+		glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, 16 * sizeof(GLfloat), (void*)(8 * sizeof(GLfloat)));
+		glEnableVertexAttribArray(6);
+		glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, 16 * sizeof(GLfloat), (void*)(12 * sizeof(GLfloat)));
+
+		glVertexAttribDivisor(3, 1);
+		glVertexAttribDivisor(4, 1);
+		glVertexAttribDivisor(5, 1);
+		glVertexAttribDivisor(6, 1);
+	}
+
+	void VertexArrayObject::DisableInstancingAttributes()
+	{
+		glDisableVertexAttribArray(3);
+		glDisableVertexAttribArray(4);
+		glDisableVertexAttribArray(5);
+		glDisableVertexAttribArray(6);
+	}
+
 	void VertexArrayObject::Bind()
 	{
 		glBindVertexArray(_vaoId);

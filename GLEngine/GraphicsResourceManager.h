@@ -12,10 +12,12 @@ namespace GLEngine
 
 		TextureManager* GetTextureManager() { return _textureManager; }
 		ShaderProgram* GetLambertianShader();
+		ShaderProgram* GetLambertianInstancedShader();
 
 	private:
 		TextureManager* _textureManager;
 		ShaderProgram* _lambertianShader = nullptr;
+		ShaderProgram* _lambertianInstancedShader = nullptr;
 	};
 
 }
