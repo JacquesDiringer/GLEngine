@@ -141,7 +141,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="FragmentShader.frag">
+    <Text Include="EnvironmentMapLight.frag" />
+    <Text Include="ModelShader.frag">
       <DeploymentContent>false</DeploymentContent>
     </Text>
     <Text Include="InstancedVertexShader.vert" />
@@ -235,6 +236,10 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GLEngine.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PBRCombiner.frag" />
+    <None Include="ScreenSpace.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

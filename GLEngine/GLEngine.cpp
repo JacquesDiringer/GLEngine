@@ -235,7 +235,7 @@ int main()
 	}
 
 	// Render setting.
-	RenderManager* renderManager = new RenderManager();
+	RenderManager* renderManager = new RenderManager(width, height);
 
 	// Graphics Resource Manager.
 	GraphicsResourceManager* graphicsResourceManager = new GraphicsResourceManager(textureManager);
@@ -260,6 +260,7 @@ int main()
 		// Rendering.
 		renderManager->Render(sceneManager, graphicsResourceManager);
 
+		// Main buffers swap.
 		glfwSwapBuffers(window);
 
 		double timeAtMainLoopEnd = glfwGetTime();

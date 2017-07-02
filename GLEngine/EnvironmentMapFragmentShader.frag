@@ -7,7 +7,10 @@ in vec3 vertexColor;
 in vec2 texCoordinates;
 in vec3 worldNormal;
 
-out vec4 color;
+layout(location = 0) out vec4 geometryGTexture;
+layout(location = 1) out vec3 diffuseGTexture;
+layout(location = 2) out vec4 specularRoughnessGTexture;
+layout(location = 3) out vec3 emissiveGTexture;
 
 uniform sampler2D envmap;
 
@@ -20,5 +23,8 @@ void main()
 
     vec3 finalColor = textureGrad(envmap, vec2(theta, phi), dFdx(abs(vec2(theta, phi))), dFdy(abs(vec2(theta, phi)))).rgb;
 
-    color = vec4(finalColor, 1.0f);
+	geometryGTexture = vec4(0, 0, 0, 1);
+	diffuseGTexture = vec3(0, 0, 0);
+	specularRoughnessGTexture = vec4(0, 0, 0, 0);
+    emissiveGTexture = finalColor;
 }

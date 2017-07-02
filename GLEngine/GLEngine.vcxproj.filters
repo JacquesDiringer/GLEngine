@@ -64,20 +64,38 @@
     <Filter Include="Source Files\RenderQueue">
       <UniqueIdentifier>{9dd3a080-6bac-4e0e-9cb4-dc82c823c9ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Shaders\DeferredShading">
+      <UniqueIdentifier>{7066dd41-040d-4171-8cba-da70625f065e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Shaders\Common">
+      <UniqueIdentifier>{49e6e597-98f1-4777-8e7e-31563fc4ff5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Shaders\DeferredShading\GBuffer">
+      <UniqueIdentifier>{be82e595-2e0d-435d-8efc-7ded3e905c8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Shaders\DeferredShading\Lighting">
+      <UniqueIdentifier>{3ad0976b-697a-47f3-b4cc-d17a993543b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Shaders\DeferredShading\Combiner">
+      <UniqueIdentifier>{ecbe8f81-738b-4efa-859f-886588cd9436}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
-    <Text Include="EnvironmentMapFragmentShader.frag">
-      <Filter>Resource Files\Shaders</Filter>
-    </Text>
-    <Text Include="FragmentShader.frag">
-      <Filter>Resource Files\Shaders</Filter>
+    <Text Include="VertexShader.vert">
+      <Filter>Resource Files\Shaders\DeferredShading\GBuffer</Filter>
     </Text>
     <Text Include="InstancedVertexShader.vert">
-      <Filter>Resource Files\Shaders</Filter>
+      <Filter>Resource Files\Shaders\DeferredShading\GBuffer</Filter>
     </Text>
-    <Text Include="VertexShader.vert">
-      <Filter>Resource Files\Shaders</Filter>
+    <Text Include="EnvironmentMapFragmentShader.frag">
+      <Filter>Resource Files\Shaders\DeferredShading\GBuffer</Filter>
+    </Text>
+    <Text Include="EnvironmentMapLight.frag">
+      <Filter>Resource Files\Shaders\DeferredShading\Lighting</Filter>
+    </Text>
+    <Text Include="ModelShader.frag">
+      <Filter>Resource Files\Shaders\DeferredShading\GBuffer</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>
@@ -301,5 +319,13 @@
     <ResourceCompile Include="GLEngine.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ScreenSpace.vert">
+      <Filter>Resource Files\Shaders\Common</Filter>
+    </None>
+    <None Include="PBRCombiner.frag">
+      <Filter>Resource Files\Shaders\DeferredShading\Combiner</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -18,7 +18,7 @@ namespace GLEngine
 	{
 		if (_lambertianShader == nullptr)
 		{
-			_lambertianShader = new ShaderProgram("VertexShader.vert", "FragmentShader.frag");
+			_lambertianShader = new ShaderProgram("VertexShader.vert", "ModelShader.frag");
 		}
 
 		return _lambertianShader;
@@ -28,7 +28,7 @@ namespace GLEngine
 	{
 		if (_lambertianInstancedShader == nullptr)
 		{
-			_lambertianInstancedShader = new ShaderProgram("InstancedVertexShader.vert", "FragmentShader.frag");
+			_lambertianInstancedShader = new ShaderProgram("InstancedVertexShader.vert", "ModelShader.frag");
 		}
 
 		return _lambertianInstancedShader;
@@ -42,6 +42,49 @@ namespace GLEngine
 		}
 
 		return _envmapShader;
+	}
+
+	ShaderProgram * GraphicsResourceManager::GetEnvmapLightShader()
+	{
+		if (_envmapLightShader == nullptr)
+		{
+			_envmapLightShader = new ShaderProgram("ScreenSpace.vert", "EnvironmentMapLight.frag");
+		}
+
+		return _envmapLightShader;
+	}
+
+	ShaderProgram * GraphicsResourceManager::GetPbrCombinerShader()
+	{
+		if (_pbrCombinerShader == nullptr)
+		{
+			_pbrCombinerShader = new ShaderProgram("ScreenSpace.vert", "PBRCombiner.frag");
+		}
+
+		return _pbrCombinerShader;
+	}
+
+	VertexArrayObject * GraphicsResourceManager::GetScreenVAO()
+	{
+		if (_screenVAO == nullptr)
+		{
+			list<int> elements = list<int>{	0, 1, 3,
+											1, 2, 3};
+
+			list<Vector3*> positions = list<Vector3*>{	new Vector3(-1, -1, -1), 
+														new Vector3(1, -1, -1),
+														new Vector3(1, 1, -1), 
+														new Vector3(-1, 1, -1) };
+
+			list<Vector2*> textureCoordinates = list<Vector2*>{	new Vector2(0, 0),
+																new Vector2(1, 0),
+																new Vector2(1, 1),
+																new Vector2(0, 1) };
+
+			_screenVAO = new VertexArrayObject(elements, positions, textureCoordinates);
+		}
+
+		return _screenVAO;
 	}
 
 }
