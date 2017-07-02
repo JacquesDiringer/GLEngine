@@ -9,8 +9,8 @@
 
 namespace GLEngine
 {
-	EnvironmentMapSky::EnvironmentMapSky(ShaderProgram* shaderProgram, Mesh* sphereMesh, string envMapPath, TextureManager* textureManager)
-		: Renderable(), _shaderProgram(shaderProgram), _sphereMesh(sphereMesh)
+	EnvironmentMapSky::EnvironmentMapSky(Mesh* sphereMesh, string envMapPath, TextureManager* textureManager)
+		: Renderable(), _sphereMesh(sphereMesh)
 	{
 		_environmentMap = textureManager->GetTexture(envMapPath);
 	}
@@ -27,24 +27,21 @@ namespace GLEngine
 
 	void EnvironmentMapSky::Render(SceneManager * sceneManager, GraphicsResourceManager* graphicsResourceManager)
 	{
+		ShaderProgram* shaderProgram = graphicsResourceManager->GetEnvmapShader();
+
 		// Activate the Model's shader.
-		_shaderProgram->Use();
+		shaderProgram->Use();
 
 		// Set the world, view, projection matrices.
 		PerspectiveCamera* currentCamera = sceneManager->GetCurrentCamera();
 
-		//std::cout << "Position : " << cameraPosition.X() << "; " << cameraPosition.Y() << "; " << cameraPosition.Z() << std::endl;
+		shaderProgram->GetUniform("projection")->SetValue(currentCamera->GetProjection());
+		shaderProgram->GetUniform("view")->SetValue(currentCamera->GetView());
+		shaderProgram->GetUniform("world")->SetValue(&Matrix4::CreateTranslation(*currentCamera->GetPosition()));
 
-		_shaderProgram->GetUniform("projection")->SetValue(currentCamera->GetProjection());
-		_shaderProgram->GetUniform("view")->SetValue(currentCamera->GetView());
-		//_shaderProgram->GetUniform("world")->SetValue(&Matrix4::CreateTranslation(Vector3(cameraPosition.X(), cameraPosition.Y(), cameraPosition.Z())));
-		_shaderProgram->GetUniform("world")->SetValue(&Matrix4::CreateTranslation(*currentCamera->GetPosition()));
-		//_shaderProgram->GetUniform("view")->SetValue(new Matrix4());
-		//_shaderProgram->GetUniform("world")->SetValue(new Matrix4());
-			
 		// Textures
 		graphicsResourceManager->GetTextureManager()->AssignTextureToUnit(_environmentMap);
-		_shaderProgram->GetUniform("envmap")->SetValue((GLuint)_environmentMap->GetBoundUnit());
+		shaderProgram->GetUniform("envmap")->SetValue((GLuint)_environmentMap->GetBoundUnit());
 
 		_sphereMesh->GetVao()->Bind();
 		{

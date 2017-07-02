@@ -18,7 +18,7 @@ namespace GLEngine
 	{
 		if (_lambertianShader == nullptr)
 		{
-			_lambertianShader = new ShaderProgram("VertexShader.txt", "FragmentShader.txt");
+			_lambertianShader = new ShaderProgram("VertexShader.vert", "FragmentShader.frag");
 		}
 
 		return _lambertianShader;
@@ -28,10 +28,20 @@ namespace GLEngine
 	{
 		if (_lambertianInstancedShader == nullptr)
 		{
-			_lambertianInstancedShader = new ShaderProgram("InstancedVertexShader.txt", "FragmentShader.txt");
+			_lambertianInstancedShader = new ShaderProgram("InstancedVertexShader.vert", "FragmentShader.frag");
 		}
 
 		return _lambertianInstancedShader;
+	}
+
+	ShaderProgram * GraphicsResourceManager::GetEnvmapShader()
+	{
+		if (_envmapShader == nullptr)
+		{
+			_envmapShader = new ShaderProgram("VertexShader.vert", "EnvironmentMapFragmentShader.frag");
+		}
+
+		return _envmapShader;
 	}
 
 }

@@ -14,7 +14,7 @@ namespace GLEngine
 		public Renderable, public SceneElement
 	{
 	public:
-		EnvironmentMapSky(ShaderProgram* shaderProgram, Mesh* sphereMesh, string envMapPath, TextureManager* textureManager);
+		EnvironmentMapSky(Mesh* sphereMesh, string envMapPath, TextureManager* textureManager);
 		~EnvironmentMapSky();
 
 		virtual void Accept(SceneElementVisitor* visitor);
@@ -23,7 +23,6 @@ namespace GLEngine
 
 	private:
 		Mesh* _sphereMesh;
-		ShaderProgram* _shaderProgram;
 		Texture2D* _environmentMap;
 	};
 }

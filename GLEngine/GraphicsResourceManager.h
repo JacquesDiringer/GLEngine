@@ -14,10 +14,14 @@ namespace GLEngine
 		ShaderProgram* GetLambertianShader();
 		ShaderProgram* GetLambertianInstancedShader();
 
+		ShaderProgram* GetEnvmapShader();
+
 	private:
 		TextureManager* _textureManager;
 		ShaderProgram* _lambertianShader = nullptr;
 		ShaderProgram* _lambertianInstancedShader = nullptr;
+
+		ShaderProgram* _envmapShader = nullptr;
 	};
 
 }

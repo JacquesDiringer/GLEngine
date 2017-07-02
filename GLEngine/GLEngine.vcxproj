@@ -141,12 +141,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="FragmentShader.txt">
+    <Text Include="FragmentShader.frag">
       <DeploymentContent>false</DeploymentContent>
     </Text>
-    <Text Include="InstancedVertexShader.txt" />
+    <Text Include="InstancedVertexShader.vert" />
     <Text Include="ReadMe.txt" />
-    <Text Include="VertexShader.txt">
+    <Text Include="VertexShader.vert">
       <DeploymentContent>false</DeploymentContent>
     </Text>
   </ItemGroup>
@@ -190,7 +190,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
-    <Text Include="EnvironmentMapFragmentShader.txt">
+    <Text Include="EnvironmentMapFragmentShader.frag">
       <FileType>Document</FileType>
     </Text>
     <ClCompile Include="EnvironmentMapSky.cpp" />

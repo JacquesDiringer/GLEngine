@@ -55,8 +55,6 @@ namespace GLEngine
 			GLuint instancesWorldVBO;
 			glGenBuffers(1, &instancesWorldVBO);
 			glBindBuffer(GL_ARRAY_BUFFER, instancesWorldVBO);
-			//glBufferData(GL_ARRAY_BUFFER, _instancesNodes.size() * 16 * sizeof(GLfloat), instanceMatricesArray, GL_STATIC_DRAW);
-			// TODO: compare performances with the STREAM usage.
 			glBufferData(GL_ARRAY_BUFFER, _instancesNodes.size() * 16 * sizeof(GLfloat), instanceMatricesArray, GL_STREAM_DRAW);
 			delete instanceMatricesArray;
 

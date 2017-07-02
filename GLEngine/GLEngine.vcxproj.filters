@@ -67,16 +67,16 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
-    <Text Include="VertexShader.txt">
+    <Text Include="EnvironmentMapFragmentShader.frag">
       <Filter>Resource Files\Shaders</Filter>
     </Text>
-    <Text Include="FragmentShader.txt">
+    <Text Include="FragmentShader.frag">
       <Filter>Resource Files\Shaders</Filter>
     </Text>
-    <Text Include="EnvironmentMapFragmentShader.txt">
+    <Text Include="InstancedVertexShader.vert">
       <Filter>Resource Files\Shaders</Filter>
     </Text>
-    <Text Include="InstancedVertexShader.txt">
+    <Text Include="VertexShader.vert">
       <Filter>Resource Files\Shaders</Filter>
     </Text>
   </ItemGroup>

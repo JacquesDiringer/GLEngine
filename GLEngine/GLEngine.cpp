@@ -40,7 +40,7 @@ Vector3 _globalTargetPosition = Vector3(0, 1, 0);
 
 float _globalAcceleration = 0.01f;
 float _globalFriction = 0.1f;
-float _sphereRadius = 400.0f;
+float _sphereRadius = 10.0f;
 float _thetaSpeed = 0, _phiSpeed = 0;
 float _theta = 0, _phi = 0;
 
@@ -178,9 +178,6 @@ int main()
 
 	// Texture manager.
 	TextureManager* textureManager = new TextureManager();
-	
-	// Shaders initialization.
-	ShaderProgram* shaderProgram = new ShaderProgram("VertexShader.txt", "FragmentShader.txt");
 
 	PerspectiveCamera* camera = new PerspectiveCamera(0.1f, 800.0f, 20.0f, (float)height / (float)width);
 
@@ -200,11 +197,10 @@ int main()
 	Model* testModel1 = new Model(testMesh1);
 
 	// Envmap.
-	ShaderProgram* envmapShader = new ShaderProgram("VertexShader.txt", "EnvironmentMapFragmentShader.txt");
 	OBJMesh* sphereMesh = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/sphere_UVs.obj");
 	sphereMesh->InitializeVao();
 
-	EnvironmentMapSky* envmapTest = new EnvironmentMapSky(envmapShader, sphereMesh, string("C:/Utils/GLEngineMedia/redCliffs.jpg"), textureManager);
+	EnvironmentMapSky* envmapTest = new EnvironmentMapSky(sphereMesh, string("C:/Utils/GLEngineMedia/redCliffs.jpg"), textureManager);
 
 	// Scene setting
 
@@ -228,9 +224,9 @@ int main()
 	//extremityNode->AddSubElement(testSpinner);
 
 	// Instancing tests, array.
-	for (int i = -200; i < 200; i++)
+	for (int i = -2; i < 2; i++)
 	{
-		for (int j = -200; j < 200; j++)
+		for (int j = -2; j < 2; j++)
 		{
 			SceneNode* currentNode = sceneManager->GetRootNode()->CreateChild();
 			currentNode->SetRelativeTransformation(Matrix4::CreateTranslation(new Vector3(i*3, 0, j*3)));
@@ -258,12 +254,10 @@ int main()
 		// Update camera matrix.
 		camera->SetPositionAndTarget(_globalCameraPosition, _globalTargetPosition);
 
-		// Rendering.
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+		//Scene graph update.
 		sceneManager->Update();
 
+		// Rendering.
 		renderManager->Render(sceneManager, graphicsResourceManager);
 
 		glfwSwapBuffers(window);
