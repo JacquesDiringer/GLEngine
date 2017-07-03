@@ -151,8 +151,109 @@ namespace Math
 		this->_m31 = m13;
 		this->_m32 = m23;
 		this->_m33 = m33;
+	}
 
-		return *this;
+	void Matrix4::Invert()
+	{
+		float m00 = this->_m00;
+		float m01 = this->_m01;
+		float m02 = this->_m02;
+		float m03 = this->_m03;
+		float m10 = this->_m10;
+		float m11 = this->_m11;
+		float m12 = this->_m12;
+		float m13 = this->_m13;
+		float m20 = this->_m20;
+		float m21 = this->_m21;
+		float m22 = this->_m22;
+		float m23 = this->_m23;
+		float m30 = this->_m30;
+		float m31 = this->_m31;
+		float m32 = this->_m32;
+		float m33 = this->_m33;
+
+		float num23 = m22 * m33 - m23 * m32;
+		float num22 = m21 * m33 - m23 * m31;
+		float num21 = m21 * m32 - m22 * m31;
+		float num20 = m20 * m33 - m23 * m30;
+		float num19 = m20 * m32 - m22 * m30;
+		float num18 = m20 * m31 - m21 * m30;
+
+		float num39 = m11 * num23 - m12 * num22 + m13 * num21;
+		float num38 = -(m10 * num23 - m12 * num20 + m13 * num19);
+		float num37 = m10 * num22 - m11 * num20 + m13 * num18;
+		float num36 = -(m10 * num21 - m11 * num19 + m12 * num18);
+
+		float num = 1.0f / (m00 * num39 + m01 * num38 + m02 * num37 + m03 * num36);
+
+		this->_m00 = num39 * num;
+		this->_m10 = num38 * num;
+		this->_m20 = num37 * num;
+		this->_m30 = num36 * num;
+
+		this->_m01 = -(m01 * num23 - m02 * num22 + m03 * num21) * num;
+		this->_m11 = (m00 * num23 - m02 * num20 + m03 * num19) * num;
+		this->_m21 = -(m00 * num22 - m01 * num20 + m03 * num18) * num;
+		this->_m31 = (m00 * num21 - m01 * num19 + m02 * num18) * num;
+
+		float num35 = m12 * m33 - m13 * m32;
+		float num34 = m11 * m33 - m13 * m31;
+		float num33 = m11 * m32 - m12 * m31;
+		float num32 = m10 * m33 - m13 * m30;
+		float num31 = m10 * m32 - m12 * m30;
+		float num30 = m10 * m31 - m11 * m30;
+		this->_m02 = (m01 * num35 - m02 * num34 + m03 * num33) * num;
+		this->_m12 = -(m00 * num35 - m02 * num32 + m03 * num31) * num;
+		this->_m22 = (m00 * num34 - m01 * num32 + m03 * num30) * num;
+		this->_m32 = -(m00 * num33 - m01 * num31 + m02 * num30) * num;
+
+		float num29 = m12 * m23 - m13 * m22;
+		float num28 = m11 * m23 - m13 * m21;
+		float num27 = m11 * m22 - m12 * m21;
+		float num26 = m10 * m23 - m13 * m20;
+		float num25 = m10 * m22 - m12 * m20;
+		float num24 = m10 * m21 - m11 * m20;
+		this->_m03 = -(m01 * num29 - m02 * num28 + m03 * num27) * num;
+		this->_m13 = (m00 * num29 - m02 * num26 + m03 * num25) * num;
+		this->_m23 = -(m00 * num28 - m01 * num26 + m03 * num24) * num;
+		this->_m33 = (m00 * num27 - m01 * num25 + m02 * num24) * num;
+	}
+
+	void Matrix4::InvertRT()
+	{
+		float m00 = this->_m00;
+		float m01 = this->_m01;
+		float m02 = this->_m02;
+		float m10 = this->_m10;
+		float m11 = this->_m11;
+		float m12 = this->_m12;
+		float m20 = this->_m20;
+		float m21 = this->_m21;
+		float m22 = this->_m22;
+
+		float x = this->_m03;
+		float y = this->_m13;
+		float z = this->_m23;
+
+		// Orthonormal basis: transposes the nine upper-left coefficients
+		this->_m00 = m00;
+		this->_m01 = m10;
+		this->_m02 = m20;
+		this->_m10 = m01;
+		this->_m11 = m11;
+		this->_m12 = m21;
+		this->_m20 = m02;
+		this->_m21 = m12;
+		this->_m22 = m22;
+
+		// Translation: uses transposed nine upper-left coefficients
+		this->_m03 = -(m00 * x + m10 * y + m20 * z);
+		this->_m13 = -(m01 * x + m11 * y + m21 * z);
+		this->_m23 = -(m02 * x + m12 * y + m22 * z);
+
+		// Last line
+		this->_m30 = this->_m31 = this->_m32 = 0.0f;
+		this->_m33 = 1.0f;
 	}
 
 	Matrix4 Matrix4::CreateTranslation(Vector3 translation)
