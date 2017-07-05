@@ -91,8 +91,31 @@ namespace GLEngine
 				// Give the texture units to the shader uniforms.
 				envmapLightShader->GetUniform("geometryGTexture")->SetValue(0);
 				envmapLightShader->GetUniform("diffuseGTexture")->SetValue(1);
-				//envmapLightShader->GetUniform("specularRoughnessGTexture")->SetValue(2);
+				envmapLightShader->GetUniform("specularRoughnessGTexture")->SetValue(2);
 				//envmapLightShader->GetUniform("emissiveGTexture")->SetValue(3);
+				if (sky != nullptr)
+				{
+					Texture2D* skyTexture = sky->GetTexture();
+					if (skyTexture != nullptr)
+					{
+						glActiveTexture(GL_TEXTURE4);
+						glBindTexture(GL_TEXTURE_2D, skyTexture->GetId());
+						envmapLightShader->GetUniform("envmap")->SetValue(4);
+					}
+				}
+
+				// Set the inverse of the view.
+				Matrix4 iView = Matrix4();
+				iView.CopyFromMatrix4(sceneManager->GetCurrentCamera()->GetView());
+				iView.InvertRT();
+				envmapLightShader->GetUniform("iView")->SetValue(&iView);
+				//envmapLightShader->GetUniform("cameraWorlPosition")->SetValue(&iView.Position());
+
+				// Set the inverse of the projection.
+				Matrix4 iProjection = Matrix4();
+				iProjection.CopyFromMatrix4(sceneManager->GetCurrentCamera()->GetProjection());
+				iProjection.Invert();
+				envmapLightShader->GetUniform("iProjection")->SetValue(&iProjection);
 
 				// Draw the envmap light quad covering the screen.
 				glDrawElements(GL_TRIANGLES, graphicsResourceManager->GetScreenVAO()->GetElementsCount(), GL_UNSIGNED_INT, 0);

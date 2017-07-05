@@ -7,13 +7,17 @@ layout (location = 2) in vec3 normal;
 out vec3 vertexColor;
 out vec2 texCoordinates;
 out vec3 worldNormal;
+out float viewDepth;
 
 uniform mat4 world, view, projection;
 
 void main()
 {
+	vec4 viewPosition = view * world * vec4(position, 1.0);
+
 	vertexColor = vec3(1, 1, 1);
 	texCoordinates = uvCoordinates;
 	worldNormal = (world * vec4(normal, 0)).xyz;
-    gl_Position = projection * view * world * vec4(position, 1.0);
+	viewDepth = -viewPosition.z;
+    gl_Position = projection * viewPosition;
 }

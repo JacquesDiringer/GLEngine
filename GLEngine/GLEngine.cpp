@@ -40,7 +40,7 @@ Vector3 _globalTargetPosition = Vector3(0, 1, 0);
 
 float _globalAcceleration = 0.01f;
 float _globalFriction = 0.1f;
-float _sphereRadius = 10.0f;
+float _sphereRadius = 3.0f;
 float _thetaSpeed = 0, _phiSpeed = 0;
 float _theta = 0, _phi = 0;
 
@@ -186,7 +186,7 @@ int main()
 	OBJLoader* testLoader = new OBJLoader();
 
 	// Suzanne resource.
-	//OBJMesh* testModel = (OBJMesh*)testLoader->LoadModel("C:/Users/Jacques/Documents/GLEngineMedia/suzanne_sharp.obj");
+	//OBJMesh* testMesh = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/suzanne_sharp.obj");
 	OBJMesh* testMesh = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/suzanne_smooth.obj");
 	testMesh->InitializeVao();
 	Model* testModel = new Model(testMesh);
@@ -211,7 +211,7 @@ int main()
 	skyNode->AddSubElement(envmapTest);
 
 	SceneNode* rotationNode = sceneManager->GetRootNode()->CreateChild();
-	rotationNode->AddSubElement(new Model(testModel1));
+	//rotationNode->AddSubElement(new Model(testModel1));
 
 	SpinnerActor* testSpinner0 = new SpinnerActor(&Matrix4::CreateRotationY(-0.5f));
 	//rotationNode->AddSubElement(testSpinner0);

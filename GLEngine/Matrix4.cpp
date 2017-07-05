@@ -26,7 +26,7 @@ namespace Math
 	{
 	}
 
-	void Matrix4::CopyFromMatrix4(Matrix4 * other)
+	void Matrix4::CopyFromMatrix4(const Matrix4 * other)
 	{
 		_m00 = other->_m00;
 		_m01 = other->_m01;
@@ -110,7 +110,7 @@ namespace Math
 		return Matrix4::Multiply(a, Matrix4::CreateTranslation(position)).Position();
 	}
 
-	Matrix4 Matrix4::Transpose()
+	void Matrix4::Transpose()
 	{
 		float m00 = this->_m00;
 		float m01 = this->_m01;

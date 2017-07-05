@@ -12,7 +12,7 @@ namespace GLEngine
 		virtual ~GraphicsResourceManager();
 
 		TextureManager* GetTextureManager() { return _textureManager; }
-		ShaderProgram* GetLambertianShader();
+		ShaderProgram* GetModelPBRShader();
 		ShaderProgram* GetLambertianInstancedShader();
 		ShaderProgram* GetEnvmapShader();
 		ShaderProgram* GetEnvmapLightShader();
@@ -22,7 +22,7 @@ namespace GLEngine
 
 	private:
 		TextureManager* _textureManager;
-		ShaderProgram* _lambertianShader = nullptr;
+		ShaderProgram* _modelPBRShader = nullptr;
 		ShaderProgram* _lambertianInstancedShader = nullptr;
 		ShaderProgram* _envmapShader = nullptr;
 		ShaderProgram* _envmapLightShader = nullptr;

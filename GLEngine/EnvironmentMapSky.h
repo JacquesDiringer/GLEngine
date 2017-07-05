@@ -21,8 +21,10 @@ namespace GLEngine
 
 		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager);
 
+		Texture2D* GetTexture() { return _environmentMap; }
+
 	private:
 		Mesh* _sphereMesh;
-		Texture2D* _environmentMap;
+		Texture2D* _environmentMap = nullptr;
 	};
 }

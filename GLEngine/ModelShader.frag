@@ -3,6 +3,7 @@
 in vec3 vertexColor;
 in vec2 texCoordinates;
 in vec3 worldNormal;
+in float viewDepth;
 
 layout(location = 0) out vec4 geometryGTexture;
 layout(location = 1) out vec3 diffuseGTexture;
@@ -16,8 +17,11 @@ uniform sampler2D roughnessTexture;
 
 void main()
 {
-	geometryGTexture = vec4(worldNormal, 1.0f);
-	diffuseGTexture = vec3(1, 1, 1);
-	specularRoughnessGTexture = vec4(0, 0, 0, 0);
+	vec2 newCoords = vec2(texCoordinates.x, 1 - texCoordinates.y);
+
+	geometryGTexture = vec4(worldNormal, viewDepth);
+	diffuseGTexture = texture(diffuseTexture, newCoords).rgb;
+	specularRoughnessGTexture.rgb = texture(specularTexture, newCoords).rgb;
+	specularRoughnessGTexture.a = texture(roughnessTexture, newCoords).r;
     emissiveGTexture = vec3(0, 0, 0);
 } 

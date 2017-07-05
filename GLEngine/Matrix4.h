@@ -14,7 +14,7 @@ namespace Math
 		Matrix4(Vector3 position);
 		~Matrix4();
 		
-		void CopyFromMatrix4(Matrix4* other);
+		void CopyFromMatrix4(const Matrix4* other);
 
 		static Matrix4 Identity();
 		static Matrix4 Multiply(Matrix4 a, Matrix4 b);

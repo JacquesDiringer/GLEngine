@@ -52,7 +52,30 @@ namespace GLEngine
 		if (_type == GL_FLOAT)
 		{
 			glUniform1f(_location, floatingValue);
+		}
+		else
+		{
+			Exception();
+		}
+	}
 
+	void Uniform::SetValue(const Vector2 * vector)
+	{
+		if (_type == GL_FLOAT_VEC2)
+		{
+			glUniform2f(_location, vector->X(), vector->Y());
+		}
+		else
+		{
+			Exception();
+		}
+	}
+
+	void Uniform::SetValue(const Vector3 * vector)
+	{
+		if (_type == GL_FLOAT_VEC3)
+		{
+			glUniform3f(_location, vector->X(), vector->Y(), vector->Z());
 		}
 		else
 		{

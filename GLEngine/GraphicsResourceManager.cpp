@@ -14,14 +14,14 @@ namespace GLEngine
 	{
 	}
 
-	ShaderProgram * GraphicsResourceManager::GetLambertianShader()
+	ShaderProgram * GraphicsResourceManager::GetModelPBRShader()
 	{
-		if (_lambertianShader == nullptr)
+		if (_modelPBRShader == nullptr)
 		{
-			_lambertianShader = new ShaderProgram("VertexShader.vert", "ModelShader.frag");
+			_modelPBRShader = new ShaderProgram("VertexShader.vert", "ModelShader.frag");
 		}
 
-		return _lambertianShader;
+		return _modelPBRShader;
 	}
 
 	ShaderProgram * GraphicsResourceManager::GetLambertianInstancedShader()
