@@ -58,9 +58,9 @@ namespace GLEngine
 			modelShader->GetUniform("diffuseTexture")->SetValue(diffuseTexture->GetBoundUnit());
 
 			//Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/black_white_checker.jpg");
-			Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/concreteWallTile.jpg");
+			//Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/concreteWallTile.jpg");
 			//Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/rougnessPlastic.jpg");
-			//Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/suzanne_paint.png");
+			Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/suzanne_paint_rougness.png");
 			//Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/grunge-texture03_black_white.jpg");
 			textureManager->AssignTextureToUnit(roughnessTexture);
 			modelShader->GetUniform("roughnessTexture")->SetValue(roughnessTexture->GetBoundUnit());

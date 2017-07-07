@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <string>
+#define _USE_MATH_DEFINES
 #include <math.h>
 #include <cstdlib>
 
@@ -142,18 +143,21 @@ void MoveCamera()
 
 Texture2D* ConvoluteEnvironmentMap(Texture2D* environmentMap, GraphicsResourceManager* graphicsResourceManager, float width, float height)
 {
+	int convolutedWidth = 512;
+	int convolutedHeight = 256;
+
 	// Image processing frame buffer.
 	GLuint imageProcessFrameBuffer;
 	glGenFramebuffers(1, &imageProcessFrameBuffer);
 	glBindFramebuffer(GL_FRAMEBUFFER, imageProcessFrameBuffer);
 
-	glViewport(0, 0, environmentMap->GetWidth(), environmentMap->GetHeight());
+	glViewport(0, 0, convolutedWidth, convolutedHeight);
 
 	// This texture will hold the convoluted environment map.
 	GLuint convolutedEnvmap;
 	glGenTextures(1, &convolutedEnvmap);
 	glBindTexture(GL_TEXTURE_2D, convolutedEnvmap);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, environmentMap->GetWidth(), environmentMap->GetHeight(), 0, GL_RGB, GL_FLOAT, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, convolutedWidth, convolutedHeight, 0, GL_RGB, GL_FLOAT, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	// Link the texture to the framebuffer color attachment 0.
@@ -183,19 +187,23 @@ Texture2D* ConvoluteEnvironmentMap(Texture2D* environmentMap, GraphicsResourceMa
 	// Fetch vector in the envmap.
 	Vector3* currentFetchVector = new Vector3();
 
-	int samplesNumber = 200;
+	int samplesNumber = 5000;
 
 	// Bind the screen VAO.
 	VertexArrayObject* screenVAO = graphicsResourceManager->GetScreenVAO();
 	screenVAO->Bind();
 	{
-		for (float integrationAngle = 1; integrationAngle > 0; integrationAngle--)
+		//for (float integrationAngle = (float)M_PI_2 * 0.05f; integrationAngle > 0; integrationAngle--)
 		{
+			float integrationAngle = (float)M_PI_2 * 0.1f;
+
 			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			convolutionShader->GetUniform("integrationAngle")->SetValue(integrationAngle);
-			convolutionShader->GetUniform("divisor")->SetValue(4/(float)samplesNumber);
+			//convolutionShader->GetUniform("integrationAngle")->SetValue(integrationAngle);
+			float integrationSolidAngleOverSphereSolidAngle = (float)(0.5 * (1 - cos(integrationAngle)));
+			convolutionShader->GetUniform("divisor")->SetValue(3/((float)samplesNumber * integrationSolidAngleOverSphereSolidAngle));
 
 			for (int fetchIndex = 0; fetchIndex < samplesNumber; fetchIndex++)
 			{
@@ -308,7 +316,7 @@ int main()
 	OBJMesh* sphereMesh = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/sphere_UVs.obj");
 	sphereMesh->InitializeVao();
 
-	Texture2D* texEnvmapTest = textureManager->GetTexture("C:/Utils/GLEngineMedia/test_envmap2.png");
+	Texture2D* texEnvmapTest = textureManager->GetTexture("C:/Utils/GLEngineMedia/parking_lot_2k.jpg");
 	EnvironmentMapSky* envmapTest = new EnvironmentMapSky(sphereMesh, texEnvmapTest);
 
 	// Scene setting

@@ -29,17 +29,16 @@ void main()
 
 	// Specular and roughness fetch.
 	vec4 specularRoughness = texture(specularRoughnessGTexture, texCoordinates);
-	float roughness = 0.000001f * specularRoughness.a;
+	float roughness = specularRoughness.a;
 
 	// Envmap fetch.
 	// A linear interpolation between the reflexion direction (for 0 roughness materials) and the normal direction (for 1 roughness materials).
-	vec3 envmapFetchDirection = mix(reflect(normalize(cameraWorldRay), normal), normal, roughness + 1);
+	vec3 envmapFetchDirection = normalize(mix(reflect(normalize(cameraWorldRay), normal), normal, roughness + 0));
+
 	float theta = -atan(envmapFetchDirection.x, envmapFetchDirection.z) * INVPI * 0.5f;
 	float phi = - asin(envmapFetchDirection.y) * INVPI + 0.5f;
 
-    //vec3 envmapSample = textureGrad(envmap, vec2(theta, phi), dFdx(abs(vec2(theta, phi)) * (1 + roughness)), dFdy(abs(vec2(theta, phi)) * (1 + roughness))).rgb;
     vec3 envmapSample = textureGrad(envmap, vec2(theta, phi), dFdx(abs(vec2(theta, phi))), dFdy(abs(vec2(theta, phi)))).rgb;
-    //vec3 envmapSample = texture(envmap, vec2(theta, phi)).rgb;
 
 	vec3 finalColor = diffuseTexel * envmapSample;
 

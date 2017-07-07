@@ -39,6 +39,14 @@ void main()
 
 	vec3 envmapSample = textureLod(envmap, vec2(theta, phi), 0).xyz;
 
-	float contribution = max(0, dot(currentPixelDirection, currentFetchVector) -1 + integrationAngle);
+	// Compute final fetch contribution, according to the cos theta of the two vector, as well as the 
+	float cosVectorsAngle = dot(currentPixelDirection, currentFetchVector);
+
+	// The vector angle is set at maximum to the integrationAngle, to avoid circle loops when rescaling to adapt the cos to the integration angle.
+	float vectorsAngle = min(acos(cosVectorsAngle), integrationAngle);
+
+	// Rescale of the vectorsAngle, to fit in the integrationAngle while still having a nice cosinus behaviour.
+	float contribution = max(0, cos(vectorsAngle * PI * 0.5f / integrationAngle));
+
 	color.xyz += envmapSample * contribution * divisor;
 }
