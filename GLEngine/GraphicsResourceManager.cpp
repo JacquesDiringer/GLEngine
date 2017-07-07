@@ -64,6 +64,16 @@ namespace GLEngine
 		return _pbrCombinerShader;
 	}
 
+	ShaderProgram * GraphicsResourceManager::GetEnvmapConvolutionShader()
+	{
+		if (_envmapConvolutionShader == nullptr)
+		{
+			_envmapConvolutionShader = new ShaderProgram("ScreenSpace.vert", "EnvironmentMapConvolution.frag");
+		}
+
+		return _envmapConvolutionShader;
+	}
+
 	VertexArrayObject * GraphicsResourceManager::GetScreenVAO()
 	{
 		if (_screenVAO == nullptr)

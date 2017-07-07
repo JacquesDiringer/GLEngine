@@ -12,7 +12,7 @@ namespace GLEngine
 
 		// And set the vector size accordingly.
 		_textureUnits = vector<Texture2D*>();
-		for (unsigned int unitIndex = 0; unitIndex < _maxTextureUnits; unitIndex++)
+		for (int unitIndex = 0; unitIndex < _maxTextureUnits; unitIndex++)
 		{
 			_textureUnits.push_back(NULL);
 		}
@@ -49,7 +49,7 @@ namespace GLEngine
 		GLuint assignedUnit = -1;
 
 		// Try to find a unit where the texture is already assigned.
-		for (GLuint unitId = 0; unitId < _maxTextureUnits; unitId++)
+		for (GLint unitId = 0; unitId < _maxTextureUnits; unitId++)
 		{
 			if (_textureUnits[unitId] != NULL && *_textureUnits[unitId] == *texture)
 			{
@@ -59,12 +59,12 @@ namespace GLEngine
 		}
 
 		// Try to find a non assigned unit in the units vector.
-		for (GLuint unitId = 0; unitId < _maxTextureUnits; unitId++)
+		for (GLint unitId = 0; unitId < _maxTextureUnits; unitId++)
 		{
 			if (_textureUnits[unitId] == NULL)
 			{
 				// Actually bind the texture to the unit.
-				texture->BindToUnit((GLint)unitId);
+				texture->BindToUnit(unitId);
 
 				// Store the texture in the unit slot.
 				_textureUnits[unitId] = texture;
@@ -77,7 +77,7 @@ namespace GLEngine
 
 	const void TextureManager::FreeUnits()
 	{
-		for (GLuint unitId = 0; unitId < _maxTextureUnits; unitId++)
+		for (GLint unitId = 0; unitId < _maxTextureUnits; unitId++)
 		{
 			// If this unit is bound to a texture.
 			if (_textureUnits[unitId] != NULL)

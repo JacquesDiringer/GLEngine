@@ -18,6 +18,8 @@ namespace GLEngine
 		ShaderProgram* GetEnvmapLightShader();
 		ShaderProgram* GetPbrCombinerShader();
 
+		ShaderProgram* GetEnvmapConvolutionShader();
+
 		VertexArrayObject* GetScreenVAO();
 
 	private:
@@ -27,6 +29,8 @@ namespace GLEngine
 		ShaderProgram* _envmapShader = nullptr;
 		ShaderProgram* _envmapLightShader = nullptr;
 		ShaderProgram* _pbrCombinerShader = nullptr;
+
+		ShaderProgram* _envmapConvolutionShader = nullptr;
 
 		VertexArrayObject* _screenVAO = nullptr;
 	};

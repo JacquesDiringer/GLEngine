@@ -18,7 +18,7 @@ void main()
 {
 	vec3 worldNormal = normalize(worldNormal);
 
-	float theta = atan(worldNormal.x, worldNormal.z) * INVPI * 0.5f;
+	float theta = -atan(worldNormal.x, worldNormal.z) * INVPI * 0.5f;
 	float phi = - asin(worldNormal.y) * INVPI + 0.5f;
 
     vec3 finalColor = textureGrad(envmap, vec2(theta, phi), dFdx(abs(vec2(theta, phi))), dFdy(abs(vec2(theta, phi)))).rgb;

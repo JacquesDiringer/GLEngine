@@ -79,6 +79,9 @@
     <Filter Include="Resource Files\Shaders\DeferredShading\Combiner">
       <UniqueIdentifier>{ecbe8f81-738b-4efa-859f-886588cd9436}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Shaders\ImageProcessing">
+      <UniqueIdentifier>{8f5d2557-58ff-446d-8327-758ce64ec771}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -96,6 +99,9 @@
     </Text>
     <Text Include="ModelShader.frag">
       <Filter>Resource Files\Shaders\DeferredShading\GBuffer</Filter>
+    </Text>
+    <Text Include="EnvironmentMapConvolution.frag">
+      <Filter>Resource Files\Shaders\ImageProcessing</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>

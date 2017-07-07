@@ -22,7 +22,7 @@ namespace GLEngine
 
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 		// Generate mip maps.
 		glGenerateMipmap(GL_TEXTURE_2D);
@@ -35,6 +35,16 @@ namespace GLEngine
 
 		_id = texture;
 		_path = path;
+
+		_width = imageWidth;
+		_height = imageHeight;
+	}
+
+	Texture2D::Texture2D(GLuint id, int width, int height)
+		: _id(id), _width(width), _height(height)
+	{
+		_boundUnit = -1;
+		_path = "";
 	}
 
 	Texture2D::~Texture2D()

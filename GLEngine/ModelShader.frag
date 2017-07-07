@@ -20,7 +20,7 @@ void main()
 	vec2 newCoords = vec2(texCoordinates.x, 1 - texCoordinates.y);
 
 	geometryGTexture = vec4(worldNormal, viewDepth);
-	diffuseGTexture = texture(diffuseTexture, newCoords).rgb;
+	diffuseGTexture = texture(diffuseTexture, newCoords).rgb + vec3(1);
 	specularRoughnessGTexture.rgb = texture(specularTexture, newCoords).rgb;
 	specularRoughnessGTexture.a = texture(roughnessTexture, newCoords).r;
     emissiveGTexture = vec3(0, 0, 0);

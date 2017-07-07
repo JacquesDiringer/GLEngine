@@ -99,7 +99,8 @@ namespace GLEngine
 					if (skyTexture != nullptr)
 					{
 						glActiveTexture(GL_TEXTURE4);
-						glBindTexture(GL_TEXTURE_2D, skyTexture->GetId());
+						//glBindTexture(GL_TEXTURE_2D, skyTexture->GetId());
+						glBindTexture(GL_TEXTURE_2D, _iblTexture->GetId());
 						envmapLightShader->GetUniform("envmap")->SetValue(4);
 					}
 				}

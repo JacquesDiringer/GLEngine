@@ -5,7 +5,6 @@
 #include "Mesh.h"
 #include "ShaderProgram.h"
 #include "Texture2D.h"
-#include "TextureManager.h"
 #include "SceneManager.h"
 
 namespace GLEngine
@@ -14,7 +13,7 @@ namespace GLEngine
 		public Renderable, public SceneElement
 	{
 	public:
-		EnvironmentMapSky(Mesh* sphereMesh, string envMapPath, TextureManager* textureManager);
+		EnvironmentMapSky(Mesh* sphereMesh, Texture2D* environmentMap);
 		~EnvironmentMapSky();
 
 		virtual void Accept(SceneElementVisitor* visitor);

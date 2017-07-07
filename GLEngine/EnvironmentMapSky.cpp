@@ -9,10 +9,9 @@
 
 namespace GLEngine
 {
-	EnvironmentMapSky::EnvironmentMapSky(Mesh* sphereMesh, string envMapPath, TextureManager* textureManager)
-		: Renderable(), _sphereMesh(sphereMesh)
+	EnvironmentMapSky::EnvironmentMapSky(Mesh* sphereMesh, Texture2D* environmentMap)
+		: Renderable(), _sphereMesh(sphereMesh), _environmentMap(environmentMap)
 	{
-		_environmentMap = textureManager->GetTexture(envMapPath);
 	}
 
 
