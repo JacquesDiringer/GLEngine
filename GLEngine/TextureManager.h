@@ -8,6 +8,7 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 
+#include "Texture.h"
 #include "Texture2D.h"
 
 using std::string;
@@ -34,8 +35,9 @@ namespace GLEngine
 		const void FreeUnits();
 
 	private:
-		map<string, Texture2D*> _textureLibrary;
-		vector <Texture2D*> _textureUnits;
+		// Textures2D are the only ones that are loaded from disk, therefore the only ones we are keeping a track of for performance purposes.
+		map<string, Texture2D*> _loadedTexture2DLibrary;
+		vector <Texture*> _textureUnits;
 		GLint _maxTextureUnits;
 	};
 }

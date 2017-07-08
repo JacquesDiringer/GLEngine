@@ -14,8 +14,8 @@ uniform sampler2D diffuseGTexture;
 uniform sampler2D specularRoughnessGTexture;
 uniform sampler2D emissiveGTexture;
 
-// Environment map
-uniform sampler2D envmap;
+// Image based lighting map.
+uniform sampler3D iblMap;
 
 void main()
 {
@@ -33,12 +33,14 @@ void main()
 
 	// Envmap fetch.
 	// A linear interpolation between the reflexion direction (for 0 roughness materials) and the normal direction (for 1 roughness materials).
-	vec3 envmapFetchDirection = normalize(mix(reflect(normalize(cameraWorldRay), normal), normal, roughness + 0));
+	vec3 envmapFetchDirection = normalize(mix(reflect(normalize(cameraWorldRay), normal), normal, roughness));
 
-	float theta = -atan(envmapFetchDirection.x, envmapFetchDirection.z) * INVPI * 0.5f;
-	float phi = - asin(envmapFetchDirection.y) * INVPI + 0.5f;
+	float theta = 0.5f - atan(envmapFetchDirection.x, envmapFetchDirection.z) * INVPI * 0.5f;
+	float phi = 0.5f + asin(envmapFetchDirection.y) * INVPI;
 
-    vec3 envmapSample = textureGrad(envmap, vec2(theta, phi), dFdx(abs(vec2(theta, phi))), dFdy(abs(vec2(theta, phi)))).rgb;
+	vec3 fetchCoordinates = vec3(theta, phi, roughness);
+
+    vec3 envmapSample = textureGrad(iblMap, fetchCoordinates, dFdx(abs(fetchCoordinates)), dFdy(abs(fetchCoordinates))).rgb;
 
 	vec3 finalColor = diffuseTexel * envmapSample;
 

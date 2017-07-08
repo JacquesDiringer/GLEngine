@@ -5,13 +5,13 @@ namespace GLEngine
 {
 	TextureManager::TextureManager()
 	{
-		_textureLibrary = map<string, Texture2D*>();
+		_loadedTexture2DLibrary = map<string, Texture2D*>();
 
 		// Get the maximum possible numbre of texture units made available by the hardware.
 		glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &_maxTextureUnits);
 
 		// And set the vector size accordingly.
-		_textureUnits = vector<Texture2D*>();
+		_textureUnits = vector<Texture*>();
 		for (int unitIndex = 0; unitIndex < _maxTextureUnits; unitIndex++)
 		{
 			_textureUnits.push_back(NULL);
@@ -24,10 +24,10 @@ namespace GLEngine
 
 	Texture2D * TextureManager::GetTexture(const string texPath)
 	{
-		map<string, Texture2D*>::iterator findIterator = _textureLibrary.find(texPath);
+		map<string, Texture2D*>::iterator findIterator = _loadedTexture2DLibrary.find(texPath);
 
 		// If the texture has already been loaded.
-		if (findIterator != _textureLibrary.end())
+		if (findIterator != _loadedTexture2DLibrary.end())
 		{
 			return (*findIterator).second;
 		}
@@ -37,7 +37,7 @@ namespace GLEngine
 			Texture2D* result = new Texture2D(texPath);
 
 			// Store it in the dictionary.
-			_textureLibrary.insert(std::pair<string, Texture2D*>(texPath, result));
+			_loadedTexture2DLibrary.insert(std::pair<string, Texture2D*>(texPath, result));
 
 			// Return it.
 			return result;

@@ -15,14 +15,16 @@ namespace GLEngine
 			throw new std::invalid_argument("Invalid image path.");
 		}
 
-		GLuint texture;
-		glGenTextures(1, &texture);
+		glGenTextures(1, &_id);
 
-		glBindTexture(GL_TEXTURE_2D, texture);
+		glBindTexture(GL_TEXTURE_2D, _id);
 
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 
 		// Generate mip maps.
 		glGenerateMipmap(GL_TEXTURE_2D);
@@ -33,7 +35,6 @@ namespace GLEngine
 		// Free SOIL memory
 		SOIL_free_image_data(image);
 
-		_id = texture;
 		_path = path;
 
 		_width = imageWidth;
@@ -41,14 +42,16 @@ namespace GLEngine
 	}
 
 	Texture2D::Texture2D(GLuint id, int width, int height)
-		: _id(id), _width(width), _height(height)
+		: _width(width), _height(height)
 	{
+		_id = id;
 		_boundUnit = -1;
 		_path = "";
 	}
 
 	Texture2D::~Texture2D()
 	{
+		glDeleteTextures(1, &_id);
 	}
 
 	const void Texture2D::BindToUnit(const GLint unit)

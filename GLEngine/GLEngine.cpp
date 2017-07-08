@@ -26,6 +26,7 @@
 #include "SpinnerActor.h"
 #include "RenderManager.h"
 #include "EnvironmentMapSky.h"
+#include "Texture3D.h"
 
 // Maths
 #include "Matrix4.h"
@@ -141,69 +142,72 @@ void MoveCamera()
 	//_globalTargetPosition.X(cos(glfwGetTime() * 5.0));
 }
 
-Texture2D* ConvoluteEnvironmentMap(Texture2D* environmentMap, GraphicsResourceManager* graphicsResourceManager, float width, float height)
+Texture3D* ConvoluteEnvironmentMap(Texture2D* environmentMap, GraphicsResourceManager* graphicsResourceManager, float width, float height)
 {
 	int convolutedWidth = 512;
 	int convolutedHeight = 256;
+
+	list<Texture2D*> textures2DToAggregate = list<Texture2D*>();
 
 	// Image processing frame buffer.
 	GLuint imageProcessFrameBuffer;
 	glGenFramebuffers(1, &imageProcessFrameBuffer);
 	glBindFramebuffer(GL_FRAMEBUFFER, imageProcessFrameBuffer);
 
-	glViewport(0, 0, convolutedWidth, convolutedHeight);
-
-	// This texture will hold the convoluted environment map.
-	GLuint convolutedEnvmap;
-	glGenTextures(1, &convolutedEnvmap);
-	glBindTexture(GL_TEXTURE_2D, convolutedEnvmap);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, convolutedWidth, convolutedHeight, 0, GL_RGB, GL_FLOAT, NULL);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// Link the texture to the framebuffer color attachment 0.
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, convolutedEnvmap, 0);
-
 	// Enable drawing in the lighting texture.
 	glDrawBuffer(GL_COLOR_ATTACHMENT0);
 
-	// Check if the frame buffer is complete.
-	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-	{
-		throw new std::exception("Convolution frame buffer incomplete.");
-	}
-
-	// Activate the convolution shader.
-	ShaderProgram* convolutionShader = graphicsResourceManager->GetEnvmapConvolutionShader();
-	convolutionShader->Use();
+	// Set the viewport size to the generated 2D texture size.
+	glViewport(0, 0, convolutedWidth, convolutedHeight);
 
 	// Set the blending mode to accumulate each new render.
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_ONE, GL_ONE);
 
-	// Set the environment map texture.
-	graphicsResourceManager->GetTextureManager()->AssignTextureToUnit(environmentMap);
-	convolutionShader->GetUniform("envmap")->SetValue((GLuint)environmentMap->GetBoundUnit());
+	// Activate the convolution shader.
+	ShaderProgram* convolutionShader = graphicsResourceManager->GetEnvmapConvolutionShader();
+	convolutionShader->Use();
 
 	// Fetch vector in the envmap.
 	Vector3* currentFetchVector = new Vector3();
 
-	int samplesNumber = 5000;
+	int samplesNumber = 1000;
 
 	// Bind the screen VAO.
 	VertexArrayObject* screenVAO = graphicsResourceManager->GetScreenVAO();
 	screenVAO->Bind();
 	{
-		//for (float integrationAngle = (float)M_PI_2 * 0.05f; integrationAngle > 0; integrationAngle--)
+		for (float integrationAngle = (float)M_PI_2; integrationAngle > 0.0001f; integrationAngle-= 0.2f * M_PI_2)
 		{
-			float integrationAngle = (float)M_PI_2 * 0.1f;
+			// This texture will hold the convoluted environment map for the current integration angle.
+			GLuint convolutedEnvmap;
+			glGenTextures(1, &convolutedEnvmap);
+			glBindTexture(GL_TEXTURE_2D, convolutedEnvmap);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, convolutedWidth, convolutedHeight, 0, GL_RGB, GL_FLOAT, NULL);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			// Link the texture to the framebuffer color attachment 0.
+			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, convolutedEnvmap, 0);
 
+			// Check if the frame buffer is complete.
+			if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+			{
+				throw new std::exception("Convolution frame buffer incomplete.");
+			}
+
+			// Clear the frame buffer to render to.
 			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			convolutionShader->GetUniform("integrationAngle")->SetValue(integrationAngle);
-			//convolutionShader->GetUniform("integrationAngle")->SetValue(integrationAngle);
+
+			// Set the divisor that will allow to integrate properly respecting the number of samples and the integration angle.
 			float integrationSolidAngleOverSphereSolidAngle = (float)(0.5 * (1 - cos(integrationAngle)));
 			convolutionShader->GetUniform("divisor")->SetValue(3/((float)samplesNumber * integrationSolidAngleOverSphereSolidAngle));
+
+			// Set the environment map texture.
+			graphicsResourceManager->GetTextureManager()->AssignTextureToUnit(environmentMap);
+			convolutionShader->GetUniform("envmap")->SetValue((GLuint)environmentMap->GetBoundUnit());
 
 			for (int fetchIndex = 0; fetchIndex < samplesNumber; fetchIndex++)
 			{
@@ -218,7 +222,10 @@ Texture2D* ConvoluteEnvironmentMap(Texture2D* environmentMap, GraphicsResourceMa
 				glDrawElements(GL_TRIANGLES, screenVAO->GetElementsCount(), GL_UNSIGNED_INT, 0);
 			}
 
-			//glGenerateMipmap(GL_TEXTURE_2D);
+			// Free texture units from the environment map.
+			graphicsResourceManager->GetTextureManager()->FreeUnits();
+
+			textures2DToAggregate.push_front(new Texture2D(convolutedEnvmap, convolutedWidth, convolutedHeight));
 		}
 	}
 	screenVAO->UnBind();
@@ -230,29 +237,19 @@ Texture2D* ConvoluteEnvironmentMap(Texture2D* environmentMap, GraphicsResourceMa
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glDeleteFramebuffers(1, &imageProcessFrameBuffer);
 
+	// Reset the original rendering viewport.
 	glViewport(0, 0, width, height);
 
-	// Free texture units from the environment map.
-	graphicsResourceManager->GetTextureManager()->FreeUnits();
+	Texture3D* result = new Texture3D(textures2DToAggregate);
 
-	//// Test giving this texture to a the combine shader
-	//ShaderProgram* combiner = graphicsResourceManager->GetPbrCombinerShader();
-	//combiner->Use();
+	// Free temporary 2D textures id's.
+	for each (Texture2D* currentTextureToFree in textures2DToAggregate)
+	{
+		delete(currentTextureToFree);
+	}
+	textures2DToAggregate.clear();
 
-	//glActiveTexture(GL_TEXTURE0);
-	//glBindTexture(GL_TEXTURE_2D, convolutedEnvmap);
-	//combiner->GetUniform("emissiveGTexture")->SetValue(0);
-
-	//glClearColor(0.3f, 0.0f, 0.0f, 1.0f);
-	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	//screenVAO->Bind();
-	//glDrawElements(GL_TRIANGLES, screenVAO->GetElementsCount(), GL_UNSIGNED_INT, 0);
-	//screenVAO->UnBind();
-
-	//graphicsResourceManager->GetTextureManager()->FreeUnits();
-
-	return new Texture2D(convolutedEnvmap, environmentMap->GetWidth(), environmentMap->GetHeight());
+	return result;
 }
 
 int main()
@@ -358,7 +355,7 @@ int main()
 	GraphicsResourceManager* graphicsResourceManager = new GraphicsResourceManager(textureManager);
 
 	// Image based lighting.
-	Texture2D* iblTexture = ConvoluteEnvironmentMap(texEnvmapTest, graphicsResourceManager, width, height);
+	Texture3D* iblTexture = ConvoluteEnvironmentMap(texEnvmapTest, graphicsResourceManager, width, height);
 	renderManager->SetIblTexture(iblTexture);
 
 	// Game loop

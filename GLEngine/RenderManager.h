@@ -4,6 +4,7 @@
 #include "RenderableCollectorVisitor.h"
 #include "NoAlphaRenderQueue.h"
 #include "SkyRenderQueue.h"
+#include "Texture3D.h"
 
 namespace GLEngine
 {
@@ -15,7 +16,7 @@ namespace GLEngine
 
 		void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager);
 
-		void SetIblTexture(Texture2D* iblTexture) { _iblTexture = iblTexture; }
+		void SetIblTexture(Texture3D* iblTexture) { _iblTexture = iblTexture; }
 
 	private:
 		int _viewportWidth, _viewportHeight;
@@ -34,7 +35,7 @@ namespace GLEngine
 		// Lighting texture id.
 		GLuint _lightingTexture;
 
-		Texture2D* _iblTexture;
+		Texture3D* _iblTexture;
 
 		// Intializes buffers for deferred rendering.
 		void InitializeFrameBuffers();

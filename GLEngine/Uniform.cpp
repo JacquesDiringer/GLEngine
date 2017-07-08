@@ -37,7 +37,7 @@ namespace GLEngine
 
 	void Uniform::SetValue(GLint integerValue)
 	{
-		if (_type == GL_INT || _type == GL_SAMPLER_2D)
+		if (_type == GL_INT || _type == GL_SAMPLER_2D || _type == GL_SAMPLER_3D)
 		{
 			glUniform1i(_location, integerValue);
 		}
