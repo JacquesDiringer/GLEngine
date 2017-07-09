@@ -16,12 +16,14 @@ uniform sampler2D envmap;
 
 void main()
 {
-	vec3 worldNormal = normalize(-worldNormal);
+	vec3 worldNormal = normalize(worldNormal);
 
-	float theta = 0.5f - atan(worldNormal.x, worldNormal.z) * INVPI * 0.5f;
-	float phi = 0.5f + asin(worldNormal.y) * INVPI;
+	float phiNormalized = 0.5f - atan(worldNormal.x, worldNormal.z) * INVPI * 0.5f;
+	float thetaNormalized = acos(worldNormal.y) * INVPI;
 
-    vec3 finalColor = textureGrad(envmap, vec2(theta, phi), dFdx(abs(vec2(theta, phi))), dFdy(abs(vec2(theta, phi)))).rgb;
+	vec2 fetchCoordinates = vec2(phiNormalized, thetaNormalized);
+
+    vec3 finalColor = textureGrad(envmap, fetchCoordinates, dFdx(abs(fetchCoordinates)), dFdy(abs(fetchCoordinates))).rgb;
 
 	geometryGTexture = vec4(0, 0, 0, 1);
 	diffuseGTexture = vec3(0, 0, 0);

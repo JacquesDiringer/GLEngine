@@ -35,10 +35,10 @@ void main()
 	// A linear interpolation between the reflexion direction (for 0 roughness materials) and the normal direction (for 1 roughness materials).
 	vec3 envmapFetchDirection = normalize(mix(reflect(normalize(cameraWorldRay), normal), normal, roughness));
 
-	float theta = 0.5f - atan(envmapFetchDirection.x, envmapFetchDirection.z) * INVPI * 0.5f;
-	float phi = 0.5f + asin(envmapFetchDirection.y) * INVPI;
+	float phiNormalized = 0.5f - atan(envmapFetchDirection.x, envmapFetchDirection.z) * INVPI * 0.5f;
+	float thetaNormalized = acos(envmapFetchDirection.y) * INVPI;
 
-	vec3 fetchCoordinates = vec3(theta, phi, roughness);
+	vec3 fetchCoordinates = vec3(phiNormalized, thetaNormalized, roughness);
 
     vec3 envmapSample = textureGrad(iblMap, fetchCoordinates, dFdx(abs(fetchCoordinates)), dFdy(abs(fetchCoordinates))).rgb;
 

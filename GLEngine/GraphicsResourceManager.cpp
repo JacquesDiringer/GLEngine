@@ -74,6 +74,16 @@ namespace GLEngine
 		return _envmapConvolutionShader;
 	}
 
+	ShaderProgram * GraphicsResourceManager::GetTextureDrawShader()
+	{
+		if (_textureDrawShader == nullptr)
+		{
+			_textureDrawShader = new ShaderProgram("ScreenSpace.vert", "DrawTexture.frag");
+		}
+
+		return _textureDrawShader;
+	}
+
 	VertexArrayObject * GraphicsResourceManager::GetScreenVAO()
 	{
 		if (_screenVAO == nullptr)

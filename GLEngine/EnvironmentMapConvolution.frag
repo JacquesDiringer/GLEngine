@@ -25,8 +25,8 @@ void main()
 	color = vec4(0, 0, 0, 1);
 
 	// Compute the direction vector of the current pixel.
-	// Here warpedTexCoords.x is theta, and warpedTexCoords.y is phi.
-	vec2 warpedTexCoords = vec2((texCoordinates.x + 0.25f) * 2.0f * PI, texCoordinates.y * PI);
+	// Here warpedTexCoords.x is phi, and warpedTexCoords.y is theta.
+	vec2 warpedTexCoords = vec2((texCoordinates.x - 0.25f) * 2.0f * PI, texCoordinates.y * PI);
 	float sinTheta = sin(warpedTexCoords.y);
 	vec3 currentPixelDirection;
 	currentPixelDirection.x = cos(warpedTexCoords.x) * sinTheta;
@@ -34,10 +34,10 @@ void main()
 	currentPixelDirection.z = sin(warpedTexCoords.x) * sinTheta;
 
 	// Envmap fetch.
-	float theta = 0.5f - atan(currentFetchVector.x, currentFetchVector.z) * INVPI * 0.5f;
-	float phi = 0.5f + asin(currentFetchVector.y) * INVPI;
+	float phiNormalized = 0.5f - atan(currentFetchVector.x, currentFetchVector.z) * INVPI * 0.5f;
+	float thetaNormalized = acos(currentFetchVector.y) * INVPI;
 
-	vec3 envmapSample = textureLod(envmap, vec2(theta, phi), 0).xyz;
+	vec3 envmapSample = textureLod(envmap, vec2(phiNormalized, thetaNormalized), 0).xyz;
 
 	// Compute final fetch contribution, according to the cos theta of the two vector, as well as the 
 	float cosVectorsAngle = dot(currentPixelDirection, currentFetchVector);

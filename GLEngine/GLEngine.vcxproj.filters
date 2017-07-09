@@ -103,6 +103,9 @@
     <Text Include="EnvironmentMapConvolution.frag">
       <Filter>Resource Files\Shaders\ImageProcessing</Filter>
     </Text>
+    <Text Include="DrawTexture.frag">
+      <Filter>Resource Files\Shaders\Common</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">

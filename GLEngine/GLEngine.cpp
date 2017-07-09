@@ -227,6 +227,38 @@ Texture3D* ConvoluteEnvironmentMap(Texture2D* environmentMap, GraphicsResourceMa
 
 			textures2DToAggregate.push_front(new Texture2D(convolutedEnvmap, convolutedWidth, convolutedHeight));
 		}
+
+		// This texture will hold the resized environment map for the 0 value integration angle.
+		GLuint convolutedEnvmap;
+		glGenTextures(1, &convolutedEnvmap);
+		glBindTexture(GL_TEXTURE_2D, convolutedEnvmap);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, convolutedWidth, convolutedHeight, 0, GL_RGB, GL_FLOAT, NULL);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		// Link the texture to the framebuffer color attachment 0.
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, convolutedEnvmap, 0);
+
+		// Check if the frame buffer is complete.
+		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+		{
+			throw new std::exception("Convolution frame buffer incomplete.");
+		}
+
+		// Clear the frame buffer to render to.
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		// Activate the combiner shader and trick into just resizing the texture.
+		ShaderProgram* combinerShader = graphicsResourceManager->GetTextureDrawShader();
+		combinerShader->Use();
+
+		// Set the envmap texture as the emissive texture, that will only be added.
+		graphicsResourceManager->GetTextureManager()->AssignTextureToUnit(environmentMap);
+		combinerShader->GetUniform("inputTexture")->SetValue((GLuint)environmentMap->GetBoundUnit());
+
+		glDrawElements(GL_TRIANGLES, screenVAO->GetElementsCount(), GL_UNSIGNED_INT, 0);
+
+		textures2DToAggregate.push_front(new Texture2D(convolutedEnvmap, convolutedWidth, convolutedHeight));
 	}
 	screenVAO->UnBind();
 
