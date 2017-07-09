@@ -3,6 +3,7 @@
 #include "SceneElement.h"
 #include "Mesh.h"
 #include "ShaderProgram.h"
+#include "Texture2D.h"
 
 namespace GLEngine
 {
@@ -10,8 +11,7 @@ namespace GLEngine
 		public Renderable, public SceneElement
 	{
 	public:
-		Model();
-		Model(Mesh* mesh);
+		Model(Mesh* mesh, Texture2D *diffuseTexture, Texture2D *specularTexture, Texture2D *roughnessTexture);
 		// Constructor for an instance of Model "resource".
 		Model(Model* resource);
 		~Model();
@@ -28,5 +28,9 @@ namespace GLEngine
 	private:
 		Model* _resource = nullptr;
 		Mesh* _mesh;
+
+		Texture2D *_diffuseTexture = nullptr;
+		Texture2D *_specularTexture = nullptr;
+		Texture2D *_roughnessTexture = nullptr;
 	};
 }

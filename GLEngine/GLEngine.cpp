@@ -184,6 +184,19 @@ int main()
 
 	PerspectiveCamera* camera = new PerspectiveCamera(0.1f, 800.0f, 20.0f, (float)height / (float)width);
 
+	Texture2D* diffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/suzanne_paint.png");
+
+	//Texture2D* specularTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/black_white_checker.jpg");
+	Texture2D* specularTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/suzanne_paint_rougness2_invert.png");
+
+	//Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/black_white_checker.jpg");
+	//Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/concreteWallTile.jpg");
+	//Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/rougnessPlastic.jpg");
+	//Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/suzanne_paint_rougness.png");
+	//Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/suzanne_paint_rougness2.png");
+	Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/suzanne_paint_rougness2 - Copie (2).png");
+	//Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/grunge-textureuniform-symetry.jpg");
+
 
 	// Models testing
 	OBJLoader* testLoader = new OBJLoader();
@@ -192,12 +205,12 @@ int main()
 	//OBJMesh* testMesh = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/suzanne_sharp.obj");
 	OBJMesh* testMesh = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/suzanne_smooth.obj");
 	testMesh->InitializeVao();
-	Model* testModel = new Model(testMesh);
+	Model* testModel = new Model(testMesh, diffuseTexture, specularTexture, roughnessTexture);
 
 	// Sphere resource.
 	OBJMesh* testMesh1 = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/sphere.obj");
 	testMesh1->InitializeVao();
-	Model* testModel1 = new Model(testMesh1);
+	Model* testModel1 = new Model(testMesh1, diffuseTexture, specularTexture, roughnessTexture);
 
 	// Envmap.
 	OBJMesh* sphereMesh = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/sphere_UVs.obj");

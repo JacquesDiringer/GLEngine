@@ -10,12 +10,8 @@
 
 namespace GLEngine
 {
-	Model::Model()
-	{
-	}
-
-	Model::Model(Mesh * mesh)
-		: _mesh(mesh)
+	Model::Model(Mesh * mesh, Texture2D *diffuseTexture, Texture2D *specularTexture, Texture2D *roughnessTexture)
+		: _mesh(mesh), _diffuseTexture(diffuseTexture), _specularTexture(specularTexture), _roughnessTexture(roughnessTexture)
 	{
 	}
 
@@ -53,25 +49,14 @@ namespace GLEngine
 
 			// Set the PBR textures.
 			TextureManager* textureManager = graphicsResourceManager->GetTextureManager();
-			Texture2D* diffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/suzanne_paint.png");
-			textureManager->AssignTextureToUnit(diffuseTexture);
-			modelShader->GetUniform("diffuseTexture")->SetValue(diffuseTexture->GetBoundUnit());
+			textureManager->AssignTextureToUnit(_diffuseTexture);
+			modelShader->GetUniform("diffuseTexture")->SetValue(_diffuseTexture->GetBoundUnit());
 
-			//Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/black_white_checker.jpg");
-			//Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/concreteWallTile.jpg");
-			//Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/rougnessPlastic.jpg");
-			//Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/suzanne_paint_rougness.png");
-			//Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/suzanne_paint_rougness2.png");
-			Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/suzanne_paint_rougness2 - Copie (2).png");
-			//Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/grunge-textureuniform-symetry.jpg");
-			textureManager->AssignTextureToUnit(roughnessTexture);
-			modelShader->GetUniform("roughnessTexture")->SetValue(roughnessTexture->GetBoundUnit());
+			textureManager->AssignTextureToUnit(_specularTexture);
+			modelShader->GetUniform("specularTexture")->SetValue(_specularTexture->GetBoundUnit());
 
-
-			//Texture2D* specularTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/black_white_checker.jpg");
-			Texture2D* specularTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/suzanne_paint_rougness2_invert.png");
-			textureManager->AssignTextureToUnit(specularTexture);
-			modelShader->GetUniform("specularTexture")->SetValue(specularTexture->GetBoundUnit());
+			textureManager->AssignTextureToUnit(_roughnessTexture);
+			modelShader->GetUniform("roughnessTexture")->SetValue(_roughnessTexture->GetBoundUnit());
 
 			// Set the world, view, projection matrices.
 			modelShader->GetUniform("projection")->SetValue(sceneManager->GetCurrentCamera()->GetProjection());
