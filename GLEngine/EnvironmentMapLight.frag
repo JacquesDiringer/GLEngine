@@ -29,20 +29,34 @@ void main()
 
 	// Specular and roughness fetch.
 	vec4 specularRoughness = texture(specularRoughnessGTexture, texCoordinates);
+	vec3 specular = specularRoughness.rgb;
 	float roughness = specularRoughness.a;
+	float specularProportion = 0.299f*specular.r + 0.587f*specular.g + 0.114f*specular.b;
 
-	// Envmap fetch.
+
+	// Envmap diffuse fetch.
+	float phiNormalized = 0.5f - atan(normal.x, normal.z) * INVPI * 0.5f;
+	float thetaNormalized = acos(normal.y) * INVPI;
+
+	// Z should always be one here, to get the half sphere convolution layer.
+	vec3 diffuseFetchCoordinates = vec3(phiNormalized, thetaNormalized, 1.0f);
+
+    vec3 envmapDiffuseSample = textureGrad(iblMap, diffuseFetchCoordinates, dFdx(abs(diffuseFetchCoordinates)), dFdy(abs(diffuseFetchCoordinates))).rgb;
+
+
+	// Envmap specular fetch.
 	// A linear interpolation between the reflexion direction (for 0 roughness materials) and the normal direction (for 1 roughness materials).
-	vec3 envmapFetchDirection = normalize(mix(reflect(normalize(cameraWorldRay), normal), normal, roughness));
+	vec3 envmapSpecularFetchDirection = normalize(mix(reflect(normalize(cameraWorldRay), normal), normal, roughness));
 
-	float phiNormalized = 0.5f - atan(envmapFetchDirection.x, envmapFetchDirection.z) * INVPI * 0.5f;
-	float thetaNormalized = acos(envmapFetchDirection.y) * INVPI;
+	phiNormalized = 0.5f - atan(envmapSpecularFetchDirection.x, envmapSpecularFetchDirection.z) * INVPI * 0.5f;
+	thetaNormalized = acos(envmapSpecularFetchDirection.y) * INVPI;
 
-	vec3 fetchCoordinates = vec3(phiNormalized, thetaNormalized, roughness);
+	vec3 specularFetchCoordinates = vec3(phiNormalized, thetaNormalized, roughness);
 
-    vec3 envmapSample = textureGrad(iblMap, fetchCoordinates, dFdx(abs(fetchCoordinates)), dFdy(abs(fetchCoordinates))).rgb;
+    vec3 envmapSpecularSample = textureGrad(iblMap, specularFetchCoordinates, dFdx(abs(specularFetchCoordinates)), dFdy(abs(specularFetchCoordinates))).rgb;
 
-	vec3 finalColor = diffuseTexel * envmapSample;
+
+	vec3 finalColor = (1 - specularProportion) * diffuseTexel * envmapDiffuseSample + specularProportion * specular * envmapSpecularSample;
 
     color = vec4(finalColor, 1.0f);
 }

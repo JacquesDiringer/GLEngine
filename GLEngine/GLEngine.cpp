@@ -177,7 +177,7 @@ Texture3D* ConvoluteEnvironmentMap(Texture2D* environmentMap, GraphicsResourceMa
 	VertexArrayObject* screenVAO = graphicsResourceManager->GetScreenVAO();
 	screenVAO->Bind();
 	{
-		for (float integrationAngle = (float)M_PI_2; integrationAngle > 0.0001f; integrationAngle-= 0.2f * M_PI_2)
+		for (float integrationAngle = (float)M_PI_2; integrationAngle > 0.0001f; integrationAngle-= 0.1f * M_PI_2)
 		{
 			// This texture will hold the convoluted environment map for the current integration angle.
 			GLuint convolutedEnvmap;
@@ -345,7 +345,9 @@ int main()
 	OBJMesh* sphereMesh = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/sphere_UVs.obj");
 	sphereMesh->InitializeVao();
 
-	Texture2D* texEnvmapTest = textureManager->GetTexture("C:/Utils/GLEngineMedia/parking_lot_2k.jpg");
+	//Texture2D* texEnvmapTest = textureManager->GetTexture("C:/Utils/GLEngineMedia/parking_lot_2k.jpg");
+	//Texture2D* texEnvmapTest = textureManager->GetTexture("C:/Utils/GLEngineMedia/pubimage(8).jpg");
+	Texture2D* texEnvmapTest = textureManager->GetTexture("C:/Utils/GLEngineMedia/redCliffs.jpg");
 	EnvironmentMapSky* envmapTest = new EnvironmentMapSky(sphereMesh, texEnvmapTest);
 
 	// Scene setting
