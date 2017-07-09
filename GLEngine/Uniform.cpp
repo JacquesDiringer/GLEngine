@@ -29,6 +29,10 @@ namespace GLEngine
 		{
 			glUniform1i(_location, (GLint)unsignedIntegerValue);
 		}
+		else if (_type == GL_SAMPLER_3D)
+		{
+			glUniform1i(_location, (GLint)unsignedIntegerValue);
+		}
 		else
 		{
 			Exception();

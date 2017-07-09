@@ -55,8 +55,7 @@ void main()
 
     vec3 envmapSpecularSample = textureGrad(iblMap, specularFetchCoordinates, dFdx(abs(specularFetchCoordinates)), dFdy(abs(specularFetchCoordinates))).rgb;
 
-
-	vec3 finalColor = (1 - specularProportion) * diffuseTexel * envmapDiffuseSample + specularProportion * specular * envmapSpecularSample;
+	vec3 finalColor = mix(diffuseTexel * envmapDiffuseSample, specular * envmapSpecularSample, specularProportion);
 
     color = vec4(finalColor, 1.0f);
 }

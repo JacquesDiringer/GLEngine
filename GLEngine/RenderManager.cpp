@@ -28,6 +28,8 @@ namespace GLEngine
 	{
 		double timeAtRenderStart = glfwGetTime();
 
+		TextureManager* textureManager = graphicsResourceManager->GetTextureManager();
+
 		// Triggers renderable elements collection.
 		sceneManager->GetRootNode()->Accept(_collectorVisitor);
 		RenderingElements* collection = _collectorVisitor->GetCollectedElements();
@@ -47,6 +49,11 @@ namespace GLEngine
 			_skyRenderQueue->AddRenderable(sky);
 
 			_skyRenderQueue->Render(sceneManager, graphicsResourceManager);
+
+			if (_environmentMapLight == nullptr)
+			{
+				_environmentMapLight = new EnvironmentMapLight(sky->GetTexture(), graphicsResourceManager);
+			}
 		}
 
 		// Then the models.
@@ -74,51 +81,16 @@ namespace GLEngine
 			// Attach the lighting frame buffer.
 			glBindFramebuffer(GL_FRAMEBUFFER, _lightingBuffer);
 
-			// Activate the envmap lighting shader.
-			ShaderProgram* envmapLightShader = graphicsResourceManager->GetEnvmapLightShader();
-			envmapLightShader->Use();
+			// Render the environment map PBR lighting.
+			if (_environmentMapLight != nullptr)
 			{
-				// Bind the G_Buffer textures.
-				glActiveTexture(GL_TEXTURE0);
-				glBindTexture(GL_TEXTURE_2D, _geometryTexture);
-				glActiveTexture(GL_TEXTURE1);
-				glBindTexture(GL_TEXTURE_2D, _diffuseTexture);
-				glActiveTexture(GL_TEXTURE2);
-				glBindTexture(GL_TEXTURE_2D, _specularRoughnessTexture);
-				glActiveTexture(GL_TEXTURE3);
-				glBindTexture(GL_TEXTURE_2D, _emissiveTexture);
+				// Set the needed G-Buffer maps first.
+				_environmentMapLight->SetGeometryTexture(_geometryTexture);
+				_environmentMapLight->SetDiffuseTexture(_diffuseTexture);
+				_environmentMapLight->SetSpecularRoughnessTexture(_specularRoughnessTexture);
 
-				// Give the texture units to the shader uniforms.
-				envmapLightShader->GetUniform("geometryGTexture")->SetValue(0);
-				envmapLightShader->GetUniform("diffuseGTexture")->SetValue(1);
-				envmapLightShader->GetUniform("specularRoughnessGTexture")->SetValue(2);
-				//envmapLightShader->GetUniform("emissiveGTexture")->SetValue(3);
-				if (sky != nullptr)
-				{
-					Texture2D* skyTexture = sky->GetTexture();
-					if (skyTexture != nullptr)
-					{
-						glActiveTexture(GL_TEXTURE4);
-						glBindTexture(GL_TEXTURE_3D, _iblTexture->GetId());
-						envmapLightShader->GetUniform("iblMap")->SetValue(4);
-					}
-				}
-
-				// Set the inverse of the view.
-				Matrix4 iView = Matrix4();
-				iView.CopyFromMatrix4(sceneManager->GetCurrentCamera()->GetView());
-				iView.InvertRT();
-				envmapLightShader->GetUniform("iView")->SetValue(&iView);
-				//envmapLightShader->GetUniform("cameraWorlPosition")->SetValue(&iView.Position());
-
-				// Set the inverse of the projection.
-				Matrix4 iProjection = Matrix4();
-				iProjection.CopyFromMatrix4(sceneManager->GetCurrentCamera()->GetProjection());
-				iProjection.Invert();
-				envmapLightShader->GetUniform("iProjection")->SetValue(&iProjection);
-
-				// Draw the envmap light quad covering the screen.
-				glDrawElements(GL_TRIANGLES, graphicsResourceManager->GetScreenVAO()->GetElementsCount(), GL_UNSIGNED_INT, 0);
+				// Render.
+				_environmentMapLight->Render(sceneManager, graphicsResourceManager);
 			}
 
 			// Attach the default frame buffer.
@@ -128,15 +100,11 @@ namespace GLEngine
 			ShaderProgram* pbrCombinerShader = graphicsResourceManager->GetPbrCombinerShader();
 			pbrCombinerShader->Use();
 			{
-				glActiveTexture(GL_TEXTURE4);
-				glBindTexture(GL_TEXTURE_2D, _lightingTexture);
-
 				// Give the texture units to the shader uniforms, the g buffer units are still set from the lighting pass.
-				//pbrCombinerShader->GetUniform("geometryGTexture")->SetValue(0);
-				//pbrCombinerShader->GetUniform("diffuseGTexture")->SetValue(1);
-				//pbrCombinerShader->GetUniform("specularRoughnessGTexture")->SetValue(2);
-				pbrCombinerShader->GetUniform("emissiveGTexture")->SetValue(3);
-				pbrCombinerShader->GetUniform("lightingTexture")->SetValue(4);
+				pbrCombinerShader->GetUniform("emissiveGTexture")->SetValue(
+					textureManager->AssignTextureToUnit(_emissiveTexture));
+				pbrCombinerShader->GetUniform("lightingTexture")->SetValue(
+					textureManager->AssignTextureToUnit(_lightingTexture));
 
 				// Draw the PBR combiner.
 				glDrawElements(GL_TRIANGLES, graphicsResourceManager->GetScreenVAO()->GetElementsCount(), GL_UNSIGNED_INT, 0);
@@ -144,7 +112,7 @@ namespace GLEngine
 		}
 		graphicsResourceManager->GetScreenVAO()->UnBind();
 
-
+		// Performance measurement.
 		double timeAtRenderEnd = glfwGetTime();
 
 		double renderTime = timeAtRenderEnd - timeAtRenderStart;
@@ -173,47 +141,51 @@ namespace GLEngine
 
 		// This texture will hold the (compressed) normal on RGB
 		// The depth on the alpha.
-		_geometryTexture;
-		glGenTextures(1, &_geometryTexture);
-		glBindTexture(GL_TEXTURE_2D, _geometryTexture);
+		GLuint geometryTextureId;
+		glGenTextures(1, &geometryTextureId);
+		glBindTexture(GL_TEXTURE_2D, geometryTextureId);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, _viewportWidth, _viewportHeight, 0, GL_RGBA, GL_FLOAT, NULL);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		// Link the texture to the framebuffer color attachment 0.
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _geometryTexture, 0);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, geometryTextureId, 0);
+		_geometryTexture = new Texture2D(geometryTextureId, _viewportWidth, _viewportHeight);
 
 		// This texture will hold the diffuse color on RGB
 		// No alpha yet.
-		_diffuseTexture;
-		glGenTextures(1, &_diffuseTexture);
-		glBindTexture(GL_TEXTURE_2D, _diffuseTexture);
+		GLuint diffuseTextureId;
+		glGenTextures(1, &diffuseTextureId);
+		glBindTexture(GL_TEXTURE_2D, diffuseTextureId);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, _viewportWidth, _viewportHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		// Link the texture to the framebuffer color attachment 1.
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, _diffuseTexture, 0);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, diffuseTextureId, 0);
+		_diffuseTexture = new Texture2D(diffuseTextureId, _viewportWidth, _viewportHeight);
 
 		// This texture will hold the specular color on RGB
 		// The roughness on the alpha.
-		_specularRoughnessTexture;
-		glGenTextures(1, &_specularRoughnessTexture);
-		glBindTexture(GL_TEXTURE_2D, _specularRoughnessTexture);
+		GLuint specularRoughnessTextureId;
+		glGenTextures(1, &specularRoughnessTextureId);
+		glBindTexture(GL_TEXTURE_2D, specularRoughnessTextureId);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _viewportWidth, _viewportHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		// Link the texture to the framebuffer color attachment 2.
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT2, GL_TEXTURE_2D, _specularRoughnessTexture, 0);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT2, GL_TEXTURE_2D, specularRoughnessTextureId, 0);
+		_specularRoughnessTexture = new Texture2D(specularRoughnessTextureId, _viewportWidth, _viewportHeight);
 
 		// This texture will hold the emissive color on RGB
 		// No alpha yet.
-		_emissiveTexture;
-		glGenTextures(1, &_emissiveTexture);
-		glBindTexture(GL_TEXTURE_2D, _emissiveTexture);
+		GLuint emissiveTextureId;
+		glGenTextures(1, &emissiveTextureId);
+		glBindTexture(GL_TEXTURE_2D, emissiveTextureId);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, _viewportWidth, _viewportHeight, 0, GL_RGB, GL_FLOAT, NULL);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		// Link the texture to the framebuffer color attachment 3.
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT3, GL_TEXTURE_2D, _emissiveTexture, 0);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT3, GL_TEXTURE_2D, emissiveTextureId, 0);
+		_emissiveTexture = new Texture2D(emissiveTextureId, _viewportWidth, _viewportHeight);
 
 		// Enable drawing in these 4 color attachment
 		GLuint attachments[4] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2, GL_COLOR_ATTACHMENT3 };
@@ -232,15 +204,16 @@ namespace GLEngine
 
 		// This texture will hold the lighting value on RGB
 		// No alpha yet.
-		_lightingTexture;
-		glGenTextures(1, &_lightingTexture);
-		glBindTexture(GL_TEXTURE_2D, _lightingTexture);
+		GLuint lightingTextureId;
+		glGenTextures(1, &lightingTextureId);
+		glBindTexture(GL_TEXTURE_2D, lightingTextureId);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, _viewportWidth, _viewportHeight, 0, GL_RGB, GL_FLOAT, NULL);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		// Link the texture to the framebuffer color attachment 0.
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _lightingTexture, 0);
-
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, lightingTextureId, 0);
+		_lightingTexture = new Texture2D(lightingTextureId, _viewportWidth, _viewportHeight);
+		
 		// Enable drawing in the lighting texture.
 		glDrawBuffer(GL_COLOR_ATTACHMENT0);
 

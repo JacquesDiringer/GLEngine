@@ -222,6 +222,9 @@
     <ClInclude Include="Texture3D.h">
       <Filter>Header Files\Texture</Filter>
     </ClInclude>
+    <ClInclude Include="EnvironmentMapLight.h">
+      <Filter>Header Files\Render</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -334,6 +337,9 @@
     </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>Source Files\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="EnvironmentMapLight.cpp">
+      <Filter>Source Files\Render</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

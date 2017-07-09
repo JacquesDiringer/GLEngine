@@ -155,6 +155,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
+    <ClInclude Include="EnvironmentMapLight.h" />
     <ClInclude Include="EnvironmentMapSky.h" />
     <ClInclude Include="GraphicsResourceManager.h" />
     <ClInclude Include="InstancedModel.h" />
@@ -198,6 +199,7 @@
     <Text Include="EnvironmentMapFragmentShader.frag">
       <FileType>Document</FileType>
     </Text>
+    <ClCompile Include="EnvironmentMapLight.cpp" />
     <ClCompile Include="EnvironmentMapSky.cpp" />
     <ClCompile Include="GLEngine.cpp" />
     <ClCompile Include="GraphicsResourceManager.cpp" />

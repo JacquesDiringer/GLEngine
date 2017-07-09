@@ -44,7 +44,7 @@ namespace GLEngine
 		}
 	}
 
-	const GLuint TextureManager::AssignTextureToUnit(Texture2D * texture)
+	const GLuint TextureManager::AssignTextureToUnit(Texture * texture)
 	{
 		GLuint assignedUnit = -1;
 

@@ -4,7 +4,7 @@
 #include "RenderableCollectorVisitor.h"
 #include "NoAlphaRenderQueue.h"
 #include "SkyRenderQueue.h"
-#include "Texture3D.h"
+#include "EnvironmentMapLight.h"
 
 namespace GLEngine
 {
@@ -16,8 +16,6 @@ namespace GLEngine
 
 		void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager);
 
-		void SetIblTexture(Texture3D* iblTexture) { _iblTexture = iblTexture; }
-
 	private:
 		int _viewportWidth, _viewportHeight;
 		RenderableCollectorVisitor* _collectorVisitor;
@@ -28,14 +26,15 @@ namespace GLEngine
 		// G-Buffer frame buffer id.
 		GLuint _gBuffer;
 		// G-Buffer textures ids.
-		GLuint _geometryTexture, _diffuseTexture, _specularRoughnessTexture, _emissiveTexture;
+		Texture2D *_geometryTexture, *_diffuseTexture, *_specularRoughnessTexture, *_emissiveTexture;
 
 		// Lighting frame buffer id.
 		GLuint _lightingBuffer;
-		// Lighting texture id.
-		GLuint _lightingTexture;
+		// Lighting texture.
+		Texture2D * _lightingTexture;
 
-		Texture3D* _iblTexture;
+		// Environment map light Renderable that will be consistent from one frame to an other, should only need to be calculated once.
+		EnvironmentMapLight* _environmentMapLight = nullptr;
 
 		// Intializes buffers for deferred rendering.
 		void InitializeFrameBuffers();

@@ -29,7 +29,7 @@ namespace GLEngine
 		// If the texture is not already assigned to a unit, tries to find a free unit and assign the texture to it.
 		// Returns the id of the assigned unit.
 		// Returns -1 when no unit could be found to store the texture (ie. every unit is already taken).
-		const GLuint AssignTextureToUnit(Texture2D* texture);
+		const GLuint AssignTextureToUnit(Texture* texture);
 
 		// Unbind textures from every available units.
 		const void FreeUnits();

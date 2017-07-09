@@ -1,14 +1,12 @@
 #include "stdafx.h"
 #include "GraphicsResourceManager.h"
 
-
 namespace GLEngine
 {
-	GraphicsResourceManager::GraphicsResourceManager(TextureManager* textureManager)
-		: _textureManager(textureManager)
+	GraphicsResourceManager::GraphicsResourceManager(int viewportWidth, int viewportHeight, TextureManager* textureManager)
+		: _viewportWidth(viewportWidth), _viewportHeight(viewportHeight), _textureManager(textureManager)
 	{
 	}
-
 
 	GraphicsResourceManager::~GraphicsResourceManager()
 	{
@@ -106,5 +104,4 @@ namespace GLEngine
 
 		return _screenVAO;
 	}
-
 }

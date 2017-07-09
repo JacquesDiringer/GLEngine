@@ -8,8 +8,11 @@ namespace GLEngine
 	class GraphicsResourceManager
 	{
 	public:
-		GraphicsResourceManager(TextureManager* textureManager);
+		GraphicsResourceManager(int viewportWidth, int viewportHeight, TextureManager* textureManager);
 		virtual ~GraphicsResourceManager();
+
+		int GetViewportWidth() const { return _viewportWidth; }
+		int GetViewportHeight() const { return _viewportHeight; }
 
 		TextureManager* GetTextureManager() { return _textureManager; }
 		ShaderProgram* GetModelPBRShader();
@@ -25,6 +28,8 @@ namespace GLEngine
 		VertexArrayObject* GetScreenVAO();
 
 	private:
+		int _viewportWidth, _viewportHeight;
+
 		TextureManager* _textureManager;
 		ShaderProgram* _modelPBRShader = nullptr;
 		ShaderProgram* _lambertianInstancedShader = nullptr;
