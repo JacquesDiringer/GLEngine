@@ -39,7 +39,7 @@ using namespace GLEngine;
 
 Vector3 _globalCameraPosition = Vector3(0, 0, 5);
 Vector3 _globalCameraSpeed = Vector3(0, 0, 0);
-Vector3 _globalTargetPosition = Vector3(0, 1, 0);
+Vector3 _globalTargetPosition = Vector3(0, 0, 0);
 
 float _globalAcceleration = 0.01f;
 float _globalFriction = 0.1f;
@@ -196,9 +196,18 @@ int main()
 	//Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/suzanne_paint_rougness2.png");
 	Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/suzanne_paint_rougness2 - Copie (2).png");
 
+	Texture2D* cylinderdiffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/cylinder_diffuse.png");
+	Texture2D* cylinderspecularTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/cylinder_scratches - Copie.png");
+	Texture2D* cylinderroughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/cylinder_roughness.png");
+
 
 	// Models testing
 	OBJLoader* testLoader = new OBJLoader();
+
+	// Grudge cylinder resource.
+	OBJMesh* grudgeCylinderMesh = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/grudge_cylinder.obj");
+	grudgeCylinderMesh->InitializeVao();
+	Model* grudgeCylinderModel = new Model(grudgeCylinderMesh, cylinderdiffuseTexture, cylinderspecularTexture, cylinderroughnessTexture);
 
 	// Suzanne resource.
 	//OBJMesh* testMesh = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/suzanne_sharp.obj");
@@ -242,13 +251,13 @@ int main()
 	//extremityNode->AddSubElement(testSpinner);
 
 	// Instancing tests, array.
-	for (int i = -2; i < 2; i++)
+	for (int i = 0; i < 1; i++)
 	{
-		for (int j = -2; j < 2; j++)
+		for (int j = 0; j < 1; j++)
 		{
 			SceneNode* currentNode = sceneManager->GetRootNode()->CreateChild();
 			currentNode->SetRelativeTransformation(Matrix4::CreateTranslation(new Vector3(i*3, 0, j*3)));
-			currentNode->AddSubElement(new Model(testModel));
+			currentNode->AddSubElement(new Model(grudgeCylinderModel));
 		}
 	}
 
