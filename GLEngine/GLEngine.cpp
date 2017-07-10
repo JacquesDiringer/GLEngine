@@ -195,7 +195,6 @@ int main()
 	//Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/suzanne_paint_rougness.png");
 	//Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/suzanne_paint_rougness2.png");
 	Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/suzanne_paint_rougness2 - Copie (2).png");
-	//Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/grunge-textureuniform-symetry.jpg");
 
 
 	// Models testing

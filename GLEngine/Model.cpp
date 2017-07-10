@@ -68,6 +68,8 @@ namespace GLEngine
 				glDrawElements(GL_TRIANGLES, _mesh->GetVao()->GetElementsCount(), GL_UNSIGNED_INT, 0);
 			}
 			_mesh->GetVao()->UnBind();
+
+			textureManager->FreeUnits();
 		}
 		else
 		{
