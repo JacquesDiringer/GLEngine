@@ -95,7 +95,7 @@ namespace GLEngine
 		VertexArrayObject* screenVAO = graphicsResourceManager->GetScreenVAO();
 		screenVAO->Bind();
 		{
-			for (float integrationAngle = (float)M_PI_2; integrationAngle > 0.0001f; integrationAngle -= 0.1f * M_PI_2)
+			for (float roughnessInput = 1.0f; roughnessInput > 0.0001f; roughnessInput -= 0.1f)
 			{
 				// This texture will hold the convoluted environment map for the current integration angle.
 				GLuint convolutedEnvmap;
@@ -117,11 +117,10 @@ namespace GLEngine
 				glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-				convolutionShader->GetUniform("integrationAngle")->SetValue(integrationAngle);
+				convolutionShader->GetUniform("roughnessInput")->SetValue(roughnessInput);
 
 				// Set the divisor that will allow to integrate properly respecting the number of samples and the integration angle.
-				float integrationSolidAngleOverSphereSolidAngle = (float)(0.5 * (1 - cos(integrationAngle)));
-				convolutionShader->GetUniform("divisor")->SetValue(3 / ((float)_samplesNumber * integrationSolidAngleOverSphereSolidAngle));
+				convolutionShader->GetUniform("divisor")->SetValue(30 / ((float)_samplesNumber));
 
 				// Set the environment map texture.
 				graphicsResourceManager->GetTextureManager()->AssignTextureToUnit(environmentMap);
