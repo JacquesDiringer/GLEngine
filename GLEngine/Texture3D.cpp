@@ -49,7 +49,7 @@ namespace GLEngine
 		}
 
 		// 3D texture generation.
-		glGenBuffers(1, &_id);
+		glGenTextures(1, &_id);
 		glBindTexture(GL_TEXTURE_3D, _id);
 		{
 			glTexImage3D(GL_TEXTURE_3D, 0, GL_RGB16F, _width, _height, _depth, 0, GL_RGB, GL_FLOAT, data);
