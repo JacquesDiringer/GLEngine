@@ -284,6 +284,8 @@ int main()
 		//Scene graph update.
 		sceneManager->Update();
 
+		double timeAfterUpdate = glfwGetTime();
+
 		// Rendering.
 		renderManager->Render(sceneManager, graphicsResourceManager);
 
@@ -292,11 +294,15 @@ int main()
 
 		double timeAtMainLoopEnd = glfwGetTime();
 
+		double updateTime = timeAfterUpdate - timeAtMainLoopStart;
+		double renderTime = timeAtMainLoopEnd - timeAfterUpdate;
 		double mainLoopTime = timeAtMainLoopEnd - timeAtMainLoopStart;
 
 		if (frameCount % 10 == 0)
 		{
-			std::cout << "Main loop time: " << mainLoopTime * 1000 << "ms; FPS: " << 1 / mainLoopTime << std::endl;
+			std::cout << "Update time: " << updateTime * 1000 << "ms; FPS: " << 1 / updateTime << std::endl;
+			std::cout << "Render time: " << renderTime * 1000 << "ms; FPS: " << 1 / renderTime << std::endl;
+			std::cout << "Main loop time: " << mainLoopTime * 1000 << "ms; FPS: " << 1 / mainLoopTime << std::endl << std::endl;
 		}
 		++frameCount;
 	}

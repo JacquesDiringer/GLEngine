@@ -21,7 +21,6 @@ namespace GLEngine
 		RenderableCollectorVisitor* _collectorVisitor;
 		NoAlphaRenderQueue* _modelsRenderQueue;
 		SkyRenderQueue* _skyRenderQueue;
-		int _frameCount = 0;
 
 		// G-Buffer frame buffer id.
 		GLuint _gBuffer;
