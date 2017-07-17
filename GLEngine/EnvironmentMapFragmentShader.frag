@@ -25,6 +25,9 @@ void main()
 
     vec3 finalColor = textureGrad(envmap, fetchCoordinates, dFdx(abs(fetchCoordinates)), dFdy(abs(fetchCoordinates))).rgb;
 
+	// Remove gamma correction.
+	finalColor = pow(finalColor, vec3(2.2f));
+
 	geometryGTexture = vec4(0, 0, 0, 1);
 	diffuseGTexture = vec3(0, 0, 0);
 	specularRoughnessGTexture = vec4(0, 0, 0, 0);

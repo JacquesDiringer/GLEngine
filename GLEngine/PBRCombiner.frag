@@ -17,4 +17,7 @@ void main()
     vec3 emissiveTexel = texture(emissiveGTexture, newTexCoords).rgb;
 
 	color = vec4(lightingTexel + emissiveTexel, 1.0f);
+
+	// Add gamma correction.
+	color = pow(color, vec4(0.45f));
 }

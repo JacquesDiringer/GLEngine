@@ -24,4 +24,7 @@ void main()
 	specularRoughnessGTexture.rgb = texture(specularTexture, newCoords).rgb;
 	specularRoughnessGTexture.a = texture(roughnessTexture, newCoords).r;
     emissiveGTexture = vec3(0, 0, 0);
+
+	// Remove gamma correction.
+	diffuseGTexture = pow(diffuseGTexture, vec3(2.2f));
 } 

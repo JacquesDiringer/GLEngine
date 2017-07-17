@@ -93,6 +93,9 @@ void main()
 
 	vec3 envmapSample = textureLod(envmap, vec2(phiNormalized, thetaNormalized), 0).xyz;
 
+	// Remove gamma correction.
+	envmapSample = pow(envmapSample, vec3(2.2f));
+
 	float contribution = CookTorrance(vec3(0), vec3(1), roughnessInput, currentPixelDirection, currentFetchVector, currentPixelDirection);
 	color.xyz += envmapSample * contribution * divisor;
 }
