@@ -22,7 +22,7 @@ namespace GLEngine
 		return _modelPBRShader;
 	}
 
-	ShaderProgram * GraphicsResourceManager::GetLambertianInstancedShader()
+	ShaderProgram * GraphicsResourceManager::GetModelPBRInstancedShader()
 	{
 		if (_lambertianInstancedShader == nullptr)
 		{

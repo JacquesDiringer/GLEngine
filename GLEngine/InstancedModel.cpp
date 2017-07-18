@@ -61,12 +61,23 @@ namespace GLEngine
 			VertexArrayObject* resourceVao = _resource->GetVao();
 
 			// Get the Model's shader.
-			ShaderProgram* modelShader = graphicsResourceManager->GetLambertianInstancedShader();
+			ShaderProgram* modelShader = graphicsResourceManager->GetModelPBRInstancedShader();
 
 			// Activate the Model's shader.
 			modelShader->Use();
 
-			// Set the view, projection matrices.
+			// Set the PBR textures.
+			TextureManager* textureManager = graphicsResourceManager->GetTextureManager();
+			textureManager->AssignTextureToUnit(_resource->GetDiffuse());
+			modelShader->GetUniform("diffuseTexture")->SetValue(_resource->GetDiffuse()->GetBoundUnit());
+
+			textureManager->AssignTextureToUnit(_resource->GetSpecular());
+			modelShader->GetUniform("specularTexture")->SetValue(_resource->GetSpecular()->GetBoundUnit());
+
+			textureManager->AssignTextureToUnit(_resource->GetRoughness());
+			modelShader->GetUniform("roughnessTexture")->SetValue(_resource->GetRoughness()->GetBoundUnit());
+
+			// Set the world, view, projection matrices.
 			modelShader->GetUniform("projection")->SetValue(sceneManager->GetCurrentCamera()->GetProjection());
 			modelShader->GetUniform("view")->SetValue(sceneManager->GetCurrentCamera()->GetView());
 

@@ -16,7 +16,7 @@ namespace GLEngine
 
 		TextureManager* GetTextureManager() { return _textureManager; }
 		ShaderProgram* GetModelPBRShader();
-		ShaderProgram* GetLambertianInstancedShader();
+		ShaderProgram* GetModelPBRInstancedShader();
 		ShaderProgram* GetEnvmapShader();
 		ShaderProgram* GetEnvmapLightShader();
 		ShaderProgram* GetPbrCombinerShader();

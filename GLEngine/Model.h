@@ -25,6 +25,10 @@ namespace GLEngine
 
 		VertexArrayObject* GetVao() { return _mesh->GetVao(); }
 
+		Texture2D* GetDiffuse() { return _diffuseTexture; }
+		Texture2D* GetSpecular() { return _specularTexture; }
+		Texture2D* GetRoughness() { return _roughnessTexture; }
+
 	private:
 		Model* _resource = nullptr;
 		Mesh* _mesh;
