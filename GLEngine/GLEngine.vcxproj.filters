@@ -82,6 +82,12 @@
     <Filter Include="Resource Files\Shaders\ImageProcessing">
       <UniqueIdentifier>{8f5d2557-58ff-446d-8327-758ce64ec771}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\FrameBuffer">
+      <UniqueIdentifier>{39be40b6-9f8e-4b68-a202-250fb635762e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FrameBuffer">
+      <UniqueIdentifier>{4a5e6de2-bdce-405e-be44-31989f00f410}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -225,6 +231,15 @@
     <ClInclude Include="EnvironmentMapLight.h">
       <Filter>Header Files\Render</Filter>
     </ClInclude>
+    <ClInclude Include="GBuffer.h">
+      <Filter>Header Files\FrameBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameBuffer.h">
+      <Filter>Header Files\FrameBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="RGB16FBuffer.h">
+      <Filter>Header Files\FrameBuffer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -340,6 +355,15 @@
     </ClCompile>
     <ClCompile Include="EnvironmentMapLight.cpp">
       <Filter>Source Files\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="GBuffer.cpp">
+      <Filter>Source Files\FrameBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameBuffer.cpp">
+      <Filter>Source Files\FrameBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="RGB16FBuffer.cpp">
+      <Filter>Source Files\FrameBuffer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

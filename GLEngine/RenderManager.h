@@ -5,6 +5,8 @@
 #include "NoAlphaRenderQueue.h"
 #include "SkyRenderQueue.h"
 #include "EnvironmentMapLight.h"
+#include "GBuffer.h"
+#include "RGB16FBuffer.h"
 
 namespace GLEngine
 {
@@ -22,15 +24,11 @@ namespace GLEngine
 		NoAlphaRenderQueue* _modelsRenderQueue;
 		SkyRenderQueue* _skyRenderQueue;
 
-		// G-Buffer frame buffer id.
-		GLuint _gBuffer;
-		// G-Buffer textures ids.
-		Texture2D *_geometryTexture, *_diffuseTexture, *_specularRoughnessTexture, *_emissiveTexture;
+		// G-Buffer frame buffer.
+		GBuffer* _gBuffer;
 
-		// Lighting frame buffer id.
-		GLuint _lightingBuffer;
-		// Lighting texture.
-		Texture2D * _lightingTexture;
+		// Lighting frame buffer.
+		RGB16FBuffer* _lightingBuffer;
 
 		// Environment map light Renderable that will be consistent from one frame to an other, should only need to be calculated once.
 		EnvironmentMapLight* _environmentMapLight = nullptr;

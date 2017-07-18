@@ -157,8 +157,11 @@
     <ClInclude Include="Actor.h" />
     <ClInclude Include="EnvironmentMapLight.h" />
     <ClInclude Include="EnvironmentMapSky.h" />
+    <ClInclude Include="FrameBuffer.h" />
+    <ClInclude Include="GBuffer.h" />
     <ClInclude Include="GraphicsResourceManager.h" />
     <ClInclude Include="InstancedModel.h" />
+    <ClInclude Include="RGB16FBuffer.h" />
     <ClInclude Include="Matrix4.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshLoader.h" />
@@ -201,9 +204,12 @@
     </Text>
     <ClCompile Include="EnvironmentMapLight.cpp" />
     <ClCompile Include="EnvironmentMapSky.cpp" />
+    <ClCompile Include="FrameBuffer.cpp" />
+    <ClCompile Include="GBuffer.cpp" />
     <ClCompile Include="GLEngine.cpp" />
     <ClCompile Include="GraphicsResourceManager.cpp" />
     <ClCompile Include="InstancedModel.cpp" />
+    <ClCompile Include="RGB16FBuffer.cpp" />
     <ClCompile Include="Matrix4.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshLoader.cpp" />
