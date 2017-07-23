@@ -28,7 +28,13 @@ vec3 CookTorrance(vec3 diffuseTexel, vec3 specularTexel, float roughnessTexel, v
        // set important material values
        float roughnessValue = max(roughnessTexel, 0.01f); // 0 : smooth, 1: rough
  
-       float k = 1 - (0.2126f * specularTexel.r + 0.7152f * specularTexel.g + 0.0722f * specularTexel.b); // fraction of diffuse reflection (specular reflection = 1 - k)
+	   float diffuseLuminance = 0.299f*diffuseTexel.r + 0.587f*diffuseTexel.g + 0.114f*diffuseTexel.b;
+	   float specularLuminance = 0.299f*specularTexel.r + 0.587f*specularTexel.g + 0.114f*specularTexel.b;
+	   float k = 0;
+	   if (diffuseLuminance > 0)
+	   {
+			k = diffuseLuminance / (diffuseLuminance + specularLuminance); // fraction of diffuse reflection (specular reflection = 1 - k)
+	   }
  
 		// do the lighting calculation for each fragment.
        float NdotL = max(dot(normal, lightDirection), 0.0);

@@ -31,8 +31,13 @@ void main()
 	vec4 specularRoughness = texture(specularRoughnessGTexture, texCoordinates);
 	vec3 specular = specularRoughness.rgb;
 	float roughness = specularRoughness.a;
-	float specularProportion = 0.299f*specular.r + 0.587f*specular.g + 0.114f*specular.b;
-
+	float diffuseLuminance = 0.299f*diffuseTexel.r + 0.587f*diffuseTexel.g + 0.114f*diffuseTexel.b;
+	float specularLuminance = 0.299f*specular.r + 0.587f*specular.g + 0.114f*specular.b;
+	float specularProportion = 0;
+	if (specularLuminance > 0)
+	{
+		specularProportion = specularLuminance / (diffuseLuminance + specularLuminance);
+	}
 
 	// Envmap diffuse fetch.
 	float phiNormalized = 0.5f - atan(normal.x, normal.z) * INVPI * 0.5f;
