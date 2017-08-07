@@ -190,6 +190,7 @@
     <ClInclude Include="Texture2D.h" />
     <ClInclude Include="Texture3D.h" />
     <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="ThirdViewOrientationActor.h" />
     <ClInclude Include="Uniform.h" />
     <ClInclude Include="UpdateVisitor.h" />
     <ClInclude Include="Utils.h" />
@@ -241,6 +242,7 @@
     <ClCompile Include="Texture2D.cpp" />
     <ClCompile Include="Texture3D.cpp" />
     <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="ThirdViewOrientationActor.cpp" />
     <ClCompile Include="Uniform.cpp" />
     <ClCompile Include="UpdateVisitor.cpp" />
     <ClCompile Include="Utils.cpp" />

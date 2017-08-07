@@ -240,6 +240,9 @@
     <ClInclude Include="RGB16FBuffer.h">
       <Filter>Header Files\FrameBuffer</Filter>
     </ClInclude>
+    <ClInclude Include="ThirdViewOrientationActor.h">
+      <Filter>Header Files\Actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -364,6 +367,9 @@
     </ClCompile>
     <ClCompile Include="RGB16FBuffer.cpp">
       <Filter>Source Files\FrameBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="ThirdViewOrientationActor.cpp">
+      <Filter>Source Files\Actor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
