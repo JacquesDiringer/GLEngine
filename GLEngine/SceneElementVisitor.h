@@ -19,5 +19,6 @@ namespace GLEngine
 		virtual void Visit(Model* modelToVisit) = 0;
 		virtual void Visit(EnvironmentMapSky* skyToVisit) = 0;
 		virtual void Visit(Actor* actorToVisit) = 0;
+		virtual void Visit(PerspectiveCamera* cameraToVisit) = 0;
 	};
 }

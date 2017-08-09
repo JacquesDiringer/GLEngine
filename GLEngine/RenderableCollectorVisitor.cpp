@@ -38,6 +38,11 @@ namespace GLEngine
 		// Void
 	}
 
+	void RenderableCollectorVisitor::Visit(PerspectiveCamera * cameraToVisit)
+	{
+		// Void
+	}
+
 	bool RenderableCollectorVisitor::CheckAndResetCollection()
 	{
 		// TODO: this is temporary.

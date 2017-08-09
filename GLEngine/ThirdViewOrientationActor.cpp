@@ -1,8 +1,11 @@
 #include "stdafx.h"
 #include "ThirdViewOrientationActor.h"
 #include "Matrix4.h"
+#include "SceneNode.h"
+#include "Vector3.h"
 
 using Math::Matrix4;
+using Math::Vector3;
 
 namespace GLEngine
 {
@@ -25,8 +28,9 @@ namespace GLEngine
 
 		if (parentNode != nullptr)
 		{
-			Matrix4* parentRelative = parentNode->GetRelativeTransformation();
+			Vector3 parentRelativePosition = parentNode->GetRelativeTransformation()->Position();
 
+			parentNode->get
 		}
 	}
 }

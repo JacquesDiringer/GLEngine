@@ -14,6 +14,7 @@ namespace GLEngine
 		virtual void Visit(Model* modelToVisit);
 		virtual void Visit(EnvironmentMapSky* skyToVisit);
 		virtual void Visit(Actor* actorToVisit);
+		virtual void Visit(PerspectiveCamera* cameraToVisit);
 
 		void RegisterTime();
 		float GetTimeSinceLastUpdate()const { return (float)_timeSinceLastUpdate; }

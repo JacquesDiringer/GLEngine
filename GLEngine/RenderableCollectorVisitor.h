@@ -18,6 +18,7 @@ namespace GLEngine
 		virtual void Visit(Model* modelToVisit);
 		virtual void Visit(EnvironmentMapSky* skyToVisit);
 		virtual void Visit(Actor* actorToVisit);
+		virtual void Visit(PerspectiveCamera* cameraToVisit);
 
 		// Returns true if collections were empty and things were reset.
 		bool CheckAndResetCollection();

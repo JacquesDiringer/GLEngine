@@ -35,6 +35,11 @@ namespace GLEngine
 		actorToVisit->Increment(GetTimeSinceLastUpdate());
 	}
 
+	void UpdateVisitor::Visit(PerspectiveCamera * cameraToVisit)
+	{
+		// Void
+	}
+
 	void UpdateVisitor::RegisterTime()
 	{
 		double newTime = glfwGetTime();
