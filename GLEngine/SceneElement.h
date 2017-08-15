@@ -16,6 +16,8 @@ namespace GLEngine
 		SceneNode* GetParentNode() const { return _parentNode; }
 		void SetParentNode(SceneNode* parent) { _parentNode = parent; }
 
+		virtual void SetIsUpToDate(const bool value);
+
 	private:
 		SceneNode* _parentNode = nullptr;
 	};

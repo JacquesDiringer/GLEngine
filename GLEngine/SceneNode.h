@@ -32,7 +32,8 @@ namespace GLEngine
 		// Part of the visitor pattern.
 		virtual void Accept(SceneElementVisitor* visitor);
 
-		void SetWorldMatrixIsUpToDate(const bool value);
+		// Sets the fact that world matrix is up to date.
+		virtual void SetIsUpToDate(const bool value);
 
 		SceneNode* CreateChild();
 

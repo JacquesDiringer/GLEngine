@@ -67,11 +67,4 @@ namespace GLEngine
 	{
 		visitor->Visit(this);
 	}
-
-	void PerspectiveCamera::SetPositionAndTarget(Vector3 cameraPosition, Vector3 targetPosition)
-	{
-		_view->UpdateTargetPositionCameraYAxis(cameraPosition, targetPosition);
-		//*_cameraPosition = cameraPosition;
-	}
-
 }

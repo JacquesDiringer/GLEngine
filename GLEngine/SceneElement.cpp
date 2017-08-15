@@ -13,4 +13,9 @@ namespace GLEngine
 	SceneElement::~SceneElement()
 	{
 	}
+
+	void SceneElement::SetIsUpToDate(const bool value)
+	{
+		// Void
+	}
 }

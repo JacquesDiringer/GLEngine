@@ -11,7 +11,7 @@ namespace GLEngine
 	{
 		_relativeTransformation = new Matrix4();
 		_worldTransformation = new Matrix4();
-		SetWorldMatrixIsUpToDate(false);
+		SetIsUpToDate(false);
 		_subElements = list<SceneElement*>();
 	}
 
@@ -23,13 +23,13 @@ namespace GLEngine
 	void SceneNode::SetRelativeTransformation(Matrix4 newMatrix)
 	{
 		*_relativeTransformation = newMatrix;
-		SetWorldMatrixIsUpToDate(false);
+		SetIsUpToDate(false);
 	}
 
 	void SceneNode::SetRelativeTransformation(Matrix4 * newMatrix)
 	{
 		_relativeTransformation = newMatrix;
-		SetWorldMatrixIsUpToDate(false);
+		SetIsUpToDate(false);
 	}
 
 	Matrix4 * SceneNode::GetWorldTransformation()
@@ -46,7 +46,7 @@ namespace GLEngine
 			}
 		}
 
-		SetWorldMatrixIsUpToDate(true);
+		SetIsUpToDate(true);
 
 		return _worldTransformation;
 	}
@@ -65,7 +65,7 @@ namespace GLEngine
 		visitor->Visit(this);
 	}
 
-	void SceneNode::SetWorldMatrixIsUpToDate(const bool value)
+	void SceneNode::SetIsUpToDate(const bool value)
 	{
 		_worldMatrixIsUpToDate = value;
 
@@ -74,15 +74,11 @@ namespace GLEngine
 		{
 			for each (SceneElement* currentElement in _subElements)
 			{
-				SceneNode* currentSceneNode = dynamic_cast<SceneNode*>(currentElement);
-
-				if (currentSceneNode != nullptr)
-				{
-					currentSceneNode->SetWorldMatrixIsUpToDate(false);
-				}
+				currentElement->SetIsUpToDate(value);
 			}
 		}
 	}
+
 	SceneNode * SceneNode::CreateChild()
 	{
 		SceneNode* child = new SceneNode();
