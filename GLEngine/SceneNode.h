@@ -19,6 +19,7 @@ namespace GLEngine
 		~SceneNode();
 
 		Matrix4* GetRelativeTransformation()const { return _relativeTransformation; }
+		void SetRelativeTransformation(Matrix4 newMatrix);
 		void SetRelativeTransformation(Matrix4* newMatrix);
 
 		Matrix4* GetWorldTransformation();

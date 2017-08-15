@@ -12,7 +12,6 @@ namespace GLEngine
 		// View matrix initialization.
 		_view = new Matrix4();
 		*_view = Matrix4::Identity();
-		_viewMatrixIsUpToDate = false;
 
 		// Projection matrix initialization.
 		fov = 3.14159265358979323846 * fov / 180.0f;
@@ -21,7 +20,7 @@ namespace GLEngine
 		_projection = new Matrix4();
 		*_projection = Matrix4::CreateSymetricProjectionFrustum(near, far, height, width);
 
-		_cameraPosition = new Vector3();
+		_previousParentWorld = new Matrix4();
 	}
 
 	PerspectiveCamera::~PerspectiveCamera()
@@ -31,19 +30,21 @@ namespace GLEngine
 
 	const Matrix4 * PerspectiveCamera::GetView()
 	{
-		if (!_viewMatrixIsUpToDate)
+		SceneNode* parentNode = GetParentNode();
+		if (parentNode != nullptr)
 		{
-			SceneNode* parentNode = GetParentNode();
-			if (parentNode != nullptr)
+			Matrix4 newView = Matrix4(*parentNode->GetWorldTransformation());
+			if (!(*_previousParentWorld == newView))
 			{
-				_view->UpdateTargetPositionCameraYAxis(parentNode->GetWorldTransformation()->Position(), targetPosition);
+				newView.InvertRT();
+				*_view = newView;
 
-				_viewMatrixIsUpToDate = true;
+				*_previousParentWorld = *_view;
 			}
-			else
-			{
-				throw new std::exception("Camera should have a parent node.");
-			}
+		}
+		else
+		{
+			throw new std::exception("Camera should have a parent node.");
 		}
 
 		return _view;
@@ -67,10 +68,10 @@ namespace GLEngine
 		visitor->Visit(this);
 	}
 
-	//void PerspectiveCamera::SetPositionAndTarget(Vector3 cameraPosition, Vector3 targetPosition)
-	//{
-	//	_view->UpdateTargetPositionCameraYAxis(cameraPosition, targetPosition);
-	//	*_cameraPosition = cameraPosition;
-	//}
+	void PerspectiveCamera::SetPositionAndTarget(Vector3 cameraPosition, Vector3 targetPosition)
+	{
+		_view->UpdateTargetPositionCameraYAxis(cameraPosition, targetPosition);
+		//*_cameraPosition = cameraPosition;
+	}
 
 }

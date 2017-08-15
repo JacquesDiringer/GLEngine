@@ -46,7 +46,7 @@ namespace GLEngine
 				//rotationMatrix = *_rotationMatrix  * deltaTime;
 			}
 
-			*parentRelative = *parentRelative * rotationMatrix;
+			parentNode->SetRelativeTransformation(*parentRelative * rotationMatrix);
 		}
 		else
 		{

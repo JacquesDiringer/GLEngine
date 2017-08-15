@@ -6,6 +6,7 @@ namespace GLEngine
 	class Actor;
 	class Model;
 	class EnvironmentMapSky;
+	class PerspectiveCamera;
 
 	class SceneElementVisitor
 	{

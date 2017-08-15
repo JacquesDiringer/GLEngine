@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "SceneNode.h"
 
+#include <typeinfo>
+
 
 namespace GLEngine
 {
@@ -10,11 +12,18 @@ namespace GLEngine
 		_relativeTransformation = new Matrix4();
 		_worldTransformation = new Matrix4();
 		SetWorldMatrixIsUpToDate(false);
+		_subElements = list<SceneElement*>();
 	}
 
 
 	SceneNode::~SceneNode()
 	{
+	}
+
+	void SceneNode::SetRelativeTransformation(Matrix4 newMatrix)
+	{
+		*_relativeTransformation = newMatrix;
+		SetWorldMatrixIsUpToDate(false);
 	}
 
 	void SceneNode::SetRelativeTransformation(Matrix4 * newMatrix)
@@ -25,7 +34,7 @@ namespace GLEngine
 
 	Matrix4 * SceneNode::GetWorldTransformation()
 	{
-		if (_worldMatrixIsUpToDate)
+		if (!_worldMatrixIsUpToDate)
 		{
 			if (GetParentNode() == nullptr)
 			{
@@ -60,12 +69,13 @@ namespace GLEngine
 	{
 		_worldMatrixIsUpToDate = value;
 
-		// If false, invalidate sub elements.
+		// If false, invalidate sub scene nodes.
 		if (!value)
 		{
 			for each (SceneElement* currentElement in _subElements)
 			{
-				SceneNode* currentSceneNode = (SceneNode*)currentElement;
+				SceneNode* currentSceneNode = dynamic_cast<SceneNode*>(currentElement);
+
 				if (currentSceneNode != nullptr)
 				{
 					currentSceneNode->SetWorldMatrixIsUpToDate(false);
