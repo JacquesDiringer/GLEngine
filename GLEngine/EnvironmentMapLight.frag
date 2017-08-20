@@ -25,13 +25,13 @@ void main()
 	float viewDepth = geometryTexel.a;
 
 	// Diffuse fetch.
-    vec3 diffuseTexel = texture(diffuseGTexture, texCoordinates).rgb;
+    vec3 diffuse = texture(diffuseGTexture, texCoordinates).rgb;
 
 	// Specular and roughness fetch.
 	vec4 specularRoughness = texture(specularRoughnessGTexture, texCoordinates);
 	vec3 specular = specularRoughness.rgb;
 	float roughness = specularRoughness.a;
-	float diffuseLuminance = 0.299f*diffuseTexel.r + 0.587f*diffuseTexel.g + 0.114f*diffuseTexel.b;
+	float diffuseLuminance = 0.299f*diffuse.r + 0.587f*diffuse.g + 0.114f*diffuse.b;
 	float specularLuminance = 0.299f*specular.r + 0.587f*specular.g + 0.114f*specular.b;
 	float specularProportion = 0;
 	if (specularLuminance > 0)
@@ -60,7 +60,7 @@ void main()
 
     vec3 envmapSpecularSample = textureGrad(iblMap, specularFetchCoordinates, dFdx(abs(specularFetchCoordinates)), dFdy(abs(specularFetchCoordinates))).rgb;
 
-	vec3 finalColor = mix(diffuseTexel * envmapDiffuseSample, specular * envmapSpecularSample, specularProportion);
+	vec3 finalColor = mix(diffuse * envmapDiffuseSample, specular * envmapSpecularSample, specularProportion);
 
     color = vec4(finalColor, 1.0f);
 }

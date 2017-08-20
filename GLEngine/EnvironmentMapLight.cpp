@@ -120,7 +120,7 @@ namespace GLEngine
 				convolutionShader->GetUniform("roughnessInput")->SetValue(roughnessInput);
 
 				// Set the divisor that will allow to integrate properly respecting the number of samples and the integration angle.
-				convolutionShader->GetUniform("divisor")->SetValue(30 / ((float)_samplesNumber));
+				convolutionShader->GetUniform("divisor")->SetValue(15 / ((float)_samplesNumber));
 
 				// Set the environment map texture.
 				graphicsResourceManager->GetTextureManager()->AssignTextureToUnit(environmentMap);
