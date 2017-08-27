@@ -6,80 +6,61 @@ namespace GLEngine
 	GraphicsResourceManager::GraphicsResourceManager(int viewportWidth, int viewportHeight, TextureManager* textureManager)
 		: _viewportWidth(viewportWidth), _viewportHeight(viewportHeight), _textureManager(textureManager)
 	{
+		_loadedShaders = map<string, ShaderProgram*>();
 	}
 
 	GraphicsResourceManager::~GraphicsResourceManager()
 	{
 	}
 
-	ShaderProgram * GraphicsResourceManager::GetModelPBRShader()
+	ShaderProgram * GraphicsResourceManager::GetShader(string vertexShader, string fragmentShader)
 	{
-		if (_modelPBRShader == nullptr)
+		map<string, ShaderProgram*>::iterator foundShader = _loadedShaders.find(vertexShader + fragmentShader);
+
+		if (foundShader == _loadedShaders.end())
 		{
-			_modelPBRShader = new ShaderProgram("VertexShader.vert", "ModelShader.frag");
+			ShaderProgram* newShader = new ShaderProgram(vertexShader, fragmentShader);
+			_loadedShaders.insert(std::pair<string, ShaderProgram*>(vertexShader + fragmentShader, newShader));
+
+			return newShader;
 		}
 
-		return _modelPBRShader;
+		return (*foundShader).second;
+	}
+
+	ShaderProgram * GraphicsResourceManager::GetModelPBRShader()
+	{
+		return GetShader("VertexShader.vert", "ModelShader.frag");
 	}
 
 	ShaderProgram * GraphicsResourceManager::GetModelPBRInstancedShader()
 	{
-		if (_lambertianInstancedShader == nullptr)
-		{
-			_lambertianInstancedShader = new ShaderProgram("InstancedVertexShader.vert", "ModelShader.frag");
-		}
-
-		return _lambertianInstancedShader;
+		return GetShader("InstancedVertexShader.vert", "ModelShader.frag");
 	}
 
 	ShaderProgram * GraphicsResourceManager::GetEnvmapShader()
 	{
-		if (_envmapShader == nullptr)
-		{
-			_envmapShader = new ShaderProgram("VertexShader.vert", "EnvironmentMapFragmentShader.frag");
-		}
-
-		return _envmapShader;
+		return GetShader("VertexShader.vert", "EnvironmentMapFragmentShader.frag");
 	}
 
 	ShaderProgram * GraphicsResourceManager::GetEnvmapLightShader()
 	{
-		if (_envmapLightShader == nullptr)
-		{
-			_envmapLightShader = new ShaderProgram("ScreenSpace.vert", "EnvironmentMapLight.frag");
-		}
-
-		return _envmapLightShader;
+		return GetShader("ScreenSpace.vert", "EnvironmentMapLight.frag");
 	}
 
 	ShaderProgram * GraphicsResourceManager::GetPbrCombinerShader()
 	{
-		if (_pbrCombinerShader == nullptr)
-		{
-			_pbrCombinerShader = new ShaderProgram("ScreenSpace.vert", "PBRCombiner.frag");
-		}
-
-		return _pbrCombinerShader;
+		return GetShader("ScreenSpace.vert", "PBRCombiner.frag");
 	}
 
 	ShaderProgram * GraphicsResourceManager::GetEnvmapConvolutionShader()
 	{
-		if (_envmapConvolutionShader == nullptr)
-		{
-			_envmapConvolutionShader = new ShaderProgram("ScreenSpace.vert", "EnvironmentMapConvolution.frag");
-		}
-
-		return _envmapConvolutionShader;
+		return GetShader("ScreenSpace.vert", "EnvironmentMapConvolution.frag");
 	}
 
 	ShaderProgram * GraphicsResourceManager::GetTextureDrawShader()
 	{
-		if (_textureDrawShader == nullptr)
-		{
-			_textureDrawShader = new ShaderProgram("ScreenSpace.vert", "DrawTexture.frag");
-		}
-
-		return _textureDrawShader;
+		return GetShader("ScreenSpace.vert", "DrawTexture.frag");
 	}
 
 	VertexArrayObject * GraphicsResourceManager::GetScreenVAO()

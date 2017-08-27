@@ -1,7 +1,11 @@
 #pragma once
 
+#include <map>
+
 #include "ShaderProgram.h"
 #include "VertexArrayObject.h"
+
+using std::map;
 
 namespace GLEngine
 {
@@ -15,6 +19,8 @@ namespace GLEngine
 		int GetViewportHeight() const { return _viewportHeight; }
 
 		TextureManager* GetTextureManager() { return _textureManager; }
+
+		ShaderProgram* GetShader(string vertexShader, string fragmentShader);
 		ShaderProgram* GetModelPBRShader();
 		ShaderProgram* GetModelPBRInstancedShader();
 		ShaderProgram* GetEnvmapShader();
@@ -31,17 +37,10 @@ namespace GLEngine
 		int _viewportWidth, _viewportHeight;
 
 		TextureManager* _textureManager;
-		ShaderProgram* _modelPBRShader = nullptr;
-		ShaderProgram* _lambertianInstancedShader = nullptr;
-		ShaderProgram* _envmapShader = nullptr;
-		ShaderProgram* _envmapLightShader = nullptr;
-		ShaderProgram* _pbrCombinerShader = nullptr;
-
-		ShaderProgram* _envmapConvolutionShader = nullptr;
-
-		ShaderProgram* _textureDrawShader = nullptr;
 
 		VertexArrayObject* _screenVAO = nullptr;
+
+		map<string, ShaderProgram*> _loadedShaders;
 	};
 
 }
