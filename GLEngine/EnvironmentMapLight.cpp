@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "EnvironmentMapLight.h"
+#include "RGB16FBuffer.h"
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -98,14 +99,7 @@ namespace GLEngine
 			for (float roughnessInput = 1.0f; roughnessInput > 0.0001f; roughnessInput -= 0.1f)
 			{
 				// This texture will hold the convoluted environment map for the current integration angle.
-				GLuint convolutedEnvmap;
-				glGenTextures(1, &convolutedEnvmap);
-				glBindTexture(GL_TEXTURE_2D, convolutedEnvmap);
-				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, _convolutedWidth, _convolutedHeight, 0, GL_RGB, GL_FLOAT, NULL);
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-				// Link the texture to the framebuffer color attachment 0.
-				glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, convolutedEnvmap, 0);
+				RGB16FBuffer* convolutedEnvmap = new RGB16FBuffer(_convolutedWidth, _convolutedHeight);
 
 				// Check if the frame buffer is complete.
 				if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
@@ -142,18 +136,11 @@ namespace GLEngine
 				// Free texture units from the environment map.
 				graphicsResourceManager->GetTextureManager()->FreeUnits();
 
-				textures2DToAggregate.push_front(new Texture2D(convolutedEnvmap, _convolutedWidth, _convolutedHeight));
+				textures2DToAggregate.push_front(convolutedEnvmap->GetBoundTexture());
 			}
 
 			// This texture will hold the resized environment map for the 0 value integration angle.
-			GLuint convolutedEnvmap;
-			glGenTextures(1, &convolutedEnvmap);
-			glBindTexture(GL_TEXTURE_2D, convolutedEnvmap);
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, _convolutedWidth, _convolutedHeight, 0, GL_RGB, GL_FLOAT, NULL);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-			// Link the texture to the framebuffer color attachment 0.
-			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, convolutedEnvmap, 0);
+			RGB16FBuffer* convolutedEnvmap = new RGB16FBuffer(_convolutedWidth, _convolutedHeight);
 
 			// Check if the frame buffer is complete.
 			if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
@@ -175,7 +162,7 @@ namespace GLEngine
 
 			glDrawElements(GL_TRIANGLES, screenVAO->GetElementsCount(), GL_UNSIGNED_INT, 0);
 
-			textures2DToAggregate.push_front(new Texture2D(convolutedEnvmap, _convolutedWidth, _convolutedHeight));
+			textures2DToAggregate.push_front(convolutedEnvmap->GetBoundTexture());
 		}
 		screenVAO->UnBind();
 
