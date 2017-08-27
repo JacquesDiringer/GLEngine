@@ -21,6 +21,8 @@ namespace GLEngine
 		*_projection = Matrix4::CreateSymetricProjectionFrustum(near, far, height, width);
 
 		_previousParentWorld = new Matrix4();
+
+		_postProcesses = list<PostProcess*>();
 	}
 
 	PerspectiveCamera::~PerspectiveCamera()
@@ -66,5 +68,10 @@ namespace GLEngine
 	void PerspectiveCamera::Accept(SceneElementVisitor * visitor)
 	{
 		visitor->Visit(this);
+	}
+
+	void PerspectiveCamera::AddPostProcess(PostProcess * newPostProcess)
+	{
+		_postProcesses.push_back(newPostProcess);
 	}
 }

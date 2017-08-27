@@ -30,6 +30,9 @@ namespace GLEngine
 		// Lighting frame buffer.
 		RGB16FBuffer* _lightingBuffer;
 
+		// Combine frame buffer. Render obtained before post processing.
+		RGB16FBuffer* _combineBuffer;
+
 		// Environment map light Renderable that will be consistent from one frame to an other, should only need to be calculated once.
 		EnvironmentMapLight* _environmentMapLight = nullptr;
 

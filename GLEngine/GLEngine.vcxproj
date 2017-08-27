@@ -155,12 +155,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
+    <ClInclude Include="BloomPostProcess.h" />
     <ClInclude Include="EnvironmentMapLight.h" />
     <ClInclude Include="EnvironmentMapSky.h" />
     <ClInclude Include="FrameBuffer.h" />
     <ClInclude Include="GBuffer.h" />
     <ClInclude Include="GraphicsResourceManager.h" />
     <ClInclude Include="InstancedModel.h" />
+    <ClInclude Include="PostProcess.h" />
     <ClInclude Include="RGB16FBuffer.h" />
     <ClInclude Include="Matrix4.h" />
     <ClInclude Include="Mesh.h" />
@@ -203,6 +205,7 @@
     <Text Include="EnvironmentMapFragmentShader.frag">
       <FileType>Document</FileType>
     </Text>
+    <ClCompile Include="BloomPostProcess.cpp" />
     <ClCompile Include="EnvironmentMapLight.cpp" />
     <ClCompile Include="EnvironmentMapSky.cpp" />
     <ClCompile Include="FrameBuffer.cpp" />
@@ -210,6 +213,7 @@
     <ClCompile Include="GLEngine.cpp" />
     <ClCompile Include="GraphicsResourceManager.cpp" />
     <ClCompile Include="InstancedModel.cpp" />
+    <ClCompile Include="PostProcess.cpp" />
     <ClCompile Include="RGB16FBuffer.cpp" />
     <ClCompile Include="Matrix4.cpp" />
     <ClCompile Include="Mesh.cpp" />
@@ -254,6 +258,7 @@
     <ResourceCompile Include="GLEngine.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Bloom.frag" />
     <None Include="PBRCombiner.frag" />
     <None Include="ScreenSpace.vert" />
   </ItemGroup>

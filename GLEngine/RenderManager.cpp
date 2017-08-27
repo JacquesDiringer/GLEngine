@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "RenderManager.h"
 #include "RenderableCollectorVisitor.h"
+#include "PostProcess.h"
 
 #include <iostream>
 
@@ -88,9 +89,24 @@ namespace GLEngine
 				_environmentMapLight->Render(sceneManager, graphicsResourceManager);
 			}
 
-			// Attach the default frame buffer.
-			glBindFramebuffer(GL_FRAMEBUFFER, 0);
+			// Get the post processes, if any.
+			list<PostProcess*> postProcesses = sceneManager->GetCurrentCamera()->GetPostProcesses();
 
+			int postProcessesCount = postProcesses.size();
+			if (postProcessesCount == 0)
+			{
+				// When there are no post processes,
+				// Attach the default frame buffer, to have the final render call on screen.
+				glBindFramebuffer(GL_FRAMEBUFFER, 0);
+			}
+			else
+			{
+				// When there are post processes,
+				// Bind the combine frame buffer.
+				_combineBuffer->Bind();
+			}
+
+			// Combine rendering.
 			// Activate the PBR combiner shader.
 			ShaderProgram* pbrCombinerShader = graphicsResourceManager->GetPbrCombinerShader();
 			pbrCombinerShader->Use();
@@ -103,6 +119,45 @@ namespace GLEngine
 
 				// Draw the PBR combiner.
 				glDrawElements(GL_TRIANGLES, graphicsResourceManager->GetScreenVAO()->GetElementsCount(), GL_UNSIGNED_INT, 0);
+
+				textureManager->FreeUnits();
+			}
+
+
+			// Post processes rendering.
+			int currentPostProcessId = 0;
+			Texture2D* previousPostProcessResult;
+			for each (PostProcess* currentPostProcess in postProcesses)
+			{
+				if (currentPostProcessId == 0)
+				{
+					// If this is the first post process being computed, use the combine frame buffer as the input texture.
+					currentPostProcess->SetInputTexture(_combineBuffer->GetBoundTexture());
+				}
+				else
+				{
+					// Otherwise, take the result of the previous post process.
+					currentPostProcess->SetInputTexture(previousPostProcessResult);
+				}
+
+				if (currentPostProcessId < postProcessesCount - 1)
+				{
+					currentPostProcess->BindFrameBuffer();
+				}
+				else
+				{
+					// When it is the last post process to be computed,
+					// Attach the default frame buffer.
+					glBindFramebuffer(GL_FRAMEBUFFER, 0);
+				}
+
+				// Actually compute the post process.
+				currentPostProcess->Render(sceneManager, graphicsResourceManager);
+
+				// In case we need to pass it to the next one, remember the result.
+				previousPostProcessResult = currentPostProcess->GetProcessedResult();
+
+				++currentPostProcessId;
 			}
 		}
 		graphicsResourceManager->GetScreenVAO()->UnBind();
@@ -111,8 +166,8 @@ namespace GLEngine
 	void RenderManager::InitializeFrameBuffers()
 	{
 		_gBuffer = new GBuffer(_viewportWidth, _viewportHeight);
-
 		_lightingBuffer = new RGB16FBuffer(_viewportWidth, _viewportHeight);
+		_combineBuffer = new RGB16FBuffer(_viewportWidth, _viewportHeight);
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}

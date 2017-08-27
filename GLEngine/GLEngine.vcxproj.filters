@@ -88,6 +88,12 @@
     <Filter Include="Source Files\FrameBuffer">
       <UniqueIdentifier>{4a5e6de2-bdce-405e-be44-31989f00f410}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Render\PostProcesses">
+      <UniqueIdentifier>{b8486d59-e41b-4c97-9c6a-36f2a8d4be78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Render\PostProcesses">
+      <UniqueIdentifier>{5e24edea-7a43-41ec-823e-b8624a78551c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -243,6 +249,12 @@
     <ClInclude Include="ThirdViewOrientationActor.h">
       <Filter>Header Files\Actor</Filter>
     </ClInclude>
+    <ClInclude Include="BloomPostProcess.h">
+      <Filter>Header Files\Render\PostProcesses</Filter>
+    </ClInclude>
+    <ClInclude Include="PostProcess.h">
+      <Filter>Header Files\Render\PostProcesses</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -371,6 +383,12 @@
     <ClCompile Include="ThirdViewOrientationActor.cpp">
       <Filter>Source Files\Actor</Filter>
     </ClCompile>
+    <ClCompile Include="BloomPostProcess.cpp">
+      <Filter>Source Files\Render\PostProcesses</Filter>
+    </ClCompile>
+    <ClCompile Include="PostProcess.cpp">
+      <Filter>Source Files\Render\PostProcesses</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GLEngine.rc">
@@ -383,6 +401,9 @@
     </None>
     <None Include="PBRCombiner.frag">
       <Filter>Resource Files\Shaders\DeferredShading\Combiner</Filter>
+    </None>
+    <None Include="Bloom.frag">
+      <Filter>Resource Files\Shaders\ImageProcessing</Filter>
     </None>
   </ItemGroup>
 </Project>
