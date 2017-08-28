@@ -1,12 +1,15 @@
 #include "stdafx.h"
 #include "GraphicsResourceManager.h"
 
+#include "OBJMesh.h"
+
 namespace GLEngine
 {
 	GraphicsResourceManager::GraphicsResourceManager(int viewportWidth, int viewportHeight, TextureManager* textureManager)
 		: _viewportWidth(viewportWidth), _viewportHeight(viewportHeight), _textureManager(textureManager)
 	{
 		_loadedShaders = map<string, ShaderProgram*>();
+		_objLoader = new OBJLoader();
 	}
 
 	GraphicsResourceManager::~GraphicsResourceManager()
@@ -84,5 +87,18 @@ namespace GLEngine
 		}
 
 		return _screenVAO;
+	}
+
+	VertexArrayObject * GraphicsResourceManager::GetSphereVAO()
+	{
+		if (_sphereVAO == nullptr)
+		{
+			OBJMesh* sphereMesh = (OBJMesh*)_objLoader->LoadModel("sphere_UVs.obj");
+			sphereMesh->InitializeVao();
+
+			_sphereVAO = sphereMesh->GetVao();
+		}
+
+		return _sphereVAO;
 	}
 }

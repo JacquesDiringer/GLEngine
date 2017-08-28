@@ -12,9 +12,6 @@
 /Debug/GLEngine.exe
 /Debug/GLEngine.pdb
 /GLEngine/Release
-/GLEngine/phone4.jpg
-/GLEngine/strike_vector_background.jpg
-/GLEngine/phone4.jpg
 *.exe
 *.json
 *.sqlite
@@ -24,9 +21,9 @@
 /GLEngine/x64/Debug/GLEngine.tlog/unsuccessfulbuild
 *.log
 *.pch
-*.obj
 *.iobj
 *.ipdb
 *.pdb
-*.pdb
 *.idb
+/GLEngine/x64/Debug
+/GLEngine/x64/Release

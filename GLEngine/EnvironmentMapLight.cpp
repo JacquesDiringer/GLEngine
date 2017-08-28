@@ -53,8 +53,12 @@ namespace GLEngine
 				iProjection.Invert();
 				envmapLightShader->GetUniform("iProjection")->SetValue(&iProjection);
 
-				// Draw the envmap light quad covering the screen.
-				glDrawElements(GL_TRIANGLES, graphicsResourceManager->GetScreenVAO()->GetElementsCount(), GL_UNSIGNED_INT, 0);
+				graphicsResourceManager->GetScreenVAO()->Bind();
+				{
+					// Draw the envmap light quad covering the screen.
+					glDrawElements(GL_TRIANGLES, graphicsResourceManager->GetScreenVAO()->GetElementsCount(), GL_UNSIGNED_INT, 0);
+				}
+				graphicsResourceManager->GetScreenVAO()->UnBind();
 
 				graphicsResourceManager->GetTextureManager()->FreeUnits();
 			}

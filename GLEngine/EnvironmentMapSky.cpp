@@ -9,8 +9,8 @@
 
 namespace GLEngine
 {
-	EnvironmentMapSky::EnvironmentMapSky(Mesh* sphereMesh, Texture2D* environmentMap)
-		: Renderable(), _sphereMesh(sphereMesh), _environmentMap(environmentMap)
+	EnvironmentMapSky::EnvironmentMapSky(Texture2D* environmentMap)
+		: Renderable(), _environmentMap(environmentMap)
 	{
 	}
 
@@ -42,11 +42,11 @@ namespace GLEngine
 		graphicsResourceManager->GetTextureManager()->AssignTextureToUnit(_environmentMap);
 		shaderProgram->GetUniform("envmap")->SetValue((GLuint)_environmentMap->GetBoundUnit());
 
-		_sphereMesh->GetVao()->Bind();
+		graphicsResourceManager->GetSphereVAO()->Bind();
 		{
-			glDrawElements(GL_TRIANGLES, _sphereMesh->GetVao()->GetElementsCount(), GL_UNSIGNED_INT, 0);
+			glDrawElements(GL_TRIANGLES, graphicsResourceManager->GetSphereVAO()->GetElementsCount(), GL_UNSIGNED_INT, 0);
 		}
-		_sphereMesh->GetVao()->UnBind();
+		graphicsResourceManager->GetSphereVAO()->UnBind();
 
 		graphicsResourceManager->GetTextureManager()->FreeUnits();
 	}

@@ -30,9 +30,4 @@ void main()
 			}
 		}
 	}
-
-	//if(length(texColor) > 1.4f)
-	//{
-	//	color += vec4(texColor.r, texColor.g, texColor.b, 1);
-	//}
 }

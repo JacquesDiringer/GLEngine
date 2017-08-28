@@ -4,6 +4,7 @@
 
 #include "ShaderProgram.h"
 #include "VertexArrayObject.h"
+#include "OBJLoader.h"
 
 using std::map;
 
@@ -32,13 +33,17 @@ namespace GLEngine
 		ShaderProgram* GetTextureDrawShader();
 
 		VertexArrayObject* GetScreenVAO();
+		VertexArrayObject* GetSphereVAO();
 
 	private:
 		int _viewportWidth, _viewportHeight;
 
 		TextureManager* _textureManager;
 
+		OBJLoader* _objLoader;
+
 		VertexArrayObject* _screenVAO = nullptr;
+		VertexArrayObject* _sphereVAO = nullptr;
 
 		map<string, ShaderProgram*> _loadedShaders;
 	};

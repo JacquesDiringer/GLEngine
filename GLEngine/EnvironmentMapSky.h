@@ -13,7 +13,7 @@ namespace GLEngine
 		public Renderable, public SceneElement
 	{
 	public:
-		EnvironmentMapSky(Mesh* sphereMesh, Texture2D* environmentMap);
+		EnvironmentMapSky(Texture2D* environmentMap);
 		~EnvironmentMapSky();
 
 		virtual void Accept(SceneElementVisitor* visitor);
@@ -23,7 +23,6 @@ namespace GLEngine
 		Texture2D* GetTexture() { return _environmentMap; }
 
 	private:
-		Mesh* _sphereMesh;
 		Texture2D* _environmentMap = nullptr;
 	};
 }

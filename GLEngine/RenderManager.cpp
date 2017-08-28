@@ -70,95 +70,95 @@ namespace GLEngine
 		collection->Clear();
 
 		// TODO : Move this in a clean function.
-		// Deferred tests.
 
-		graphicsResourceManager->GetScreenVAO()->Bind();
+		// Attach the lighting frame buffer.
+		_lightingBuffer->Bind();
+
+		// Render the environment map PBR lighting.
+		if (_environmentMapLight != nullptr)
 		{
-			// Attach the lighting frame buffer.
-			_lightingBuffer->Bind();
+			// Set the needed G-Buffer maps first.
+			_environmentMapLight->SetGeometryTexture(_gBuffer->GetGeomtryTexture());
+			_environmentMapLight->SetDiffuseTexture(_gBuffer->GetDiffuseTexture());
+			_environmentMapLight->SetSpecularRoughnessTexture(_gBuffer->GetSpecularRoughnessTexture());
 
-			// Render the environment map PBR lighting.
-			if (_environmentMapLight != nullptr)
+			// Render.
+			_environmentMapLight->Render(sceneManager, graphicsResourceManager);
+		}
+
+		// Get the post processes, if any.
+		list<PostProcess*> postProcesses = sceneManager->GetCurrentCamera()->GetPostProcesses();
+
+		int postProcessesCount = postProcesses.size();
+		if (postProcessesCount == 0)
+		{
+			// When there are no post processes,
+			// Attach the default frame buffer, to have the final render call on screen.
+			glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		}
+		else
+		{
+			// When there are post processes,
+			// Bind the combine frame buffer.
+			_combineBuffer->Bind();
+		}
+
+		// Combine rendering.
+		// Activate the PBR combiner shader.
+		ShaderProgram* pbrCombinerShader = graphicsResourceManager->GetPbrCombinerShader();
+		pbrCombinerShader->Use();
+		{
+			// Give the texture units to the shader uniforms, the g buffer units are still set from the lighting pass.
+			pbrCombinerShader->GetUniform("emissiveGTexture")->SetValue(
+				textureManager->AssignTextureToUnit(_gBuffer->GetEmissiveTexture()));
+			pbrCombinerShader->GetUniform("lightingTexture")->SetValue(
+				textureManager->AssignTextureToUnit(_lightingBuffer->GetBoundTexture()));
+
+			graphicsResourceManager->GetScreenVAO()->Bind();
 			{
-				// Set the needed G-Buffer maps first.
-				_environmentMapLight->SetGeometryTexture(_gBuffer->GetGeomtryTexture());
-				_environmentMapLight->SetDiffuseTexture(_gBuffer->GetDiffuseTexture());
-				_environmentMapLight->SetSpecularRoughnessTexture(_gBuffer->GetSpecularRoughnessTexture());
-
-				// Render.
-				_environmentMapLight->Render(sceneManager, graphicsResourceManager);
+				// Draw the PBR combiner.
+				glDrawElements(GL_TRIANGLES, graphicsResourceManager->GetScreenVAO()->GetElementsCount(), GL_UNSIGNED_INT, 0);
 			}
+			graphicsResourceManager->GetScreenVAO()->UnBind();
 
-			// Get the post processes, if any.
-			list<PostProcess*> postProcesses = sceneManager->GetCurrentCamera()->GetPostProcesses();
+			textureManager->FreeUnits();
+		}
 
-			int postProcessesCount = postProcesses.size();
-			if (postProcessesCount == 0)
+
+		// Post processes rendering.
+		int currentPostProcessId = 0;
+		Texture2D* previousPostProcessResult;
+		for each (PostProcess* currentPostProcess in postProcesses)
+		{
+			if (currentPostProcessId == 0)
 			{
-				// When there are no post processes,
-				// Attach the default frame buffer, to have the final render call on screen.
-				glBindFramebuffer(GL_FRAMEBUFFER, 0);
+				// If this is the first post process being computed, use the combine frame buffer as the input texture.
+				currentPostProcess->SetInputTexture(_combineBuffer->GetBoundTexture());
 			}
 			else
 			{
-				// When there are post processes,
-				// Bind the combine frame buffer.
-				_combineBuffer->Bind();
+				// Otherwise, take the result of the previous post process.
+				currentPostProcess->SetInputTexture(previousPostProcessResult);
 			}
 
-			// Combine rendering.
-			// Activate the PBR combiner shader.
-			ShaderProgram* pbrCombinerShader = graphicsResourceManager->GetPbrCombinerShader();
-			pbrCombinerShader->Use();
+			if (currentPostProcessId < postProcessesCount - 1)
 			{
-				// Give the texture units to the shader uniforms, the g buffer units are still set from the lighting pass.
-				pbrCombinerShader->GetUniform("emissiveGTexture")->SetValue(
-					textureManager->AssignTextureToUnit(_gBuffer->GetEmissiveTexture()));
-				pbrCombinerShader->GetUniform("lightingTexture")->SetValue(
-					textureManager->AssignTextureToUnit(_lightingBuffer->GetBoundTexture()));
-
-				// Draw the PBR combiner.
-				glDrawElements(GL_TRIANGLES, graphicsResourceManager->GetScreenVAO()->GetElementsCount(), GL_UNSIGNED_INT, 0);
-
-				textureManager->FreeUnits();
+				currentPostProcess->BindFrameBuffer();
 			}
-
-
-			// Post processes rendering.
-			int currentPostProcessId = 0;
-			Texture2D* previousPostProcessResult;
-			for each (PostProcess* currentPostProcess in postProcesses)
+			else
 			{
-				if (currentPostProcessId == 0)
-				{
-					// If this is the first post process being computed, use the combine frame buffer as the input texture.
-					currentPostProcess->SetInputTexture(_combineBuffer->GetBoundTexture());
-				}
-				else
-				{
-					// Otherwise, take the result of the previous post process.
-					currentPostProcess->SetInputTexture(previousPostProcessResult);
-				}
-
-				if (currentPostProcessId < postProcessesCount - 1)
-				{
-					currentPostProcess->BindFrameBuffer();
-				}
-				else
-				{
-					// When it is the last post process to be computed,
-					// Attach the default frame buffer.
-					glBindFramebuffer(GL_FRAMEBUFFER, 0);
-				}
-
-				// Actually compute the post process.
-				currentPostProcess->Render(sceneManager, graphicsResourceManager);
-
-				// In case we need to pass it to the next one, remember the result.
-				previousPostProcessResult = currentPostProcess->GetProcessedResult();
-
-				++currentPostProcessId;
+				// When it is the last post process to be computed,
+				// Attach the default frame buffer.
+				glBindFramebuffer(GL_FRAMEBUFFER, 0);
 			}
+
+			// Actually compute the post process.
+			currentPostProcess->Render(sceneManager, graphicsResourceManager);
+
+			// In case we need to pass it to the next one, remember the result.
+			previousPostProcessResult = currentPostProcess->GetProcessedResult();
+
+			++currentPostProcessId;
 		}
 		graphicsResourceManager->GetScreenVAO()->UnBind();
 	}
