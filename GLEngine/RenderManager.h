@@ -3,6 +3,7 @@
 #include "SceneManager.h"
 #include "RenderableCollectorVisitor.h"
 #include "NoAlphaRenderQueue.h"
+#include "PointLightRenderQueue.h"
 #include "SkyRenderQueue.h"
 #include "EnvironmentMapLight.h"
 #include "GBuffer.h"
@@ -22,6 +23,7 @@ namespace GLEngine
 		int _viewportWidth, _viewportHeight;
 		RenderableCollectorVisitor* _collectorVisitor;
 		NoAlphaRenderQueue* _modelsRenderQueue;
+		PointLightRenderQueue* _pointLightsRenderQueue;
 		SkyRenderQueue* _skyRenderQueue;
 
 		// G-Buffer frame buffer.

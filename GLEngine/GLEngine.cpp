@@ -30,6 +30,7 @@
 #include "ThirdViewOrientationActor.h"
 #include "PostProcess.h"
 #include "BloomPostProcess.h"
+#include "PointLight.h"
 
 // Maths
 #include "Matrix4.h"
@@ -46,7 +47,7 @@ Vector3 _globalTargetPosition = Vector3(0, 0, 0);
 
 float _globalAcceleration = 0.002f;
 float _globalFriction = 0.02f;
-float _sphereRadius = 5.0f;
+float _sphereRadius = 8.0f;
 float _thetaSpeed = 0, _phiSpeed = 0;
 float _theta = 0, _phi = 0;
 
@@ -290,13 +291,25 @@ int main()
 
 	// Camera addition under a scene node.
 	//SceneNode* cameraNode = sceneManager->GetRootNode()->CreateChild();
-	SceneNode* cameraNode = extremityNode->CreateChild();
-	cameraNode->SetRelativeTransformation(&Matrix4::CreateTranslation(Vector3(0, 1, 4)));
+	SceneNode* cameraNode = sceneManager->GetRootNode()->CreateChild();
+	//SceneNode* cameraNode = extremityNode->CreateChild();
+	cameraNode->SetRelativeTransformation(&Matrix4::CreateTranslation(Vector3(0, 0, 4)));
 	cameraNode->AddSubElement(camera);
-	cameraNode->AddSubElement(new ThirdViewOrientationActor(extremityNode));
+	//cameraNode->AddSubElement(new ThirdViewOrientationActor(extremityNode));
+	cameraNode->AddSubElement(new ThirdViewOrientationActor(sceneManager->GetRootNode()));
 
 	/*extremityNode->AddSubElement(camera);
 	extremityNode->AddSubElement(new ThirdViewOrientationActor(rotationNode));*/
+
+
+	// Point light.
+	PointLight* testPointLight = new PointLight(10, 10);
+
+	// Point light node.
+	//SceneNode* pointLightNode = sceneManager->GetRootNode()->CreateChild();
+	SceneNode* pointLightNode = extremityNode->CreateChild();
+	pointLightNode->SetRelativeTransformation(&Matrix4::CreateTranslation(Vector3(0, 0.5f, 3)));
+	pointLightNode->AddSubElement(testPointLight);
 
 	// Instancing tests, array.
 	for (int i = 0; i < 1; i++)

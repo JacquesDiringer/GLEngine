@@ -33,6 +33,11 @@ namespace GLEngine
 		_collectedElements->SetSky(skyToVisit);
 	}
 
+	void RenderableCollectorVisitor::Visit(PointLight * pointLightToVisit)
+	{
+		_collectedElements->PushPointLight(pointLightToVisit);
+	}
+
 	void RenderableCollectorVisitor::Visit(Actor * actorToVisit)
 	{
 		// Void

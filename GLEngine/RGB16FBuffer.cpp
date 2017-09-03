@@ -5,11 +5,24 @@
 namespace GLEngine
 {
 	RGB16FBuffer::RGB16FBuffer(int width, int height)
+		: RGB16FBuffer(width, height, 0)
+	{
+	}
+
+	RGB16FBuffer::RGB16FBuffer(int width, int height, GLuint depthBuffer)
 		: FrameBuffer(width, height)
 	{
 		// Lighting frame buffer creation.
 		glGenFramebuffers(1, &_id);
 		glBindFramebuffer(GL_FRAMEBUFFER, _id);
+
+		if (depthBuffer != 0)
+		{
+			// First bind a depth buffer.
+			glBindRenderbuffer(GL_RENDERBUFFER, depthBuffer);
+			glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height);
+			glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthBuffer);
+		}
 
 		// This texture will hold the lighting value on RGB
 		// No alpha yet.

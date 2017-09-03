@@ -2,6 +2,7 @@
 #include "RenderManager.h"
 #include "RenderableCollectorVisitor.h"
 #include "PostProcess.h"
+#include "PointLight.h"
 
 #include <iostream>
 
@@ -12,6 +13,7 @@ namespace GLEngine
 	{
 		_collectorVisitor = new RenderableCollectorVisitor();
 		_modelsRenderQueue = new NoAlphaRenderQueue();
+		_pointLightsRenderQueue = new PointLightRenderQueue();
 		_skyRenderQueue = new SkyRenderQueue();
 
 		InitializeFrameBuffers();
@@ -33,7 +35,7 @@ namespace GLEngine
 		// Attach the G-Buffer.
 		_gBuffer->Bind();
 
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// Render elements in the right order.
@@ -62,17 +64,15 @@ namespace GLEngine
 		// Then render it.
 		_modelsRenderQueue->Render(sceneManager, graphicsResourceManager);
 
-		// Clear render queues.
-		_skyRenderQueue->ClearRenderables();
-		_modelsRenderQueue->ClearRenderables();
 
-		// TODO: this call to clear will not stay necessary, each list should have had all it's elements popped at the end of the render loop.
-		collection->Clear();
-
-		// TODO : Move this in a clean function.
+		// TODO : Move these lighting passes in a clean function.
 
 		// Attach the lighting frame buffer.
 		_lightingBuffer->Bind();
+
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		// Only the color has to be cleared, we need the depth rendered during the G-Buffer pass and it's render buffer id is shared with the framebuffer of the G-Buffer.
+		glClear(GL_COLOR_BUFFER_BIT);
 
 		// Render the environment map PBR lighting.
 		if (_environmentMapLight != nullptr)
@@ -85,6 +85,18 @@ namespace GLEngine
 			// Render.
 			_environmentMapLight->Render(sceneManager, graphicsResourceManager);
 		}
+
+		for (PointLight* currentPointLight = collection->PopPointLight(); currentPointLight != nullptr; currentPointLight = collection->PopPointLight())
+		{
+			// Set the needed G-Buffer maps first.
+			currentPointLight->SetGeometryTexture(_gBuffer->GetGeomtryTexture());
+			currentPointLight->SetDiffuseTexture(_gBuffer->GetDiffuseTexture());
+			currentPointLight->SetSpecularRoughnessTexture(_gBuffer->GetSpecularRoughnessTexture());
+
+			_pointLightsRenderQueue->AddRenderable(currentPointLight);
+		}
+
+		_pointLightsRenderQueue->Render(sceneManager, graphicsResourceManager);
 
 		// Get the post processes, if any.
 		list<PostProcess*> postProcesses = sceneManager->GetCurrentCamera()->GetPostProcesses();
@@ -161,12 +173,21 @@ namespace GLEngine
 			++currentPostProcessId;
 		}
 		graphicsResourceManager->GetScreenVAO()->UnBind();
+
+		// Clearing all rendering temporary collections.
+		// Clear render queues.
+		_skyRenderQueue->ClearRenderables();
+		_modelsRenderQueue->ClearRenderables();
+		_pointLightsRenderQueue->ClearRenderables();
+
+		// Clear the elements in the collector
+		_collectorVisitor->CheckAndResetCollection();
 	}
 
 	void RenderManager::InitializeFrameBuffers()
 	{
 		_gBuffer = new GBuffer(_viewportWidth, _viewportHeight);
-		_lightingBuffer = new RGB16FBuffer(_viewportWidth, _viewportHeight);
+		_lightingBuffer = new RGB16FBuffer(_viewportWidth, _viewportHeight, _gBuffer->GetDepthBuffer());
 		_combineBuffer = new RGB16FBuffer(_viewportWidth, _viewportHeight);
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);

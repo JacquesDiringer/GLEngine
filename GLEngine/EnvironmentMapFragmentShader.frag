@@ -3,7 +3,6 @@
 const float PI = 3.14159265359f;
 const float INVPI = 0.31830988618f;
 
-in vec3 vertexColor;
 in vec2 texCoordinates;
 in vec3 worldNormal;
 

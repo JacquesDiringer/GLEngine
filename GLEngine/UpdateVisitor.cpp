@@ -30,6 +30,11 @@ namespace GLEngine
 		// Void
 	}
 
+	void UpdateVisitor::Visit(PointLight * pointLightToVisit)
+	{
+		// Void
+	}
+
 	void UpdateVisitor::Visit(Actor * actorToVisit)
 	{
 		actorToVisit->Increment(GetTimeSinceLastUpdate());

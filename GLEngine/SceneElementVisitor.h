@@ -6,6 +6,7 @@ namespace GLEngine
 	class Actor;
 	class Model;
 	class EnvironmentMapSky;
+	class PointLight;
 	class PerspectiveCamera;
 
 	class SceneElementVisitor
@@ -19,6 +20,7 @@ namespace GLEngine
 		virtual void Visit(SceneNode* sceneNodeToVisit);
 		virtual void Visit(Model* modelToVisit) = 0;
 		virtual void Visit(EnvironmentMapSky* skyToVisit) = 0;
+		virtual void Visit(PointLight* pointLightToVisit) = 0;
 		virtual void Visit(Actor* actorToVisit) = 0;
 		virtual void Visit(PerspectiveCamera* cameraToVisit) = 0;
 	};

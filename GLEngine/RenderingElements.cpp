@@ -9,10 +9,29 @@ namespace GLEngine
 	RenderingElements::RenderingElements()
 	{
 		_instancedModels = map<Model*, list<SceneNode*>>();
+		_pointLights = list<PointLight*>();
 	}
 
 	RenderingElements::~RenderingElements()
 	{
+	}
+
+	void RenderingElements::PushPointLight(PointLight * pointLight)
+	{
+		_pointLights.push_back(pointLight);
+	}
+
+	PointLight * RenderingElements::PopPointLight()
+	{
+		if (_pointLights.size() > 0)
+		{
+			PointLight* result = (*_pointLights.begin());
+			_pointLights.pop_front();
+
+			return result;
+		}
+
+		return nullptr;
 	}
 
 	void RenderingElements::PushModel(Model * model)
@@ -37,5 +56,11 @@ namespace GLEngine
 		}
 
 		return nullptr;
+	}
+
+	void RenderingElements::Clear()
+	{
+		_instancedModels.clear();
+		_pointLights.clear();
 	}
 }

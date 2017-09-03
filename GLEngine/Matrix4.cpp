@@ -302,6 +302,14 @@ namespace Math
 		return tempMatrix;
 	}
 
+	Matrix4 Matrix4::CreateScale(float scale)
+	{
+		return Matrix4(	scale,	0,		0,		0,
+						0,		scale,	0,		0,
+						0,		0,		scale,	0,
+						0,		0,		0,		1);
+	}
+
 	Matrix4 Matrix4::CreateSymetricProjectionFrustum(float near, float far, float height, float width)
 	{
 		return Matrix4(		0.5f * near/width,	0,					0,							0,

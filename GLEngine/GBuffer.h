@@ -16,9 +16,14 @@ namespace GLEngine
 		Texture2D* GetSpecularRoughnessTexture() { return _specularRoughnessTexture; }
 		Texture2D* GetEmissiveTexture() { return _emissiveTexture; }
 
+		GLuint GetDepthBuffer() const { return _depthBuffer; }
+
 	private:
-		// G-Buffer textures ids.
+		// G-Buffer textures.
 		Texture2D *_geometryTexture, *_diffuseTexture, *_specularRoughnessTexture, *_emissiveTexture;
+
+		// Depth buffer id.
+		GLuint _depthBuffer;
 	};
 
 }

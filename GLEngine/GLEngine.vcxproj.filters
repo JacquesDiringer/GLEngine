@@ -94,6 +94,15 @@
     <Filter Include="Source Files\Render\PostProcesses">
       <UniqueIdentifier>{5e24edea-7a43-41ec-823e-b8624a78551c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Render\Lighting">
+      <UniqueIdentifier>{5cad7cc8-357d-4b22-bcee-62ecb2d9d6c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Render\Lighting">
+      <UniqueIdentifier>{48bb3e3f-7494-4d71-a31e-02ba1aec46ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Meshes">
+      <UniqueIdentifier>{cc50a5b2-368e-4bbe-bf5d-64e965d86f5c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -117,6 +126,9 @@
     </Text>
     <Text Include="DrawTexture.frag">
       <Filter>Resource Files\Shaders\Common</Filter>
+    </Text>
+    <Text Include="sphere_UVs.obj">
+      <Filter>Resource Files\Meshes</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>
@@ -234,9 +246,6 @@
     <ClInclude Include="Texture3D.h">
       <Filter>Header Files\Texture</Filter>
     </ClInclude>
-    <ClInclude Include="EnvironmentMapLight.h">
-      <Filter>Header Files\Render</Filter>
-    </ClInclude>
     <ClInclude Include="GBuffer.h">
       <Filter>Header Files\FrameBuffer</Filter>
     </ClInclude>
@@ -254,6 +263,18 @@
     </ClInclude>
     <ClInclude Include="PostProcess.h">
       <Filter>Header Files\Render\PostProcesses</Filter>
+    </ClInclude>
+    <ClInclude Include="EnvironmentMapLight.h">
+      <Filter>Header Files\Render\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="PointLight.h">
+      <Filter>Header Files\Render\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PointLightRenderQueue.h">
+      <Filter>Header Files\RenderQueue</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -368,9 +389,6 @@
     <ClCompile Include="Texture.cpp">
       <Filter>Source Files\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="EnvironmentMapLight.cpp">
-      <Filter>Source Files\Render</Filter>
-    </ClCompile>
     <ClCompile Include="GBuffer.cpp">
       <Filter>Source Files\FrameBuffer</Filter>
     </ClCompile>
@@ -389,6 +407,18 @@
     <ClCompile Include="PostProcess.cpp">
       <Filter>Source Files\Render\PostProcesses</Filter>
     </ClCompile>
+    <ClCompile Include="EnvironmentMapLight.cpp">
+      <Filter>Source Files\Render\Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="PointLight.cpp">
+      <Filter>Source Files\Render\Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PointLightRenderQueue.cpp">
+      <Filter>Source Files\RenderQueue</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GLEngine.rc">
@@ -404,6 +434,12 @@
     </None>
     <None Include="Bloom.frag">
       <Filter>Resource Files\Shaders\ImageProcessing</Filter>
+    </None>
+    <None Include="PointLight.frag">
+      <Filter>Resource Files\Shaders\DeferredShading\Lighting</Filter>
+    </None>
+    <None Include="PointLight.vert">
+      <Filter>Resource Files\Shaders\DeferredShading\Lighting</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -36,22 +36,15 @@ namespace GLEngine
 				envmapLightShader->GetUniform("specularRoughnessGTexture")->SetValue(
 					textureManager->AssignTextureToUnit(_specularRoughnessTexture));
 
+				// Set the inverse of the view.
+				envmapLightShader->GetUniform("iView")->SetValue(sceneManager->GetCurrentCamera()->GetIView());
+
+				// Set the inverse of the projection.
+				envmapLightShader->GetUniform("iProjection")->SetValue(sceneManager->GetCurrentCamera()->GetIProjection());
+
 				// Bind the convoluted environment map.
 				envmapLightShader->GetUniform("iblMap")->SetValue(
 					textureManager->AssignTextureToUnit(_convolutedEnvironmentMap));
-
-				// Set the inverse of the view.
-				Matrix4 iView = Matrix4();
-				iView.CopyFromMatrix4(sceneManager->GetCurrentCamera()->GetView());
-				iView.InvertRT();
-				envmapLightShader->GetUniform("iView")->SetValue(&iView);
-				//envmapLightShader->GetUniform("cameraWorlPosition")->SetValue(&iView.Position());
-
-				// Set the inverse of the projection.
-				Matrix4 iProjection = Matrix4();
-				iProjection.CopyFromMatrix4(sceneManager->GetCurrentCamera()->GetProjection());
-				iProjection.Invert();
-				envmapLightShader->GetUniform("iProjection")->SetValue(&iProjection);
 
 				graphicsResourceManager->GetScreenVAO()->Bind();
 				{
@@ -141,6 +134,8 @@ namespace GLEngine
 				graphicsResourceManager->GetTextureManager()->FreeUnits();
 
 				textures2DToAggregate.push_front(convolutedEnvmap->GetBoundTexture());
+
+				// TODO: Dispose convolutedEnvmap here
 			}
 
 			// This texture will hold the resized environment map for the 0 value integration angle.
@@ -167,6 +162,8 @@ namespace GLEngine
 			glDrawElements(GL_TRIANGLES, screenVAO->GetElementsCount(), GL_UNSIGNED_INT, 0);
 
 			textures2DToAggregate.push_front(convolutedEnvmap->GetBoundTexture());
+
+			// TODO: Dispose convolutedEnvmap here
 		}
 		screenVAO->UnBind();
 

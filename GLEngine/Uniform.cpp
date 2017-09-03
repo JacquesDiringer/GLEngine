@@ -103,4 +103,20 @@ namespace GLEngine
 		}
 	}
 
+	void Uniform::SetValue(const Matrix4 matrix)
+	{
+		if (_type == GL_FLOAT_MAT4)
+		{
+			GLfloat* matArray = matrix.GetArray();
+
+			glUniformMatrix4fv(_location, 1, GL_TRUE, matArray);
+
+			delete matArray;
+		}
+		else
+		{
+			Exception();
+		}
+	}
+
 }

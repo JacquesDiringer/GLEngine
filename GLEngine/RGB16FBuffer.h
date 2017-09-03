@@ -9,6 +9,7 @@ namespace GLEngine
 	{
 	public:
 		RGB16FBuffer(int width, int height);
+		RGB16FBuffer(int width, int height, GLuint depthBuffer);
 		~RGB16FBuffer();
 
 		Texture2D* GetBoundTexture() { return _boundTexture; }

@@ -26,6 +26,9 @@ namespace GLEngine
 		const Matrix4* GetView();
 		const Matrix4* GetProjection() const { return _projection; }
 
+		const Matrix4* GetIView();
+		const Matrix4* GetIProjection() const { return _iProjection; }
+
 		Vector3 GetPosition();
 
 		virtual void Accept(SceneElementVisitor* visitor);
@@ -34,8 +37,9 @@ namespace GLEngine
 		list<PostProcess*> GetPostProcesses() { return _postProcesses; }
 
 	private:
-		Matrix4* _view, * _projection;
-		Matrix4* _previousParentWorld;
+		Matrix4* _view,  * _iView, * _projection, * _iProjection;
 		list<PostProcess*> _postProcesses;
+
+		void UpdateViewAndIView();
 	};
 }

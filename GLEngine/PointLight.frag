@@ -1,25 +1,23 @@
 #version 330 core
 
-const float PI = 3.14159265359f;
-const float INVPI = 0.31830988618f;
-
-in vec2 texCoordinates;
-in vec3 cameraWorldRay;
+in vec3 worldPosition;
 
 out vec4 color;
 
-// Environment map
-uniform sampler2D envmap;
+// G-Buffer.
+uniform sampler2D geometryGTexture;
+uniform sampler2D diffuseGTexture;
+uniform sampler2D specularRoughnessGTexture;
 
-// Vector used to fetch in the envmap.
-uniform vec3 currentFetchVector;
+// The inverse of screen resolution.
+uniform vec2 pixelSize;
 
-// Divisor, depending on the number of samples as well as the solid angle depending on the integration angle.
-uniform float divisor;
+uniform mat4 world, view, projection;
 
-uniform float roughnessInput;
+uniform vec3 cameraPosition;
 
-
+// Light's power.
+uniform float power = 1;
 
 // CookTorrance lighting function.
 // ref: http://ruh.li/GraphicsCookTorrance.html
@@ -74,30 +72,45 @@ vec3 CookTorrance(vec3 diffuseTexel, vec3 specularTexel, float roughnessTexel, v
        diffuseTexel.xyz *= k;
        specularTexel.xyz *= specular * (1.0f - k);
  
-	   return NdotL * (diffuseTexel + specularTexel);
+       return NdotL * (diffuseTexel + specularTexel);
 }
-
 
 
 void main()
 {
-	color = vec4(0, 0, 0, 1);
+	vec2 texCoords = vec2(gl_FragCoord.x * pixelSize.x, gl_FragCoord.y * pixelSize.y);
 
-	// Compute the direction vector of the current pixel.
-	// Here warpedTexCoords.x is phi, and warpedTexCoords.y is theta.
-	vec2 warpedTexCoords = vec2((texCoordinates.x - 0.25f) * 2.0f * PI, texCoordinates.y * PI);
-	float sinTheta = sin(warpedTexCoords.y);
-	vec3 currentPixelDirection;
-	currentPixelDirection.x = cos(warpedTexCoords.x) * sinTheta;
-	currentPixelDirection.y = cos(warpedTexCoords.y);
-	currentPixelDirection.z = sin(warpedTexCoords.x) * sinTheta;
+	color = vec4(0, 0, 0, 0);
 
-	// Envmap fetch.
-	float phiNormalized = 0.5f - atan(currentFetchVector.x, currentFetchVector.z) * INVPI * 0.5f;
-	float thetaNormalized = acos(currentFetchVector.y) * INVPI;
+	// Fetch in the geometry texture.
+	vec4 geometryFetch = texture(geometryGTexture, texCoords);
+	vec3 normal = geometryFetch.xyz;
+	// Retrieve the depth, and stay aware that it is in view space.
+	float depth = geometryFetch.w;
 
-	vec3 envmapSample = textureLod(envmap, vec2(phiNormalized, thetaNormalized), 0).xyz;
+	// Use the depth to compute the world position of the current fragment.
+	vec3 cameraRay = normalize(worldPosition - cameraPosition);
+	vec3 gWorldPosition = cameraPosition + depth * cameraRay;
 
-	vec3 contribution = CookTorrance(vec3(0), vec3(1), roughnessInput, currentPixelDirection, currentFetchVector, currentPixelDirection);
-	color.xyz += envmapSample * contribution * divisor;
+	// Fetch in the diffuse texture.
+	vec3 diffuseFetch = texture(diffuseGTexture, texCoords).xyz;
+
+	// Fetch in the specular roughness texture.
+	vec4 specularRoughnessFetch = texture(specularRoughnessGTexture, texCoords);
+	vec3 specularTexel = specularRoughnessFetch.xyz;
+	float roughnessTexel = specularRoughnessFetch.w;
+
+	vec3 lightPosition = world[3].xyz;
+	vec3 lightDirection = lightPosition - gWorldPosition;
+	float lightDistance = length(lightDirection);
+	lightDirection = normalize(lightDirection);
+
+	vec3 eyeDirection = normalize(cameraPosition - gWorldPosition);
+
+	// Cook-Torrance contribution * light's power.
+	color.xyz += power * CookTorrance(diffuseFetch, specularTexel, roughnessTexel, normal, lightDirection, eyeDirection);
+
+	// Divide by the square of the distance from the light to the surface.
+	// For distance attenuation.
+	color.xyz /= pow(lightDistance, 2);
 }

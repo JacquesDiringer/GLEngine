@@ -12,11 +12,10 @@ namespace GLEngine
 		glBindFramebuffer(GL_FRAMEBUFFER, _id);
 
 		// First bind a depth buffer.
-		GLuint depthBuffer;
-		glGenRenderbuffers(1, &depthBuffer);
-		glBindRenderbuffer(GL_RENDERBUFFER, depthBuffer);
+		glGenRenderbuffers(1, &_depthBuffer);
+		glBindRenderbuffer(GL_RENDERBUFFER, _depthBuffer);
 		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height);
-		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthBuffer);
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, _depthBuffer);
 
 
 		// This texture will hold the (compressed) normal on RGB

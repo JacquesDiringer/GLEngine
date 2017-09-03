@@ -13,6 +13,7 @@ namespace GLEngine
 		// Visitor pattern.
 		virtual void Visit(Model* modelToVisit);
 		virtual void Visit(EnvironmentMapSky* skyToVisit);
+		virtual void Visit(PointLight* pointLightToVisit);
 		virtual void Visit(Actor* actorToVisit);
 		virtual void Visit(PerspectiveCamera* cameraToVisit);
 

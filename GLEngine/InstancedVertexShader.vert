@@ -7,20 +7,18 @@ layout (location = 3) in mat4 instanceWorld;
 //layout (location = 4) also instanceWorld
 //layout (location = 5) also instanceWorld
 
-out vec3 vertexColor;
 out vec2 texCoordinates;
 out vec3 worldNormal;
-out float viewDepth;
+out vec3 worldPosition;
 
 uniform mat4 view, projection;
 
 void main()
 {
-	vec4 viewPosition = view * instanceWorld * vec4(position, 1.0);
+	vec4 v4worldPosition = instanceWorld * vec4(position, 1.0);
+	worldPosition = v4worldPosition.xyz;
 
-	vertexColor = vec3(1, 1, 1);
 	texCoordinates = uvCoordinates;
 	worldNormal = (instanceWorld * vec4(normal, 0)).xyz;
-	viewDepth = viewPosition.z;
-    gl_Position = projection * viewPosition;
+    gl_Position = projection * view * v4worldPosition;
 }

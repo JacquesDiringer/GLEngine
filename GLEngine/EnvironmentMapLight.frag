@@ -12,7 +12,6 @@ out vec4 color;
 uniform sampler2D geometryGTexture;
 uniform sampler2D diffuseGTexture;
 uniform sampler2D specularRoughnessGTexture;
-uniform sampler2D emissiveGTexture;
 
 // Image based lighting map.
 uniform sampler3D iblMap;
@@ -22,7 +21,6 @@ void main()
 	// Geometry fetch.
     vec4 geometryTexel = texture(geometryGTexture, texCoordinates);
 	vec3 normal = normalize(geometryTexel.rgb);
-	float viewDepth = geometryTexel.a;
 
 	// Diffuse fetch.
     vec3 diffuse = texture(diffuseGTexture, texCoordinates).rgb;

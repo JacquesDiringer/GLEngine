@@ -162,6 +162,9 @@
     <ClInclude Include="GBuffer.h" />
     <ClInclude Include="GraphicsResourceManager.h" />
     <ClInclude Include="InstancedModel.h" />
+    <ClInclude Include="Light.h" />
+    <ClInclude Include="PointLight.h" />
+    <ClInclude Include="PointLightRenderQueue.h" />
     <ClInclude Include="PostProcess.h" />
     <ClInclude Include="RGB16FBuffer.h" />
     <ClInclude Include="Matrix4.h" />
@@ -213,6 +216,9 @@
     <ClCompile Include="GLEngine.cpp" />
     <ClCompile Include="GraphicsResourceManager.cpp" />
     <ClCompile Include="InstancedModel.cpp" />
+    <ClCompile Include="Light.cpp" />
+    <ClCompile Include="PointLight.cpp" />
+    <ClCompile Include="PointLightRenderQueue.cpp" />
     <ClCompile Include="PostProcess.cpp" />
     <ClCompile Include="RGB16FBuffer.cpp" />
     <ClCompile Include="Matrix4.cpp" />
@@ -260,7 +266,16 @@
   <ItemGroup>
     <None Include="Bloom.frag" />
     <None Include="PBRCombiner.frag" />
+    <None Include="PointLight.frag" />
+    <None Include="PointLight.vert" />
     <None Include="ScreenSpace.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="sphere_UVs.obj">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+    </Text>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

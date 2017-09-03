@@ -6,6 +6,7 @@ layout (location = 1) in vec2 uvCoordinates;
 out vec2 texCoordinates;
 out vec3 cameraWorldRay;
 
+// Inverse of the view and projection matrices.
 uniform mat4 iView, iProjection;
 
 void main()

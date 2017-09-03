@@ -1,9 +1,8 @@
 #version 330 core
 
-in vec3 vertexColor;
 in vec2 texCoordinates;
 in vec3 worldNormal;
-in float viewDepth;
+in vec3 worldPosition;
 
 layout(location = 0) out vec4 geometryGTexture;
 layout(location = 1) out vec3 diffuseGTexture;
@@ -15,10 +14,13 @@ uniform sampler2D diffuseTexture;
 uniform sampler2D specularTexture;
 uniform sampler2D roughnessTexture;
 
+uniform mat4 view;
+
 void main()
 {
 	vec2 newCoords = vec2(texCoordinates.x, 1 - texCoordinates.y);
 
+	float viewDepth = length((view * vec4(worldPosition, 1)).xyz);
 	geometryGTexture = vec4(worldNormal, viewDepth);
 	diffuseGTexture = texture(diffuseTexture, newCoords).rgb;
 	specularRoughnessGTexture.rgb = texture(specularTexture, newCoords).rgb;
