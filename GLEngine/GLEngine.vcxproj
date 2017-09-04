@@ -159,6 +159,7 @@
     <ClInclude Include="EnvironmentMapLight.h" />
     <ClInclude Include="EnvironmentMapSky.h" />
     <ClInclude Include="FrameBuffer.h" />
+    <ClInclude Include="GammaCorrectionPostProcess.h" />
     <ClInclude Include="GBuffer.h" />
     <ClInclude Include="GraphicsResourceManager.h" />
     <ClInclude Include="InstancedModel.h" />
@@ -212,6 +213,7 @@
     <ClCompile Include="EnvironmentMapLight.cpp" />
     <ClCompile Include="EnvironmentMapSky.cpp" />
     <ClCompile Include="FrameBuffer.cpp" />
+    <ClCompile Include="GammaCorrectionPostProcess.cpp" />
     <ClCompile Include="GBuffer.cpp" />
     <ClCompile Include="GLEngine.cpp" />
     <ClCompile Include="GraphicsResourceManager.cpp" />
@@ -265,6 +267,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Bloom.frag" />
+    <None Include="GammaCorrection.frag" />
     <None Include="PBRCombiner.frag" />
     <None Include="PointLight.frag" />
     <None Include="PointLight.vert" />

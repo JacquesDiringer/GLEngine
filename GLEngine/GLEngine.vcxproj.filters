@@ -276,6 +276,9 @@
     <ClInclude Include="PointLightRenderQueue.h">
       <Filter>Header Files\RenderQueue</Filter>
     </ClInclude>
+    <ClInclude Include="GammaCorrectionPostProcess.h">
+      <Filter>Header Files\Render\PostProcesses</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -419,6 +422,9 @@
     <ClCompile Include="PointLightRenderQueue.cpp">
       <Filter>Source Files\RenderQueue</Filter>
     </ClCompile>
+    <ClCompile Include="GammaCorrectionPostProcess.cpp">
+      <Filter>Source Files\Render\PostProcesses</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GLEngine.rc">
@@ -440,6 +446,9 @@
     </None>
     <None Include="PointLight.vert">
       <Filter>Resource Files\Shaders\DeferredShading\Lighting</Filter>
+    </None>
+    <None Include="GammaCorrection.frag">
+      <Filter>Resource Files\Shaders\ImageProcessing</Filter>
     </None>
   </ItemGroup>
 </Project>

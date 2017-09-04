@@ -14,7 +14,6 @@ void main()
 {
 	vec3 texColor = texture2D(inputTex, texCoordinates).rgb;
 	color = vec4(texColor, 1);
-	//color = vec4(0,0,0, 1);
 
 	vec2 tex_offset = sizeFactor / textureSize(inputTex, 0); // gets size of single texel
 

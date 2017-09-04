@@ -31,6 +31,7 @@
 #include "PostProcess.h"
 #include "BloomPostProcess.h"
 #include "PointLight.h"
+#include "GammaCorrectionPostProcess.h"
 
 // Maths
 #include "Matrix4.h"
@@ -189,7 +190,8 @@ int main()
 	PerspectiveCamera* camera = new PerspectiveCamera(0.1f, 800.0f, 20.0f, (float)height / (float)width);
 
 	// Post processes.
-	//camera->AddPostProcess(new BloomPostProcess(width, height));
+	camera->AddPostProcess(new BloomPostProcess(width, height));
+	camera->AddPostProcess(new GammaCorrectionPostProcess(width, height));
 
 	Texture2D* diffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/suzanne_paint.png");
 
@@ -216,14 +218,14 @@ int main()
 	Texture2D* planespecularTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Copper_Plates_Copper_Plates_roughness - Copie.jpg");
 	Texture2D* planeroughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Ceramic_mat_Ceramic_test_roughness.jpg");*/
 
-	/*Texture2D* planediffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Challenge_Marble_Challenge_Marble_diffuse.jpg");
+	Texture2D* planediffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Challenge_Marble_Challenge_Marble_diffuse.jpg");
 	Texture2D* planespecularTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Challenge_Marble_Challenge_Marble_specular.jpg");
-	Texture2D* planeroughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Challenge_Marble_Challenge_Marble_roughness.jpg");*/
+	Texture2D* planeroughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Challenge_Marble_Challenge_Marble_roughness.jpg");
 
 	// Cool copper plates
-	Texture2D* planediffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Copper_Plates_Copper_Plates_diffuse.jpg");
+	/*Texture2D* planediffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Copper_Plates_Copper_Plates_diffuse.jpg");
 	Texture2D* planespecularTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Copper_Plates_Copper_Plates_specular.jpg");
-	Texture2D* planeroughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Copper_Plates_Copper_Plates_roughness.jpg");
+	Texture2D* planeroughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Copper_Plates_Copper_Plates_roughness.jpg");*/
 
 	Texture2D* rgbTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/RGB.jpg");
 	Texture2D* grayTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/ceramic_004_ceramic_004_specular.jpg");

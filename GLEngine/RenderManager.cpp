@@ -83,7 +83,7 @@ namespace GLEngine
 			_environmentMapLight->SetSpecularRoughnessTexture(_gBuffer->GetSpecularRoughnessTexture());
 
 			// Render.
-			_environmentMapLight->Render(sceneManager, graphicsResourceManager);
+			//_environmentMapLight->Render(sceneManager, graphicsResourceManager);
 		}
 
 		for (PointLight* currentPointLight = collection->PopPointLight(); currentPointLight != nullptr; currentPointLight = collection->PopPointLight())
