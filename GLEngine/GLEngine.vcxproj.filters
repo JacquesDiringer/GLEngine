@@ -450,5 +450,8 @@
     <None Include="GammaCorrection.frag">
       <Filter>Resource Files\Shaders\ImageProcessing</Filter>
     </None>
+    <None Include="PointLightProjection.frag">
+      <Filter>Resource Files\Shaders\DeferredShading\Lighting</Filter>
+    </None>
   </ItemGroup>
 </Project>
