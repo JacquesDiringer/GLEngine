@@ -17,7 +17,7 @@ uniform mat4 world, view, projection;
 uniform vec3 cameraPosition;
 
 // Light's power.
-uniform float power = 1;
+uniform vec3 power = vec3(1);
 
 // CookTorrance lighting function.
 // ref: http://ruh.li/GraphicsCookTorrance.html

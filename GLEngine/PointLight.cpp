@@ -4,7 +4,7 @@
 
 namespace GLEngine
 {
-	PointLight::PointLight(float power, float range)
+	PointLight::PointLight(Vector3 power, float range)
 		: _power(power), _range(range)
 	{
 	}
@@ -56,7 +56,7 @@ namespace GLEngine
 			shaderProgram->GetUniform("cameraPosition")->SetValue(new Vector3(sceneManager->GetCurrentCamera()->GetIView()->Position()));
 
 			// Set the light's power.
-			shaderProgram->GetUniform("power")->SetValue(_power);
+			shaderProgram->GetUniform("power")->SetValue(&_power);
 
 			graphicsResourceManager->GetSphereVAO()->Bind();
 			{
