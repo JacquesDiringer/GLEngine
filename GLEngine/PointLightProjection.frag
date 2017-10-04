@@ -1,5 +1,7 @@
 #version 330 core
 
+const float INVPI = 0.31830988618f;
+
 in vec3 worldPosition;
 
 out vec4 color;
@@ -13,11 +15,15 @@ uniform sampler2D specularRoughnessGTexture;
 uniform vec2 pixelSize;
 
 uniform mat4 world, view, projection;
+uniform mat4 iWorld;
 
 uniform vec3 cameraPosition;
 
 // Light's power.
 uniform vec3 power = vec3(1);
+
+// Projected texture.
+uniform sampler2D projectedTex;
 
 // CookTorrance lighting function.
 // ref: http://ruh.li/GraphicsCookTorrance.html
@@ -113,4 +119,16 @@ void main()
 	// Divide by the square of the distance from the light to the surface.
 	// For distance attenuation.
 	color.xyz /= pow(lightDistance, 2);
+
+	// 3D coordinates of the fetch in the projected texture, must be influenced by the orientation of the light.
+	vec3 textureFetchDirection = -lightDirection;
+	textureFetchDirection = (iWorld * vec4(textureFetchDirection, 0)).xyz;
+	textureFetchDirection = normalize(textureFetchDirection);
+
+	float phi = 0.5f - atan(textureFetchDirection.x, textureFetchDirection.z) * INVPI * 0.5f;
+	float theta = acos(textureFetchDirection.y) * INVPI;
+	vec2 fetchCoordinates = vec2(phi, theta);
+
+	// Apply the projected texture.
+	color.xyz *= texture(projectedTex, fetchCoordinates).xyz;
 }

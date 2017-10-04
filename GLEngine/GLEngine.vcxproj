@@ -274,6 +274,7 @@
     <None Include="PBRCombiner.frag" />
     <None Include="PointLight.frag" />
     <None Include="PointLight.vert" />
+    <None Include="PointLightProjection.frag" />
     <None Include="ScreenSpace.vert" />
   </ItemGroup>
   <ItemGroup>

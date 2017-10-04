@@ -6,7 +6,8 @@ namespace GLEngine
 		public Light, public SceneElement
 	{
 	public:
-		PointLight(float power, float range);
+		PointLight(Vector3 power, float range);
+		PointLight(Vector3 power, float range, Texture2D* projectedTex);
 		~PointLight();
 
 		virtual void Accept(SceneElementVisitor* visitor);
@@ -14,6 +15,8 @@ namespace GLEngine
 		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager);
 
 	private:
-		float _power, _range;
+		Vector3 _power;
+		float _range;
+		Texture2D* _projectedTex = nullptr;
 	};
 }

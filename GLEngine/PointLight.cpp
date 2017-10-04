@@ -4,8 +4,13 @@
 
 namespace GLEngine
 {
-	PointLight::PointLight(float power, float range)
+	PointLight::PointLight(Vector3 power, float range)
 		: _power(power), _range(range)
+	{
+	}
+
+	PointLight::PointLight(Vector3 power, float range, Texture2D* projectedTex)
+		: _power(power), _range(range), _projectedTex(projectedTex)
 	{
 	}
 
@@ -30,7 +35,18 @@ namespace GLEngine
 			glEnable(GL_BLEND);
 			glBlendFunc(GL_ONE, GL_ONE);
 
-			ShaderProgram* shaderProgram = graphicsResourceManager->GetShader("PointLight.vert", "PointLight.frag");
+			ShaderProgram* shaderProgram;
+
+			if (_projectedTex == nullptr)
+			{
+				shaderProgram = graphicsResourceManager->GetShader("PointLight.vert", "PointLight.frag");
+			}
+			else
+			{
+				shaderProgram = graphicsResourceManager->GetShader("PointLight.vert", "PointLightProjection.frag");
+				shaderProgram->GetUniform("projectedTex")->SetValue(
+					textureManager->AssignTextureToUnit(_projectedTex));
+			}
 
 			shaderProgram->Use();
 
@@ -52,11 +68,15 @@ namespace GLEngine
 			Matrix4 scaledWorldTransformation = *parentNode->GetWorldTransformation() * Matrix4::CreateScale(_range);
 			shaderProgram->GetUniform("world")->SetValue(scaledWorldTransformation);
 
+			Matrix4 iWorld = *parentNode->GetWorldTransformation();
+			iWorld.InvertRT();
+			shaderProgram->GetUniform("iWorld")->SetValue(iWorld);
+
 			// Set the inverse of the view.
 			shaderProgram->GetUniform("cameraPosition")->SetValue(new Vector3(sceneManager->GetCurrentCamera()->GetIView()->Position()));
 
 			// Set the light's power.
-			shaderProgram->GetUniform("power")->SetValue(_power);
+			shaderProgram->GetUniform("power")->SetValue(&_power);
 
 			graphicsResourceManager->GetSphereVAO()->Bind();
 			{
