@@ -163,6 +163,7 @@
     <ClInclude Include="GBuffer.h" />
     <ClInclude Include="GraphicsResourceManager.h" />
     <ClInclude Include="InstancedModel.h" />
+    <ClInclude Include="LensPostProcess.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="PointLight.h" />
     <ClInclude Include="PointLightRenderQueue.h" />
@@ -218,6 +219,7 @@
     <ClCompile Include="GLEngine.cpp" />
     <ClCompile Include="GraphicsResourceManager.cpp" />
     <ClCompile Include="InstancedModel.cpp" />
+    <ClCompile Include="LensPostProcess.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="PointLightRenderQueue.cpp" />
@@ -268,6 +270,7 @@
   <ItemGroup>
     <None Include="Bloom.frag" />
     <None Include="GammaCorrection.frag" />
+    <None Include="Ghosting.frag" />
     <None Include="PBRCombiner.frag" />
     <None Include="PointLight.frag" />
     <None Include="PointLight.vert" />

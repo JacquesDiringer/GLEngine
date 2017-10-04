@@ -279,6 +279,9 @@
     <ClInclude Include="GammaCorrectionPostProcess.h">
       <Filter>Header Files\Render\PostProcesses</Filter>
     </ClInclude>
+    <ClInclude Include="LensPostProcess.h">
+      <Filter>Header Files\Render\PostProcesses</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -425,6 +428,9 @@
     <ClCompile Include="GammaCorrectionPostProcess.cpp">
       <Filter>Source Files\Render\PostProcesses</Filter>
     </ClCompile>
+    <ClCompile Include="LensPostProcess.cpp">
+      <Filter>Source Files\Render\PostProcesses</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GLEngine.rc">
@@ -448,6 +454,9 @@
       <Filter>Resource Files\Shaders\DeferredShading\Lighting</Filter>
     </None>
     <None Include="GammaCorrection.frag">
+      <Filter>Resource Files\Shaders\ImageProcessing</Filter>
+    </None>
+    <None Include="Ghosting.frag">
       <Filter>Resource Files\Shaders\ImageProcessing</Filter>
     </None>
   </ItemGroup>

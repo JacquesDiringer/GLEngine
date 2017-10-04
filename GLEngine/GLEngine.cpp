@@ -32,6 +32,7 @@
 #include "BloomPostProcess.h"
 #include "PointLight.h"
 #include "GammaCorrectionPostProcess.h"
+#include "LensPostProcess.h"
 
 // Maths
 #include "Matrix4.h"
@@ -190,7 +191,8 @@ int main()
 	PerspectiveCamera* camera = new PerspectiveCamera(0.1f, 800.0f, 20.0f, (float)height / (float)width);
 
 	// Post processes.
-	camera->AddPostProcess(new BloomPostProcess(width, height));
+	camera->AddPostProcess(new LensPostProcess(width, height));
+	//camera->AddPostProcess(new BloomPostProcess(width, height));
 	camera->AddPostProcess(new GammaCorrectionPostProcess(width, height));
 
 	Texture2D* diffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/suzanne_paint.png");

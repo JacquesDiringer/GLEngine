@@ -19,11 +19,11 @@ namespace GLEngine
 		TextureManager* textureManager = graphicsResourceManager->GetTextureManager();
 
 		// Bind the bloom shader.
-		ShaderProgram* bloomShader = graphicsResourceManager->GetShader("ScreenSpace.vert", "GammaCorrection.frag");
-		bloomShader->Use();
+		ShaderProgram* gammaCorrectionShader = graphicsResourceManager->GetShader("ScreenSpace.vert", "GammaCorrection.frag");
+		gammaCorrectionShader->Use();
 		{
 			// Set the input texture.
-			bloomShader->GetUniform("inputTex")->SetValue(textureManager->AssignTextureToUnit(_inputTexture));
+			gammaCorrectionShader->GetUniform("inputTex")->SetValue(textureManager->AssignTextureToUnit(_inputTexture));
 
 			// Bind the screen VAO.
 			VertexArrayObject* screenVAO = graphicsResourceManager->GetScreenVAO();
