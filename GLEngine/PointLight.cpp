@@ -68,9 +68,12 @@ namespace GLEngine
 			Matrix4 scaledWorldTransformation = *parentNode->GetWorldTransformation() * Matrix4::CreateScale(_range);
 			shaderProgram->GetUniform("world")->SetValue(scaledWorldTransformation);
 
-			Matrix4 iWorld = *parentNode->GetWorldTransformation();
-			iWorld.InvertRT();
-			shaderProgram->GetUniform("iWorld")->SetValue(iWorld);
+			if (_projectedTex != nullptr)
+			{
+				Matrix4 iWorld = *parentNode->GetWorldTransformation();
+				iWorld.InvertRT();
+				shaderProgram->GetUniform("iWorld")->SetValue(iWorld);
+			}
 
 			// Set the inverse of the view.
 			shaderProgram->GetUniform("cameraPosition")->SetValue(new Vector3(sceneManager->GetCurrentCamera()->GetIView()->Position()));
