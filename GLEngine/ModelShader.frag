@@ -21,7 +21,7 @@ void main()
 	vec2 newCoords = vec2(texCoordinates.x, 1 - texCoordinates.y);
 
 	float viewDepth = length((view * vec4(worldPosition, 1)).xyz);
-	geometryGTexture = vec4(worldNormal, viewDepth);
+	geometryGTexture = vec4(normalize(worldNormal), viewDepth);
 	diffuseGTexture = texture(diffuseTexture, newCoords).rgb;
 	specularRoughnessGTexture.rgb = texture(specularTexture, newCoords).rgb;
 	specularRoughnessGTexture.a = texture(roughnessTexture, newCoords).r;
