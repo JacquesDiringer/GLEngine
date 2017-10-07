@@ -5,6 +5,7 @@
 #include "ShaderProgram.h"
 #include "VertexArrayObject.h"
 #include "OBJLoader.h"
+#include "FrameBufferManager.h"
 
 using std::map;
 
@@ -13,13 +14,15 @@ namespace GLEngine
 	class GraphicsResourceManager
 	{
 	public:
-		GraphicsResourceManager(int viewportWidth, int viewportHeight, TextureManager* textureManager);
+		GraphicsResourceManager(int viewportWidth, int viewportHeight);
 		virtual ~GraphicsResourceManager();
 
 		int GetViewportWidth() const { return _viewportWidth; }
 		int GetViewportHeight() const { return _viewportHeight; }
 
 		TextureManager* GetTextureManager() { return _textureManager; }
+
+		FrameBufferManager* GetFrameBufferManager() { return _frameBufferManager; }
 
 		ShaderProgram* GetShader(string vertexShader, string fragmentShader);
 		ShaderProgram* GetModelPBRShader();
@@ -39,6 +42,8 @@ namespace GLEngine
 		int _viewportWidth, _viewportHeight;
 
 		TextureManager* _textureManager;
+
+		FrameBufferManager* _frameBufferManager;
 
 		OBJLoader* _objLoader;
 

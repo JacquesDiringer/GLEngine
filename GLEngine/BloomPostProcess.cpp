@@ -4,8 +4,8 @@
 
 namespace GLEngine
 {
-	BloomPostProcess::BloomPostProcess(int width, int height)
-		: PostProcess(width, height)
+	BloomPostProcess::BloomPostProcess(int width, int height, FrameBufferManager* frameBufferManager)
+		: PostProcess(width, height, frameBufferManager)
 	{
 	}
 

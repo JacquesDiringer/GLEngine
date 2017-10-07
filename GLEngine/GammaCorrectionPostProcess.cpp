@@ -4,8 +4,8 @@
 
 namespace GLEngine
 {
-	GammaCorrectionPostProcess::GammaCorrectionPostProcess(int width, int height)
-		: PostProcess(width, height)
+	GammaCorrectionPostProcess::GammaCorrectionPostProcess(int width, int height, FrameBufferManager* frameBufferManager)
+		: PostProcess(width, height, frameBufferManager)
 	{
 	}
 

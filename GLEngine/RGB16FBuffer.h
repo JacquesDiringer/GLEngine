@@ -8,8 +8,8 @@ namespace GLEngine
 		public FrameBuffer
 	{
 	public:
-		RGB16FBuffer(int width, int height);
-		RGB16FBuffer(int width, int height, GLuint depthBuffer);
+		RGB16FBuffer(int width, int height, FrameBufferManager* manager);
+		RGB16FBuffer(int width, int height, GLuint depthBuffer, FrameBufferManager* manager);
 		~RGB16FBuffer();
 
 		Texture2D* GetBoundTexture() { return _boundTexture; }

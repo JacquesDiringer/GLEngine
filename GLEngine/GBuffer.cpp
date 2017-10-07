@@ -4,8 +4,8 @@
 
 namespace GLEngine
 {
-	GBuffer::GBuffer(int width, int height)
-		: FrameBuffer(width, height)
+	GBuffer::GBuffer(int width, int height, FrameBufferManager* manager)
+		: FrameBuffer(width, height, manager)
 	{
 		// G-Buffer creation.
 		glGenFramebuffers(1, &_id);

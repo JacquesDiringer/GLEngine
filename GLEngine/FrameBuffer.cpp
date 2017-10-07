@@ -1,10 +1,12 @@
 #include "stdafx.h"
 #include "FrameBuffer.h"
+#include "FrameBufferManager.h"
 
 
 namespace GLEngine
 {
-	FrameBuffer::FrameBuffer(int width, int height)
+	FrameBuffer::FrameBuffer(int width, int height, FrameBufferManager* manager)
+		: _manager(manager)
 	{
 	}
 
@@ -15,11 +17,11 @@ namespace GLEngine
 
 	void FrameBuffer::Bind()
 	{
-		glBindFramebuffer(GL_FRAMEBUFFER, _id);
+		_manager->Bind(this);
 	}
 
 	void FrameBuffer::UnBind()
 	{
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		_manager->SetDefaultFrameBuffer();
 	}
 }

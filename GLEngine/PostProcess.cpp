@@ -4,9 +4,9 @@
 
 namespace GLEngine
 {
-	PostProcess::PostProcess(int width, int height)
+	PostProcess::PostProcess(int width, int height, FrameBufferManager* frameBufferManager)
 	{
-		_processedFrameBuffer = new RGB16FBuffer(width, height);
+		_processedFrameBuffer = new RGB16FBuffer(width, height, frameBufferManager);
 	}
 
 

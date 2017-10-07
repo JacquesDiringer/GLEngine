@@ -5,9 +5,11 @@
 
 namespace GLEngine
 {
-	GraphicsResourceManager::GraphicsResourceManager(int viewportWidth, int viewportHeight, TextureManager* textureManager)
-		: _viewportWidth(viewportWidth), _viewportHeight(viewportHeight), _textureManager(textureManager)
+	GraphicsResourceManager::GraphicsResourceManager(int viewportWidth, int viewportHeight)
+		: _viewportWidth(viewportWidth), _viewportHeight(viewportHeight)
 	{
+		_textureManager = new TextureManager();
+		_frameBufferManager = new FrameBufferManager();
 		_loadedShaders = map<string, ShaderProgram*>();
 		_objLoader = new OBJLoader();
 	}

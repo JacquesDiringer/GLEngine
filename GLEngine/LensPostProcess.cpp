@@ -4,8 +4,8 @@
 
 namespace GLEngine
 {
-	LensPostProcess::LensPostProcess(int width, int height)
-		: PostProcess(width, height)
+	LensPostProcess::LensPostProcess(int width, int height, FrameBufferManager* frameBufferManager)
+		: PostProcess(width, height, frameBufferManager)
 	{
 	}
 

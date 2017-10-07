@@ -96,7 +96,7 @@ namespace GLEngine
 			for (float roughnessInput = 1.0f; roughnessInput > 0.0001f; roughnessInput -= 0.1f)
 			{
 				// This texture will hold the convoluted environment map for the current integration angle.
-				RGB16FBuffer* convolutedEnvmap = new RGB16FBuffer(_convolutedWidth, _convolutedHeight);
+				RGB16FBuffer* convolutedEnvmap = new RGB16FBuffer(_convolutedWidth, _convolutedHeight, graphicsResourceManager->GetFrameBufferManager());
 
 				// Check if the frame buffer is complete.
 				if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
@@ -139,7 +139,7 @@ namespace GLEngine
 			}
 
 			// This texture will hold the resized environment map for the 0 value integration angle.
-			RGB16FBuffer* convolutedEnvmap = new RGB16FBuffer(_convolutedWidth, _convolutedHeight);
+			RGB16FBuffer* convolutedEnvmap = new RGB16FBuffer(_convolutedWidth, _convolutedHeight, graphicsResourceManager->GetFrameBufferManager());
 
 			// Check if the frame buffer is complete.
 			if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)

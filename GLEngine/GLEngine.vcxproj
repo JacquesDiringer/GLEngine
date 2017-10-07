@@ -159,6 +159,7 @@
     <ClInclude Include="EnvironmentMapLight.h" />
     <ClInclude Include="EnvironmentMapSky.h" />
     <ClInclude Include="FrameBuffer.h" />
+    <ClInclude Include="FrameBufferManager.h" />
     <ClInclude Include="GammaCorrectionPostProcess.h" />
     <ClInclude Include="GBuffer.h" />
     <ClInclude Include="GraphicsResourceManager.h" />
@@ -214,6 +215,7 @@
     <ClCompile Include="EnvironmentMapLight.cpp" />
     <ClCompile Include="EnvironmentMapSky.cpp" />
     <ClCompile Include="FrameBuffer.cpp" />
+    <ClCompile Include="FrameBufferManager.cpp" />
     <ClCompile Include="GammaCorrectionPostProcess.cpp" />
     <ClCompile Include="GBuffer.cpp" />
     <ClCompile Include="GLEngine.cpp" />

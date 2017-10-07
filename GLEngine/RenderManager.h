@@ -14,7 +14,7 @@ namespace GLEngine
 	class RenderManager
 	{
 	public:
-		RenderManager(int width, int height);
+		RenderManager(int width, int height, GraphicsResourceManager* graphicsResourceManager);
 		~RenderManager();
 
 		void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager);
@@ -39,6 +39,6 @@ namespace GLEngine
 		EnvironmentMapLight* _environmentMapLight = nullptr;
 
 		// Intializes buffers for deferred rendering.
-		void InitializeFrameBuffers();
+		void InitializeFrameBuffers(GraphicsResourceManager* graphicsResourceManager);
 	};
 }

@@ -8,7 +8,7 @@ namespace GLEngine
 		public FrameBuffer
 	{
 	public:
-		GBuffer(int width, int height);
+		GBuffer(int width, int height, FrameBufferManager* manager);
 		~GBuffer();
 
 		Texture2D* GetGeomtryTexture() { return _geometryTexture; }

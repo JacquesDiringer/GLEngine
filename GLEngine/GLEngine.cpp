@@ -185,15 +185,18 @@ int main()
 
 	glViewport(0, 0, width, height);
 
+	// Graphics Resource Manager.
+	GraphicsResourceManager* graphicsResourceManager = new GraphicsResourceManager(width, height);
+
 	// Texture manager.
-	TextureManager* textureManager = new TextureManager();
+	TextureManager* textureManager = graphicsResourceManager->GetTextureManager();
 
 	PerspectiveCamera* camera = new PerspectiveCamera(0.1f, 800.0f, 20.0f, (float)height / (float)width);
 
 	// Post processes.
-	camera->AddPostProcess(new LensPostProcess(width, height));
-	//camera->AddPostProcess(new BloomPostProcess(width, height));
-	camera->AddPostProcess(new GammaCorrectionPostProcess(width, height));
+	camera->AddPostProcess(new LensPostProcess(width, height, graphicsResourceManager->GetFrameBufferManager()));
+	//camera->AddPostProcess(new BloomPostProcess(width, height, graphicsResourceManager->GetFrameBufferManager()));
+	camera->AddPostProcess(new GammaCorrectionPostProcess(width, height, graphicsResourceManager->GetFrameBufferManager()));
 
 	Texture2D* diffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/suzanne_paint.png");
 
@@ -307,13 +310,23 @@ int main()
 
 
 	// Point light.
-	PointLight* testPointLight = new PointLight(10, 10);
+	PointLight* testPointLight = new PointLight(Vector3(10, 0, 0), 10);
+	PointLight* testPointLight1 = new PointLight(Vector3(0, 10, 0), 10);
+	PointLight* testPointLight2 = new PointLight(Vector3(0, 0, 10), 10);
 
 	// Point light node.
 	//SceneNode* pointLightNode = sceneManager->GetRootNode()->CreateChild();
 	SceneNode* pointLightNode = extremityNode->CreateChild();
 	pointLightNode->SetRelativeTransformation(&Matrix4::CreateTranslation(Vector3(0, 0.5f, 3)));
 	pointLightNode->AddSubElement(testPointLight);
+
+	SceneNode* pointLightNode1 = extremityNode->CreateChild();
+	pointLightNode1->SetRelativeTransformation(&Matrix4::CreateTranslation(Vector3(0, 0.5f, 4)));
+	pointLightNode1->AddSubElement(testPointLight1);
+
+	SceneNode* pointLightNode2 = extremityNode->CreateChild();
+	pointLightNode2->SetRelativeTransformation(&Matrix4::CreateTranslation(Vector3(0, 0.5f, 5)));
+	pointLightNode2->AddSubElement(testPointLight2);
 
 	// Instancing tests, array.
 	for (int i = 0; i < 1; i++)
@@ -327,10 +340,7 @@ int main()
 	}
 
 	// Render setting.
-	RenderManager* renderManager = new RenderManager(width, height);
-
-	// Graphics Resource Manager.
-	GraphicsResourceManager* graphicsResourceManager = new GraphicsResourceManager(width, height, textureManager);
+	RenderManager* renderManager = new RenderManager(width, height, graphicsResourceManager);
 
 	// Game loop
 	int frameCount = 0;

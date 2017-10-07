@@ -1,6 +1,7 @@
 #pragma once
 #include "Renderable.h"
 #include "RGB16FBuffer.h"
+#include "FrameBufferManager.h"
 
 namespace GLEngine
 {
@@ -8,7 +9,7 @@ namespace GLEngine
 		: public Renderable
 	{
 	public:
-		PostProcess(int width, int height);
+		PostProcess(int width, int height, FrameBufferManager* frameBufferManager);
 		virtual ~PostProcess();
 
 		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager) = 0;

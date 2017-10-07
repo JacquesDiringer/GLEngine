@@ -282,6 +282,9 @@
     <ClInclude Include="LensPostProcess.h">
       <Filter>Header Files\Render\PostProcesses</Filter>
     </ClInclude>
+    <ClInclude Include="FrameBufferManager.h">
+      <Filter>Header Files\FrameBuffer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -430,6 +433,9 @@
     </ClCompile>
     <ClCompile Include="LensPostProcess.cpp">
       <Filter>Source Files\Render\PostProcesses</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameBufferManager.cpp">
+      <Filter>Source Files\FrameBuffer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

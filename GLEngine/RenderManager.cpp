@@ -8,7 +8,7 @@
 
 namespace GLEngine
 {
-	RenderManager::RenderManager(int width, int height)
+	RenderManager::RenderManager(int width, int height, GraphicsResourceManager* graphicsResourceManager)
 		: _viewportWidth(width), _viewportHeight(height)
 	{
 		_collectorVisitor = new RenderableCollectorVisitor();
@@ -16,7 +16,7 @@ namespace GLEngine
 		_pointLightsRenderQueue = new PointLightRenderQueue();
 		_skyRenderQueue = new SkyRenderQueue();
 
-		InitializeFrameBuffers();
+		InitializeFrameBuffers(graphicsResourceManager);
 	}
 
 
@@ -184,11 +184,11 @@ namespace GLEngine
 		_collectorVisitor->CheckAndResetCollection();
 	}
 
-	void RenderManager::InitializeFrameBuffers()
+	void RenderManager::InitializeFrameBuffers(GraphicsResourceManager* graphicsResourceManager)
 	{
-		_gBuffer = new GBuffer(_viewportWidth, _viewportHeight);
-		_lightingBuffer = new RGB16FBuffer(_viewportWidth, _viewportHeight, _gBuffer->GetDepthBuffer());
-		_combineBuffer = new RGB16FBuffer(_viewportWidth, _viewportHeight);
+		_gBuffer = new GBuffer(_viewportWidth, _viewportHeight, graphicsResourceManager->GetFrameBufferManager());
+		_lightingBuffer = new RGB16FBuffer(_viewportWidth, _viewportHeight, _gBuffer->GetDepthBuffer(), graphicsResourceManager->GetFrameBufferManager());
+		_combineBuffer = new RGB16FBuffer(_viewportWidth, _viewportHeight, graphicsResourceManager->GetFrameBufferManager());
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}

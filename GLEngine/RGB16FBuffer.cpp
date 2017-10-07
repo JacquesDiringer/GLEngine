@@ -4,13 +4,13 @@
 
 namespace GLEngine
 {
-	RGB16FBuffer::RGB16FBuffer(int width, int height)
-		: RGB16FBuffer(width, height, 0)
+	RGB16FBuffer::RGB16FBuffer(int width, int height, FrameBufferManager* manager)
+		: RGB16FBuffer(width, height, 0, manager)
 	{
 	}
 
-	RGB16FBuffer::RGB16FBuffer(int width, int height, GLuint depthBuffer)
-		: FrameBuffer(width, height)
+	RGB16FBuffer::RGB16FBuffer(int width, int height, GLuint depthBuffer, FrameBufferManager* manager)
+		: FrameBuffer(width, height, manager)
 	{
 		// Lighting frame buffer creation.
 		glGenFramebuffers(1, &_id);

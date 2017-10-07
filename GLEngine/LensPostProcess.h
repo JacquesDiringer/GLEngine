@@ -6,7 +6,7 @@ namespace GLEngine
 		public PostProcess
 	{
 	public:
-		LensPostProcess(int width, int height);
+		LensPostProcess(int width, int height, FrameBufferManager* frameBufferManager);
 		~LensPostProcess();
 
 		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager);
