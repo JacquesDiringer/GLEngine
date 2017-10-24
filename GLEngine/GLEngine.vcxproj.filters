@@ -285,6 +285,12 @@
     <ClInclude Include="FrameBufferManager.h">
       <Filter>Header Files\FrameBuffer</Filter>
     </ClInclude>
+    <ClInclude Include="Texture2DRGB16F.h">
+      <Filter>Header Files\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture2DRGB8.h">
+      <Filter>Header Files\Texture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -436,6 +442,12 @@
     </ClCompile>
     <ClCompile Include="FrameBufferManager.cpp">
       <Filter>Source Files\FrameBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture2DRGB16F.cpp">
+      <Filter>Source Files\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture2DRGB8.cpp">
+      <Filter>Source Files\Texture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

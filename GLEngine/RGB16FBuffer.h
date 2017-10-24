@@ -1,6 +1,6 @@
 #pragma once
 #include "FrameBuffer.h"
-#include "Texture2D.h"
+#include "Texture2DRGB16F.h"
 
 namespace GLEngine
 {
@@ -16,7 +16,7 @@ namespace GLEngine
 
 	private:
 		// Lighting texture.
-		Texture2D * _boundTexture;
+		Texture2DRGB16F * _boundTexture;
 	};
 
 }
