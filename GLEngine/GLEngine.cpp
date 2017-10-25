@@ -310,9 +310,9 @@ int main()
 
 
 	// Point light.
-	PointLight* testPointLight = new PointLight(Vector3(100, 100, 100), 10);
-	PointLight* testPointLight1 = new PointLight(Vector3(100, 100, 100), 10);
-	PointLight* testPointLight2 = new PointLight(Vector3(100, 100, 100), 10);
+	PointLight* testPointLight = new PointLight(Vector3(20, 20, 20), 10);
+	PointLight* testPointLight1 = new PointLight(Vector3(20, 20, 20), 10);
+	PointLight* testPointLight2 = new PointLight(Vector3(20, 20, 20), 10);
 
 	// Point light node.
 	//SceneNode* pointLightNode = sceneManager->GetRootNode()->CreateChild();
