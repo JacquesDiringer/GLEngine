@@ -7,6 +7,7 @@ namespace GLEngine
 	LensPostProcess::LensPostProcess(int width, int height, FrameBufferManager* frameBufferManager)
 		: PostProcess(width, height, frameBufferManager)
 	{
+		_downscaledGhostBuffer = new RGB16FBuffer(width, height, frameBufferManager);
 	}
 
 
@@ -16,23 +17,58 @@ namespace GLEngine
 
 	void LensPostProcess::Render(SceneManager * sceneManager, GraphicsResourceManager * graphicsResourceManager)
 	{
+		_inputTexture->GenerateMipMaps();
+		// Change filtering.
+		_inputTexture->SetFiltering(GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+
 		TextureManager* textureManager = graphicsResourceManager->GetTextureManager();
 
-		// Bind the bloom shader.
-		ShaderProgram* ghostingShader = graphicsResourceManager->GetShader("ScreenSpace.vert", "Ghosting.frag");
-		ghostingShader->Use();
-		{
-			// Set the input texture.
-			ghostingShader->GetUniform("inputTex")->SetValue(textureManager->AssignTextureToUnit(_inputTexture));
+		FrameBufferManager* frameBufferManager = graphicsResourceManager->GetFrameBufferManager();
 
-			// Bind the screen VAO.
-			VertexArrayObject* screenVAO = graphicsResourceManager->GetScreenVAO();
-			screenVAO->Bind();
+		FrameBuffer* outputFrameBuffer = frameBufferManager->GetBoundFrameBuffer();
+		if (frameBufferManager->IsDefaultFrameBufferBound())
+		{
+			outputFrameBuffer = nullptr;
+		}
+
+		// Bind the screen VAO.
+		VertexArrayObject* screenVAO = graphicsResourceManager->GetScreenVAO();
+		screenVAO->Bind();
+		{
+
+			// Bind the ghost shader.
+			ShaderProgram* ghostingShader = graphicsResourceManager->GetShader("ScreenSpace.vert", "Ghosting.frag");
+			ghostingShader->Use();
 			{
+				// Set the input texture.
+				ghostingShader->GetUniform("inputTex")->SetValue(textureManager->AssignTextureToUnit(_inputTexture));
+
+				// Change the frame buffer to the one for the downscaled ghosts.
+				frameBufferManager->Bind(_downscaledGhostBuffer);
+
+				// Clear it before we draw.
+				glClear(GL_COLOR_BUFFER_BIT);
+
+				// Draw the surface.
 				glDrawElements(GL_TRIANGLES, screenVAO->GetElementsCount(), GL_UNSIGNED_INT, 0);
 			}
-			screenVAO->UnBind();
+
+			// Bind the combiner shader.
+			ShaderProgram* combinerShader = graphicsResourceManager->GetPbrCombinerShader();
+			combinerShader->Use();
+			{
+				// Bind the output frame buffer.
+				frameBufferManager->Bind(outputFrameBuffer);
+
+				combinerShader->GetUniform("emissiveGTexture")->SetValue(_inputTexture->GetBoundUnit());
+				combinerShader->GetUniform("lightingTexture")->SetValue(textureManager->AssignTextureToUnit(_downscaledGhostBuffer->GetBoundTexture()));
+				// Draw the surface.
+				glDrawElements(GL_TRIANGLES, screenVAO->GetElementsCount(), GL_UNSIGNED_INT, 0);
+			}
 		}
+		screenVAO->UnBind();
+
+		_inputTexture->SetFiltering(GL_NEAREST, GL_NEAREST);
 
 		textureManager->FreeUnits();
 	}

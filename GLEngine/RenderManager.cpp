@@ -161,7 +161,7 @@ namespace GLEngine
 			{
 				// When it is the last post process to be computed,
 				// Attach the default frame buffer.
-				glBindFramebuffer(GL_FRAMEBUFFER, 0);
+				graphicsResourceManager->GetFrameBufferManager()->SetDefaultFrameBuffer();
 			}
 
 			// Actually compute the post process.

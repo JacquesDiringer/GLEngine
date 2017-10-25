@@ -21,6 +21,6 @@ void main()
 	{ 
         vec2 offset = fract(texcoord + ghostVec * float(i));
   
-        color.xyz += max(vec3(0.0), texture(inputTex, offset).xyz - vec3(1));
+        color.xyz += max(vec3(0.0), textureLod(inputTex, offset, 5.0f).xyz - vec3(1));
     }
 }

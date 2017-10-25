@@ -196,6 +196,8 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Texture2D.h" />
+    <ClInclude Include="Texture2DRGB16F.h" />
+    <ClInclude Include="Texture2DRGB8.h" />
     <ClInclude Include="Texture3D.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="ThirdViewOrientationActor.h" />
@@ -256,6 +258,8 @@
     </ClCompile>
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Texture2D.cpp" />
+    <ClCompile Include="Texture2DRGB16F.cpp" />
+    <ClCompile Include="Texture2DRGB8.cpp" />
     <ClCompile Include="Texture3D.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="ThirdViewOrientationActor.cpp" />

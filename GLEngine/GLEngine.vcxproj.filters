@@ -443,10 +443,10 @@
     <ClCompile Include="FrameBufferManager.cpp">
       <Filter>Source Files\FrameBuffer</Filter>
     </ClCompile>
-    <ClCompile Include="Texture2DRGB16F.cpp">
+    <ClCompile Include="Texture2DRGB8.cpp">
       <Filter>Source Files\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="Texture2DRGB8.cpp">
+    <ClCompile Include="Texture2DRGB16F.cpp">
       <Filter>Source Files\Texture</Filter>
     </ClCompile>
   </ItemGroup>

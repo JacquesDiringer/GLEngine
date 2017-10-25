@@ -10,5 +10,8 @@ namespace GLEngine
 		~LensPostProcess();
 
 		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager);
+
+	private:
+		RGB16FBuffer* _downscaledGhostBuffer = nullptr;
 	};
 }

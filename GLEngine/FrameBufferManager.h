@@ -10,7 +10,7 @@ namespace GLEngine
 		FrameBufferManager();
 		~FrameBufferManager();
 
-		bool IsDefaultFrameBufferBound() { return _boundFrameBuffer == nullptr; }
+		bool IsDefaultFrameBufferBound() { return _defaultBound; }
 
 		FrameBuffer* GetBoundFrameBuffer() { return _boundFrameBuffer; }
 
@@ -19,5 +19,6 @@ namespace GLEngine
 
 	private:
 		FrameBuffer* _boundFrameBuffer = nullptr;
+		bool _defaultBound = true;
 	};
 }
