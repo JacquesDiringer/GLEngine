@@ -17,8 +17,9 @@ namespace GLEngine
 
 	void LensPostProcess::Render(SceneManager * sceneManager, GraphicsResourceManager * graphicsResourceManager)
 	{
+		// Generate the mip maps on the rendered image.
 		_inputTexture->GenerateMipMaps();
-		// Change filtering.
+		// Change filtering, so that we can actually use the mip maps.
 		_inputTexture->SetFiltering(GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
 
 		TextureManager* textureManager = graphicsResourceManager->GetTextureManager();
@@ -42,6 +43,10 @@ namespace GLEngine
 			{
 				// Set the input texture.
 				ghostingShader->GetUniform("inputTex")->SetValue(textureManager->AssignTextureToUnit(_inputTexture));
+
+				// Load/find and set the lens flare chromatic aberration texture.
+				Texture2D* lensChromaticAberrationTex = textureManager->GetTexture("lensChromaticAberration.png");
+				ghostingShader->GetUniform("lensChromaticAberrationTex")->SetValue(textureManager->AssignTextureToUnit(lensChromaticAberrationTex));
 
 				// Change the frame buffer to the one for the downscaled ghosts.
 				frameBufferManager->Bind(_downscaledGhostBuffer);

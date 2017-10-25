@@ -103,6 +103,9 @@
     <Filter Include="Resource Files\Meshes">
       <UniqueIdentifier>{cc50a5b2-368e-4bbe-bf5d-64e965d86f5c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Textures">
+      <UniqueIdentifier>{9d59d437-c37d-4613-a3dd-c3971d37aec2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -480,5 +483,10 @@
     <None Include="Ghosting.frag">
       <Filter>Resource Files\Shaders\ImageProcessing</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="lensChromaticAberration.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
   </ItemGroup>
 </Project>
