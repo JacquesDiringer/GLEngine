@@ -17,9 +17,8 @@ namespace GLEngine
 		_pixelSize = new Vector2(1 / (float)width, 1 / (float)height);
 
 		// The level of mip map is calculated by taking the deepest level of mip map (log2) minus N.
-		_mipLevelForGhosts = std::max(log2f(std::max(width, height)) - 10, 0.0f);
-		//_mipLevelForGhosts = std::max(log2f(std::max(width, height)) - 7, 0.0f);
-		_blurSamplesCount = 2;
+		_mipLevelForGhosts = std::max(log2f(std::max(width, height)) - 7, 0.0f);
+		_blurSamplesCount = 10;
 	}
 
 
