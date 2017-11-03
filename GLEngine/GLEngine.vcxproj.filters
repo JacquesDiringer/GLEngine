@@ -133,6 +133,9 @@
     <Text Include="sphere_UVs.obj">
       <Filter>Resource Files\Meshes</Filter>
     </Text>
+    <Text Include="BlurXY.frag">
+      <Filter>Resource Files\Shaders\ImageProcessing</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">

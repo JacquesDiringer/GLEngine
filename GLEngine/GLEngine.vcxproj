@@ -149,6 +149,7 @@
     </Text>
     <Text Include="InstancedVertexShader.vert" />
     <Text Include="ReadMe.txt" />
+    <Text Include="BlurXY.frag" />
     <Text Include="VertexShader.vert">
       <DeploymentContent>false</DeploymentContent>
     </Text>
