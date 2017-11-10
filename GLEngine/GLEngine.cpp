@@ -156,6 +156,7 @@ int main()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+	glfwWindowHint(GLFW_STEREO, GL_TRUE);
 
 	// GLFW window creation
 	GLFWwindow* window = glfwCreateWindow(1280, 768, "GLEngine test", nullptr, nullptr);

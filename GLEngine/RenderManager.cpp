@@ -211,17 +211,6 @@ namespace GLEngine
 
 		// Set the front and back buffer.
 		graphicsResourceManager->GetFrameBufferManager()->SetDefaultFrameBuffer();
-
-		// This texture will hold the diffuse color on RGB
-		// No alpha yet.
-		GLuint diffuseTextureId;
-		glGenTextures(1, &diffuseTextureId);
-		glBindTexture(GL_TEXTURE_2D, diffuseTextureId);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		// Link the texture to the framebuffer color attachment 1.
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, diffuseTextureId, 0);
 	}
 
 }
