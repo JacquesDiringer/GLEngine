@@ -26,7 +26,26 @@ namespace GLEngine
 
 	void RenderManager::Render(SceneManager * sceneManager, GraphicsResourceManager* graphicsResourceManager)
 	{
+		RenderEye(false, sceneManager, graphicsResourceManager);
+		RenderEye(true, sceneManager, graphicsResourceManager);
+	}
+
+	void RenderManager::RenderEye(bool leftEye, SceneManager * sceneManager, GraphicsResourceManager* graphicsResourceManager)
+	{
 		TextureManager* textureManager = graphicsResourceManager->GetTextureManager();
+		FrameBufferManager* frameBufferManager = graphicsResourceManager->GetFrameBufferManager();
+
+		// Draw in the correct buffer of the default frame buffer.
+		frameBufferManager->SetDefaultFrameBuffer();
+
+		if (leftEye)
+		{
+			glDrawBuffer(GL_BACK_LEFT);
+		}
+		else
+		{
+			glDrawBuffer(GL_BACK_RIGHT);
+		}
 
 		// Triggers renderable elements collection.
 		sceneManager->GetRootNode()->Accept(_collectorVisitor);
@@ -106,7 +125,7 @@ namespace GLEngine
 		{
 			// When there are no post processes,
 			// Attach the default frame buffer, to have the final render call on screen.
-			glBindFramebuffer(GL_FRAMEBUFFER, 0);
+			frameBufferManager->SetDefaultFrameBuffer();
 		}
 		else
 		{
@@ -161,7 +180,7 @@ namespace GLEngine
 			{
 				// When it is the last post process to be computed,
 				// Attach the default frame buffer.
-				graphicsResourceManager->GetFrameBufferManager()->SetDefaultFrameBuffer();
+				frameBufferManager->SetDefaultFrameBuffer();
 			}
 
 			// Actually compute the post process.
@@ -190,7 +209,19 @@ namespace GLEngine
 		_lightingBuffer = new RGB16FBuffer(_viewportWidth, _viewportHeight, _gBuffer->GetDepthBuffer(), graphicsResourceManager->GetFrameBufferManager());
 		_combineBuffer = new RGB16FBuffer(_viewportWidth, _viewportHeight, graphicsResourceManager->GetFrameBufferManager());
 
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		// Set the front and back buffer.
+		graphicsResourceManager->GetFrameBufferManager()->SetDefaultFrameBuffer();
+
+		// This texture will hold the diffuse color on RGB
+		// No alpha yet.
+		GLuint diffuseTextureId;
+		glGenTextures(1, &diffuseTextureId);
+		glBindTexture(GL_TEXTURE_2D, diffuseTextureId);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		// Link the texture to the framebuffer color attachment 1.
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, diffuseTextureId, 0);
 	}
 
 }

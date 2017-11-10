@@ -18,6 +18,7 @@ namespace GLEngine
 		~RenderManager();
 
 		void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager);
+		void RenderEye(bool leftEye, SceneManager * sceneManager, GraphicsResourceManager * graphicsResourceManager);
 
 	private:
 		int _viewportWidth, _viewportHeight;
