@@ -18,9 +18,9 @@ namespace GLEngine
 
 		virtual void Accept(SceneElementVisitor* visitor);
 
-		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager);
+		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager) const;
 
-		Texture2D* GetTexture() { return _environmentMap; }
+		Texture2D* GetTexture() const { return _environmentMap; }
 
 	private:
 		Texture2D* _environmentMap = nullptr;

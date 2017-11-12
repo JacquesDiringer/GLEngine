@@ -16,7 +16,7 @@ namespace GLEngine
 		InstancedModel(Model* resource, list<SceneNode*> instancesNodes);
 		~InstancedModel();
 
-		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager);
+		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager) const;
 
 		void SetInstanciationThreshold(int threshold) { _instanciationThreshold = threshold; }
 

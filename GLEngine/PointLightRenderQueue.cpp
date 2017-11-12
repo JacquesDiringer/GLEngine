@@ -14,7 +14,7 @@ namespace GLEngine
 	{
 	}
 
-	void PointLightRenderQueue::SetGpuState()
+	void PointLightRenderQueue::SetGpuState() const
 	{
 		// Remember the old states.
 		glGetBooleanv(GL_DEPTH_TEST, &_oldDepthTestEnabled);
@@ -54,7 +54,7 @@ namespace GLEngine
 		}
 	}
 
-	void PointLightRenderQueue::ResetGpuDefaultState()
+	void PointLightRenderQueue::ResetGpuDefaultState() const
 	{
 		if (!_oldDepthTestEnabled)
 		{

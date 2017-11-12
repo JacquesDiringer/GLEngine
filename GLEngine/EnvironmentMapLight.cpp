@@ -18,7 +18,7 @@ namespace GLEngine
 	{
 	}
 
-	void EnvironmentMapLight::Render(SceneManager * sceneManager, GraphicsResourceManager * graphicsResourceManager)
+	void EnvironmentMapLight::Render(SceneManager * sceneManager, GraphicsResourceManager * graphicsResourceManager) const
 	{
 		if (_convolutedEnvironmentMap != nullptr)
 		{

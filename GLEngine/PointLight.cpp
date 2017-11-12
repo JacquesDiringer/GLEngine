@@ -23,7 +23,7 @@ namespace GLEngine
 		visitor->Visit(this);
 	}
 
-	void PointLight::Render(SceneManager * sceneManager, GraphicsResourceManager * graphicsResourceManager)
+	void PointLight::Render(SceneManager * sceneManager, GraphicsResourceManager * graphicsResourceManager) const
 	{
 		SceneNode* parentNode = GetParentNode();
 

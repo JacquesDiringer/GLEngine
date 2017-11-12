@@ -29,7 +29,7 @@ namespace GLEngine
 		visitor->Visit(this);
 	}
 
-	void Model::Render(SceneManager * sceneManager, GraphicsResourceManager* graphicsResourceManager)
+	void Model::Render(SceneManager * sceneManager, GraphicsResourceManager* graphicsResourceManager) const
 	{
 		if (_resource != nullptr)
 		{
@@ -37,7 +37,7 @@ namespace GLEngine
 		}
 	}
 
-	void Model::RenderResource(SceneManager * sceneManager, GraphicsResourceManager* graphicsResourceManager, SceneNode * parentNode)
+	void Model::RenderResource(SceneManager * sceneManager, GraphicsResourceManager* graphicsResourceManager, SceneNode * parentNode) const
 	{
 		if (parentNode != nullptr)
 		{

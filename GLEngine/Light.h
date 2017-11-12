@@ -12,7 +12,7 @@ namespace GLEngine
 		Light();
 		virtual ~Light();
 
-		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager) = 0;
+		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager) const = 0;
 
 		void SetGeometryTexture(Texture2D* geometryTexture) { _geometryTexture = geometryTexture; }
 		void SetDiffuseTexture(Texture2D* diffuseTexture) { _diffuseTexture = diffuseTexture; }

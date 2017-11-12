@@ -12,7 +12,7 @@ namespace GLEngine
 
 		virtual void Accept(SceneElementVisitor* visitor);
 
-		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager);
+		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager) const;
 
 	private:
 		Vector3 _power;

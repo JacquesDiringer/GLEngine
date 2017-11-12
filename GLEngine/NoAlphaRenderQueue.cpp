@@ -13,7 +13,7 @@ namespace GLEngine
 	{
 	}
 
-	void NoAlphaRenderQueue::SetGpuState()
+	void NoAlphaRenderQueue::SetGpuState() const
 	{
 		// Remember the old states.
 		glGetBooleanv(GL_DEPTH_TEST, &_oldDepthTestEnabled);
@@ -57,7 +57,7 @@ namespace GLEngine
 		_renderables.clear();
 	}
 
-	void NoAlphaRenderQueue::ResetGpuDefaultState()
+	void NoAlphaRenderQueue::ResetGpuDefaultState() const
 	{
 		if (!_oldDepthTestEnabled)
 		{

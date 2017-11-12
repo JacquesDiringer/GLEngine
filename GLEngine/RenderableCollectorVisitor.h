@@ -12,7 +12,7 @@ namespace GLEngine
 		RenderableCollectorVisitor();
 		~RenderableCollectorVisitor();
 
-		RenderingElements* GetCollectedElements() { return _collectedElements; }
+		RenderingElements* GetCollectedElements() const { return _collectedElements; }
 
 		// Visitor pattern.
 		virtual void Visit(Model* modelToVisit);

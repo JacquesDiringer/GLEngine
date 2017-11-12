@@ -26,7 +26,7 @@ namespace GLEngine
 	{
 	}
 
-	void LensPostProcess::Render(SceneManager * sceneManager, GraphicsResourceManager * graphicsResourceManager)
+	void LensPostProcess::Render(SceneManager * sceneManager, GraphicsResourceManager * graphicsResourceManager) const
 	{
 		// Generate the mip maps on the rendered image.
 		_inputTexture->GenerateMipMaps();

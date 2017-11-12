@@ -14,7 +14,7 @@ namespace GLEngine
 	{
 	}
 
-	void BloomPostProcess::Render(SceneManager * sceneManager, GraphicsResourceManager * graphicsResourceManager)
+	void BloomPostProcess::Render(SceneManager * sceneManager, GraphicsResourceManager * graphicsResourceManager) const
 	{
 		TextureManager* textureManager = graphicsResourceManager->GetTextureManager();
 

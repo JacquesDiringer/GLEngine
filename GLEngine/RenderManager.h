@@ -17,7 +17,7 @@ namespace GLEngine
 		RenderManager(int width, int height, GraphicsResourceManager* graphicsResourceManager);
 		~RenderManager();
 
-		void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager);
+		void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager) const;
 
 	private:
 		int _viewportWidth, _viewportHeight;
@@ -36,7 +36,7 @@ namespace GLEngine
 		RGB16FBuffer* _combineBuffer;
 
 		// Environment map light Renderable that will be consistent from one frame to an other, should only need to be calculated once.
-		EnvironmentMapLight* _environmentMapLight = nullptr;
+		mutable EnvironmentMapLight* _environmentMapLight = nullptr;
 
 		// Intializes buffers for deferred rendering.
 		void InitializeFrameBuffers(GraphicsResourceManager* graphicsResourceManager);

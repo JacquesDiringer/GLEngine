@@ -17,7 +17,7 @@ namespace GLEngine
 		void PushPointLight(PointLight* pointLight);
 		PointLight* PopPointLight();
 
-		EnvironmentMapSky* GetSky() { return _sky; }
+		EnvironmentMapSky* GetSky() const { return _sky; }
 		void SetSky(EnvironmentMapSky* sky) { _sky = sky; }
 
 		void PushModel(Model* model);

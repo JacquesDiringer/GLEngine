@@ -13,6 +13,6 @@ namespace GLEngine
 		Renderable();
 		virtual ~Renderable();
 
-		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager) = 0;
+		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager) const = 0;
 	};
 }

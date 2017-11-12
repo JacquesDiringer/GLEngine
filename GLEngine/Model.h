@@ -18,8 +18,8 @@ namespace GLEngine
 
 		virtual void Accept(SceneElementVisitor* visitor);
 
-		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager);
-		void RenderResource(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager, SceneNode* parentNode);
+		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager) const;
+		void RenderResource(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager, SceneNode* parentNode) const;
 
 		Model* GetResource() const { return _resource; }
 

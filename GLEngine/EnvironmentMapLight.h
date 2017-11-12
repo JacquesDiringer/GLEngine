@@ -15,7 +15,7 @@ namespace GLEngine
 		// The rendering of the environment map light assumes that the light rendering frame buffer is already bound.
 		// A screen VAO also has to be bound before.
 		// It will however still bind the different maps from the G-Buffer to it's shader.
-		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager);
+		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager) const;
 
 	private:
 		Texture2D* _environmentMap;

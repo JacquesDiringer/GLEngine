@@ -12,7 +12,7 @@ namespace GLEngine
 		PostProcess(int width, int height, FrameBufferManager* frameBufferManager);
 		virtual ~PostProcess();
 
-		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager) = 0;
+		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager) const = 0;
 
 		void BindFrameBuffer() { _processedFrameBuffer->Bind(); }
 		Texture2D* GetProcessedResult() { return _processedFrameBuffer->GetBoundTexture(); }

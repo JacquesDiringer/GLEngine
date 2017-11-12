@@ -19,7 +19,7 @@ namespace GLEngine
 		_instancesNodes.clear();
 	}
 
-	void InstancedModel::Render(SceneManager * sceneManager, GraphicsResourceManager* graphicsResourceManager)
+	void InstancedModel::Render(SceneManager * sceneManager, GraphicsResourceManager* graphicsResourceManager) const
 	{
 		if (_instancesNodes.size() < _instanciationThreshold)
 		{

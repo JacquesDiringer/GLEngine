@@ -24,7 +24,7 @@ namespace GLEngine
 	{
 	}
 
-	void RenderManager::Render(SceneManager * sceneManager, GraphicsResourceManager* graphicsResourceManager)
+	void RenderManager::Render(SceneManager * sceneManager, GraphicsResourceManager* graphicsResourceManager) const
 	{
 		TextureManager* textureManager = graphicsResourceManager->GetTextureManager();
 

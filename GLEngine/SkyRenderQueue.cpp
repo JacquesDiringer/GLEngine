@@ -14,7 +14,7 @@ namespace GLEngine
 	{
 	}
 
-	void SkyRenderQueue::SetGpuState()
+	void SkyRenderQueue::SetGpuState() const
 	{
 		// Remember the old states.
 		glGetBooleanv(GL_DEPTH_TEST, &_oldDepthTestEnabled);
@@ -39,7 +39,7 @@ namespace GLEngine
 		}
 	}
 
-	void SkyRenderQueue::ResetGpuDefaultState()
+	void SkyRenderQueue::ResetGpuDefaultState() const
 	{
 		if (_oldDepthTestEnabled)
 		{

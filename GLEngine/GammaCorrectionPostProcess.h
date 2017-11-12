@@ -9,7 +9,7 @@ namespace GLEngine
 		GammaCorrectionPostProcess(int width, int height, FrameBufferManager* frameBufferManager);
 		~GammaCorrectionPostProcess();
 
-		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager);
+		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager) const;
 
 	};
 

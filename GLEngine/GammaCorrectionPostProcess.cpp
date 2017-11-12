@@ -14,7 +14,7 @@ namespace GLEngine
 	{
 	}
 
-	void GammaCorrectionPostProcess::Render(SceneManager * sceneManager, GraphicsResourceManager * graphicsResourceManager)
+	void GammaCorrectionPostProcess::Render(SceneManager * sceneManager, GraphicsResourceManager * graphicsResourceManager) const
 	{
 		TextureManager* textureManager = graphicsResourceManager->GetTextureManager();
 
