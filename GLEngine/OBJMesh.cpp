@@ -24,7 +24,7 @@ namespace GLEngine
 	{
 	}
 
-	list<int> OBJMesh::GetElementsList()
+	list<int> OBJMesh::GetElementsList() const
 	{
 		list<int> result = list<int>();
 
@@ -38,7 +38,7 @@ namespace GLEngine
 		return result;
 	}
 
-	list<Vector3*> OBJMesh::GetPositionsList()
+	list<Vector3*> OBJMesh::GetPositionsList() const
 	{
 		list<Vector3*> result = list<Vector3*>();
 
@@ -50,7 +50,7 @@ namespace GLEngine
 		return result;
 	}
 
-	list<Vector2*> OBJMesh::GetTextureCoordinatesList()
+	list<Vector2*> OBJMesh::GetTextureCoordinatesList() const
 	{
 		list<Vector2*> result = list<Vector2*>();
 
@@ -62,7 +62,7 @@ namespace GLEngine
 		return result;
 	}
 
-	list<Vector3*> OBJMesh::GetNormalsList()
+	list<Vector3*> OBJMesh::GetNormalsList() const
 	{
 		list<Vector3*> result = list<Vector3*>();
 

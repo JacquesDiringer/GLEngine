@@ -12,7 +12,7 @@ namespace GLEngine
 	MeshLoader::~MeshLoader()
 	{
 	}
-	Mesh * MeshLoader::LoadModel(string path)
+	Mesh * MeshLoader::LoadModel(string path) const
 	{
 		Mesh* modelResult = InitFromFileContent(Utils::ReadFile(path));
 		modelResult->SetPath(path);

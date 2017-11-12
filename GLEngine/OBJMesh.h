@@ -52,10 +52,10 @@ namespace GLEngine
 		OBJMesh();
 		~OBJMesh();
 
-		virtual list<int> GetElementsList();
-		virtual list<Vector3*> GetPositionsList();
-		virtual list<Vector2*> GetTextureCoordinatesList();
-		virtual list<Vector3*> GetNormalsList();
+		virtual list<int> GetElementsList() const;
+		virtual list<Vector3*> GetPositionsList() const;
+		virtual list<Vector2*> GetTextureCoordinatesList() const;
+		virtual list<Vector3*> GetNormalsList() const;
 
 		string GetObjectName() const { return _objectName; }
 		void SetObjectName(const string objectName) { _objectName = objectName; }

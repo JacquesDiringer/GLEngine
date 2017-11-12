@@ -13,6 +13,6 @@ namespace GLEngine
 		~OBJLoader();
 
 	protected:
-		virtual OBJMesh* InitFromFileContent(string content);
+		virtual OBJMesh* InitFromFileContent(string content) const;
 	};
 }

@@ -14,7 +14,7 @@ namespace GLEngine
 	{
 	}
 
-	OBJMesh * OBJLoader::InitFromFileContent(string content)
+	OBJMesh * OBJLoader::InitFromFileContent(string content) const
 	{
 		OBJMesh* objModel = new OBJMesh();
 

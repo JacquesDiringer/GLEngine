@@ -34,10 +34,10 @@ namespace GLEngine
 		bool GetHasNormals() const { return _hasNormals; }
 		void SetHasNormals(const bool value) { _hasNormals = value; }
 
-		virtual list<int> GetElementsList() = 0;
-		virtual list<Vector3*> GetPositionsList() = 0;
-		virtual list<Vector2*> GetTextureCoordinatesList() = 0;
-		virtual list<Vector3*> GetNormalsList() = 0;
+		virtual list<int> GetElementsList() const = 0;
+		virtual list<Vector3*> GetPositionsList() const = 0;
+		virtual list<Vector2*> GetTextureCoordinatesList() const = 0;
+		virtual list<Vector3*> GetNormalsList() const = 0;
 
 	private:
 		VertexArrayObject* _vao;
