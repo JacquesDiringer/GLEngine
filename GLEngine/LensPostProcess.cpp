@@ -37,7 +37,7 @@ namespace GLEngine
 
 		FrameBufferManager* frameBufferManager = graphicsResourceManager->GetFrameBufferManager();
 
-		FrameBuffer* outputFrameBuffer = frameBufferManager->GetBoundFrameBuffer();
+		const FrameBuffer* outputFrameBuffer = frameBufferManager->GetBoundFrameBuffer();
 		if (frameBufferManager->IsDefaultFrameBufferBound())
 		{
 			outputFrameBuffer = nullptr;

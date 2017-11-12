@@ -17,8 +17,8 @@ namespace GLEngine
 
 		GLuint GetId () const { return _id; }
 
-		void Bind();
-		void UnBind();
+		void Bind() const;
+		void UnBind() const;
 
 	protected:
 		GLuint _id;

@@ -11,10 +11,10 @@ namespace GLEngine
 		GBuffer(int width, int height, FrameBufferManager* manager);
 		~GBuffer();
 
-		Texture2D* GetGeomtryTexture() { return _geometryTexture; }
-		Texture2D* GetDiffuseTexture() { return _diffuseTexture; }
-		Texture2D* GetSpecularRoughnessTexture() { return _specularRoughnessTexture; }
-		Texture2D* GetEmissiveTexture() { return _emissiveTexture; }
+		Texture2D* GetGeomtryTexture() const { return _geometryTexture; }
+		Texture2D* GetDiffuseTexture() const { return _diffuseTexture; }
+		Texture2D* GetSpecularRoughnessTexture() const { return _specularRoughnessTexture; }
+		Texture2D* GetEmissiveTexture() const { return _emissiveTexture; }
 
 		GLuint GetDepthBuffer() const { return _depthBuffer; }
 

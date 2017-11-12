@@ -12,7 +12,7 @@ namespace GLEngine
 		RGB16FBuffer(int width, int height, GLuint depthBuffer, FrameBufferManager* manager);
 		~RGB16FBuffer();
 
-		Texture2D* GetBoundTexture() { return _boundTexture; }
+		Texture2D* GetBoundTexture() const { return _boundTexture; }
 
 	private:
 		// Lighting texture.

@@ -16,7 +16,7 @@ namespace GLEngine
 	{
 	}
 
-	void FrameBufferManager::Bind(FrameBuffer * bufferToBind)
+	void FrameBufferManager::Bind(const FrameBuffer * bufferToBind)
 	{
 		if (bufferToBind != nullptr)
 		{

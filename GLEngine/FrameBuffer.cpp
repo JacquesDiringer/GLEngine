@@ -15,12 +15,12 @@ namespace GLEngine
 		glDeleteFramebuffers(1, &_id);
 	}
 
-	void FrameBuffer::Bind()
+	void FrameBuffer::Bind() const
 	{
 		_manager->Bind(this);
 	}
 
-	void FrameBuffer::UnBind()
+	void FrameBuffer::UnBind() const
 	{
 		_manager->SetDefaultFrameBuffer();
 	}

@@ -10,15 +10,15 @@ namespace GLEngine
 		FrameBufferManager();
 		~FrameBufferManager();
 
-		bool IsDefaultFrameBufferBound() { return _defaultBound; }
+		bool IsDefaultFrameBufferBound() const { return _defaultBound; }
 
-		FrameBuffer* GetBoundFrameBuffer() { return _boundFrameBuffer; }
+		const FrameBuffer* GetBoundFrameBuffer() const { return _boundFrameBuffer; }
 
-		void Bind(FrameBuffer* bufferToBind);
+		void Bind(const FrameBuffer* bufferToBind);
 		void SetDefaultFrameBuffer();
 
 	private:
-		FrameBuffer* _boundFrameBuffer = nullptr;
+		const FrameBuffer* _boundFrameBuffer = nullptr;
 		bool _defaultBound = true;
 	};
 }
