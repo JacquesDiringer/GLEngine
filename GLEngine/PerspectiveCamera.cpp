@@ -37,7 +37,7 @@ namespace GLEngine
 
 	}
 
-	void PerspectiveCamera::UpdateViewAndIView()
+	void PerspectiveCamera::UpdateViewAndIView() const
 	{
 		SceneNode* parentNode = GetParentNode();
 		if (parentNode != nullptr)
@@ -59,14 +59,14 @@ namespace GLEngine
 		}
 	}
 
-	const Matrix4 * PerspectiveCamera::GetView()
+	const Matrix4 * PerspectiveCamera::GetView() const
 	{
 		UpdateViewAndIView();
 
 		return _view;
 	}
 
-	const Matrix4 * PerspectiveCamera::GetIView()
+	const Matrix4 * PerspectiveCamera::GetIView() const
 	{
 		UpdateViewAndIView();
 

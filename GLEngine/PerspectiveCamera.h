@@ -23,10 +23,10 @@ namespace GLEngine
 		PerspectiveCamera(float near, float far, float fov, float ratio);
 		~PerspectiveCamera();
 
-		const Matrix4* GetView();
+		const Matrix4* GetView() const;
 		const Matrix4* GetProjection() const { return _projection; }
 
-		const Matrix4* GetIView();
+		const Matrix4* GetIView() const;
 		const Matrix4* GetIProjection() const { return _iProjection; }
 
 		Vector3 GetPosition();
@@ -40,6 +40,6 @@ namespace GLEngine
 		Matrix4* _view,  * _iView, * _projection, * _iProjection;
 		list<PostProcess*> _postProcesses;
 
-		void UpdateViewAndIView();
+		void UpdateViewAndIView() const;
 	};
 }
