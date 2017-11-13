@@ -63,8 +63,9 @@ namespace GLEngine
 				textureManager->AssignTextureToUnit(_specularRoughnessTexture));
 
 			// Set the world, view, projection matrices.
-			shaderProgram->GetUniform("projection")->SetValue(sceneManager->GetCurrentCamera()->GetProjection());
-			shaderProgram->GetUniform("view")->SetValue(sceneManager->GetCurrentCamera()->GetView());
+			PerspectiveCamera* currentCamera = sceneManager->GetLeftEyeRendered() ? sceneManager->GetLeftCamera() : sceneManager->GetRightCamera();
+			shaderProgram->GetUniform("projection")->SetValue(currentCamera->GetProjection());
+			shaderProgram->GetUniform("view")->SetValue(currentCamera->GetView());
 			Matrix4 scaledWorldTransformation = *parentNode->GetWorldTransformation() * Matrix4::CreateScale(_range);
 			shaderProgram->GetUniform("world")->SetValue(scaledWorldTransformation);
 

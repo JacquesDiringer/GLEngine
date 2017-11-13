@@ -78,8 +78,9 @@ namespace GLEngine
 			modelShader->GetUniform("roughnessTexture")->SetValue(_resource->GetRoughness()->GetBoundUnit());
 
 			// Set the world, view, projection matrices.
-			modelShader->GetUniform("projection")->SetValue(sceneManager->GetCurrentCamera()->GetProjection());
-			modelShader->GetUniform("view")->SetValue(sceneManager->GetCurrentCamera()->GetView());
+			PerspectiveCamera* currentCamera = sceneManager->GetLeftEyeRendered() ? sceneManager->GetLeftCamera() : sceneManager->GetRightCamera();
+			modelShader->GetUniform("projection")->SetValue(currentCamera->GetProjection());
+			modelShader->GetUniform("view")->SetValue(currentCamera->GetView());
 
 			resourceVao->Bind();
 			{

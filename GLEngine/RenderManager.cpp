@@ -41,10 +41,12 @@ namespace GLEngine
 		if (leftEye)
 		{
 			glDrawBuffer(GL_BACK_LEFT);
+			sceneManager->SetLeftEyeRendered(true);
 		}
 		else
 		{
 			glDrawBuffer(GL_BACK_RIGHT);
+			sceneManager->SetLeftEyeRendered(false);
 		}
 
 		// Triggers renderable elements collection.

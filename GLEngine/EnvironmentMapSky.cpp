@@ -32,8 +32,7 @@ namespace GLEngine
 		shaderProgram->Use();
 
 		// Set the world, view, projection matrices.
-		PerspectiveCamera* currentCamera = sceneManager->GetCurrentCamera();
-
+		PerspectiveCamera* currentCamera = sceneManager->GetLeftEyeRendered() ? sceneManager->GetLeftCamera() : sceneManager->GetRightCamera();
 		shaderProgram->GetUniform("projection")->SetValue(currentCamera->GetProjection());
 		shaderProgram->GetUniform("view")->SetValue(currentCamera->GetView());
 		shaderProgram->GetUniform("world")->SetValue(&Matrix4::CreateTranslation(currentCamera->GetPosition()));

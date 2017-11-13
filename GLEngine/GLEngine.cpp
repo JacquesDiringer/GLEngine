@@ -193,11 +193,13 @@ int main()
 	TextureManager* textureManager = graphicsResourceManager->GetTextureManager();
 
 	PerspectiveCamera* camera = new PerspectiveCamera(0.1f, 800.0f, 20.0f, (float)height / (float)width);
+	PerspectiveCamera* leftCamera = new PerspectiveCamera(0.1f, 800.0f, 20.0f, (float)height / (float)width);
+	PerspectiveCamera* rightCamera = new PerspectiveCamera(0.1f, 800.0f, 20.0f, (float)height / (float)width);
 
 	// Post processes.
-	camera->AddPostProcess(new LensPostProcess(width, height, graphicsResourceManager->GetFrameBufferManager()));
+	//camera->AddPostProcess(new LensPostProcess(width, height, graphicsResourceManager->GetFrameBufferManager()));
 	//camera->AddPostProcess(new BloomPostProcess(width, height, graphicsResourceManager->GetFrameBufferManager()));
-	camera->AddPostProcess(new GammaCorrectionPostProcess(width, height, graphicsResourceManager->GetFrameBufferManager()));
+	//camera->AddPostProcess(new GammaCorrectionPostProcess(width, height, graphicsResourceManager->GetFrameBufferManager()));
 
 	Texture2D* diffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/suzanne_paint.png");
 
@@ -211,9 +213,9 @@ int main()
 	//Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/suzanne_paint_rougness2.png");
 	Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/suzanne_paint_rougness2 - Copie (2).png");
 
-	Texture2D* cylinderdiffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Challenge_Marble_Challenge_Marble_diffuse.jpg");
-	Texture2D* cylinderspecularTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Challenge_Marble_Challenge_Marble_specular.jpg");
-	Texture2D* cylinderroughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Challenge_Marble_Challenge_Marble_roughness.jpg");
+	Texture2D* cylinderdiffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/mb8u5ripu5ts-Arc-170_ship/3DS Max [.max]/ARC-170/ARC170_TXT_VERSION_4_D.png");
+	Texture2D* cylinderspecularTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/mb8u5ripu5ts-Arc-170_ship/3DS Max [.max]/ARC-170/ARC170_TXT_VERSION_4_S.png");
+	Texture2D* cylinderroughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/mb8u5ripu5ts-Arc-170_ship/3DS Max [.max]/ARC-170/ARC170_TXT_VERSION_4_R.png");
 
 	/*Texture2D* planediffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/bucherTile_bucherTile_diffuse.jpg");
 	Texture2D* planespecularTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/bucherTile_bucherTile_specular.jpg");
@@ -224,17 +226,17 @@ int main()
 	Texture2D* planespecularTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Copper_Plates_Copper_Plates_roughness - Copie.jpg");
 	Texture2D* planeroughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Ceramic_mat_Ceramic_test_roughness.jpg");*/
 
-	Texture2D* planediffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Challenge_Marble_Challenge_Marble_diffuse.jpg");
+	/*Texture2D* planediffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Challenge_Marble_Challenge_Marble_diffuse.jpg");
 	Texture2D* planespecularTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Challenge_Marble_Challenge_Marble_specular.jpg");
-	Texture2D* planeroughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Challenge_Marble_Challenge_Marble_roughness.jpg");
+	Texture2D* planeroughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Challenge_Marble_Challenge_Marble_roughness.jpg");*/
 
 	// Cool copper plates
-	/*Texture2D* planediffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Copper_Plates_Copper_Plates_diffuse.jpg");
+	Texture2D* planediffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Copper_Plates_Copper_Plates_diffuse.jpg");
 	Texture2D* planespecularTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Copper_Plates_Copper_Plates_specular.jpg");
-	Texture2D* planeroughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Copper_Plates_Copper_Plates_roughness.jpg");*/
+	Texture2D* planeroughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Copper_Plates_Copper_Plates_roughness.png");
 
-	Texture2D* rgbTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/RGB.jpg");
-	Texture2D* grayTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/ceramic_004_ceramic_004_specular.jpg");
+	Texture2D* rgbTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/test_envmap2 - Copie.png");
+	Texture2D* grayTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/tile_specular.PNG");
 
 
 	// Models testing
@@ -262,7 +264,7 @@ int main()
 	Model* testModel1 = new Model(testMesh1, diffuseTexture, specularTexture, roughnessTexture);
 
 	// Arrows resource.
-	OBJMesh* arrowsMesh = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/arrows.obj");
+	OBJMesh* arrowsMesh = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/grudge_cylinder.obj");
 	arrowsMesh->InitializeVao();
 	Model* arrowsModel = new Model(arrowsMesh, rgbTexture, grayTexture, grayTexture);
 
@@ -275,6 +277,8 @@ int main()
 
 	SceneManager* sceneManager = new SceneManager();
 	sceneManager->SetCurrentCamera(camera);
+	sceneManager->SetLeftCamera(leftCamera);
+	sceneManager->SetRightCamera(rightCamera);
 
 	sceneManager->GetRootNode()->AddSubElement(new Model(planeModel));
 
@@ -306,14 +310,23 @@ int main()
 	//cameraNode->AddSubElement(new ThirdViewOrientationActor(extremityNode));
 	cameraNode->AddSubElement(new ThirdViewOrientationActor(sceneManager->GetRootNode()));
 
+	// Stereo camera nodes.
+	SceneNode* leftCameraNode = cameraNode->CreateChild();
+	leftCameraNode->SetRelativeTransformation(&Matrix4::CreateTranslation(Vector3(-0.1, 0, 0)));
+	leftCameraNode->AddSubElement(leftCamera);
+
+	SceneNode* rightCameraNode = cameraNode->CreateChild();
+	rightCameraNode->SetRelativeTransformation(&Matrix4::CreateTranslation(Vector3(0.1, 0, 0)));
+	rightCameraNode->AddSubElement(rightCamera);
+
 	/*extremityNode->AddSubElement(camera);
 	extremityNode->AddSubElement(new ThirdViewOrientationActor(rotationNode));*/
 
 
 	// Point light.
-	PointLight* testPointLight = new PointLight(Vector3(20, 20, 20), 10);
-	PointLight* testPointLight1 = new PointLight(Vector3(20, 20, 20), 10);
-	PointLight* testPointLight2 = new PointLight(Vector3(20, 20, 20), 10);
+	PointLight* testPointLight = new PointLight(Vector3(5, 5, 5), 10);
+	PointLight* testPointLight1 = new PointLight(Vector3(5, 5, 5), 10);
+	PointLight* testPointLight2 = new PointLight(Vector3(5, 5, 5), 10);
 
 	// Point light node.
 	//SceneNode* pointLightNode = sceneManager->GetRootNode()->CreateChild();
