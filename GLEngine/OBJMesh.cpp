@@ -11,22 +11,22 @@ namespace GLEngine
 		_normals = vector<Vector3*>();
 		_textureCoords = vector<Vector2*>();
 
-		_vertexCoordTriangles = list<ObjTriangle*>();
-		_normalTriangles = list<ObjTriangle*>();
-		_textureCoordTriangles = list<ObjTriangle*>();
+		_vertexCoordTriangles = vector<ObjTriangle*>();
+		_normalTriangles = vector<ObjTriangle*>();
+		_textureCoordTriangles = vector<ObjTriangle*>();
 
 		_finalVerticesIndexMap = map<string, int>();
-		_finalVerticesList = list<Vertex*>();
-		_finalTriangles = list<ObjTriangle*>();
+		_finalVerticesList = vector<Vertex*>();
+		_finalTriangles = vector<ObjTriangle*>();
 	}
 
 	OBJMesh::~OBJMesh()
 	{
 	}
 
-	list<int> OBJMesh::GetElementsList() const
+	vector<int> OBJMesh::GetElementsList() const
 	{
-		list<int> result = list<int>();
+		vector<int> result = vector<int>();
 
 		for each (ObjTriangle* currentTriangle in _finalTriangles)
 		{
@@ -38,9 +38,9 @@ namespace GLEngine
 		return result;
 	}
 
-	list<Vector3*> OBJMesh::GetPositionsList() const
+	vector<Vector3*> OBJMesh::GetPositionsList() const
 	{
-		list<Vector3*> result = list<Vector3*>();
+		vector<Vector3*> result = vector<Vector3*>();
 
 		for each (Vertex* currentVertex in _finalVerticesList)
 		{
@@ -50,9 +50,9 @@ namespace GLEngine
 		return result;
 	}
 
-	list<Vector2*> OBJMesh::GetTextureCoordinatesList() const
+	vector<Vector2*> OBJMesh::GetTextureCoordinatesList() const
 	{
-		list<Vector2*> result = list<Vector2*>();
+		vector<Vector2*> result = vector<Vector2*>();
 
 		for each (Vertex* currentVertex in _finalVerticesList)
 		{
@@ -62,9 +62,9 @@ namespace GLEngine
 		return result;
 	}
 
-	list<Vector3*> OBJMesh::GetNormalsList() const
+	vector<Vector3*> OBJMesh::GetNormalsList() const
 	{
-		list<Vector3*> result = list<Vector3*>();
+		vector<Vector3*> result = vector<Vector3*>();
 
 		for each (Vertex* currentVertex in _finalVerticesList)
 		{
@@ -77,8 +77,8 @@ namespace GLEngine
 	void OBJMesh::ComputeFinalVerticesAndTriangles()
 	{
 		// Iterators
-		list<ObjTriangle*>::iterator textureCoordTrianglesIterator = _textureCoordTriangles.begin();
-		list<ObjTriangle*>::iterator normalTrianglesIterator = _normalTriangles.begin();
+		vector<ObjTriangle*>::iterator textureCoordTrianglesIterator = _textureCoordTriangles.begin();
+		vector<ObjTriangle*>::iterator normalTrianglesIterator = _normalTriangles.begin();
 
 		// Each vertex is created only if it is not unique in term of coordinates, texture coordinates, and normal.
 		for each (ObjTriangle* currentVertexTriangle in _vertexCoordTriangles)

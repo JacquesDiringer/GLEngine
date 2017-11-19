@@ -29,10 +29,10 @@ namespace GLEngine
 		EnvironmentMapSky* _sky;
 
 		// Stores the resource model pointer as a key, and the list of scene nodes with this model to draw as a key.
-		map<Model*, list<SceneNode*>> _instancedModels;
+		map<Model*, vector<SceneNode*>> _instancedModels;
 
 		// Stores the collected point lights.
-		list<PointLight*> _pointLights;
+		vector<PointLight*> _pointLights;
 	};
 
 }

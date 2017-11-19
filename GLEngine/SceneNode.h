@@ -1,12 +1,12 @@
 #pragma once
 
-#include<list>
+#include<vector>
 
 #include "Matrix4.h"
 #include"SceneElement.h"
 #include"SceneElementVisitor.h"
 
-using std::list;
+using std::vector;
 using Math::Matrix4;
 
 namespace GLEngine
@@ -24,7 +24,7 @@ namespace GLEngine
 
 		Matrix4* GetWorldTransformation();
 
-		list<SceneElement*> GetSubElements()const { return _subElements; }
+		vector<SceneElement*> GetSubElements()const { return _subElements; }
 
 		// Adds children.
 		void AddSubElement(SceneElement* element);
@@ -42,6 +42,6 @@ namespace GLEngine
 		Matrix4* _relativeTransformation;
 		Matrix4* _worldTransformation;
 		bool _worldMatrixIsUpToDate;
-		list<SceneElement*> _subElements;
+		vector<SceneElement*> _subElements;
 	};
 }

@@ -1,14 +1,14 @@
 #pragma once
 
 #include<string>
-#include <list>
+#include <vector>
 
 #include "Vector2.h"
 #include "Vector3.h"
 #include "VertexArrayObject.h"
 
 using std::string;
-using std::list;
+using std::vector;
 
 using Math::Vector2;
 using Math::Vector3;
@@ -34,10 +34,10 @@ namespace GLEngine
 		bool GetHasNormals() const { return _hasNormals; }
 		void SetHasNormals(const bool value) { _hasNormals = value; }
 
-		virtual list<int> GetElementsList() const = 0;
-		virtual list<Vector3*> GetPositionsList() const = 0;
-		virtual list<Vector2*> GetTextureCoordinatesList() const = 0;
-		virtual list<Vector3*> GetNormalsList() const = 0;
+		virtual vector<int> GetElementsList() const = 0;
+		virtual vector<Vector3*> GetPositionsList() const = 0;
+		virtual vector<Vector2*> GetTextureCoordinatesList() const = 0;
+		virtual vector<Vector3*> GetNormalsList() const = 0;
 
 	private:
 		VertexArrayObject* _vao;

@@ -6,7 +6,7 @@ namespace GLEngine
 {
 	RenderQueue::RenderQueue()
 	{
-		_renderables = list<Renderable*>();
+		_renderables = vector<Renderable*>();
 	}
 
 

@@ -329,9 +329,9 @@ int main()
 	pointLightNode2->AddSubElement(testPointLight2);
 
 	// Instancing tests, array.
-	for (int i = 0; i < 1; i++)
+	for (int i = 0; i < 200; i++)
 	{
-		for (int j = 0; j < 1; j++)
+		for (int j = 0; j < 200; j++)
 		{
 			SceneNode* currentNode = sceneManager->GetRootNode()->CreateChild();
 			currentNode->SetRelativeTransformation(Matrix4::CreateTranslation(new Vector3(i * 3, 0, j * 3)));

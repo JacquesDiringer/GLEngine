@@ -3,9 +3,9 @@
 #include "Model.h"
 #include "SceneNode.h"
 
-#include <list>
+#include <vector>
 
-using std::list;
+using std::vector;
 
 namespace GLEngine
 {
@@ -13,7 +13,7 @@ namespace GLEngine
 		public Renderable
 	{
 	public:
-		InstancedModel(Model* resource, list<SceneNode*> instancesNodes);
+		InstancedModel(Model* resource, vector<SceneNode*> instancesNodes);
 		~InstancedModel();
 
 		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager) const;
@@ -22,7 +22,7 @@ namespace GLEngine
 
 	private:
 		Model* _resource;
-		list<SceneNode*> _instancesNodes;
+		vector<SceneNode*> _instancesNodes;
 		// Minimum entity number necessary to trigger instanciation.
 		int _instanciationThreshold = 100;
 	};

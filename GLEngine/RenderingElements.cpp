@@ -8,8 +8,8 @@ namespace GLEngine
 {
 	RenderingElements::RenderingElements()
 	{
-		_instancedModels = map<Model*, list<SceneNode*>>();
-		_pointLights = list<PointLight*>();
+		_instancedModels = map<Model*, vector<SceneNode*>>();
+		_pointLights = vector<PointLight*>();
 	}
 
 	RenderingElements::~RenderingElements()
@@ -25,8 +25,8 @@ namespace GLEngine
 	{
 		if (_pointLights.size() > 0)
 		{
-			PointLight* result = (*_pointLights.begin());
-			_pointLights.pop_front();
+			PointLight* result = _pointLights.back();
+			_pointLights.pop_back();
 
 			return result;
 		}
@@ -36,7 +36,7 @@ namespace GLEngine
 
 	void RenderingElements::PushModel(Model * model)
 	{
-		// Instanced rendering list.
+		// Instanced rendering vector.
 		Model* resourceModel = model->GetResource();
 		SceneNode* parentNode = model->GetParentNode();
 
@@ -48,7 +48,7 @@ namespace GLEngine
 		if (_instancedModels.size() > 0)
 		{
 			// Find the first element of the map, use it to instanciate our result value, then delete it from the map.
-			map<Model*, list<SceneNode*>>::iterator frontPair = _instancedModels.begin();
+			map<Model*, vector<SceneNode*>>::iterator frontPair = _instancedModels.begin();
 			InstancedModel* result = new InstancedModel((*frontPair).first, (*frontPair).second);
 			_instancedModels.erase(frontPair);
 

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string>
-#include <list>
 #include <map>
 
 // GLEW
@@ -12,7 +11,6 @@
 #include "TextureManager.h"
 
 using std::string;
-using std::list;
 using std::map;
 
 namespace GLEngine

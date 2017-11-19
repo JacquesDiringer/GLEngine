@@ -72,15 +72,15 @@ namespace GLEngine
 	{
 		if (_screenVAO == nullptr)
 		{
-			list<int> elements = list<int>{	0, 1, 3,
+			vector<int> elements = vector<int>{	0, 1, 3,
 											1, 2, 3};
 
-			list<Vector3*> positions = list<Vector3*>{	new Vector3(-1, -1, -1), 
+			vector<Vector3*> positions = vector<Vector3*>{	new Vector3(-1, -1, -1),
 														new Vector3(1, -1, -1),
 														new Vector3(1, 1, -1), 
 														new Vector3(-1, 1, -1) };
 
-			list<Vector2*> textureCoordinates = list<Vector2*>{	new Vector2(0, 0),
+			vector<Vector2*> textureCoordinates = vector<Vector2*>{	new Vector2(0, 0),
 																new Vector2(1, 0),
 																new Vector2(1, 1),
 																new Vector2(0, 1) };

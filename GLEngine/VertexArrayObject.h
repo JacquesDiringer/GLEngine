@@ -1,6 +1,6 @@
 #pragma once
 
-#include <list>
+#include <vector>
 
 // GLEW
 #define GLEW_STATIC
@@ -9,7 +9,7 @@
 #include "Vector2.h"
 #include "Vector3.h"
 
-using std::list;
+using std::vector;
 using Math::Vector2;
 using Math::Vector3;
 
@@ -18,11 +18,11 @@ namespace GLEngine
 	class VertexArrayObject
 	{
 	public:
-		VertexArrayObject(list<int> elements, list<Vector3*> positions, list<Vector3*> normals);
-		VertexArrayObject(list<int> elements, list<Vector3*> positions, list<Vector3*> normals, list<Vector3*> tangents, list<Vector3*> biTangents);
-		VertexArrayObject(list<int> elements, list<Vector3*> positions, list<Vector2*> uvCoordinates);
-		VertexArrayObject(list<int> elements, list<Vector3*> positions, list<Vector3*> normals, list<Vector2*> uvCoordinates);
-		VertexArrayObject(list<int> elements, list<Vector3*> positions, list<Vector3*> normals, list<Vector3*> tangents, list<Vector3*> biTangents, list<Vector2*> uvCoordinates);
+		VertexArrayObject(vector<int> elements, vector<Vector3*> positions, vector<Vector3*> normals);
+		VertexArrayObject(vector<int> elements, vector<Vector3*> positions, vector<Vector3*> normals, vector<Vector3*> tangents, vector<Vector3*> biTangents);
+		VertexArrayObject(vector<int> elements, vector<Vector3*> positions, vector<Vector2*> uvCoordinates);
+		VertexArrayObject(vector<int> elements, vector<Vector3*> positions, vector<Vector3*> normals, vector<Vector2*> uvCoordinates);
+		VertexArrayObject(vector<int> elements, vector<Vector3*> positions, vector<Vector3*> normals, vector<Vector3*> tangents, vector<Vector3*> biTangents, vector<Vector2*> uvCoordinates);
 		~VertexArrayObject();
 
 		int GetElementsCount() const { return _elementsCount; }

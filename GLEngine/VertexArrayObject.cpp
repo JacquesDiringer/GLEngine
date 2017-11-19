@@ -4,7 +4,7 @@
 
 namespace GLEngine
 {
-	VertexArrayObject::VertexArrayObject(list<int> elements, list<Vector3*> positions, list<Vector3*> normals)
+	VertexArrayObject::VertexArrayObject(vector<int> elements, vector<Vector3*> positions, vector<Vector3*> normals)
 	{
 		_elementsCount = elements.size();
 
@@ -21,8 +21,8 @@ namespace GLEngine
 		// Prepare the VBO data that will be given to the GPU.
 		GLfloat* vboData = new GLfloat[size];
 
-		list<Vector3*>::iterator positionIterator = positions.begin();
-		list<Vector3*>::iterator normalIterator = normals.begin();
+		vector<Vector3*>::iterator positionIterator = positions.begin();
+		vector<Vector3*>::iterator normalIterator = normals.begin();
 
 		for (int vertedId = 0; vertedId < positions.size(); vertedId++)
 		{
@@ -69,7 +69,7 @@ namespace GLEngine
 		// Prepare the EBO data that will be given to the GPU.
 		GLuint* eboData = new GLuint[elements.size()];
 
-		list<int>::iterator elementIterator = elements.begin();
+		vector<int>::iterator elementIterator = elements.begin();
 
 		for (int elementId = 0; elementId < elements.size(); ++elementId)
 		{
@@ -95,12 +95,12 @@ namespace GLEngine
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	VertexArrayObject::VertexArrayObject(list<int> elements, list<Vector3*> positions, list<Vector3*> normals, list<Vector3*> tangents, list<Vector3*> biTangents)
+	VertexArrayObject::VertexArrayObject(vector<int> elements, vector<Vector3*> positions, vector<Vector3*> normals, vector<Vector3*> tangents, vector<Vector3*> biTangents)
 	{
 		_elementsCount = elements.size();
 	}
 
-	VertexArrayObject::VertexArrayObject(list<int> elements, list<Vector3*> positions, list<Vector2*> uvCoordinates)
+	VertexArrayObject::VertexArrayObject(vector<int> elements, vector<Vector3*> positions, vector<Vector2*> uvCoordinates)
 	{
 		_elementsCount = elements.size();
 
@@ -118,8 +118,8 @@ namespace GLEngine
 		// Prepare the VBO data that will be given to the GPU.
 		GLfloat* vboData = new GLfloat[size];
 
-		list<Vector3*>::iterator positionIterator = positions.begin();
-		list<Vector2*>::iterator uvIterator = uvCoordinates.begin();
+		vector<Vector3*>::iterator positionIterator = positions.begin();
+		vector<Vector2*>::iterator uvIterator = uvCoordinates.begin();
 
 		for (int vertedId = 0; vertedId < positions.size(); vertedId++)
 		{
@@ -164,7 +164,7 @@ namespace GLEngine
 		// Prepare the EBO data that will be given to the GPU.
 		GLuint* eboData = new GLuint[elements.size()];
 
-		list<int>::iterator elementIterator = elements.begin();
+		vector<int>::iterator elementIterator = elements.begin();
 
 		for (int elementId = 0; elementId < elements.size(); ++elementId)
 		{
@@ -190,7 +190,7 @@ namespace GLEngine
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	VertexArrayObject::VertexArrayObject(list<int> elements, list<Vector3*> positions, list<Vector3*> normals, list<Vector2*> uvCoordinates)
+	VertexArrayObject::VertexArrayObject(vector<int> elements, vector<Vector3*> positions, vector<Vector3*> normals, vector<Vector2*> uvCoordinates)
 	{
 		_elementsCount = elements.size();
 
@@ -208,9 +208,9 @@ namespace GLEngine
 		// Prepare the VBO data that will be given to the GPU.
 		GLfloat* vboData = new GLfloat[size];
 
-		list<Vector3*>::iterator positionIterator = positions.begin();
-		list<Vector2*>::iterator uvIterator = uvCoordinates.begin();
-		list<Vector3*>::iterator normalIterator = normals.begin();
+		vector<Vector3*>::iterator positionIterator = positions.begin();
+		vector<Vector2*>::iterator uvIterator = uvCoordinates.begin();
+		vector<Vector3*>::iterator normalIterator = normals.begin();
 
 		for (int vertedId = 0; vertedId < positions.size(); vertedId++)
 		{
@@ -265,7 +265,7 @@ namespace GLEngine
 		// Prepare the EBO data that will be given to the GPU.
 		GLuint* eboData = new GLuint[elements.size()];
 
-		list<int>::iterator elementIterator = elements.begin();
+		vector<int>::iterator elementIterator = elements.begin();
 
 		for (int elementId = 0; elementId < elements.size(); ++elementId)
 		{
@@ -291,7 +291,7 @@ namespace GLEngine
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	VertexArrayObject::VertexArrayObject(list<int> elements, list<Vector3*> positions, list<Vector3*> normals, list<Vector3*> tangents, list<Vector3*> biTangents, list<Vector2*> uvCoordinates)
+	VertexArrayObject::VertexArrayObject(vector<int> elements, vector<Vector3*> positions, vector<Vector3*> normals, vector<Vector3*> tangents, vector<Vector3*> biTangents, vector<Vector2*> uvCoordinates)
 	{
 		_elementsCount = elements.size();
 	}

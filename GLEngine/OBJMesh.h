@@ -1,6 +1,5 @@
 #pragma once
 
-#include <list>
 #include <map>
 #include <vector>
 
@@ -8,7 +7,6 @@
 #include "Vector2.h"
 #include "Vector3.h"
 
-using std::list;
 using std::map;
 using std::vector;
 
@@ -52,10 +50,10 @@ namespace GLEngine
 		OBJMesh();
 		~OBJMesh();
 
-		virtual list<int> GetElementsList() const;
-		virtual list<Vector3*> GetPositionsList() const;
-		virtual list<Vector2*> GetTextureCoordinatesList() const;
-		virtual list<Vector3*> GetNormalsList() const;
+		virtual vector<int> GetElementsList() const;
+		virtual vector<Vector3*> GetPositionsList() const;
+		virtual vector<Vector2*> GetTextureCoordinatesList() const;
+		virtual vector<Vector3*> GetNormalsList() const;
 
 		string GetObjectName() const { return _objectName; }
 		void SetObjectName(const string objectName) { _objectName = objectName; }
@@ -68,7 +66,7 @@ namespace GLEngine
 		void AddTextureCoordTriangle(ObjTriangle* triangle) { _textureCoordTriangles.push_back(triangle); }
 		void AddNormalTriangle(ObjTriangle* triangle) { _normalTriangles.push_back(triangle); }
 
-		// Computes a final list of vertices and triangles from the "compressed" OBJ format.
+		// Computes a final vector of vertices and triangles from the "compressed" OBJ format.
 		// These final lists are ready to be put in a VBO and EBO.
 		void ComputeFinalVerticesAndTriangles();
 
@@ -78,13 +76,13 @@ namespace GLEngine
 		vector<Vector2*> _textureCoords;
 		vector<Vector3*> _normals;
 
-		list<ObjTriangle*> _vertexCoordTriangles;
-		list<ObjTriangle*> _textureCoordTriangles;
-		list<ObjTriangle*> _normalTriangles;
+		vector<ObjTriangle*> _vertexCoordTriangles;
+		vector<ObjTriangle*> _textureCoordTriangles;
+		vector<ObjTriangle*> _normalTriangles;
 
 		map<string, int> _finalVerticesIndexMap;
-		list<Vertex*> _finalVerticesList;
-		list<ObjTriangle*> _finalTriangles;
+		vector<Vertex*> _finalVerticesList;
+		vector<ObjTriangle*> _finalTriangles;
 
 		// Returns the final vertex ID
 		int AddVertex(const int vertexId, const int textureCoordsId, const int normalId);

@@ -29,7 +29,7 @@ namespace GLEngine
 		_iProjection->CopyFromMatrix4(_projection);
 		_iProjection->Invert();
 
-		_postProcesses = list<PostProcess*>();
+		_postProcesses = vector<PostProcess*>();
 	}
 
 	PerspectiveCamera::~PerspectiveCamera()

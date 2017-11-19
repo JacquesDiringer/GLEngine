@@ -1,9 +1,9 @@
 #pragma once
 #include "Renderable.h"
 
-#include<list>
+#include<vector>
 
-using std::list;
+using std::vector;
 
 namespace GLEngine
 {
@@ -14,7 +14,7 @@ namespace GLEngine
 		RenderQueue();
 		~RenderQueue();
 
-		void AddRenderable(Renderable* newRenderable) { _renderables.push_front(newRenderable); }
+		void AddRenderable(Renderable* newRenderable) { _renderables.push_back(newRenderable); }
 		virtual void ClearRenderables() { _renderables.clear(); }
 
 		// Render queue steps.
@@ -24,7 +24,7 @@ namespace GLEngine
 
 
 	protected:
-		list<Renderable*> _renderables;
+		vector<Renderable*> _renderables;
 	};
 }
 

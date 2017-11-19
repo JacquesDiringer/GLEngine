@@ -12,7 +12,7 @@ namespace GLEngine
 		_relativeTransformation = new Matrix4();
 		_worldTransformation = new Matrix4();
 		SetIsUpToDate(false);
-		_subElements = list<SceneElement*>();
+		_subElements = vector<SceneElement*>();
 	}
 
 
@@ -54,7 +54,7 @@ namespace GLEngine
 	void SceneNode::AddSubElement(SceneElement * element)
 	{
 		// Add the new element to the sub elements list.
-		_subElements.push_front(element);
+		_subElements.push_back(element);
 
 		// Set the parent node of the new element so that it point at this instance.
 		element->SetParentNode(this);

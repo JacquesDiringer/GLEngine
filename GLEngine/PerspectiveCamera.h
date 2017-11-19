@@ -1,6 +1,6 @@
 #pragma once
 
-#include <list>
+#include <vector>
 
 #include "Matrix4.h"
 #include "Vector3.h"
@@ -10,7 +10,7 @@
 using Math::Matrix4;
 using Math::Vector3;
 
-using std::list;
+using std::vector;
 
 namespace GLEngine
 {
@@ -34,11 +34,11 @@ namespace GLEngine
 		virtual void Accept(SceneElementVisitor* visitor);
 
 		void AddPostProcess(PostProcess* newPostProcess);
-		list<PostProcess*> GetPostProcesses() { return _postProcesses; }
+		vector<PostProcess*> GetPostProcesses() { return _postProcesses; }
 
 	private:
 		Matrix4* _view,  * _iView, * _projection, * _iProjection;
-		list<PostProcess*> _postProcesses;
+		vector<PostProcess*> _postProcesses;
 
 		void UpdateViewAndIView() const;
 	};

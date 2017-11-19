@@ -8,7 +8,7 @@
 
 namespace GLEngine
 {
-	InstancedModel::InstancedModel(Model* resource, list<SceneNode*> instancesNodes)
+	InstancedModel::InstancedModel(Model* resource, vector<SceneNode*> instancesNodes)
 		: Renderable(), _resource(resource), _instancesNodes(instancesNodes)
 	{
 	}
