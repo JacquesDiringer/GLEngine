@@ -318,15 +318,15 @@ int main()
 	//SceneNode* pointLightNode = sceneManager->GetRootNode()->CreateChild();
 	SceneNode* pointLightNode = extremityNode->CreateChild();
 	pointLightNode->SetRelativeTransformation(&Matrix4::CreateTranslation(Vector3(0, 0.5f, 3)));
-	pointLightNode->AddSubElement(testPointLight);
+	//pointLightNode->AddSubElement(testPointLight);
 
 	SceneNode* pointLightNode1 = extremityNode->CreateChild();
 	pointLightNode1->SetRelativeTransformation(&Matrix4::CreateTranslation(Vector3(0, 0.5f, 4)));
-	pointLightNode1->AddSubElement(testPointLight1);
+	//pointLightNode1->AddSubElement(testPointLight1);
 
 	SceneNode* pointLightNode2 = extremityNode->CreateChild();
 	pointLightNode2->SetRelativeTransformation(&Matrix4::CreateTranslation(Vector3(0, 0.5f, 5)));
-	pointLightNode2->AddSubElement(testPointLight2);
+	//pointLightNode2->AddSubElement(testPointLight2);
 
 	// Instancing tests, array.
 	for (int i = 0; i < 200; i++)

@@ -10,8 +10,8 @@ namespace GLEngine
 		PointLightRenderQueue();
 		~PointLightRenderQueue();
 
-		virtual void SetGpuState() const; // Prior to rendering. Sets the Gpu to the desired state for rendering.
-		virtual void ResetGpuDefaultState() const; // Post rendering. Resets the GPU to it's original state.
+		virtual void SetGpuState(GraphicsResourceManager* graphicsResourceManager) const; // Prior to rendering. Sets the Gpu to the desired state for rendering.
+		virtual void ResetGpuDefaultState(GraphicsResourceManager* graphicsResourceManager) const; // Post rendering. Resets the GPU to it's original state.
 
 	private:
 		mutable GLboolean _oldDepthTestEnabled;

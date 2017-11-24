@@ -276,9 +276,6 @@
     <ClInclude Include="PointLight.h">
       <Filter>Header Files\Render\Lighting</Filter>
     </ClInclude>
-    <ClInclude Include="Light.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="PointLightRenderQueue.h">
       <Filter>Header Files\RenderQueue</Filter>
     </ClInclude>
@@ -296,6 +293,12 @@
     </ClInclude>
     <ClInclude Include="Texture2DRGB8.h">
       <Filter>Header Files\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsDeviceManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Header Files\Render\Lighting</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -434,9 +437,6 @@
     <ClCompile Include="PointLight.cpp">
       <Filter>Source Files\Render\Lighting</Filter>
     </ClCompile>
-    <ClCompile Include="Light.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PointLightRenderQueue.cpp">
       <Filter>Source Files\RenderQueue</Filter>
     </ClCompile>
@@ -454,6 +454,12 @@
     </ClCompile>
     <ClCompile Include="Texture2DRGB16F.cpp">
       <Filter>Source Files\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsDeviceManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Source Files\Render\Lighting</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

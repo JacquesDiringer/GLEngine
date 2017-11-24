@@ -13,37 +13,26 @@ namespace GLEngine
 	{
 	}
 
-	void NoAlphaRenderQueue::SetGpuState() const
+	void NoAlphaRenderQueue::SetGpuState(GraphicsResourceManager* graphicsResourceManager) const
 	{
-		// Remember the old states.
-		glGetBooleanv(GL_DEPTH_TEST, &_oldDepthTestEnabled);
-		glGetBooleanv(GL_DEPTH_WRITEMASK, &_oldDepthMask);
-		glGetBooleanv(GL_CULL_FACE, &_oldCullingEnabled);
-		glGetIntegerv(GL_CULL_FACE_MODE, &_oldCullFace);
+		GraphicsDeviceManager* graphicsDeviceManager = graphicsResourceManager->GetGraphicsDeviceManager();
 
-		// Enable depth testing and set it.
-		// Only if the state actually needs to be changed.
-		if (!_oldDepthTestEnabled)
-		{
-			glEnable(GL_DEPTH_TEST);
-		}
+		//// Remember the old states.
+		_oldDepthTestEnabled = graphicsDeviceManager->GetBooleanState(GL_DEPTH_TEST);
+		_oldDepthMask = graphicsDeviceManager->GetDepthWriteMask();
+		_oldCullingEnabled = graphicsDeviceManager->GetBooleanState(GL_CULL_FACE);
+		_oldCullFace = graphicsDeviceManager->GetCullFace();
 
-		// Enable depth writing.
-		if (!_oldDepthMask)
-		{
-			glDepthMask(GL_TRUE);
-		}
 
-		// Face culling.
-		if (!_oldCullingEnabled)
-		{
-			glEnable(GL_CULL_FACE);
-		}
+		//// Enable depth testing and set it.
+		graphicsDeviceManager->SetBooleanState(GL_DEPTH_TEST, true);
 
-		if (_oldCullFace != GL_BACK)
-		{
-			glCullFace(GL_BACK);
-		}
+		//// Enable depth writing.
+		graphicsDeviceManager->SetDepthWriteMask(true);
+
+		//// Face culling.
+		graphicsDeviceManager->SetBooleanState(GL_CULL_FACE, true);
+		graphicsDeviceManager->SetCullFace(GL_BACK);
 	}
 
 	void NoAlphaRenderQueue::ClearRenderables()
@@ -57,26 +46,14 @@ namespace GLEngine
 		_renderables.clear();
 	}
 
-	void NoAlphaRenderQueue::ResetGpuDefaultState() const
+	void NoAlphaRenderQueue::ResetGpuDefaultState(GraphicsResourceManager* graphicsResourceManager) const
 	{
-		if (!_oldDepthTestEnabled)
-		{
-			glDisable(GL_DEPTH_TEST);
-		}
+		GraphicsDeviceManager* graphicsDeviceManager = graphicsResourceManager->GetGraphicsDeviceManager();
 
-		if (!_oldDepthMask)
-		{
-			glDepthMask(_oldDepthMask);
-		}
-
-		if (!_oldCullingEnabled)
-		{
-			glEnable(_oldCullingEnabled);
-		}
-
-		if (_oldCullFace != GL_BACK)
-		{
-			glCullFace(_oldCullFace);
-		}
+		//// Go back to the old states.
+		graphicsDeviceManager->SetBooleanState(GL_DEPTH_TEST, _oldDepthTestEnabled);
+		graphicsDeviceManager->SetDepthWriteMask(_oldDepthMask);
+		graphicsDeviceManager->SetBooleanState(GL_CULL_FACE, _oldCullingEnabled);
+		graphicsDeviceManager->SetCullFace(_oldCullFace);
 	}
 }

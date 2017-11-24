@@ -64,6 +64,8 @@ namespace GLEngine
 
 	Texture3D* EnvironmentMapLight::ConvoluteEnvironmentMap(Texture2D* environmentMap, GraphicsResourceManager* graphicsResourceManager)
 	{
+		GraphicsDeviceManager* graphicsDeviceManager = graphicsResourceManager->GetGraphicsDeviceManager();
+
 		list<Texture2D*> textures2DToAggregate = list<Texture2D*>();
 
 		// Image processing frame buffer.
@@ -78,7 +80,7 @@ namespace GLEngine
 		glViewport(0, 0, _convolutedWidth, _convolutedHeight);
 
 		// Set the blending mode to accumulate each new render.
-		glEnable(GL_BLEND);
+		graphicsDeviceManager->SetBooleanState(GL_BLEND, true);
 		glBlendFunc(GL_ONE, GL_ONE);
 
 		// Activate the convolution shader.
@@ -168,7 +170,7 @@ namespace GLEngine
 		screenVAO->UnBind();
 
 		// Disable blending.
-		glDisable(GL_BLEND);
+		graphicsDeviceManager->SetBooleanState(GL_BLEND, false);
 
 		// Unbind and delete frame buffer.
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);

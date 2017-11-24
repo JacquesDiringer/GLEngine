@@ -5,8 +5,6 @@
 
 namespace GLEngine
 {
-	class SceneManager;
-
 	class Renderable
 	{
 	public:

@@ -29,10 +29,11 @@ namespace GLEngine
 
 		if (parentNode != nullptr)
 		{
+			GraphicsDeviceManager* graphicsDeviceManager = graphicsResourceManager->GetGraphicsDeviceManager();
 			TextureManager* textureManager = graphicsResourceManager->GetTextureManager();
 
 			// Set the blending mode to accumulate each new light.
-			glEnable(GL_BLEND);
+			graphicsDeviceManager->SetBooleanState(GL_BLEND, true);
 			glBlendFunc(GL_ONE, GL_ONE);
 
 			ShaderProgram* shaderProgram;
@@ -92,7 +93,7 @@ namespace GLEngine
 			delete pixelSize;
 
 			// Disable blending.
-			glDisable(GL_BLEND);
+			graphicsDeviceManager->SetBooleanState(GL_BLEND, false);
 		}
 	}
 }

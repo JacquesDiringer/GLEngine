@@ -6,6 +6,7 @@
 #include "VertexArrayObject.h"
 #include "OBJLoader.h"
 #include "FrameBufferManager.h"
+#include "GraphicsDeviceManager.h"
 
 using std::map;
 
@@ -23,6 +24,9 @@ namespace GLEngine
 		TextureManager* GetTextureManager() { return _textureManager; }
 
 		FrameBufferManager* GetFrameBufferManager() { return _frameBufferManager; }
+
+		GraphicsDeviceManager* GetGraphicsDeviceManager() { return _graphicsDeviceManager; }
+
 
 		ShaderProgram* GetShader(string vertexShader, string fragmentShader);
 		ShaderProgram* GetModelPBRShader();
@@ -44,6 +48,8 @@ namespace GLEngine
 		TextureManager* _textureManager;
 
 		FrameBufferManager* _frameBufferManager;
+
+		GraphicsDeviceManager* _graphicsDeviceManager;
 
 		OBJLoader* _objLoader;
 

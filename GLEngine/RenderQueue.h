@@ -18,9 +18,9 @@ namespace GLEngine
 		virtual void ClearRenderables() { _renderables.clear(); }
 
 		// Render queue steps.
-		virtual void SetGpuState() const = 0; // Prior to rendering. Sets the Gpu to the desired state for rendering.
+		virtual void SetGpuState(GraphicsResourceManager* graphicsResourceManager) const = 0; // Prior to rendering. Sets the Gpu to the desired state for rendering.
 		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager) const; // Render all renderables inside the queue, with no gpu state changes in between.
-		virtual void ResetGpuDefaultState() const = 0; // Post rendering. Resets the GPU to it's original state.
+		virtual void ResetGpuDefaultState(GraphicsResourceManager* graphicsResourceManager) const = 0; // Post rendering. Resets the GPU to it's original state.
 
 
 	protected:

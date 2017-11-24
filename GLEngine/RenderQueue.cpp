@@ -16,13 +16,13 @@ namespace GLEngine
 
 	void RenderQueue::Render(SceneManager * sceneManager, GraphicsResourceManager* graphicsResourceManager) const
 	{
-		SetGpuState();
+		SetGpuState(graphicsResourceManager);
 
 		for each (Renderable* currentRenderable in _renderables)
 		{
 			currentRenderable->Render(sceneManager, graphicsResourceManager);
 		}
 
-		ResetGpuDefaultState();
+		ResetGpuDefaultState(graphicsResourceManager);
 	}
 }

@@ -10,6 +10,7 @@ namespace GLEngine
 	{
 		_textureManager = new TextureManager();
 		_frameBufferManager = new FrameBufferManager();
+		_graphicsDeviceManager = new GraphicsDeviceManager();
 		_loadedShaders = map<string, ShaderProgram*>();
 		_objLoader = new OBJLoader();
 	}

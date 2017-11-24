@@ -14,47 +14,33 @@ namespace GLEngine
 	{
 	}
 
-	void SkyRenderQueue::SetGpuState() const
+	void SkyRenderQueue::SetGpuState(GraphicsResourceManager* graphicsResourceManager) const
 	{
+		GraphicsDeviceManager* graphicsDeviceManager = graphicsResourceManager->GetGraphicsDeviceManager();
+
 		// Remember the old states.
-		glGetBooleanv(GL_DEPTH_TEST, &_oldDepthTestEnabled);
-		glGetBooleanv(GL_CULL_FACE, &_oldCullingEnabled);
-		glGetIntegerv(GL_CULL_FACE_MODE, &_oldCullFace);
+		_oldDepthTestEnabled = graphicsDeviceManager->GetBooleanState(GL_DEPTH_TEST);
+		_oldCullingEnabled = graphicsDeviceManager->GetBooleanState(GL_CULL_FACE);
+		_oldCullFace = graphicsDeviceManager->GetCullFace();
 
 		// Disable depth testing.
-		if (_oldDepthTestEnabled)
-		{
-			glDisable(GL_DEPTH_TEST);
-		}
+		graphicsDeviceManager->SetBooleanState(GL_DEPTH_TEST, false);
 
 		// Face culling.
-		if (!_oldCullingEnabled)
-		{
-			glEnable(GL_CULL_FACE);
-		}
+		graphicsDeviceManager->SetBooleanState(GL_CULL_FACE, true);
 
-		if (_oldCullFace != GL_FRONT)
-		{
-			glCullFace(GL_FRONT);
-		}
+		// We want to see the interior of the sky's sphere.
+		graphicsDeviceManager->SetCullFace(GL_FRONT);
 	}
 
-	void SkyRenderQueue::ResetGpuDefaultState() const
+	void SkyRenderQueue::ResetGpuDefaultState(GraphicsResourceManager* graphicsResourceManager) const
 	{
-		if (_oldDepthTestEnabled)
-		{
-			glEnable(GL_DEPTH_TEST);
-		}
+		GraphicsDeviceManager* graphicsDeviceManager = graphicsResourceManager->GetGraphicsDeviceManager();
 
-		if (!_oldCullingEnabled)
-		{
-			glEnable(_oldCullingEnabled);
-		}
-
-		if (_oldCullFace != GL_FRONT)
-		{
-			glCullFace(_oldCullFace);
-		}
+		// Reverse to the old states.
+		graphicsDeviceManager->SetBooleanState(GL_DEPTH_TEST, _oldDepthTestEnabled);
+		graphicsDeviceManager->SetBooleanState(GL_CULL_FACE, _oldCullingEnabled);
+		graphicsDeviceManager->SetCullFace(_oldCullFace);
 	}
 
 }
