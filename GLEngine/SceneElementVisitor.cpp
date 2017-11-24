@@ -18,7 +18,7 @@ namespace GLEngine
 	void SceneElementVisitor::Visit(SceneNode * sceneNodeToVisit)
 	{
 		// Visit the sub elements.
-		for each (SceneElement* currentSubElement in sceneNodeToVisit->GetSubElements())
+		for each (SceneElement* currentSubElement in *sceneNodeToVisit->GetSubElements())
 		{
 			currentSubElement->Accept(this);
 		}

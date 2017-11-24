@@ -24,7 +24,7 @@ namespace GLEngine
 
 		Matrix4* GetWorldTransformation();
 
-		vector<SceneElement*> GetSubElements()const { return _subElements; }
+		vector<SceneElement*>* GetSubElements() { return &_subElements; }
 
 		// Adds children.
 		void AddSubElement(SceneElement* element);
