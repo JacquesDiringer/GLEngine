@@ -1,13 +1,13 @@
 #pragma once
 
-#include <map>
+#include <unordered_map>
 #include <vector>
 
 #include "Mesh.h"
 #include "Vector2.h"
 #include "Vector3.h"
 
-using std::map;
+using std::unordered_map;
 using std::vector;
 
 using Math::Vector2;
@@ -80,7 +80,7 @@ namespace GLEngine
 		vector<ObjTriangle*> _textureCoordTriangles;
 		vector<ObjTriangle*> _normalTriangles;
 
-		map<string, int> _finalVerticesIndexMap;
+		unordered_map<string, int> _finalVerticesIndexMap;
 		vector<Vertex*> _finalVerticesList;
 		vector<ObjTriangle*> _finalTriangles;
 

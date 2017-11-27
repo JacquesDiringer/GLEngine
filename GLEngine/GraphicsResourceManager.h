@@ -1,6 +1,6 @@
 #pragma once
 
-#include <map>
+#include <unordered_map>
 
 #include "ShaderProgram.h"
 #include "VertexArrayObject.h"
@@ -8,7 +8,7 @@
 #include "FrameBufferManager.h"
 #include "GraphicsDeviceManager.h"
 
-using std::map;
+using std::unordered_map;
 
 namespace GLEngine
 {
@@ -56,7 +56,7 @@ namespace GLEngine
 		VertexArrayObject* _screenVAO = nullptr;
 		VertexArrayObject* _sphereVAO = nullptr;
 
-		map<string, ShaderProgram*> _loadedShaders;
+		unordered_map<string, ShaderProgram*> _loadedShaders;
 	};
 
 }

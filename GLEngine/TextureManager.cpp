@@ -5,7 +5,7 @@ namespace GLEngine
 {
 	TextureManager::TextureManager()
 	{
-		_loadedTexture2DLibrary = map<string, Texture2D*>();
+		_loadedTexture2DLibrary = unordered_map<string, Texture2D*>();
 
 		// Get the maximum possible numbre of texture units made available by the hardware.
 		glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &_maxTextureUnits);
@@ -24,7 +24,7 @@ namespace GLEngine
 
 	Texture2D * TextureManager::GetTexture(const string texPath)
 	{
-		map<string, Texture2D*>::iterator findIterator = _loadedTexture2DLibrary.find(texPath);
+		auto findIterator = _loadedTexture2DLibrary.find(texPath);
 
 		// If the texture has already been loaded.
 		if (findIterator != _loadedTexture2DLibrary.end())

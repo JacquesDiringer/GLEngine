@@ -2,7 +2,7 @@
 
 #include <string>
 #include <vector>
-#include <map>
+#include <unordered_map>
 
 // GLEW
 #define GLEW_STATIC
@@ -13,7 +13,7 @@
 
 using std::string;
 using std::vector;
-using std::map;
+using std::unordered_map;
 
 namespace GLEngine
 {
@@ -36,7 +36,7 @@ namespace GLEngine
 
 	private:
 		// Textures2D are the only ones that are loaded from disk, therefore the only ones we are keeping a track of for performance purposes.
-		map<string, Texture2D*> _loadedTexture2DLibrary;
+		unordered_map<string, Texture2D*> _loadedTexture2DLibrary;
 		vector <Texture*> _textureUnits;
 		GLint _maxTextureUnits;
 	};

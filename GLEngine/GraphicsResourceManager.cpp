@@ -11,7 +11,7 @@ namespace GLEngine
 		_textureManager = new TextureManager();
 		_frameBufferManager = new FrameBufferManager();
 		_graphicsDeviceManager = new GraphicsDeviceManager();
-		_loadedShaders = map<string, ShaderProgram*>();
+		_loadedShaders = unordered_map<string, ShaderProgram*>();
 		_objLoader = new OBJLoader();
 	}
 
@@ -21,7 +21,7 @@ namespace GLEngine
 
 	ShaderProgram * GraphicsResourceManager::GetShader(string vertexShader, string fragmentShader)
 	{
-		map<string, ShaderProgram*>::iterator foundShader = _loadedShaders.find(vertexShader + fragmentShader);
+		auto foundShader = _loadedShaders.find(vertexShader + fragmentShader);
 
 		if (foundShader == _loadedShaders.end())
 		{

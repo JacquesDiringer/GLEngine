@@ -59,7 +59,7 @@ namespace Math
 		return Vector3(_m03, _m13, _m23);
 	}
 
-	Matrix4 Matrix4::Multiply(Matrix4 a, Matrix4 b)
+	Matrix4 Matrix4::Multiply(const Matrix4& a, const Matrix4& b)
 	{
 		float m00 = a._m00*b._m00 + a._m01*b._m10 + a._m02*b._m20 + a._m03*b._m30;
 		float m01 = a._m00*b._m01 + a._m01*b._m11 + a._m02*b._m21 + a._m03*b._m31;
@@ -87,12 +87,12 @@ namespace Math
 			m30, m31, m32, m33);
 	}
 
-	Matrix4 Matrix4::operator*(Matrix4 b)
+	Matrix4 Matrix4::operator*(const Matrix4& b)
 	{
 		return Matrix4::Multiply((*this), b);
 	}
 
-	Matrix4 Matrix4::operator*(Vector3 b)
+	Vector3 Matrix4::operator*(const Vector3& b)
 	{
 		return Matrix4::Multiply((*this), b);
 	}
@@ -105,7 +105,7 @@ namespace Math
 						this->_m30, this->_m31, this->_m32, this->_m33);
 	}
 
-	Vector3 Matrix4::Multiply(Matrix4 a, Vector3 position)
+	Vector3 Matrix4::Multiply(const Matrix4& a, const Vector3& position)
 	{
 		return Matrix4::Multiply(a, Matrix4::CreateTranslation(position)).Position();
 	}
@@ -256,7 +256,7 @@ namespace Math
 		this->_m33 = 1.0f;
 	}
 
-	Matrix4 Matrix4::CreateTranslation(Vector3 translation)
+	Matrix4 Matrix4::CreateTranslation(const Vector3& translation)
 	{
 		return Matrix4(translation);
 	}
@@ -278,7 +278,7 @@ namespace Math
 						0, 0, 0, 1);
 	}
 
-	Matrix4 Matrix4::CreateRotationMatrixFromQuaternion(Quaternion quaternion)
+	Matrix4 Matrix4::CreateRotationMatrixFromQuaternion(const Quaternion& quaternion)
 	{
 		float invs = 1 / sqrtf(quaternion.GetX() * quaternion.GetX() + quaternion.GetY() * quaternion.GetY() + quaternion.GetZ() * quaternion.GetZ() + quaternion.GetW() * quaternion.GetW());
 		//float invs = 1;
@@ -318,7 +318,7 @@ namespace Math
 							0,					0,					-1,							0);
 	}
 
-	Matrix4 Matrix4::CreateTargetPositionCameraYAxis(const Vector3 cameraPosition, const Vector3 targetPosition)
+	Matrix4 Matrix4::CreateTargetPositionCameraYAxis(const Vector3& cameraPosition, const Vector3& targetPosition)
 	{
 		Matrix4 result = Matrix4::Identity();
 		result.UpdateTargetPositionCameraYAxis(cameraPosition, targetPosition);
@@ -326,7 +326,7 @@ namespace Math
 		return result;
 	}
 
-	void Matrix4::UpdateTargetPositionCameraYAxis(const Vector3 cameraPosition, const Vector3 targetPosition)
+	void Matrix4::UpdateTargetPositionCameraYAxis(const Vector3& cameraPosition, const Vector3& targetPosition)
 	{
 		Vector3 forward = (cameraPosition - targetPosition).Normalize();
 		Vector3 yAxis = Vector3(0, 1, 0);
@@ -354,7 +354,7 @@ namespace Math
 		CopyFromMatrix4(&(rotation * translation));
 	}
 
-	Matrix4::Matrix4(Vector3 position)
+	Matrix4::Matrix4(const Vector3& position)
 	{
 		_m00 = 1; _m01 = 0; _m02 = 0; _m03 = position.X();
 		_m10 = 0; _m11 = 1; _m12 = 0; _m13 = position.Y();

@@ -8,7 +8,7 @@ namespace GLEngine
 {
 	RenderingElements::RenderingElements()
 	{
-		_instancedModels = map<Model*, vector<SceneNode*>>();
+		_instancedModels = unordered_map<Model*, vector<SceneNode*>>();
 		_pointLights = vector<PointLight*>();
 	}
 
@@ -48,7 +48,7 @@ namespace GLEngine
 		if (_instancedModels.size() > 0)
 		{
 			// Find the first element of the map, use it to instanciate our result value, then delete it from the map.
-			map<Model*, vector<SceneNode*>>::iterator frontPair = _instancedModels.begin();
+			auto frontPair = _instancedModels.begin();
 			InstancedModel* result = new InstancedModel((*frontPair).first, (*frontPair).second);
 			_instancedModels.erase(frontPair);
 

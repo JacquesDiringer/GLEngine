@@ -4,7 +4,7 @@
 #include "EnvironmentMapSky.h"
 #include "InstancedModel.h"
 
-using std::map;
+using std::unordered_map;
 
 namespace GLEngine
 {
@@ -29,7 +29,7 @@ namespace GLEngine
 		EnvironmentMapSky* _sky;
 
 		// Stores the resource model pointer as a key, and the list of scene nodes with this model to draw as a key.
-		map<Model*, vector<SceneNode*>> _instancedModels;
+		unordered_map<Model*, vector<SceneNode*>> _instancedModels;
 
 		// Stores the collected point lights.
 		vector<PointLight*> _pointLights;

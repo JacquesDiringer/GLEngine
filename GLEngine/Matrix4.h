@@ -11,32 +11,32 @@ namespace Math
 	public:
 		Matrix4();
 		Matrix4(float m00, float m01, float m02, float m03, float m10, float m11, float m12, float m13, float m20, float m21, float m22, float m23, float m30, float m31, float m32, float m33);
-		Matrix4(Vector3 position);
+		Matrix4(const Vector3& position);
 		~Matrix4();
 		
 		void CopyFromMatrix4(const Matrix4* other);
 
 		static Matrix4 Identity();
-		static Matrix4 Multiply(Matrix4 a, Matrix4 b);
-		Matrix4 operator* (Matrix4 b);
-		Matrix4 operator* (Vector3 b);
+		static Matrix4 Multiply(const Matrix4& a, const Matrix4& b);
+		Matrix4 operator* (const Matrix4& b);
+		Vector3 operator* (const Vector3& b);
 		Matrix4 operator* (float b);
-		static Vector3 Multiply(Matrix4 a, Vector3 position);
+		static Vector3 Multiply(const Matrix4& a, const Vector3& position);
 		void Transpose();
 		// Inverts a generic invertible matrix.
 		void Invert();
 		//Inverts a rigid transformation matrix. Its last line is supposed to be (0, 0, 0, 1) and the nine upper-left coefficients are supposed to represent an orthonormal basis.
 		void InvertRT();
 
-		static Matrix4 CreateTranslation(Vector3 translation);
+		static Matrix4 CreateTranslation(const Vector3& translation);
 		static Matrix4* CreateTranslation(Vector3* translation);
 		static Matrix4 CreateRotationY(float angle); // angle in degrees
-		static Matrix4 CreateRotationMatrixFromQuaternion(Quaternion quaternion);
+		static Matrix4 CreateRotationMatrixFromQuaternion(const Quaternion& quaternion);
 		static Matrix4 CreateScale(float scale);
 		static Matrix4 CreateSymetricProjectionFrustum(float near, float far, float height, float width);
-		static Matrix4 CreateTargetPositionCameraYAxis(const Vector3 cameraPosition, const Vector3 targetPosition);
+		static Matrix4 CreateTargetPositionCameraYAxis(const Vector3& cameraPosition, const Vector3& targetPosition);
 
-		void UpdateTargetPositionCameraYAxis(const Vector3 cameraPosition, const Vector3 targetPosition);
+		void UpdateTargetPositionCameraYAxis(const Vector3& cameraPosition, const Vector3& targetPosition);
 
 		// Interface
 		Vector3 Position() const;

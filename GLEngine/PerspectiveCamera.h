@@ -34,7 +34,7 @@ namespace GLEngine
 		virtual void Accept(SceneElementVisitor* visitor);
 
 		void AddPostProcess(PostProcess* newPostProcess);
-		vector<PostProcess*> GetPostProcesses() { return _postProcesses; }
+		const vector<PostProcess*>& GetPostProcesses() const { return _postProcesses; }
 
 	private:
 		Matrix4* _view,  * _iView, * _projection, * _iProjection;

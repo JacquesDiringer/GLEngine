@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include <map>
+#include <unordered_map>
 
 // GLEW
 #define GLEW_STATIC
@@ -11,7 +11,7 @@
 #include "TextureManager.h"
 
 using std::string;
-using std::map;
+using std::unordered_map;
 
 namespace GLEngine
 {
@@ -28,6 +28,6 @@ namespace GLEngine
 
 	private:
 		GLuint _shaderProgramId;
-		map<string, Uniform*> _uniforms;
+		unordered_map<string, Uniform*> _uniforms;
 	};
 }

@@ -15,7 +15,7 @@ namespace GLEngine
 		_normalTriangles = vector<ObjTriangle*>();
 		_textureCoordTriangles = vector<ObjTriangle*>();
 
-		_finalVerticesIndexMap = map<string, int>();
+		_finalVerticesIndexMap = unordered_map<string, int>();
 		_finalVerticesList = vector<Vertex*>();
 		_finalTriangles = vector<ObjTriangle*>();
 	}
@@ -135,7 +135,7 @@ namespace GLEngine
 		string vertexName = ComputeVertexName(vertexId, textureCoordsId, normalId);
 
 		// Check if this vertice (with the same position, texture coords and normal) already exists.
-		map<string, int>::iterator finalVerticeIterator = _finalVerticesIndexMap.find(vertexName);
+		auto finalVerticeIterator = _finalVerticesIndexMap.find(vertexName);
 
 		int finalVerticeIndex;
 		if (finalVerticeIterator != _finalVerticesIndexMap.end())

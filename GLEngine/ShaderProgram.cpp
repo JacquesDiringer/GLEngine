@@ -7,6 +7,8 @@ namespace GLEngine
 	// Reads a vertex shader file and a fragment shader file, and creates the associated a shader program.
 	ShaderProgram::ShaderProgram(string vertexShaderFile, string fragmentShaderFile)
 	{
+		_uniforms = unordered_map<string, Uniform*>();
+
 		// Vertex shader
 		GLuint vertexShader;
 		vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -103,7 +105,7 @@ namespace GLEngine
 
 	Uniform * ShaderProgram::GetUniform(string name)
 	{
-		 map<string, Uniform*>::iterator iterator = _uniforms.find(name);
+		 auto iterator = _uniforms.find(name);
 		 if (iterator != _uniforms.end())
 		 {
 			 return iterator->second;

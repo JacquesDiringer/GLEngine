@@ -99,7 +99,7 @@ namespace GLEngine
 		_pointLightsRenderQueue->Render(sceneManager, graphicsResourceManager);
 
 		// Get the post processes, if any.
-		vector<PostProcess*> postProcesses = sceneManager->GetCurrentCamera()->GetPostProcesses();
+		const vector<PostProcess*>& postProcesses = sceneManager->GetCurrentCamera()->GetPostProcesses();
 
 		int postProcessesCount = postProcesses.size();
 		if (postProcessesCount == 0)
