@@ -8,7 +8,7 @@ namespace GLEngine
 {
 	RenderingElements::RenderingElements()
 	{
-		_instancedModels = unordered_map<Model*, vector<SceneNode*>>();
+		_instancedModels = unordered_map<Model*, vector<SceneNode*>*>();
 		_pointLights = vector<PointLight*>();
 	}
 
@@ -40,7 +40,17 @@ namespace GLEngine
 		Model* resourceModel = model->GetResource();
 		SceneNode* parentNode = model->GetParentNode();
 
-		_instancedModels[resourceModel].push_back(parentNode);
+		auto modelIterator = _instancedModels.find(resourceModel);
+		if (modelIterator != _instancedModels.end())
+		{
+			modelIterator->second->push_back(parentNode);
+		}
+		else
+		{
+			vector<SceneNode*>* newModelVector = new vector<SceneNode*>();
+			newModelVector->push_back(parentNode);
+			_instancedModels[resourceModel] = newModelVector;
+		}
 	}
 
 	InstancedModel* RenderingElements::PopInstancedModel()

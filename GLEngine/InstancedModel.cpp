@@ -8,7 +8,7 @@
 
 namespace GLEngine
 {
-	InstancedModel::InstancedModel(Model* resource, vector<SceneNode*>& instancesNodes)
+	InstancedModel::InstancedModel(Model* resource, vector<SceneNode*>* instancesNodes)
 		: Renderable(), _resource(resource), _instancesNodes(instancesNodes)
 	{
 	}
@@ -16,15 +16,16 @@ namespace GLEngine
 
 	InstancedModel::~InstancedModel()
 	{
-		_instancesNodes.clear();
+		_instancesNodes->clear();
+		delete _instancesNodes;
 	}
 
 	void InstancedModel::Render(SceneManager * sceneManager, GraphicsResourceManager* graphicsResourceManager) const
 	{
-		if (_instancesNodes.size() < _instanciationThreshold)
+		if (_instancesNodes->size() < _instanciationThreshold)
 		{
 			// No instanciation.
-			for each (SceneNode* currentNode in _instancesNodes)
+			for each (SceneNode* currentNode in *_instancesNodes)
 			{
 				_resource->RenderResource(sceneManager, graphicsResourceManager, currentNode);
 			}
@@ -34,9 +35,9 @@ namespace GLEngine
 			// Instanciation.
 
 			// Concatenate all node matrices in one array.
-			GLfloat* instanceMatricesArray = new GLfloat[16 * _instancesNodes.size()];
+			GLfloat* instanceMatricesArray = new GLfloat[16 * _instancesNodes->size()];
 			int instanceMatricesArrayIndex = 0;
-			for each (SceneNode* currentNode in _instancesNodes)
+			for each (SceneNode* currentNode in *_instancesNodes)
 			{
 				GLfloat* worldArray = currentNode->GetWorldTransformation()->GetArray();
 
@@ -55,7 +56,7 @@ namespace GLEngine
 			GLuint instancesWorldVBO;
 			glGenBuffers(1, &instancesWorldVBO);
 			glBindBuffer(GL_ARRAY_BUFFER, instancesWorldVBO);
-			glBufferData(GL_ARRAY_BUFFER, _instancesNodes.size() * 16 * sizeof(GLfloat), instanceMatricesArray, GL_STREAM_DRAW);
+			glBufferData(GL_ARRAY_BUFFER, _instancesNodes->size() * 16 * sizeof(GLfloat), instanceMatricesArray, GL_STREAM_DRAW);
 			delete instanceMatricesArray;
 
 			VertexArrayObject* resourceVao = _resource->GetVao();
@@ -84,7 +85,7 @@ namespace GLEngine
 			resourceVao->Bind();
 			{
 				resourceVao->EnableInstancingAttributes();
-				glDrawElementsInstanced(GL_TRIANGLES, resourceVao->GetElementsCount(), GL_UNSIGNED_INT, 0, (GLsizei)_instancesNodes.size());
+				glDrawElementsInstanced(GL_TRIANGLES, resourceVao->GetElementsCount(), GL_UNSIGNED_INT, 0, (GLsizei)_instancesNodes->size());
 
 				// Unbind the instances VBO.
 				glBindBuffer(GL_ARRAY_BUFFER, 0);
