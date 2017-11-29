@@ -7,6 +7,7 @@
 #include "OBJLoader.h"
 #include "FrameBufferManager.h"
 #include "GraphicsDeviceManager.h"
+#include "VBOManager.h"
 
 using std::unordered_map;
 
@@ -27,6 +28,7 @@ namespace GLEngine
 
 		GraphicsDeviceManager* GetGraphicsDeviceManager() { return _graphicsDeviceManager; }
 
+		VBOManager* GetVBOManager() { return _vboManager; }
 
 		ShaderProgram* GetShader(string vertexShader, string fragmentShader);
 		ShaderProgram* GetModelPBRShader();
@@ -50,6 +52,8 @@ namespace GLEngine
 		FrameBufferManager* _frameBufferManager;
 
 		GraphicsDeviceManager* _graphicsDeviceManager;
+
+		VBOManager* _vboManager;
 
 		OBJLoader* _objLoader;
 

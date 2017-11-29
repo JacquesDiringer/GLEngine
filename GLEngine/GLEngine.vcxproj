@@ -206,6 +206,7 @@
     <ClInclude Include="Uniform.h" />
     <ClInclude Include="UpdateVisitor.h" />
     <ClInclude Include="Utils.h" />
+    <ClInclude Include="VBOManager.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="VertexArrayObject.h" />
@@ -269,6 +270,7 @@
     <ClCompile Include="Uniform.cpp" />
     <ClCompile Include="UpdateVisitor.cpp" />
     <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="VBOManager.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="VertexArrayObject.cpp" />

@@ -34,6 +34,8 @@ namespace GLEngine
 		{
 			// Instanciation.
 
+			VBOManager* vboManager = graphicsResourceManager->GetVBOManager();
+
 			// Concatenate all node matrices in one array.
 			GLfloat* instanceMatricesArray = new GLfloat[16 * _instancesNodes->size()];
 			int instanceMatricesArrayIndex = 0;
@@ -52,14 +54,15 @@ namespace GLEngine
 			}
 
 
-			// Create the instances matrix VBO.
-			GLuint instancesWorldVBO;
-			glGenBuffers(1, &instancesWorldVBO);
+			// Create or fetch the instances matrix VBO.
+			GLsizeiptr requestedSize = _instancesNodes->size() * 16 * sizeof(GLfloat);
+			GLuint instancesWorldVBO = vboManager->RequestBuffer(requestedSize);
+			//glGenBuffers(1, &instancesWorldVBO);
 			glBindBuffer(GL_ARRAY_BUFFER, instancesWorldVBO);
-			glBufferData(GL_ARRAY_BUFFER, _instancesNodes->size() * 16 * sizeof(GLfloat), instanceMatricesArray, GL_STREAM_DRAW);
+			//glBufferData(GL_ARRAY_BUFFER, _instancesNodes->size() * 16 * sizeof(GLfloat), instanceMatricesArray, GL_STREAM_DRAW);
+			glBufferSubData(GL_ARRAY_BUFFER, 0, requestedSize, instanceMatricesArray);
 			delete instanceMatricesArray;
 
-			VertexArrayObject* resourceVao = _resource->GetVao();
 
 			// Get the Model's shader.
 			ShaderProgram* modelShader = graphicsResourceManager->GetModelPBRInstancedShader();
@@ -82,9 +85,12 @@ namespace GLEngine
 			modelShader->GetUniform("projection")->SetValue(sceneManager->GetCurrentCamera()->GetProjection());
 			modelShader->GetUniform("view")->SetValue(sceneManager->GetCurrentCamera()->GetView());
 
+			// Get and bind the VAO of the model.
+			VertexArrayObject* resourceVao = _resource->GetVao();
 			resourceVao->Bind();
 			{
 				resourceVao->EnableInstancingAttributes();
+				// Draw all instances.
 				glDrawElementsInstanced(GL_TRIANGLES, resourceVao->GetElementsCount(), GL_UNSIGNED_INT, 0, (GLsizei)_instancesNodes->size());
 
 				// Unbind the instances VBO.
@@ -93,7 +99,8 @@ namespace GLEngine
 			resourceVao->UnBind();
 
 			// Free the instances matrix VBO.
-			glDeleteBuffers(1, &instancesWorldVBO);
+			vboManager->FreeBuffer(instancesWorldVBO);
+			//glDeleteBuffers(1, &instancesWorldVBO);
 		}
 	}
 }

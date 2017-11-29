@@ -300,6 +300,9 @@
     <ClInclude Include="Light.h">
       <Filter>Header Files\Render\Lighting</Filter>
     </ClInclude>
+    <ClInclude Include="VBOManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -460,6 +463,9 @@
     </ClCompile>
     <ClCompile Include="Light.cpp">
       <Filter>Source Files\Render\Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="VBOManager.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

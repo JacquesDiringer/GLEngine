@@ -299,6 +299,7 @@ namespace GLEngine
 	VertexArrayObject::~VertexArrayObject()
 	{
 	}
+
 	void VertexArrayObject::EnableInstancingAttributes()
 	{
 		// Add the vertex instanced attributes.

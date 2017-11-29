@@ -28,6 +28,7 @@ namespace GLEngine
 		int GetElementsCount() const { return _elementsCount; }
 
 		// VertexArrayObject has to be bound before these twis function is called.
+		// TODO: However, there is no tracking of what has been bound, this should change in the future
 		void EnableInstancingAttributes();
 		// VertexArrayObject has to be bound before these twis function is called.
 		void DisableInstancingAttributes();

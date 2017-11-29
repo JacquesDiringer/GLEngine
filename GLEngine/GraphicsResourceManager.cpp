@@ -11,6 +11,7 @@ namespace GLEngine
 		_textureManager = new TextureManager();
 		_frameBufferManager = new FrameBufferManager();
 		_graphicsDeviceManager = new GraphicsDeviceManager();
+		_vboManager = new VBOManager();
 		_loadedShaders = unordered_map<string, ShaderProgram*>();
 		_objLoader = new OBJLoader();
 	}
