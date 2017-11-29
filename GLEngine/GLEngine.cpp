@@ -210,9 +210,9 @@ int main()
 	//Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/suzanne_paint_rougness2.png");
 	Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/suzanne_paint_rougness2 - Copie (2).png");
 
-	Texture2D* cylinderdiffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Challenge_Marble_Challenge_Marble_diffuse.jpg");
-	Texture2D* cylinderspecularTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Challenge_Marble_Challenge_Marble_specular.jpg");
-	Texture2D* cylinderroughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Challenge_Marble_Challenge_Marble_roughness.jpg");
+	Texture2D* cylinderdiffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Copper_Plates_Copper_Plates_diffuse.jpg");
+	Texture2D* cylinderspecularTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Copper_Plates_Copper_Plates_specular.jpg");
+	Texture2D* cylinderroughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/tile_roughness.PNG");
 
 	/*Texture2D* planediffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/bucherTile_bucherTile_diffuse.jpg");
 	Texture2D* planespecularTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/bucherTile_bucherTile_specular.jpg");
@@ -223,17 +223,17 @@ int main()
 	Texture2D* planespecularTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Copper_Plates_Copper_Plates_roughness - Copie.jpg");
 	Texture2D* planeroughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Ceramic_mat_Ceramic_test_roughness.jpg");*/
 
-	Texture2D* planediffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Challenge_Marble_Challenge_Marble_diffuse.jpg");
-	Texture2D* planespecularTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Challenge_Marble_Challenge_Marble_specular.jpg");
-	Texture2D* planeroughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Challenge_Marble_Challenge_Marble_roughness.jpg");
+	Texture2D* planediffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/tile_color.PNG");
+	Texture2D* planespecularTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/tile_specular.PNG");
+	Texture2D* planeroughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/tile_roughness.PNG");
 
 	// Cool copper plates
 	/*Texture2D* planediffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Copper_Plates_Copper_Plates_diffuse.jpg");
 	Texture2D* planespecularTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Copper_Plates_Copper_Plates_specular.jpg");
 	Texture2D* planeroughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Copper_Plates_Copper_Plates_roughness.jpg");*/
 
-	Texture2D* rgbTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/RGB.jpg");
-	Texture2D* grayTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/ceramic_004_ceramic_004_specular.jpg");
+	Texture2D* rgbTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/test_envmap2.png");
+	Texture2D* grayTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/rougnessPlastic.jpg");
 
 
 	// Models testing
@@ -261,7 +261,7 @@ int main()
 	Model* testModel1 = new Model(testMesh1, diffuseTexture, specularTexture, roughnessTexture);
 
 	// Arrows resource.
-	OBJMesh* arrowsMesh = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/arrows.obj");
+	OBJMesh* arrowsMesh = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/grudge_cylinder.obj");
 	arrowsMesh->InitializeVao();
 	Model* arrowsModel = new Model(arrowsMesh, rgbTexture, grayTexture, grayTexture);
 
@@ -318,20 +318,20 @@ int main()
 	//SceneNode* pointLightNode = sceneManager->GetRootNode()->CreateChild();
 	SceneNode* pointLightNode = extremityNode->CreateChild();
 	pointLightNode->SetRelativeTransformation(&Matrix4::CreateTranslation(Vector3(0, 0.5f, 3)));
-	//pointLightNode->AddSubElement(testPointLight);
+	pointLightNode->AddSubElement(testPointLight);
 
 	SceneNode* pointLightNode1 = extremityNode->CreateChild();
 	pointLightNode1->SetRelativeTransformation(&Matrix4::CreateTranslation(Vector3(0, 0.5f, 4)));
-	//pointLightNode1->AddSubElement(testPointLight1);
+	pointLightNode1->AddSubElement(testPointLight1);
 
 	SceneNode* pointLightNode2 = extremityNode->CreateChild();
 	pointLightNode2->SetRelativeTransformation(&Matrix4::CreateTranslation(Vector3(0, 0.5f, 5)));
-	//pointLightNode2->AddSubElement(testPointLight2);
+	pointLightNode2->AddSubElement(testPointLight2);
 
 	// Instancing tests, array.
-	for (int i = 0; i < 200; i++)
+	for (int i = 0; i < 100; i++)
 	{
-		for (int j = 0; j < 200; j++)
+		for (int j = 0; j < 100; j++)
 		{
 			SceneNode* currentNode = sceneManager->GetRootNode()->CreateChild();
 			currentNode->SetRelativeTransformation(Matrix4::CreateTranslation(new Vector3(i * 3, 0, j * 3)));

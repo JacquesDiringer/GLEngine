@@ -20,8 +20,12 @@ namespace GLEngine
 
 		// We browse through array buffers from smallest to biggest, until we find one big enough. The vector also has to actually contain at least one buffer ID.
 		auto unusedBufferIterator = _unusedArrayBuffers.begin();
-		while (	requestedSize > (*unusedBufferIterator).first &&
-				(*unusedBufferIterator).second.size() > 0) {}
+		if (_unusedArrayBuffers.size() > 0)
+		{
+			while (requestedSize > (*unusedBufferIterator).first &&
+				(*unusedBufferIterator).second.size() > 0) {
+			}
+		}
 
 		if (unusedBufferIterator != _unusedArrayBuffers.end())
 		{
