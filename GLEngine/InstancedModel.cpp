@@ -57,9 +57,7 @@ namespace GLEngine
 			// Create or fetch the instances matrix VBO.
 			GLsizeiptr requestedSize = _instancesNodes->size() * 16 * sizeof(GLfloat);
 			GLuint instancesWorldVBO = vboManager->RequestBuffer(requestedSize);
-			//glGenBuffers(1, &instancesWorldVBO);
 			glBindBuffer(GL_ARRAY_BUFFER, instancesWorldVBO);
-			//glBufferData(GL_ARRAY_BUFFER, _instancesNodes->size() * 16 * sizeof(GLfloat), instanceMatricesArray, GL_STREAM_DRAW);
 			glBufferSubData(GL_ARRAY_BUFFER, 0, requestedSize, instanceMatricesArray);
 			delete instanceMatricesArray;
 
@@ -100,7 +98,6 @@ namespace GLEngine
 
 			// Free the instances matrix VBO.
 			vboManager->FreeBuffer(instancesWorldVBO);
-			//glDeleteBuffers(1, &instancesWorldVBO);
 		}
 	}
 }

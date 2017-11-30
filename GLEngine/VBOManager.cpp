@@ -62,6 +62,7 @@ namespace GLEngine
 			GLuint newVBO;
 			glGenBuffers(1, &newVBO);
 			// Allocate the memory.
+			glBindBuffer(GL_ARRAY_BUFFER, newVBO);
 			glBufferData(GL_ARRAY_BUFFER, requestedSize, NULL, GL_STREAM_DRAW);
 
 			// Add this ID to the used buffers.
