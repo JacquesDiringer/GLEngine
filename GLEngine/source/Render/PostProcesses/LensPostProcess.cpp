@@ -51,14 +51,14 @@ namespace GLEngine
 			// Ghosts pass.
 
 			// Bind the ghost shader.
-			ShaderProgram* ghostingShader = graphicsResourceManager->GetShader("ScreenSpace.vert", "Ghosting.frag");
+			ShaderProgram* ghostingShader = graphicsResourceManager->GetShader("..\\GLEngine\\resource\\Shaders\\Common\\ScreenSpace.vert", "..\\GLEngine\\resource\\Shaders\\ImageProcessing\\Ghosting.frag");
 			ghostingShader->Use();
 			{
 				// Set the input texture.
 				ghostingShader->GetUniform("inputTex")->SetValue(textureManager->AssignTextureToUnit(_inputTexture));
 
 				// Load/find and set the lens flare chromatic aberration texture.
-				Texture2D* lensChromaticAberrationTex = textureManager->GetTexture("lensChromaticAberration.png");
+				Texture2D* lensChromaticAberrationTex = textureManager->GetTexture("..\\GLEngine\\resource\\Textures\\lensChromaticAberration.png");
 				ghostingShader->GetUniform("lensChromaticAberrationTex")->SetValue(textureManager->AssignTextureToUnit(lensChromaticAberrationTex));
 
 				// Set the mip level for ghosts fetching.
@@ -80,7 +80,7 @@ namespace GLEngine
 			// Bi axial blur X passes.
 
 			// Bind the blur shader.
-			ShaderProgram* blurXYShader = graphicsResourceManager->GetShader("ScreenSpace.vert", "BlurXY.frag");
+			ShaderProgram* blurXYShader = graphicsResourceManager->GetShader("..\\GLEngine\\resource\\Shaders\\Common\\ScreenSpace.vert", "..\\GLEngine\\resource\\Shaders\\ImageProcessing\\BlurXY.frag");
 			blurXYShader->Use();
 			{
 				// Blur on the X axis pass.

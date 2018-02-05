@@ -19,7 +19,7 @@ namespace GLEngine
 		TextureManager* textureManager = graphicsResourceManager->GetTextureManager();
 
 		// Bind the bloom shader.
-		ShaderProgram* bloomShader = graphicsResourceManager->GetShader("ScreenSpace.vert", "Bloom.frag");
+		ShaderProgram* bloomShader = graphicsResourceManager->GetShader("..\\GLEngine\\resource\\Shaders\\Common\\ScreenSpace.vert", "..\\GLEngine\\resource\\Shaders\\ImageProcessing\\Bloom.frag");
 		bloomShader->Use();
 		{
 			// Set the input texture.

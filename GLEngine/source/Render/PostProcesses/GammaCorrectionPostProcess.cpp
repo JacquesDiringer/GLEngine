@@ -19,7 +19,7 @@ namespace GLEngine
 		TextureManager* textureManager = graphicsResourceManager->GetTextureManager();
 
 		// Bind the bloom shader.
-		ShaderProgram* gammaCorrectionShader = graphicsResourceManager->GetShader("ScreenSpace.vert", "GammaCorrection.frag");
+		ShaderProgram* gammaCorrectionShader = graphicsResourceManager->GetShader("..\\GLEngine\\resource\\Shaders\\Common\\ScreenSpace.vert", "..\\GLEngine\\resource\\Shaders\\ImageProcessing\\GammaCorrection.frag");
 		gammaCorrectionShader->Use();
 		{
 			// Set the input texture.

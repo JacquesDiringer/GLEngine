@@ -40,11 +40,11 @@ namespace GLEngine
 
 			if (_projectedTex == nullptr)
 			{
-				shaderProgram = graphicsResourceManager->GetShader("PointLight.vert", "PointLight.frag");
+				shaderProgram = graphicsResourceManager->GetShader("..\\GLEngine\\resource\\Shaders\\DeferredShading\\Lighting\\PointLight.vert", "..\\GLEngine\\resource\\Shaders\\DeferredShading\\Lighting\\PointLight.frag");
 			}
 			else
 			{
-				shaderProgram = graphicsResourceManager->GetShader("PointLight.vert", "PointLightProjection.frag");
+				shaderProgram = graphicsResourceManager->GetShader("..\\GLEngine\\resource\\Shaders\\DeferredShading\\Lighting\\PointLight.vert", "..\\GLEngine\\resource\\Shaders\\DeferredShading\\Lighting\\PointLightProjection.frag");
 				shaderProgram->GetUniform("projectedTex")->SetValue(
 					textureManager->AssignTextureToUnit(_projectedTex));
 			}
