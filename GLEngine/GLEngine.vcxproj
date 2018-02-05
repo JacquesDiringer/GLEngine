@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Utils\GLFW\glfw-3.2.1\glfw-3.2.1\include;C:\Utils\glew-2.0.0\glew-2.0.0\include;C:\Utils\SOIL\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Utils\GLFW\glfw-3.2.1\glfw-3.2.1\include;C:\Utils\glew-2.0.0\glew-2.0.0\include;C:\Utils\SOIL\include;$(ProjectDir)\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Utils\glew-2.0.0\Cmake_result\lib\Debug;C:\Utils\GLFW\glfw-3.2.1\CMake_result\src\Debug;C:\Utils\SOIL\lib\Win32\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -80,7 +80,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Utils\glew-2.0.0\glew-2.0.0\include;C:\Utils\GLFW\glfw-3.2.1\glfw-3.2.1\include;C:\Utils\SOIL\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Utils\glew-2.0.0\glew-2.0.0\include;C:\Utils\GLFW\glfw-3.2.1\glfw-3.2.1\include;C:\Utils\SOIL\include;$(ProjectDir)\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Utils\GLFW\glfw-3.2.1\CMake_result\src\Debug;C:\Utils\glew-2.0.0\Cmake_result\lib\Release;C:\Utils\SOIL\lib\Win32\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -141,162 +141,162 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="DrawTexture.frag" />
-    <Text Include="EnvironmentMapConvolution.frag" />
-    <Text Include="EnvironmentMapLight.frag" />
-    <Text Include="ModelShader.frag">
+    <Text Include="resource\Shaders\Common\DrawTexture.frag" />
+    <Text Include="resource\Shaders\ImageProcessing\EnvironmentMapConvolution.frag" />
+    <Text Include="resource\Shaders\DeferredShading\Lighting\EnvironmentMapLight.frag" />
+    <Text Include="resource\Shaders\DeferredShading\GBuffer\ModelShader.frag">
       <DeploymentContent>false</DeploymentContent>
     </Text>
-    <Text Include="InstancedVertexShader.vert" />
+    <Text Include="resource\Shaders\DeferredShading\GBuffer\InstancedVertexShader.vert" />
     <Text Include="ReadMe.txt" />
-    <Text Include="BlurXY.frag" />
-    <Text Include="VertexShader.vert">
+    <Text Include="resource\Shaders\ImageProcessing\BlurXY.frag" />
+    <Text Include="resource\Shaders\DeferredShading\GBuffer\VertexShader.vert">
       <DeploymentContent>false</DeploymentContent>
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Actor.h" />
-    <ClInclude Include="BloomPostProcess.h" />
-    <ClInclude Include="EnvironmentMapLight.h" />
-    <ClInclude Include="EnvironmentMapSky.h" />
-    <ClInclude Include="FrameBuffer.h" />
-    <ClInclude Include="FrameBufferManager.h" />
-    <ClInclude Include="GammaCorrectionPostProcess.h" />
-    <ClInclude Include="GBuffer.h" />
-    <ClInclude Include="GraphicsDeviceManager.h" />
-    <ClInclude Include="GraphicsResourceManager.h" />
-    <ClInclude Include="InstancedModel.h" />
-    <ClInclude Include="LensPostProcess.h" />
-    <ClInclude Include="Light.h" />
-    <ClInclude Include="PointLight.h" />
-    <ClInclude Include="PointLightRenderQueue.h" />
-    <ClInclude Include="PostProcess.h" />
-    <ClInclude Include="RGB16FBuffer.h" />
-    <ClInclude Include="Matrix4.h" />
-    <ClInclude Include="Mesh.h" />
-    <ClInclude Include="MeshLoader.h" />
-    <ClInclude Include="Model.h" />
-    <ClInclude Include="NoAlphaRenderQueue.h" />
-    <ClInclude Include="OBJLoader.h" />
-    <ClInclude Include="OBJMesh.h" />
-    <ClInclude Include="PerspectiveCamera.h" />
-    <ClInclude Include="Quaternion.h" />
-    <ClInclude Include="Renderable.h" />
-    <ClInclude Include="RenderableCollectorVisitor.h" />
-    <ClInclude Include="RenderingElements.h" />
-    <ClInclude Include="RenderManager.h" />
-    <ClInclude Include="RenderQueue.h" />
+    <ClInclude Include="include\Actor\Actor.h" />
+    <ClInclude Include="include\Render\PostProcesses\BloomPostProcess.h" />
+    <ClInclude Include="include\Render\Lighting\EnvironmentMapLight.h" />
+    <ClInclude Include="include\Render\EnvironmentMapSky.h" />
+    <ClInclude Include="include\FrameBuffer\FrameBuffer.h" />
+    <ClInclude Include="include\FrameBuffer\FrameBufferManager.h" />
+    <ClInclude Include="include\Render\PostProcesses\GammaCorrectionPostProcess.h" />
+    <ClInclude Include="include\FrameBuffer\GBuffer.h" />
+    <ClInclude Include="include\GraphicsDeviceManager.h" />
+    <ClInclude Include="include\GraphicsResourceManager.h" />
+    <ClInclude Include="include\Render\InstancedModel.h" />
+    <ClInclude Include="include\Render\PostProcesses\LensPostProcess.h" />
+    <ClInclude Include="include\Render\Lighting\Light.h" />
+    <ClInclude Include="include\Render\Lighting\PointLight.h" />
+    <ClInclude Include="include\RenderQueue\PointLightRenderQueue.h" />
+    <ClInclude Include="include\Render\PostProcesses\PostProcess.h" />
+    <ClInclude Include="include\FrameBuffer\RGB16FBuffer.h" />
+    <ClInclude Include="include\Math\Matrix4.h" />
+    <ClInclude Include="include\Mesh\Mesh.h" />
+    <ClInclude Include="include\Mesh\MeshLoader.h" />
+    <ClInclude Include="include\Render\Model.h" />
+    <ClInclude Include="include\RenderQueue\NoAlphaRenderQueue.h" />
+    <ClInclude Include="include\Mesh\OBJLoader.h" />
+    <ClInclude Include="include\Mesh\OBJMesh.h" />
+    <ClInclude Include="include\Camera\PerspectiveCamera.h" />
+    <ClInclude Include="include\Math\Quaternion.h" />
+    <ClInclude Include="include\Render\Renderable.h" />
+    <ClInclude Include="include\Render\RenderableCollectorVisitor.h" />
+    <ClInclude Include="include\Render\RenderingElements.h" />
+    <ClInclude Include="include\Render\RenderManager.h" />
+    <ClInclude Include="include\RenderQueue\RenderQueue.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="SceneElement.h" />
-    <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="SceneNode.h" />
-    <ClInclude Include="SceneElementVisitor.h" />
-    <ClInclude Include="ShaderProgram.h" />
-    <ClInclude Include="SkyRenderQueue.h" />
-    <ClInclude Include="SpinnerActor.h" />
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="targetver.h" />
-    <ClInclude Include="Texture.h" />
-    <ClInclude Include="Texture2D.h" />
-    <ClInclude Include="Texture2DRGB16F.h" />
-    <ClInclude Include="Texture2DRGB8.h" />
-    <ClInclude Include="Texture3D.h" />
-    <ClInclude Include="TextureManager.h" />
-    <ClInclude Include="ThirdViewOrientationActor.h" />
-    <ClInclude Include="Uniform.h" />
-    <ClInclude Include="UpdateVisitor.h" />
-    <ClInclude Include="Utils.h" />
-    <ClInclude Include="VBOManager.h" />
-    <ClInclude Include="Vector2.h" />
-    <ClInclude Include="Vector3.h" />
-    <ClInclude Include="VertexArrayObject.h" />
+    <ClInclude Include="include\SceneGraph\SceneElement.h" />
+    <ClInclude Include="include\SceneGraph\SceneManager.h" />
+    <ClInclude Include="include\SceneGraph\SceneNode.h" />
+    <ClInclude Include="include\SceneGraph\SceneElementVisitor.h" />
+    <ClInclude Include="include\ShaderProgram.h" />
+    <ClInclude Include="include\RenderQueue\SkyRenderQueue.h" />
+    <ClInclude Include="include\Actor\SpinnerActor.h" />
+    <ClInclude Include="include\stdafx.h" />
+    <ClInclude Include="include\targetver.h" />
+    <ClInclude Include="include\Texture\Texture.h" />
+    <ClInclude Include="include\Texture\Texture2D.h" />
+    <ClInclude Include="include\Texture\Texture2DRGB16F.h" />
+    <ClInclude Include="include\Texture\Texture2DRGB8.h" />
+    <ClInclude Include="include\Texture\Texture3D.h" />
+    <ClInclude Include="include\Texture\TextureManager.h" />
+    <ClInclude Include="include\Actor\ThirdViewOrientationActor.h" />
+    <ClInclude Include="include\Uniform.h" />
+    <ClInclude Include="include\SceneGraph\UpdateVisitor.h" />
+    <ClInclude Include="include\Utils.h" />
+    <ClInclude Include="include\VBOManager.h" />
+    <ClInclude Include="include\Math\Vector2.h" />
+    <ClInclude Include="include\Math\Vector3.h" />
+    <ClInclude Include="include\VertexArrayObject.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Actor.cpp" />
-    <Text Include="EnvironmentMapFragmentShader.frag">
+    <ClCompile Include="source\Actor\Actor.cpp" />
+    <Text Include="resource\Shaders\DeferredShading\GBuffer\EnvironmentMapFragmentShader.frag">
       <FileType>Document</FileType>
     </Text>
-    <ClCompile Include="BloomPostProcess.cpp" />
-    <ClCompile Include="EnvironmentMapLight.cpp" />
-    <ClCompile Include="EnvironmentMapSky.cpp" />
-    <ClCompile Include="FrameBuffer.cpp" />
-    <ClCompile Include="FrameBufferManager.cpp" />
-    <ClCompile Include="GammaCorrectionPostProcess.cpp" />
-    <ClCompile Include="GBuffer.cpp" />
-    <ClCompile Include="GLEngine.cpp" />
-    <ClCompile Include="GraphicsDeviceManager.cpp" />
-    <ClCompile Include="GraphicsResourceManager.cpp" />
-    <ClCompile Include="InstancedModel.cpp" />
-    <ClCompile Include="LensPostProcess.cpp" />
-    <ClCompile Include="Light.cpp" />
-    <ClCompile Include="PointLight.cpp" />
-    <ClCompile Include="PointLightRenderQueue.cpp" />
-    <ClCompile Include="PostProcess.cpp" />
-    <ClCompile Include="RGB16FBuffer.cpp" />
-    <ClCompile Include="Matrix4.cpp" />
-    <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="MeshLoader.cpp" />
-    <ClCompile Include="Model.cpp" />
-    <ClCompile Include="NoAlphaRenderQueue.cpp" />
-    <ClCompile Include="OBJLoader.cpp" />
-    <ClCompile Include="OBJMesh.cpp" />
-    <ClCompile Include="PerspectiveCamera.cpp" />
-    <ClCompile Include="Quaternion.cpp" />
-    <ClCompile Include="Renderable.cpp" />
-    <ClCompile Include="RenderableCollectorVisitor.cpp" />
-    <ClCompile Include="RenderingElements.cpp" />
-    <ClCompile Include="RenderManager.cpp" />
-    <ClCompile Include="RenderQueue.cpp" />
-    <ClCompile Include="SceneElement.cpp" />
-    <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="SceneNode.cpp" />
-    <ClCompile Include="SceneElementVisitor.cpp" />
-    <ClCompile Include="ShaderProgram.cpp" />
-    <ClCompile Include="SkyRenderQueue.cpp" />
-    <ClCompile Include="SpinnerActor.cpp" />
-    <ClCompile Include="stdafx.cpp">
+    <ClCompile Include="source\Render\PostProcesses\BloomPostProcess.cpp" />
+    <ClCompile Include="source\Render\Lighting\EnvironmentMapLight.cpp" />
+    <ClCompile Include="source\Render\EnvironmentMapSky.cpp" />
+    <ClCompile Include="source\FrameBuffer\FrameBuffer.cpp" />
+    <ClCompile Include="source\FrameBuffer\FrameBufferManager.cpp" />
+    <ClCompile Include="source\Render\PostProcesses\GammaCorrectionPostProcess.cpp" />
+    <ClCompile Include="source\FrameBuffer\GBuffer.cpp" />
+    <ClCompile Include="source\GLEngine.cpp" />
+    <ClCompile Include="source\GraphicsDeviceManager.cpp" />
+    <ClCompile Include="source\GraphicsResourceManager.cpp" />
+    <ClCompile Include="source\Render\InstancedModel.cpp" />
+    <ClCompile Include="source\Render\PostProcesses\LensPostProcess.cpp" />
+    <ClCompile Include="source\Render\Lighting\Light.cpp" />
+    <ClCompile Include="source\Render\Lighting\PointLight.cpp" />
+    <ClCompile Include="source\RenderQueue\PointLightRenderQueue.cpp" />
+    <ClCompile Include="source\Render\PostProcesses\PostProcess.cpp" />
+    <ClCompile Include="source\FrameBuffer\RGB16FBuffer.cpp" />
+    <ClCompile Include="source\Math\Matrix4.cpp" />
+    <ClCompile Include="source\Mesh\Mesh.cpp" />
+    <ClCompile Include="source\Mesh\MeshLoader.cpp" />
+    <ClCompile Include="source\Render\Model.cpp" />
+    <ClCompile Include="source\RenderQueue\NoAlphaRenderQueue.cpp" />
+    <ClCompile Include="source\Mesh\OBJLoader.cpp" />
+    <ClCompile Include="source\Mesh\OBJMesh.cpp" />
+    <ClCompile Include="source\Camera\PerspectiveCamera.cpp" />
+    <ClCompile Include="source\Math\Quaternion.cpp" />
+    <ClCompile Include="source\Render\Renderable.cpp" />
+    <ClCompile Include="source\Render\RenderableCollectorVisitor.cpp" />
+    <ClCompile Include="source\Render\RenderingElements.cpp" />
+    <ClCompile Include="source\Render\RenderManager.cpp" />
+    <ClCompile Include="source\RenderQueue\RenderQueue.cpp" />
+    <ClCompile Include="source\SceneGraph\SceneElement.cpp" />
+    <ClCompile Include="source\SceneGraph\SceneManager.cpp" />
+    <ClCompile Include="source\SceneGraph\SceneNode.cpp" />
+    <ClCompile Include="source\SceneGraph\SceneElementVisitor.cpp" />
+    <ClCompile Include="source\ShaderProgram.cpp" />
+    <ClCompile Include="source\RenderQueue\SkyRenderQueue.cpp" />
+    <ClCompile Include="source\Actor\SpinnerActor.cpp" />
+    <ClCompile Include="source\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="Texture2D.cpp" />
-    <ClCompile Include="Texture2DRGB16F.cpp" />
-    <ClCompile Include="Texture2DRGB8.cpp" />
-    <ClCompile Include="Texture3D.cpp" />
-    <ClCompile Include="TextureManager.cpp" />
-    <ClCompile Include="ThirdViewOrientationActor.cpp" />
-    <ClCompile Include="Uniform.cpp" />
-    <ClCompile Include="UpdateVisitor.cpp" />
-    <ClCompile Include="Utils.cpp" />
-    <ClCompile Include="VBOManager.cpp" />
-    <ClCompile Include="Vector2.cpp" />
-    <ClCompile Include="Vector3.cpp" />
-    <ClCompile Include="VertexArrayObject.cpp" />
+    <ClCompile Include="source\Texture\Texture.cpp" />
+    <ClCompile Include="source\Texture\Texture2D.cpp" />
+    <ClCompile Include="source\Texture\Texture2DRGB16F.cpp" />
+    <ClCompile Include="source\Texture\Texture2DRGB8.cpp" />
+    <ClCompile Include="source\Texture\Texture3D.cpp" />
+    <ClCompile Include="source\Texture\TextureManager.cpp" />
+    <ClCompile Include="source\Actor\ThirdViewOrientationActor.cpp" />
+    <ClCompile Include="source\Uniform.cpp" />
+    <ClCompile Include="source\SceneGraph\UpdateVisitor.cpp" />
+    <ClCompile Include="source\Utils.cpp" />
+    <ClCompile Include="source\VBOManager.cpp" />
+    <ClCompile Include="source\Math\Vector2.cpp" />
+    <ClCompile Include="source\Math\Vector3.cpp" />
+    <ClCompile Include="source\VertexArrayObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GLEngine.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Bloom.frag" />
-    <None Include="GammaCorrection.frag" />
-    <None Include="Ghosting.frag" />
-    <None Include="PBRCombiner.frag" />
-    <None Include="PointLight.frag" />
-    <None Include="PointLight.vert" />
-    <None Include="PointLightProjection.frag" />
-    <None Include="ScreenSpace.vert" />
+    <None Include="resource\Shaders\ImageProcessing\Bloom.frag" />
+    <None Include="resource\Shaders\ImageProcessing\GammaCorrection.frag" />
+    <None Include="resource\Shaders\ImageProcessing\Ghosting.frag" />
+    <None Include="resource\Shaders\DeferredShading\Combiner\PBRCombiner.frag" />
+    <None Include="resource\Shaders\DeferredShading\Lighting\PointLight.frag" />
+    <None Include="resource\Shaders\DeferredShading\Lighting\PointLight.vert" />
+    <None Include="resource\Shaders\DeferredShading\Lighting\PointLightProjection.frag" />
+    <None Include="resource\Shaders\Common\ScreenSpace.vert" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="sphere_UVs.obj">
+    <Text Include="resource\Meshes\sphere_UVs.obj">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <FileType>Document</FileType>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="lensChromaticAberration.png" />
+    <Image Include="resource\Textures\lensChromaticAberration.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

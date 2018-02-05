@@ -109,363 +109,363 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
-    <Text Include="VertexShader.vert">
-      <Filter>Resource Files\Shaders\DeferredShading\GBuffer</Filter>
-    </Text>
-    <Text Include="InstancedVertexShader.vert">
-      <Filter>Resource Files\Shaders\DeferredShading\GBuffer</Filter>
-    </Text>
-    <Text Include="EnvironmentMapFragmentShader.frag">
-      <Filter>Resource Files\Shaders\DeferredShading\GBuffer</Filter>
-    </Text>
-    <Text Include="EnvironmentMapLight.frag">
-      <Filter>Resource Files\Shaders\DeferredShading\Lighting</Filter>
-    </Text>
-    <Text Include="ModelShader.frag">
-      <Filter>Resource Files\Shaders\DeferredShading\GBuffer</Filter>
-    </Text>
-    <Text Include="EnvironmentMapConvolution.frag">
-      <Filter>Resource Files\Shaders\ImageProcessing</Filter>
-    </Text>
-    <Text Include="DrawTexture.frag">
-      <Filter>Resource Files\Shaders\Common</Filter>
-    </Text>
-    <Text Include="sphere_UVs.obj">
+    <Text Include="resource\Meshes\sphere_UVs.obj">
       <Filter>Resource Files\Meshes</Filter>
     </Text>
-    <Text Include="BlurXY.frag">
+    <Text Include="resource\Shaders\Common\DrawTexture.frag">
+      <Filter>Resource Files\Shaders\Common</Filter>
+    </Text>
+    <Text Include="resource\Shaders\ImageProcessing\BlurXY.frag">
       <Filter>Resource Files\Shaders\ImageProcessing</Filter>
+    </Text>
+    <Text Include="resource\Shaders\ImageProcessing\EnvironmentMapConvolution.frag">
+      <Filter>Resource Files\Shaders\ImageProcessing</Filter>
+    </Text>
+    <Text Include="resource\Shaders\DeferredShading\GBuffer\EnvironmentMapFragmentShader.frag">
+      <Filter>Resource Files\Shaders\DeferredShading\GBuffer</Filter>
+    </Text>
+    <Text Include="resource\Shaders\DeferredShading\GBuffer\InstancedVertexShader.vert">
+      <Filter>Resource Files\Shaders\DeferredShading\GBuffer</Filter>
+    </Text>
+    <Text Include="resource\Shaders\DeferredShading\GBuffer\ModelShader.frag">
+      <Filter>Resource Files\Shaders\DeferredShading\GBuffer</Filter>
+    </Text>
+    <Text Include="resource\Shaders\DeferredShading\GBuffer\VertexShader.vert">
+      <Filter>Resource Files\Shaders\DeferredShading\GBuffer</Filter>
+    </Text>
+    <Text Include="resource\Shaders\DeferredShading\Lighting\EnvironmentMapLight.frag">
+      <Filter>Resource Files\Shaders\DeferredShading\Lighting</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderProgram.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Uniform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector3.h">
-      <Filter>Header Files\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="VertexArrayObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector2.h">
-      <Filter>Header Files\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture2D.h">
-      <Filter>Header Files\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureManager.h">
-      <Filter>Header Files\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="Matrix4.h">
-      <Filter>Header Files\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Quaternion.h">
-      <Filter>Header Files\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>Header Files\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshLoader.h">
-      <Filter>Header Files\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="OBJLoader.h">
-      <Filter>Header Files\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="OBJMesh.h">
-      <Filter>Header Files\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneNode.h">
-      <Filter>Header Files\SceneGraph</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneElementVisitor.h">
-      <Filter>Header Files\SceneGraph</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneElement.h">
-      <Filter>Header Files\SceneGraph</Filter>
-    </ClInclude>
-    <ClInclude Include="PerspectiveCamera.h">
-      <Filter>Header Files\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>Header Files\SceneGraph</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderingElements.h">
-      <Filter>Header Files\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="UpdateVisitor.h">
-      <Filter>Header Files\SceneGraph</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderable.h">
-      <Filter>Header Files\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Model.h">
-      <Filter>Header Files\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="SpinnerActor.h">
-      <Filter>Header Files\Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="Actor.h">
-      <Filter>Header Files\Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderManager.h">
-      <Filter>Header Files\Render</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EnvironmentMapSky.h">
-      <Filter>Header Files\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderableCollectorVisitor.h">
-      <Filter>Header Files\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderQueue.h">
-      <Filter>Header Files\RenderQueue</Filter>
-    </ClInclude>
-    <ClInclude Include="NoAlphaRenderQueue.h">
-      <Filter>Header Files\RenderQueue</Filter>
-    </ClInclude>
-    <ClInclude Include="SkyRenderQueue.h">
-      <Filter>Header Files\RenderQueue</Filter>
-    </ClInclude>
-    <ClInclude Include="InstancedModel.h">
-      <Filter>Header Files\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="GraphicsResourceManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>Header Files\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture3D.h">
-      <Filter>Header Files\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="GBuffer.h">
-      <Filter>Header Files\FrameBuffer</Filter>
-    </ClInclude>
-    <ClInclude Include="FrameBuffer.h">
-      <Filter>Header Files\FrameBuffer</Filter>
-    </ClInclude>
-    <ClInclude Include="RGB16FBuffer.h">
-      <Filter>Header Files\FrameBuffer</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdViewOrientationActor.h">
+    <ClInclude Include="include\Actor\Actor.h">
       <Filter>Header Files\Actor</Filter>
     </ClInclude>
-    <ClInclude Include="BloomPostProcess.h">
-      <Filter>Header Files\Render\PostProcesses</Filter>
+    <ClInclude Include="include\Actor\SpinnerActor.h">
+      <Filter>Header Files\Actor</Filter>
     </ClInclude>
-    <ClInclude Include="PostProcess.h">
-      <Filter>Header Files\Render\PostProcesses</Filter>
+    <ClInclude Include="include\Actor\ThirdViewOrientationActor.h">
+      <Filter>Header Files\Actor</Filter>
     </ClInclude>
-    <ClInclude Include="EnvironmentMapLight.h">
-      <Filter>Header Files\Render\Lighting</Filter>
+    <ClInclude Include="include\Camera\PerspectiveCamera.h">
+      <Filter>Header Files\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="PointLight.h">
-      <Filter>Header Files\Render\Lighting</Filter>
-    </ClInclude>
-    <ClInclude Include="PointLightRenderQueue.h">
-      <Filter>Header Files\RenderQueue</Filter>
-    </ClInclude>
-    <ClInclude Include="GammaCorrectionPostProcess.h">
-      <Filter>Header Files\Render\PostProcesses</Filter>
-    </ClInclude>
-    <ClInclude Include="LensPostProcess.h">
-      <Filter>Header Files\Render\PostProcesses</Filter>
-    </ClInclude>
-    <ClInclude Include="FrameBufferManager.h">
+    <ClInclude Include="include\FrameBuffer\FrameBuffer.h">
       <Filter>Header Files\FrameBuffer</Filter>
     </ClInclude>
-    <ClInclude Include="Texture2DRGB16F.h">
-      <Filter>Header Files\Texture</Filter>
+    <ClInclude Include="include\FrameBuffer\FrameBufferManager.h">
+      <Filter>Header Files\FrameBuffer</Filter>
     </ClInclude>
-    <ClInclude Include="Texture2DRGB8.h">
-      <Filter>Header Files\Texture</Filter>
+    <ClInclude Include="include\FrameBuffer\GBuffer.h">
+      <Filter>Header Files\FrameBuffer</Filter>
     </ClInclude>
-    <ClInclude Include="GraphicsDeviceManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\FrameBuffer\RGB16FBuffer.h">
+      <Filter>Header Files\FrameBuffer</Filter>
     </ClInclude>
-    <ClInclude Include="Light.h">
+    <ClInclude Include="include\Math\Matrix4.h">
+      <Filter>Header Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Math\Quaternion.h">
+      <Filter>Header Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Math\Vector2.h">
+      <Filter>Header Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Math\Vector3.h">
+      <Filter>Header Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Mesh\Mesh.h">
+      <Filter>Header Files\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Mesh\MeshLoader.h">
+      <Filter>Header Files\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Mesh\OBJLoader.h">
+      <Filter>Header Files\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Mesh\OBJMesh.h">
+      <Filter>Header Files\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Render\Lighting\EnvironmentMapLight.h">
       <Filter>Header Files\Render\Lighting</Filter>
     </ClInclude>
-    <ClInclude Include="VBOManager.h">
+    <ClInclude Include="include\Render\Lighting\Light.h">
+      <Filter>Header Files\Render\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Render\Lighting\PointLight.h">
+      <Filter>Header Files\Render\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Render\PostProcesses\BloomPostProcess.h">
+      <Filter>Header Files\Render\PostProcesses</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Render\PostProcesses\GammaCorrectionPostProcess.h">
+      <Filter>Header Files\Render\PostProcesses</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Render\PostProcesses\LensPostProcess.h">
+      <Filter>Header Files\Render\PostProcesses</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Render\PostProcesses\PostProcess.h">
+      <Filter>Header Files\Render\PostProcesses</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Render\EnvironmentMapSky.h">
+      <Filter>Header Files\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Render\InstancedModel.h">
+      <Filter>Header Files\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Render\Model.h">
+      <Filter>Header Files\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Render\Renderable.h">
+      <Filter>Header Files\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Render\RenderableCollectorVisitor.h">
+      <Filter>Header Files\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Render\RenderingElements.h">
+      <Filter>Header Files\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Render\RenderManager.h">
+      <Filter>Header Files\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RenderQueue\NoAlphaRenderQueue.h">
+      <Filter>Header Files\RenderQueue</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RenderQueue\PointLightRenderQueue.h">
+      <Filter>Header Files\RenderQueue</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RenderQueue\RenderQueue.h">
+      <Filter>Header Files\RenderQueue</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RenderQueue\SkyRenderQueue.h">
+      <Filter>Header Files\RenderQueue</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SceneGraph\SceneElement.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SceneGraph\SceneElementVisitor.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SceneGraph\SceneManager.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SceneGraph\SceneNode.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SceneGraph\UpdateVisitor.h">
+      <Filter>Header Files\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Texture\Texture.h">
+      <Filter>Header Files\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Texture\Texture2D.h">
+      <Filter>Header Files\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Texture\Texture2DRGB8.h">
+      <Filter>Header Files\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Texture\Texture2DRGB16F.h">
+      <Filter>Header Files\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Texture\Texture3D.h">
+      <Filter>Header Files\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Texture\TextureManager.h">
+      <Filter>Header Files\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GraphicsDeviceManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GraphicsResourceManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ShaderProgram.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Uniform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\VBOManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\VertexArrayObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="source\Actor\Actor.cpp">
+      <Filter>Source Files\Actor</Filter>
     </ClCompile>
-    <ClCompile Include="GLEngine.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="source\Actor\SpinnerActor.cpp">
+      <Filter>Source Files\Actor</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderProgram.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="source\Actor\ThirdViewOrientationActor.cpp">
+      <Filter>Source Files\Actor</Filter>
     </ClCompile>
-    <ClCompile Include="Uniform.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector3.cpp">
-      <Filter>Source Files\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="VertexArrayObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector2.cpp">
-      <Filter>Source Files\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture2D.cpp">
-      <Filter>Source Files\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureManager.cpp">
-      <Filter>Source Files\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="Matrix4.cpp">
-      <Filter>Source Files\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Quaternion.cpp">
-      <Filter>Source Files\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Utils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>Source Files\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshLoader.cpp">
-      <Filter>Source Files\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="OBJMesh.cpp">
-      <Filter>Source Files\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="OBJLoader.cpp">
-      <Filter>Source Files\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneNode.cpp">
-      <Filter>Source Files\SceneGraph</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneElementVisitor.cpp">
-      <Filter>Source Files\SceneGraph</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneElement.cpp">
-      <Filter>Source Files\SceneGraph</Filter>
-    </ClCompile>
-    <ClCompile Include="PerspectiveCamera.cpp">
+    <ClCompile Include="source\Camera\PerspectiveCamera.cpp">
       <Filter>Source Files\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
+    <ClCompile Include="source\FrameBuffer\FrameBuffer.cpp">
+      <Filter>Source Files\FrameBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\FrameBuffer\FrameBufferManager.cpp">
+      <Filter>Source Files\FrameBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\FrameBuffer\GBuffer.cpp">
+      <Filter>Source Files\FrameBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\FrameBuffer\RGB16FBuffer.cpp">
+      <Filter>Source Files\FrameBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Math\Matrix4.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Math\Quaternion.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Math\Vector2.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Math\Vector3.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Mesh\Mesh.cpp">
+      <Filter>Source Files\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Mesh\MeshLoader.cpp">
+      <Filter>Source Files\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Mesh\OBJLoader.cpp">
+      <Filter>Source Files\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Mesh\OBJMesh.cpp">
+      <Filter>Source Files\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Render\PostProcesses\BloomPostProcess.cpp">
+      <Filter>Source Files\Render\PostProcesses</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Render\PostProcesses\GammaCorrectionPostProcess.cpp">
+      <Filter>Source Files\Render\PostProcesses</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Render\PostProcesses\LensPostProcess.cpp">
+      <Filter>Source Files\Render\PostProcesses</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Render\PostProcesses\PostProcess.cpp">
+      <Filter>Source Files\Render\PostProcesses</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Render\EnvironmentMapSky.cpp">
+      <Filter>Source Files\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Render\InstancedModel.cpp">
+      <Filter>Source Files\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Render\Model.cpp">
+      <Filter>Source Files\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Render\Renderable.cpp">
+      <Filter>Source Files\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Render\RenderableCollectorVisitor.cpp">
+      <Filter>Source Files\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Render\RenderingElements.cpp">
+      <Filter>Source Files\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Render\RenderManager.cpp">
+      <Filter>Source Files\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RenderQueue\NoAlphaRenderQueue.cpp">
+      <Filter>Source Files\RenderQueue</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RenderQueue\PointLightRenderQueue.cpp">
+      <Filter>Source Files\RenderQueue</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RenderQueue\RenderQueue.cpp">
+      <Filter>Source Files\RenderQueue</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RenderQueue\SkyRenderQueue.cpp">
+      <Filter>Source Files\RenderQueue</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SceneGraph\SceneElement.cpp">
       <Filter>Source Files\SceneGraph</Filter>
     </ClCompile>
-    <ClCompile Include="RenderingElements.cpp">
-      <Filter>Source Files\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="UpdateVisitor.cpp">
+    <ClCompile Include="source\SceneGraph\SceneElementVisitor.cpp">
       <Filter>Source Files\SceneGraph</Filter>
     </ClCompile>
-    <ClCompile Include="Renderable.cpp">
-      <Filter>Source Files\Render</Filter>
+    <ClCompile Include="source\SceneGraph\SceneManager.cpp">
+      <Filter>Source Files\SceneGraph</Filter>
     </ClCompile>
-    <ClCompile Include="Model.cpp">
-      <Filter>Source Files\Render</Filter>
+    <ClCompile Include="source\SceneGraph\SceneNode.cpp">
+      <Filter>Source Files\SceneGraph</Filter>
     </ClCompile>
-    <ClCompile Include="SpinnerActor.cpp">
-      <Filter>Source Files\Actor</Filter>
+    <ClCompile Include="source\SceneGraph\UpdateVisitor.cpp">
+      <Filter>Source Files\SceneGraph</Filter>
     </ClCompile>
-    <ClCompile Include="Actor.cpp">
-      <Filter>Source Files\Actor</Filter>
+    <ClCompile Include="source\Texture\Texture.cpp">
+      <Filter>Source Files\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="RenderManager.cpp">
-      <Filter>Source Files\Render</Filter>
+    <ClCompile Include="source\Texture\Texture2D.cpp">
+      <Filter>Source Files\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="EnvironmentMapSky.cpp">
-      <Filter>Source Files\Render</Filter>
+    <ClCompile Include="source\Texture\Texture2DRGB8.cpp">
+      <Filter>Source Files\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="RenderableCollectorVisitor.cpp">
-      <Filter>Source Files\Render</Filter>
+    <ClCompile Include="source\Texture\Texture2DRGB16F.cpp">
+      <Filter>Source Files\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="RenderQueue.cpp">
-      <Filter>Source Files\RenderQueue</Filter>
+    <ClCompile Include="source\Texture\Texture3D.cpp">
+      <Filter>Source Files\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="NoAlphaRenderQueue.cpp">
-      <Filter>Source Files\RenderQueue</Filter>
+    <ClCompile Include="source\Texture\TextureManager.cpp">
+      <Filter>Source Files\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="SkyRenderQueue.cpp">
-      <Filter>Source Files\RenderQueue</Filter>
-    </ClCompile>
-    <ClCompile Include="InstancedModel.cpp">
-      <Filter>Source Files\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="GraphicsResourceManager.cpp">
+    <ClCompile Include="source\GLEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Texture3D.cpp">
-      <Filter>Source Files\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>Source Files\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="GBuffer.cpp">
-      <Filter>Source Files\FrameBuffer</Filter>
-    </ClCompile>
-    <ClCompile Include="FrameBuffer.cpp">
-      <Filter>Source Files\FrameBuffer</Filter>
-    </ClCompile>
-    <ClCompile Include="RGB16FBuffer.cpp">
-      <Filter>Source Files\FrameBuffer</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdViewOrientationActor.cpp">
-      <Filter>Source Files\Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="BloomPostProcess.cpp">
-      <Filter>Source Files\Render\PostProcesses</Filter>
-    </ClCompile>
-    <ClCompile Include="PostProcess.cpp">
-      <Filter>Source Files\Render\PostProcesses</Filter>
-    </ClCompile>
-    <ClCompile Include="EnvironmentMapLight.cpp">
-      <Filter>Source Files\Render\Lighting</Filter>
-    </ClCompile>
-    <ClCompile Include="PointLight.cpp">
-      <Filter>Source Files\Render\Lighting</Filter>
-    </ClCompile>
-    <ClCompile Include="PointLightRenderQueue.cpp">
-      <Filter>Source Files\RenderQueue</Filter>
-    </ClCompile>
-    <ClCompile Include="GammaCorrectionPostProcess.cpp">
-      <Filter>Source Files\Render\PostProcesses</Filter>
-    </ClCompile>
-    <ClCompile Include="LensPostProcess.cpp">
-      <Filter>Source Files\Render\PostProcesses</Filter>
-    </ClCompile>
-    <ClCompile Include="FrameBufferManager.cpp">
-      <Filter>Source Files\FrameBuffer</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture2DRGB8.cpp">
-      <Filter>Source Files\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture2DRGB16F.cpp">
-      <Filter>Source Files\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="GraphicsDeviceManager.cpp">
+    <ClCompile Include="source\GraphicsDeviceManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Light.cpp">
+    <ClCompile Include="source\GraphicsResourceManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ShaderProgram.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Uniform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\VBOManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\VertexArrayObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Render\Lighting\PointLight.cpp">
       <Filter>Source Files\Render\Lighting</Filter>
     </ClCompile>
-    <ClCompile Include="VBOManager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="source\Render\Lighting\Light.cpp">
+      <Filter>Source Files\Render\Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Render\Lighting\EnvironmentMapLight.cpp">
+      <Filter>Source Files\Render\Lighting</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -474,33 +474,33 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ScreenSpace.vert">
+    <None Include="resource\Shaders\Common\ScreenSpace.vert">
       <Filter>Resource Files\Shaders\Common</Filter>
     </None>
-    <None Include="PBRCombiner.frag">
+    <None Include="resource\Shaders\ImageProcessing\Bloom.frag">
+      <Filter>Resource Files\Shaders\ImageProcessing</Filter>
+    </None>
+    <None Include="resource\Shaders\ImageProcessing\GammaCorrection.frag">
+      <Filter>Resource Files\Shaders\ImageProcessing</Filter>
+    </None>
+    <None Include="resource\Shaders\ImageProcessing\Ghosting.frag">
+      <Filter>Resource Files\Shaders\ImageProcessing</Filter>
+    </None>
+    <None Include="resource\Shaders\DeferredShading\Combiner\PBRCombiner.frag">
       <Filter>Resource Files\Shaders\DeferredShading\Combiner</Filter>
     </None>
-    <None Include="Bloom.frag">
-      <Filter>Resource Files\Shaders\ImageProcessing</Filter>
-    </None>
-    <None Include="PointLight.frag">
+    <None Include="resource\Shaders\DeferredShading\Lighting\PointLight.frag">
       <Filter>Resource Files\Shaders\DeferredShading\Lighting</Filter>
     </None>
-    <None Include="PointLight.vert">
+    <None Include="resource\Shaders\DeferredShading\Lighting\PointLight.vert">
       <Filter>Resource Files\Shaders\DeferredShading\Lighting</Filter>
     </None>
-    <None Include="GammaCorrection.frag">
-      <Filter>Resource Files\Shaders\ImageProcessing</Filter>
-    </None>
-    <None Include="PointLightProjection.frag">
+    <None Include="resource\Shaders\DeferredShading\Lighting\PointLightProjection.frag">
       <Filter>Resource Files\Shaders\DeferredShading\Lighting</Filter>
-    </None>
-    <None Include="Ghosting.frag">
-      <Filter>Resource Files\Shaders\ImageProcessing</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="lensChromaticAberration.png">
+    <Image Include="resource\Textures\lensChromaticAberration.png">
       <Filter>Resource Files\Textures</Filter>
     </Image>
   </ItemGroup>
