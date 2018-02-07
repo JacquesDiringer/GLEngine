@@ -35,8 +35,12 @@ namespace GLEngine
 		// Sets the fact that world matrix is up to date.
 		virtual void SetIsUpToDate(const bool value);
 
+		// Adds a SceneNode child and links the current node as it's parent.
 		SceneNode* CreateChild();
 
+		// Remove a sub element from the children.
+		// This function should only be used from a SceneElement.
+		void RemoveChild(SceneElement* elementToRemove);
 
 	private:
 		Matrix4* _relativeTransformation;

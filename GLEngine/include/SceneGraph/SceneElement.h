@@ -18,6 +18,8 @@ namespace GLEngine
 
 		virtual void SetIsUpToDate(const bool value);
 
+		void RemoveFromParentNode();
+
 	private:
 		SceneNode* _parentNode = nullptr;
 	};

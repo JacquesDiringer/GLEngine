@@ -1,9 +1,6 @@
 #include <stdafx.h>
 #include <SceneGraph\SceneNode.h>
 
-#include <typeinfo>
-
-
 namespace GLEngine
 {
 	SceneNode::SceneNode()
@@ -86,5 +83,12 @@ namespace GLEngine
 		AddSubElement(child);
 
 		return child;
+	}
+
+	void SceneNode::RemoveChild(SceneElement * elementToRemove)
+	{
+		// Find the child in the children vector and remove it.
+		vector<SceneElement*>::iterator findIterator = std::find(_subElements.begin(), _subElements.end(), elementToRemove);
+		_subElements.erase(findIterator);
 	}
 }
