@@ -15,6 +15,17 @@ namespace GLEngine
 
 	SceneNode::~SceneNode()
 	{
+		// Delete all children.
+		// This will also remove them from the children vector, while removing the link to the parent at the same time.
+		vector<SceneElement*> childrenToDelete = vector<SceneElement*>(_subElements);
+		for each (SceneElement* currentChild in childrenToDelete)
+		{
+			delete(currentChild);
+		}
+
+		// Delete the matrices on the heap.
+		delete(_relativeTransformation);
+		delete(_worldTransformation);
 	}
 
 	void SceneNode::SetRelativeTransformation(Matrix4 newMatrix)

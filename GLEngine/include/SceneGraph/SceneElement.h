@@ -9,7 +9,7 @@ namespace GLEngine
 	{
 	public:
 		SceneElement();
-		~SceneElement();
+		virtual ~SceneElement();
 
 		virtual void Accept(SceneElementVisitor* visitor) = 0;
 
