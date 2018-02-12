@@ -53,13 +53,8 @@ namespace GLEngine
 		// TODO: this is temporary.
 		_collectedElements->Clear();
 
-		if (_collectedElements->PopInstancedModel() == nullptr)
-		{
-			_collectedElements->SetSky(nullptr);
+		_collectedElements->SetSky(nullptr);
 
-			return true;
-		}
-
-		return false;
+		return true;
 	}
 }

@@ -56,7 +56,7 @@ namespace GLEngine
 
 		// Then the models.
 		// Fill the models render queue.
-		for (InstancedModel* currentInstancedModel = collection->PopInstancedModel(); currentInstancedModel != nullptr; currentInstancedModel = collection->PopInstancedModel())
+		for (InstancedModel* currentInstancedModel = collection->GetNextInstancedModel(); collection->HasMoreInstancedModels(); currentInstancedModel = collection->GetNextInstancedModel())
 		{
 			_modelsRenderQueue->AddRenderable(currentInstancedModel);
 		}

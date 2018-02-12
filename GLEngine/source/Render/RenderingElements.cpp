@@ -8,8 +8,9 @@ namespace GLEngine
 {
 	RenderingElements::RenderingElements()
 	{
-		_instancedModels = unordered_map<Model*, vector<SceneNode*>*>();
+		_instancedModels = unordered_map<Model*, InstancedModel>();
 		_pointLights = vector<PointLight*>();
+		_currentInstancedModel = _instancedModels.begin();
 	}
 
 	RenderingElements::~RenderingElements()
@@ -43,29 +44,30 @@ namespace GLEngine
 		auto modelIterator = _instancedModels.find(resourceModel);
 		if (modelIterator != _instancedModels.end())
 		{
-			modelIterator->second->push_back(parentNode);
+			// If the Model already has it's instanced version, just add this instance.
+			modelIterator->second.AddInstance(parentNode);
 		}
 		else
 		{
-			vector<SceneNode*>* newModelVector = new vector<SceneNode*>();
-			newModelVector->push_back(parentNode);
+			// Add the new Model as a new InstancedModel in the map.
+			InstancedModel newModelVector = InstancedModel(resourceModel);
+			newModelVector.AddInstance(parentNode);
 			_instancedModels[resourceModel] = newModelVector;
+
+			// Point at the new beginning in the map.
+			_currentInstancedModel = _instancedModels.begin();
 		}
 	}
 
-	InstancedModel* RenderingElements::PopInstancedModel()
+	InstancedModel* RenderingElements::GetNextInstancedModel()
 	{
-		if (_instancedModels.size() > 0)
+		if (_instancedModels.size() > 0 && _currentInstancedModel != _instancedModels.end())
 		{
-			// Find the first element of the map, use it to instanciate our result value, then delete it from the map.
-			auto frontPair = _instancedModels.begin();
-			InstancedModel* result = new InstancedModel((*frontPair).first, (*frontPair).second);
-			_instancedModels.erase(frontPair);
+			unordered_map<Model*, InstancedModel>::iterator resultIt = _currentInstancedModel;
+			++_currentInstancedModel;
 
-			return result;
+			return &resultIt->second;
 		}
-
-		return nullptr;
 	}
 
 	void RenderingElements::Clear()

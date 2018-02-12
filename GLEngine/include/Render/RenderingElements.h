@@ -21,7 +21,8 @@ namespace GLEngine
 		void SetSky(EnvironmentMapSky* sky) { _sky = sky; }
 
 		void PushModel(Model* model);
-		InstancedModel* PopInstancedModel();
+		InstancedModel* GetNextInstancedModel();
+		bool HasMoreInstancedModels() const { return _currentInstancedModel != _instancedModels.end(); };
 
 		void Clear();
 
@@ -29,10 +30,12 @@ namespace GLEngine
 		EnvironmentMapSky* _sky;
 
 		// Stores the resource model pointer as a key, and the list of scene nodes with this model to draw as a key.
-		unordered_map<Model*, vector<SceneNode*>*> _instancedModels;
+		unordered_map<Model*, InstancedModel> _instancedModels;
 
 		// Stores the collected point lights.
 		vector<PointLight*> _pointLights;
+
+		unordered_map<Model*, InstancedModel>::iterator _currentInstancedModel;
 	};
 
 }
