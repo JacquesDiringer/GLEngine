@@ -58,13 +58,13 @@ namespace GLEngine
 		string GetObjectName() const { return _objectName; }
 		void SetObjectName(const string objectName) { _objectName = objectName; }
 
-		void AddVertexCoord(Vector3* vertexCoord) { _vertexCoords.push_back(vertexCoord); }
-		void AddTextureCoord(Vector2* textureCoord) { _textureCoords.push_back(textureCoord); }
-		void AddNormal(Vector3* normal) { _normals.push_back(normal); }
+		void AddVertexCoord(Vector3 vertexCoord) { _vertexCoords.push_back(vertexCoord); }
+		void AddTextureCoord(Vector2 textureCoord) { _textureCoords.push_back(textureCoord); }
+		void AddNormal(Vector3 normal) { _normals.push_back(normal); }
 
-		void AddVertexCoordTriangle(ObjTriangle* triangle) { _vertexCoordTriangles.push_back(triangle); }
-		void AddTextureCoordTriangle(ObjTriangle* triangle) { _textureCoordTriangles.push_back(triangle); }
-		void AddNormalTriangle(ObjTriangle* triangle) { _normalTriangles.push_back(triangle); }
+		void AddVertexCoordTriangle(ObjTriangle triangle) { _vertexCoordTriangles.push_back(triangle); }
+		void AddTextureCoordTriangle(ObjTriangle triangle) { _textureCoordTriangles.push_back(triangle); }
+		void AddNormalTriangle(ObjTriangle triangle) { _normalTriangles.push_back(triangle); }
 
 		// Computes a final vector of vertices and triangles from the "compressed" OBJ format.
 		// These final lists are ready to be put in a VBO and EBO.
@@ -72,17 +72,17 @@ namespace GLEngine
 
 	private:
 		string _objectName;
-		vector<Vector3*> _vertexCoords;
-		vector<Vector2*> _textureCoords;
-		vector<Vector3*> _normals;
+		vector<Vector3> _vertexCoords;
+		vector<Vector2> _textureCoords;
+		vector<Vector3> _normals;
 
-		vector<ObjTriangle*> _vertexCoordTriangles;
-		vector<ObjTriangle*> _textureCoordTriangles;
-		vector<ObjTriangle*> _normalTriangles;
+		vector<ObjTriangle> _vertexCoordTriangles;
+		vector<ObjTriangle> _textureCoordTriangles;
+		vector<ObjTriangle> _normalTriangles;
 
 		unordered_map<string, int> _finalVerticesIndexMap;
-		vector<Vertex*> _finalVerticesList;
-		vector<ObjTriangle*> _finalTriangles;
+		vector<Vertex> _finalVerticesList;
+		vector<ObjTriangle> _finalTriangles;
 
 		// Returns the final vertex ID
 		int AddVertex(const int vertexId, const int textureCoordsId, const int normalId);

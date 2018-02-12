@@ -43,15 +43,15 @@ namespace GLEngine
 					string vertexType(vertexTypeChar);
 					if (vertexType == "v")
 					{
-						objModel->AddVertexCoord(new Vector3(x, y, z));
+						objModel->AddVertexCoord(Vector3(x, y, z));
 					}
 					else if (vertexType == "vn")
 					{
-						objModel->AddNormal(new Vector3(x, y, z));
+						objModel->AddNormal(Vector3(x, y, z));
 					}
 					else if (vertexType == "vt")
 					{
-						objModel->AddTextureCoord(new Vector2(x, y));
+						objModel->AddTextureCoord(Vector2(x, y));
 					}
 				}
 				else if (currentLine[0] == 'f')
@@ -98,33 +98,33 @@ namespace GLEngine
 						}
 					}
 
-					objModel->AddVertexCoordTriangle(new ObjTriangle(v0, v1, v2));
+					objModel->AddVertexCoordTriangle(ObjTriangle(v0, v1, v2));
 
 					if (vt0 > 0)
 					{
-						objModel->AddTextureCoordTriangle(new ObjTriangle(vt0, vt1, vt2));
+						objModel->AddTextureCoordTriangle(ObjTriangle(vt0, vt1, vt2));
 						objModel->SetHasTextureCoordinates(true);
 					}
 
 					if (vn0 > 0)
 					{
-						objModel->AddNormalTriangle(new ObjTriangle(vn0, vn1, vn2));
+						objModel->AddNormalTriangle(ObjTriangle(vn0, vn1, vn2));
 						objModel->SetHasNormals(true);
 					}
 
 					// If we read a rectangle, add the second triangle.
 					if (v3 > 0)
 					{
-						objModel->AddVertexCoordTriangle(new ObjTriangle(v0, v2, v3));
+						objModel->AddVertexCoordTriangle(ObjTriangle(v0, v2, v3));
 
 						if (vt0 > 0)
 						{
-							objModel->AddTextureCoordTriangle(new ObjTriangle(vt0, vt2, vt3));
+							objModel->AddTextureCoordTriangle(ObjTriangle(vt0, vt2, vt3));
 						}
 
 						if (vn0 > 0)
 						{
-							objModel->AddNormalTriangle(new ObjTriangle(vn0, vn2, vn3));
+							objModel->AddNormalTriangle(ObjTriangle(vn0, vn2, vn3));
 						}
 					}
 				}
