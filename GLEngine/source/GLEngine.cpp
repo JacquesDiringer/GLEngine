@@ -281,18 +281,18 @@ int main()
 	skyNode->AddSubElement(envmapTest);
 
 	SceneNode* rotationNode = sceneManager->GetRootNode()->CreateChild();
-	rotationNode->SetRelativeTransformation(new Matrix4(Matrix4::CreateTranslation(Vector3(0, 0.5f, 0))));
+	rotationNode->SetRelativeTransformation(Matrix4::CreateTranslation(Vector3(0, 0.5f, 0)));
 	//rotationNode->AddSubElement(new Model(testModel1));
 
 	SpinnerActor* testSpinner0 = new SpinnerActor(&Matrix4::CreateRotationY(-0.5f));
 	rotationNode->AddSubElement(testSpinner0);
 
 	SceneNode* extremityNode = rotationNode->CreateChild();
-	extremityNode->SetRelativeTransformation(&Matrix4::CreateTranslation(Vector3(2, 0.5f, 0)));
+	extremityNode->SetRelativeTransformation(Matrix4::CreateTranslation(Vector3(2, 0.5f, 0)));
 	extremityNode->AddSubElement(new Model(testModel));
 
 	SceneNode* arrowsNode = sceneManager->GetRootNode()->CreateChild();
-	arrowsNode->SetRelativeTransformation(new Matrix4(Matrix4::CreateTranslation(Vector3(1, 2.0f, 0))));
+	arrowsNode->SetRelativeTransformation(Matrix4::CreateTranslation(Vector3(1, 2.0f, 0)));
 	//arrowsNode->AddSubElement(new Model(arrowsModel));
 	arrowsNode->AddSubElement(new ThirdViewOrientationActor(extremityNode));
 
@@ -300,7 +300,7 @@ int main()
 	//SceneNode* cameraNode = sceneManager->GetRootNode()->CreateChild();
 	SceneNode* cameraNode = sceneManager->GetRootNode()->CreateChild();
 	//SceneNode* cameraNode = extremityNode->CreateChild();
-	cameraNode->SetRelativeTransformation(&Matrix4::CreateTranslation(Vector3(0, 0, 4)));
+	cameraNode->SetRelativeTransformation(Matrix4::CreateTranslation(Vector3(0, 0, 4)));
 	cameraNode->AddSubElement(camera);
 	//cameraNode->AddSubElement(new ThirdViewOrientationActor(extremityNode));
 	cameraNode->AddSubElement(new ThirdViewOrientationActor(sceneManager->GetRootNode()));
@@ -317,27 +317,35 @@ int main()
 	// Point light node.
 	//SceneNode* pointLightNode = sceneManager->GetRootNode()->CreateChild();
 	SceneNode* pointLightNode = extremityNode->CreateChild();
-	pointLightNode->SetRelativeTransformation(&Matrix4::CreateTranslation(Vector3(0, 0.5f, 3)));
+	pointLightNode->SetRelativeTransformation(Matrix4::CreateTranslation(Vector3(0, 0.5f, 3)));
 	pointLightNode->AddSubElement(testPointLight);
 
 	SceneNode* pointLightNode1 = extremityNode->CreateChild();
-	pointLightNode1->SetRelativeTransformation(&Matrix4::CreateTranslation(Vector3(0, 0.5f, 4)));
+	pointLightNode1->SetRelativeTransformation(Matrix4::CreateTranslation(Vector3(0, 0.5f, 4)));
 	pointLightNode1->AddSubElement(testPointLight1);
 
 	SceneNode* pointLightNode2 = extremityNode->CreateChild();
-	pointLightNode2->SetRelativeTransformation(&Matrix4::CreateTranslation(Vector3(0, 0.5f, 5)));
+	pointLightNode2->SetRelativeTransformation(Matrix4::CreateTranslation(Vector3(0, 0.5f, 5)));
 	pointLightNode2->AddSubElement(testPointLight2);
 
+	SceneNode* nodeToDelete;
+
 	// Instancing tests, array.
-	for (int i = 0; i < 200; i++)
+	/*for (int i = 0; i < 20; i++)
 	{
-		for (int j = 0; j < 200; j++)
+		for (int j = 0; j < 20; j++)
 		{
 			SceneNode* currentNode = sceneManager->GetRootNode()->CreateChild();
 			currentNode->SetRelativeTransformation(Matrix4::CreateTranslation(new Vector3(i * 3, 0, j * 3)));
 			currentNode->AddSubElement(new Model(grudgeCylinderModel));
+			if (i == 2 && j == 0)
+			{
+				nodeToDelete = currentNode;
+			}
 		}
 	}
+
+	nodeToDelete->RemoveFromParentNode();*/
 
 	// Render setting.
 	RenderManager* renderManager = new RenderManager(width, height, graphicsResourceManager);
@@ -346,6 +354,17 @@ int main()
 	int frameCount = 0;
 	while (!glfwWindowShouldClose(window))
 	{
+		if (frameCount % 2 == 0)
+		{
+			nodeToDelete = sceneManager->GetRootNode()->CreateChild();
+			nodeToDelete->AddSubElement(new Model(grudgeCylinderModel));
+		}
+		else
+		{
+			nodeToDelete->RemoveFromParentNode();
+			delete(nodeToDelete);
+		}
+
 		double timeAtMainLoopStart = glfwGetTime();
 
 		glfwPollEvents();

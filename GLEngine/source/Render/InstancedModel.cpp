@@ -41,7 +41,7 @@ namespace GLEngine
 			int instanceMatricesArrayIndex = 0;
 			for each (SceneNode* currentNode in *_instancesNodes)
 			{
-				GLfloat* worldArray = currentNode->GetWorldTransformation()->GetArray();
+				GLfloat* worldArray = currentNode->GetWorldTransformation().GetArray();
 
 				for (int worldArrayIndex = 0; worldArrayIndex < 16; worldArrayIndex++)
 				{

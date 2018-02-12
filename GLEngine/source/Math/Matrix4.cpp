@@ -87,17 +87,17 @@ namespace Math
 			m30, m31, m32, m33);
 	}
 
-	Matrix4 Matrix4::operator*(const Matrix4& b)
+	Matrix4 Matrix4::operator*(const Matrix4& b) const
 	{
 		return Matrix4::Multiply((*this), b);
 	}
 
-	Vector3 Matrix4::operator*(const Vector3& b)
+	Vector3 Matrix4::operator*(const Vector3& b) const
 	{
 		return Matrix4::Multiply((*this), b);
 	}
 
-	Matrix4 Matrix4::operator*(float b)
+	Matrix4 Matrix4::operator*(float b) const
 	{
 		return Matrix4(	this->_m00 * b, this->_m01 * b, this->_m02 * b, this->_m03,
 						this->_m10 * b, this->_m11 * b, this->_m12 * b, this->_m13,

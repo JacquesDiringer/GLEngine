@@ -18,9 +18,9 @@ namespace Math
 
 		static Matrix4 Identity();
 		static Matrix4 Multiply(const Matrix4& a, const Matrix4& b);
-		Matrix4 operator* (const Matrix4& b);
-		Vector3 operator* (const Vector3& b);
-		Matrix4 operator* (float b);
+		Matrix4 operator* (const Matrix4& b) const;
+		Vector3 operator* (const Vector3& b) const;
+		Matrix4 operator* (float b) const;
 		static Vector3 Multiply(const Matrix4& a, const Vector3& position);
 		void Transpose();
 		// Inverts a generic invertible matrix.

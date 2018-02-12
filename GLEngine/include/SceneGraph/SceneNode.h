@@ -18,11 +18,10 @@ namespace GLEngine
 		SceneNode();
 		~SceneNode();
 
-		Matrix4* GetRelativeTransformation()const { return _relativeTransformation; }
-		void SetRelativeTransformation(Matrix4 newMatrix);
-		void SetRelativeTransformation(Matrix4* newMatrix);
+		const Matrix4& GetRelativeTransformation()const { return _relativeTransformation; }
+		void SetRelativeTransformation(const Matrix4& newMatrix);
 
-		Matrix4* GetWorldTransformation();
+		const Matrix4& GetWorldTransformation();
 
 		vector<SceneElement*>* GetSubElements() { return &_subElements; }
 
@@ -43,8 +42,8 @@ namespace GLEngine
 		void RemoveChild(SceneElement* elementToRemove);
 
 	private:
-		Matrix4* _relativeTransformation;
-		Matrix4* _worldTransformation;
+		Matrix4 _relativeTransformation;
+		Matrix4 _worldTransformation;
 		bool _worldMatrixIsUpToDate;
 		vector<SceneElement*> _subElements;
 	};

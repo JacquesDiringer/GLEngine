@@ -16,7 +16,7 @@ namespace GLEngine
 		RGB16FBuffer* _bluxXBuffer = nullptr;
 		RGB16FBuffer* _bluxYBuffer = nullptr;
 
-		Vector2* _pixelSize = nullptr;
+		Vector2 _pixelSize;
 		float _mipLevelForGhosts;
 		int _blurSamplesCount;
 	};

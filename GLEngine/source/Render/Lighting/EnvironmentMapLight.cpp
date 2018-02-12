@@ -89,7 +89,7 @@ namespace GLEngine
 		convolutionShader->Use();
 
 		// Fetch vector in the envmap.
-		Vector3* currentFetchVector = new Vector3();
+		Vector3 currentFetchVector = Vector3();
 
 		// Bind the screen VAO.
 		VertexArrayObject* screenVAO = graphicsResourceManager->GetScreenVAO();
@@ -122,10 +122,10 @@ namespace GLEngine
 				for (int fetchIndex = 0; fetchIndex < _samplesNumber; fetchIndex++)
 				{
 					// Randomly set the values of the fetch vector, but don't forget to normalize it.
-					currentFetchVector->X(rand() % 10000 - 5000);
-					currentFetchVector->Y(rand() % 10000 - 5000);
-					currentFetchVector->Z(rand() % 10000 - 5000);
-					currentFetchVector->Normalize();
+					currentFetchVector.X(rand() % 10000 - 5000);
+					currentFetchVector.Y(rand() % 10000 - 5000);
+					currentFetchVector.Z(rand() % 10000 - 5000);
+					currentFetchVector.Normalize();
 
 					convolutionShader->GetUniform("currentFetchVector")->SetValue(currentFetchVector);
 

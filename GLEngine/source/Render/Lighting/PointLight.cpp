@@ -52,7 +52,7 @@ namespace GLEngine
 			shaderProgram->Use();
 
 			// Set the pixel size, to be able to fetch in the G-Buffer
-			Vector2* pixelSize = new Vector2(1 / (float)graphicsResourceManager->GetViewportWidth(), 1 / (float)graphicsResourceManager->GetViewportHeight());
+			Vector2 pixelSize = Vector2(1 / (float)graphicsResourceManager->GetViewportWidth(), 1 / (float)graphicsResourceManager->GetViewportHeight());
 			shaderProgram->GetUniform("pixelSize")->SetValue(pixelSize);
 
 			// Bind the G-Buffer textures.
@@ -66,21 +66,21 @@ namespace GLEngine
 			// Set the world, view, projection matrices.
 			shaderProgram->GetUniform("projection")->SetValue(sceneManager->GetCurrentCamera()->GetProjection());
 			shaderProgram->GetUniform("view")->SetValue(sceneManager->GetCurrentCamera()->GetView());
-			Matrix4 scaledWorldTransformation = *parentNode->GetWorldTransformation() * Matrix4::CreateScale(_range);
+			Matrix4 scaledWorldTransformation = parentNode->GetWorldTransformation() * Matrix4::CreateScale(_range);
 			shaderProgram->GetUniform("world")->SetValue(scaledWorldTransformation);
 
 			if (_projectedTex != nullptr)
 			{
-				Matrix4 iWorld = *parentNode->GetWorldTransformation();
+				Matrix4 iWorld = parentNode->GetWorldTransformation();
 				iWorld.InvertRT();
 				shaderProgram->GetUniform("iWorld")->SetValue(iWorld);
 			}
 
 			// Set the inverse of the view.
-			shaderProgram->GetUniform("cameraPosition")->SetValue(new Vector3(sceneManager->GetCurrentCamera()->GetIView()->Position()));
+			shaderProgram->GetUniform("cameraPosition")->SetValue(sceneManager->GetCurrentCamera()->GetIView().Position());
 
 			// Set the light's power.
-			shaderProgram->GetUniform("power")->SetValue(&_power);
+			shaderProgram->GetUniform("power")->SetValue(_power);
 
 			graphicsResourceManager->GetSphereVAO()->Bind();
 			{
@@ -89,8 +89,6 @@ namespace GLEngine
 			graphicsResourceManager->GetSphereVAO()->UnBind();
 
 			graphicsResourceManager->GetTextureManager()->FreeUnits();
-
-			delete pixelSize;
 
 			// Disable blending.
 			graphicsDeviceManager->SetBooleanState(GL_BLEND, false);

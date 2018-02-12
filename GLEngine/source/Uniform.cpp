@@ -63,11 +63,11 @@ namespace GLEngine
 		}
 	}
 
-	void Uniform::SetValue(const Vector2 * vector)
+	void Uniform::SetValue(const Vector2& vector)
 	{
 		if (_type == GL_FLOAT_VEC2)
 		{
-			glUniform2f(_location, vector->X(), vector->Y());
+			glUniform2f(_location, vector.X(), vector.Y());
 		}
 		else
 		{
@@ -75,11 +75,11 @@ namespace GLEngine
 		}
 	}
 
-	void Uniform::SetValue(const Vector3 * vector)
+	void Uniform::SetValue(const Vector3& vector)
 	{
 		if (_type == GL_FLOAT_VEC3)
 		{
-			glUniform3f(_location, vector->X(), vector->Y(), vector->Z());
+			glUniform3f(_location, vector.X(), vector.Y(), vector.Z());
 		}
 		else
 		{
@@ -87,11 +87,11 @@ namespace GLEngine
 		}
 	}
 
-	void Uniform::SetValue(const Matrix4* matrix)
+	void Uniform::SetValue(const Matrix4& matrix)
 	{
 		if (_type == GL_FLOAT_MAT4)
 		{
-			GLfloat* matArray = matrix->GetArray();
+			GLfloat* matArray = matrix.GetArray();
 			
 			glUniformMatrix4fv(_location, 1, GL_TRUE, matArray);
 
@@ -102,21 +102,4 @@ namespace GLEngine
 			Exception();
 		}
 	}
-
-	void Uniform::SetValue(const Matrix4 matrix)
-	{
-		if (_type == GL_FLOAT_MAT4)
-		{
-			GLfloat* matArray = matrix.GetArray();
-
-			glUniformMatrix4fv(_location, 1, GL_TRUE, matArray);
-
-			delete matArray;
-		}
-		else
-		{
-			Exception();
-		}
-	}
-
 }

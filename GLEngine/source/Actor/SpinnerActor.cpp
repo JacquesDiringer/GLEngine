@@ -30,7 +30,7 @@ namespace GLEngine
 
 		if (parentNode != nullptr)
 		{
-			Matrix4* parentRelative = parentNode->GetRelativeTransformation();
+			Matrix4 parentRelative = parentNode->GetRelativeTransformation();
 
 			Matrix4 rotationMatrix;
 			
@@ -46,7 +46,7 @@ namespace GLEngine
 				//rotationMatrix = *_rotationMatrix  * deltaTime;
 			}
 
-			parentNode->SetRelativeTransformation(*parentRelative * rotationMatrix);
+			parentNode->SetRelativeTransformation(parentRelative * rotationMatrix);
 		}
 		else
 		{

@@ -6,8 +6,8 @@ namespace GLEngine
 	SceneNode::SceneNode()
 		: SceneElement()
 	{
-		_relativeTransformation = new Matrix4();
-		_worldTransformation = new Matrix4();
+		_relativeTransformation = Matrix4::Identity();
+		_worldTransformation = Matrix4::Identity();
 		SetIsUpToDate(false);
 		_subElements = vector<SceneElement*>();
 	}
@@ -22,35 +22,25 @@ namespace GLEngine
 		{
 			delete(currentChild);
 		}
-
-		// Delete the matrices on the heap.
-		delete(_relativeTransformation);
-		delete(_worldTransformation);
 	}
 
-	void SceneNode::SetRelativeTransformation(Matrix4 newMatrix)
-	{
-		*_relativeTransformation = newMatrix;
-		SetIsUpToDate(false);
-	}
-
-	void SceneNode::SetRelativeTransformation(Matrix4 * newMatrix)
+	void SceneNode::SetRelativeTransformation(const Matrix4& newMatrix)
 	{
 		_relativeTransformation = newMatrix;
 		SetIsUpToDate(false);
 	}
 
-	Matrix4 * SceneNode::GetWorldTransformation()
+	const Matrix4& SceneNode::GetWorldTransformation()
 	{
 		if (!_worldMatrixIsUpToDate)
 		{
 			if (GetParentNode() == nullptr)
 			{
-				*_worldTransformation = *_relativeTransformation;
+				_worldTransformation = _relativeTransformation;
 			}
 			else
 			{
-				*_worldTransformation = Matrix4::Multiply(*(GetParentNode()->GetWorldTransformation()), *_relativeTransformation);
+				_worldTransformation = Matrix4::Multiply((GetParentNode()->GetWorldTransformation()), _relativeTransformation);
 			}
 		}
 

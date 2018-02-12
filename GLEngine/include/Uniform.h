@@ -29,10 +29,9 @@ namespace GLEngine
 		void SetValue(GLuint unsignedIntegerValue);
 		void SetValue(GLint integerValue);
 		void SetValue(GLfloat floatingValue);
-		void SetValue(const Vector2* vector);
-		void SetValue(const Vector3* vector);
-		void SetValue(const Matrix4* matrix);
-		void SetValue(const Matrix4 matrix);
+		void SetValue(const Vector2& vector);
+		void SetValue(const Vector3& vector);
+		void SetValue(const Matrix4& matrix);
 
 	private:
 		string _name;

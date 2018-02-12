@@ -28,7 +28,7 @@ namespace GLEngine
 
 		if (parentNode != nullptr)
 		{
-			Matrix4 relativeTransformation = Matrix4::CreateTargetPositionCameraYAxis(parentNode->GetWorldTransformation()->Position(), _target->GetWorldTransformation()->Position());
+			Matrix4 relativeTransformation = Matrix4::CreateTargetPositionCameraYAxis(parentNode->GetWorldTransformation().Position(), _target->GetWorldTransformation().Position());
 			// We invert the matrix because the algorithm that constructed it is actually the one used to compute the view matrix of the camera (this later leads to an other inversion, to recover the view matrix, this silly non optimized double computation needs to be fixed).
 			relativeTransformation.InvertRT();
 
@@ -36,7 +36,7 @@ namespace GLEngine
 			Matrix4 grandParentWorldMatrix;
 			if (grandParentNode != nullptr)
 			{
-				grandParentWorldMatrix = *parentNode->GetParentNode()->GetWorldTransformation();
+				grandParentWorldMatrix = parentNode->GetParentNode()->GetWorldTransformation();
 			}
 			else
 			{

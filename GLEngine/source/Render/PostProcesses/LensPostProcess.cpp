@@ -14,7 +14,7 @@ namespace GLEngine
 		_bluxXBuffer = new RGB16FBuffer(width, height, frameBufferManager);
 		_bluxYBuffer = new RGB16FBuffer(width, height, frameBufferManager);
 
-		_pixelSize = new Vector2(1 / (float)width, 1 / (float)height);
+		_pixelSize = Vector2(1 / (float)width, 1 / (float)height);
 
 		// The level of mip map is calculated by taking the deepest level of mip map (log2) minus N.
 		_mipLevelForGhosts = std::max(log2f(std::max(width, height)) - 7, 0.0f);
@@ -92,7 +92,7 @@ namespace GLEngine
 				blurXYShader->GetUniform("uPixelSize")->SetValue(_pixelSize);
 
 				// Set the X samples axis.
-				blurXYShader->GetUniform("uSamplingAxis")->SetValue(&Vector2(2,0));
+				blurXYShader->GetUniform("uSamplingAxis")->SetValue(Vector2(2,0));
 
 				// Set the samples count.
 				blurXYShader->GetUniform("uSamplesCount")->SetValue(_blurSamplesCount);
@@ -114,7 +114,7 @@ namespace GLEngine
 				blurXYShader->GetUniform("inputTex")->SetValue(textureManager->AssignTextureToUnit(_bluxXBuffer->GetBoundTexture()));
 
 				// Set the X samples axis.
-				blurXYShader->GetUniform("uSamplingAxis")->SetValue(&Vector2(0, 2));
+				blurXYShader->GetUniform("uSamplingAxis")->SetValue(Vector2(0, 2));
 
 				// Change the frame buffer to the one for the blur X.
 				_bluxYBuffer->Bind();
