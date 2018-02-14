@@ -21,8 +21,7 @@ namespace GLEngine
 		void SetSky(EnvironmentMapSky* sky) { _sky = sky; }
 
 		void PushModel(Model* model);
-		InstancedModel* GetNextInstancedModel();
-		bool HasMoreInstancedModels() const { return _currentInstancedModel != _instancedModels.end(); };
+		vector<InstancedModel*> GetNextInstancedModels();
 
 		void Clear();
 
@@ -34,8 +33,6 @@ namespace GLEngine
 
 		// Stores the collected point lights.
 		vector<PointLight*> _pointLights;
-
-		unordered_map<Model*, InstancedModel>::iterator _currentInstancedModel;
 	};
 
 }

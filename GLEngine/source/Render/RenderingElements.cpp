@@ -10,7 +10,6 @@ namespace GLEngine
 	{
 		_instancedModels = unordered_map<Model*, InstancedModel>();
 		_pointLights = vector<PointLight*>();
-		_currentInstancedModel = _instancedModels.begin();
 	}
 
 	RenderingElements::~RenderingElements()
@@ -53,21 +52,19 @@ namespace GLEngine
 			InstancedModel newModelVector = InstancedModel(resourceModel);
 			newModelVector.AddInstance(parentNode);
 			_instancedModels[resourceModel] = newModelVector;
-
-			// Point at the new beginning in the map.
-			_currentInstancedModel = _instancedModels.begin();
 		}
 	}
 
-	InstancedModel* RenderingElements::GetNextInstancedModel()
+	vector<InstancedModel*> RenderingElements::GetNextInstancedModels()
 	{
-		if (_instancedModels.size() > 0 && _currentInstancedModel != _instancedModels.end())
-		{
-			unordered_map<Model*, InstancedModel>::iterator resultIt = _currentInstancedModel;
-			++_currentInstancedModel;
+		vector<InstancedModel*> result = vector<InstancedModel*>();
 
-			return &resultIt->second;
+		for (unordered_map<Model*, InstancedModel>::iterator mapIt = _instancedModels.begin(); mapIt != _instancedModels.end(); mapIt++)
+		{
+			result.push_back(&mapIt->second);
 		}
+
+		return result;
 	}
 
 	void RenderingElements::Clear()

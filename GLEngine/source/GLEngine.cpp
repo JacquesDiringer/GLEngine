@@ -253,17 +253,17 @@ int main()
 	//OBJMesh* testMesh = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/suzanne_sharp.obj");
 	OBJMesh* testMesh = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/suzanne_smooth.obj");
 	testMesh->InitializeVao();
-	Model* testModel = new Model(testMesh, diffuseTexture, specularTexture, roughnessTexture);
+	Model* suzanneModel = new Model(testMesh, diffuseTexture, specularTexture, roughnessTexture);
 
 	// Sphere resource.
 	OBJMesh* testMesh1 = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/sphere.obj");
 	testMesh1->InitializeVao();
-	Model* testModel1 = new Model(testMesh1, diffuseTexture, specularTexture, roughnessTexture);
+	Model* sphereModel1 = new Model(testMesh1, diffuseTexture, specularTexture, roughnessTexture);
 
 	// Arrows resource.
 	OBJMesh* arrowsMesh = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/grudge_cylinder.obj");
 	arrowsMesh->InitializeVao();
-	Model* arrowsModel = new Model(arrowsMesh, rgbTexture, grayTexture, grayTexture);
+	Model* cylinderModel = new Model(arrowsMesh, rgbTexture, grayTexture, grayTexture);
 
 	//Texture2D* texEnvmapTest = textureManager->GetTexture("C:/Utils/GLEngineMedia/parking_lot_2k.jpg");
 	//Texture2D* texEnvmapTest = textureManager->GetTexture("C:/Utils/GLEngineMedia/pubimage(8).jpg");
@@ -289,12 +289,12 @@ int main()
 
 	SceneNode* extremityNode = rotationNode->CreateChild();
 	extremityNode->SetRelativeTransformation(Matrix4::CreateTranslation(Vector3(2, 0.5f, 0)));
-	extremityNode->AddSubElement(new Model(testModel));
+	extremityNode->AddSubElement(new Model(suzanneModel));
 
 	SceneNode* arrowsNode = sceneManager->GetRootNode()->CreateChild();
 	arrowsNode->SetRelativeTransformation(Matrix4::CreateTranslation(Vector3(1, 2.0f, 0)));
 	//arrowsNode->AddSubElement(new Model(arrowsModel));
-	arrowsNode->AddSubElement(new ThirdViewOrientationActor(extremityNode));
+	//arrowsNode->AddSubElement(new ThirdViewOrientationActor(extremityNode));
 
 	// Camera addition under a scene node.
 	//SceneNode* cameraNode = sceneManager->GetRootNode()->CreateChild();
@@ -354,7 +354,7 @@ int main()
 	int frameCount = 0;
 	while (!glfwWindowShouldClose(window))
 	{
-		if (frameCount % 2 == 0)
+		/*if (frameCount % 2 == 0)
 		{
 			nodeToDelete = sceneManager->GetRootNode()->CreateChild();
 			nodeToDelete->AddSubElement(new Model(grudgeCylinderModel));
@@ -363,7 +363,7 @@ int main()
 		{
 			nodeToDelete->RemoveFromParentNode();
 			delete(nodeToDelete);
-		}
+		}*/
 
 		double timeAtMainLoopStart = glfwGetTime();
 
