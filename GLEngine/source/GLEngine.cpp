@@ -284,7 +284,7 @@ int main()
 	rotationNode->SetRelativeTransformation(Matrix4::CreateTranslation(Vector3(0, 0.5f, 0)));
 	//rotationNode->AddSubElement(new Model(testModel1));
 
-	SpinnerActor* testSpinner0 = new SpinnerActor(&Matrix4::CreateRotationY(-0.5f));
+	SpinnerActor* testSpinner0 = new SpinnerActor(Matrix4::CreateRotationY(-0.5f));
 	rotationNode->AddSubElement(testSpinner0);
 
 	SceneNode* extremityNode = rotationNode->CreateChild();

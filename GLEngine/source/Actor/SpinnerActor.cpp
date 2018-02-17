@@ -2,7 +2,8 @@
 #include <Actor\SpinnerActor.h>
 #include <SceneGraph\SceneNode.h>
 #include <exception>
-
+#include <iostream>
+#include <Math\Vector3.h>
 
 namespace GLEngine
 {
@@ -10,13 +11,13 @@ namespace GLEngine
 	{
 	}
 
-	SpinnerActor::SpinnerActor(Quaternion* quaternion)
-		: Actor(), _quaternion(quaternion), _rotationMatrix(nullptr), _quaternionConstructor(true)
+	SpinnerActor::SpinnerActor(const Quaternion& quaternion)
+		: Actor(), _quaternion(quaternion), _quaternionConstructor(true)
 	{
 	}
 
-	SpinnerActor::SpinnerActor(Matrix4 * rotationMatrix)
-		: Actor(), _quaternion(nullptr), _rotationMatrix(rotationMatrix), _quaternionConstructor(false)
+	SpinnerActor::SpinnerActor(const Matrix4& rotationMatrix)
+		: Actor(), _rotationMatrix(rotationMatrix), _quaternionConstructor(false)
 	{
 	}
 
@@ -36,11 +37,11 @@ namespace GLEngine
 			
 			if (_quaternionConstructor)
 			{
-				rotationMatrix = Matrix4::CreateRotationMatrixFromQuaternion(Quaternion(_quaternion->GetX(), _quaternion->GetY(), _quaternion->GetZ(), _quaternion->GetW() * deltaTime));
+				rotationMatrix = Matrix4::CreateRotationMatrixFromQuaternion(Quaternion(_quaternion.GetX(), _quaternion.GetY(), _quaternion.GetZ(), _quaternion.GetW() * deltaTime));
 			}
 			else
 			{
-				rotationMatrix = *_rotationMatrix;
+				rotationMatrix = _rotationMatrix;
 
 				// TODO: Make it work with the delta time.
 				//rotationMatrix = *_rotationMatrix  * deltaTime;

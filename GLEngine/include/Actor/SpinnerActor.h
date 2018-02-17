@@ -13,15 +13,15 @@ namespace GLEngine
 	{
 	public:
 		SpinnerActor();
-		SpinnerActor(Quaternion* quaternion);
-		SpinnerActor(Matrix4* rotationMatrix);
+		SpinnerActor(const Quaternion& quaternion);
+		SpinnerActor(const Matrix4& rotationMatrix);
 		~SpinnerActor();
 
 		virtual void Increment(float deltaTime);
 
 	private:
-		Quaternion* _quaternion = nullptr;
-		Matrix4* _rotationMatrix = nullptr;
+		Quaternion _quaternion;
+		Matrix4 _rotationMatrix;
 		bool _quaternionConstructor;
 	};
 }
