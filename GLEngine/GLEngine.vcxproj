@@ -156,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Actor\Actor.h" />
+    <ClInclude Include="include\ComputeShaderProgram.h" />
     <ClInclude Include="include\Render\PostProcesses\BloomPostProcess.h" />
     <ClInclude Include="include\Render\Lighting\EnvironmentMapLight.h" />
     <ClInclude Include="include\Render\EnvironmentMapSky.h" />
@@ -216,6 +217,7 @@
     <Text Include="resource\Shaders\DeferredShading\GBuffer\EnvironmentMapFragmentShader.frag">
       <FileType>Document</FileType>
     </Text>
+    <ClCompile Include="source\ComputeShaderProgram.cpp" />
     <ClCompile Include="source\Render\PostProcesses\BloomPostProcess.cpp" />
     <ClCompile Include="source\Render\Lighting\EnvironmentMapLight.cpp" />
     <ClCompile Include="source\Render\EnvironmentMapSky.cpp" />

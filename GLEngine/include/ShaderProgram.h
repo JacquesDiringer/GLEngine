@@ -18,16 +18,21 @@ namespace GLEngine
 	class ShaderProgram
 	{
 	public:
+		ShaderProgram();
 		ShaderProgram(string vertexShaderFile, string fragmentShaderFile);
-		~ShaderProgram();
+		virtual ~ShaderProgram();
 
-		void Use();
+		virtual void Use();
 
 		// Accessors
 		Uniform* GetUniform(string name);
 
-	private:
+	protected:
+		void PopulateUniforms();
+
 		GLuint _shaderProgramId;
+
+	private:
 		unordered_map<string, Uniform*> _uniforms;
 	};
 }

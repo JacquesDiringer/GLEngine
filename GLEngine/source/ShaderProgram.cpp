@@ -4,6 +4,11 @@
 
 namespace GLEngine
 {
+	ShaderProgram::ShaderProgram()
+	{
+		_uniforms = unordered_map<string, Uniform*>();
+	}
+
 	// Reads a vertex shader file and a fragment shader file, and creates the associated a shader program.
 	ShaderProgram::ShaderProgram(string vertexShaderFile, string fragmentShaderFile)
 	{
@@ -75,21 +80,7 @@ namespace GLEngine
 
 
 		// Make a list of the uniforms in the shader.
-		GLint count;
-		GLint size; // size of the variable
-		GLenum type; // type of the variable (float, vec3 or mat4, etc)
-		const GLsizei bufSize = 100; // maximum name length
-		GLchar name[bufSize]; // variable name in GLSL
-		GLsizei length; // name length
-
-		glGetProgramiv(shaderProgram, GL_ACTIVE_UNIFORMS, &count);
-
-		for (int uniformIndex = 0; uniformIndex < count; uniformIndex++)
-		{
-			glGetActiveUniform(shaderProgram, (GLuint)uniformIndex, bufSize, &length, &size, &type, name);
-
-			_uniforms.insert(std::pair<string, Uniform*>(string(name), new Uniform(name, (GLuint)uniformIndex, type)));
-		}
+		PopulateUniforms();
 	}
 
 
@@ -114,5 +105,23 @@ namespace GLEngine
 		 {
 			 throw new std::invalid_argument("No uniform with this name is present or active in the shader.");
 		 }
+	}
+	void ShaderProgram::PopulateUniforms()
+	{
+		GLint count;
+		GLint size; // size of the variable
+		GLenum type; // type of the variable (float, vec3 or mat4, etc)
+		const GLsizei bufSize = 100; // maximum name length
+		GLchar name[bufSize]; // variable name in GLSL
+		GLsizei length; // name length
+
+		glGetProgramiv(_shaderProgramId, GL_ACTIVE_UNIFORMS, &count);
+
+		for (int uniformIndex = 0; uniformIndex < count; uniformIndex++)
+		{
+			glGetActiveUniform(_shaderProgramId, (GLuint)uniformIndex, bufSize, &length, &size, &type, name);
+
+			_uniforms.insert(std::pair<string, Uniform*>(string(name), new Uniform(name, (GLuint)uniformIndex, type)));
+		}
 	}
 }

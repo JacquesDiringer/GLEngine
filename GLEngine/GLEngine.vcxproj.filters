@@ -303,6 +303,9 @@
     <ClInclude Include="include\targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\ComputeShaderProgram.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Actor\Actor.cpp">
@@ -466,6 +469,9 @@
     </ClCompile>
     <ClCompile Include="source\Render\Lighting\EnvironmentMapLight.cpp">
       <Filter>Source Files\Render\Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ComputeShaderProgram.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
