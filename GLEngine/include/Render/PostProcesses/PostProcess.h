@@ -9,18 +9,21 @@ namespace GLEngine
 		: public Renderable
 	{
 	public:
-		PostProcess(int width, int height, FrameBufferManager* frameBufferManager);
+		PostProcess(int width, int height, TextureManager* textureManager);
 		virtual ~PostProcess();
 
 		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager) const = 0;
 
-		void BindFrameBuffer() { _processedFrameBuffer->Bind(); }
-		Texture2D* GetProcessedResult() { return _processedFrameBuffer->GetBoundTexture(); }
+		void BindInternalTextureAsOutput() const { _textureManager->BindImageTexture(0, _outputTexture, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGB16F); }
+		Texture2D* GetProcessedResult() { return _outputTexture; }
 
 		void SetInputTexture(Texture2D* inputTexture) { _inputTexture = inputTexture; };
 
 	protected:
-		RGB16FBuffer* _processedFrameBuffer;
+		Texture2D* _outputTexture;
 		Texture2D* _inputTexture;
+
+	private:
+		TextureManager* _textureManager;
 	};
 }

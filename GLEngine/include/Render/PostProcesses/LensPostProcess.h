@@ -6,15 +6,15 @@ namespace GLEngine
 		public PostProcess
 	{
 	public:
-		LensPostProcess(int width, int height, FrameBufferManager* frameBufferManager);
+		LensPostProcess(int width, int height, TextureManager* textureManager);
 		~LensPostProcess();
 
 		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager) const;
 
 	private:
-		RGB16FBuffer* _downscaledGhostBuffer = nullptr;
-		RGB16FBuffer* _bluxXBuffer = nullptr;
-		RGB16FBuffer* _bluxYBuffer = nullptr;
+		Texture2D* _downscaledGhostTexture = nullptr;
+		Texture2D* _bluxXTexture = nullptr;
+		Texture2D* _bluxYTexture = nullptr;
 
 		Vector2 _pixelSize;
 		float _mipLevelForGhosts;

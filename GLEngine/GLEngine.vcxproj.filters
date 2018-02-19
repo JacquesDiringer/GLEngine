@@ -504,6 +504,9 @@
     <None Include="resource\Shaders\DeferredShading\Lighting\PointLightProjection.frag">
       <Filter>Resource Files\Shaders\DeferredShading\Lighting</Filter>
     </None>
+    <None Include="resource\Shaders\ImageProcessing\Bloom_ComputeShader">
+      <Filter>Resource Files\Shaders\ImageProcessing</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resource\Textures\lensChromaticAberration.png">

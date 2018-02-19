@@ -1,11 +1,12 @@
 #include <stdafx.h>
 #include <Render\PostProcesses\BloomPostProcess.h>
+#include <ComputeShaderProgram.h>
 
 
 namespace GLEngine
 {
-	BloomPostProcess::BloomPostProcess(int width, int height, FrameBufferManager* frameBufferManager)
-		: PostProcess(width, height, frameBufferManager)
+	BloomPostProcess::BloomPostProcess(int width, int height, TextureManager* textureManager)
+		: PostProcess(width, height, textureManager)
 	{
 	}
 
@@ -17,23 +18,22 @@ namespace GLEngine
 	void BloomPostProcess::Render(SceneManager * sceneManager, GraphicsResourceManager * graphicsResourceManager) const
 	{
 		TextureManager* textureManager = graphicsResourceManager->GetTextureManager();
+		FrameBufferManager* frameBufferManager = graphicsResourceManager->GetFrameBufferManager();
 
-		// Bind the bloom shader.
-		ShaderProgram* bloomShader = graphicsResourceManager->GetShader("..\\GLEngine\\resource\\Shaders\\Common\\ScreenSpace.vert", "..\\GLEngine\\resource\\Shaders\\ImageProcessing\\Bloom.frag");
-		bloomShader->Use();
-		{
-			// Set the input texture.
-			bloomShader->GetUniform("inputTex")->SetValue(textureManager->AssignTextureToUnit(_inputTexture));
+		// Get the bloom shader.
+		ComputeShaderProgram* bloomShader = graphicsResourceManager->GetComputeShader("..\\GLEngine\\resource\\Shaders\\ImageProcessing\\Bloom_ComputeShader");
 
-			// Bind the screen VAO.
-			VertexArrayObject* screenVAO = graphicsResourceManager->GetScreenVAO();
-			screenVAO->Bind();
-			{
-				glDrawElements(GL_TRIANGLES, screenVAO->GetElementsCount(), GL_UNSIGNED_INT, 0);
-			}
-			screenVAO->UnBind();
-		}
+		// Set the input texture.
+		bloomShader->GetUniform("inputTex")->SetValue(textureManager->AssignTextureToUnit(_inputTexture));
 
+		// Bind the output texture as an image texture to the image unit 0, corresponding to binding=0 in the compute shader.
+		BindInternalTextureAsOutput();
+		//textureManager->BindImageTexture(0, _outputTexture, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA16F);
+
+		// Dispatch the compute work groups.
+		bloomShader->UseAndDispatch(_outputTexture->GetWidth(), _outputTexture->GetHeight(), 1, *graphicsResourceManager->GetGraphicsDeviceManager());
+
+		// Free texture units.
 		textureManager->FreeUnits();
 	}
 }

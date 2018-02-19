@@ -22,12 +22,9 @@ namespace GLEngine
 		SOIL_free_image_data(image);
 
 		_path = path;
-
-		_width = imageWidth;
-		_height = imageHeight;
 	}
 
-	Texture2D::Texture2D(int width, int height, unsigned char* data)
+	Texture2D::Texture2D(int width, int height, const void* data)
 	{
 		Generate(width, height, data);
 	}
@@ -45,12 +42,12 @@ namespace GLEngine
 		glDeleteTextures(1, &_id);
 	}
 
-	const void Texture2D::BindToUnit(const GLint unit)
+	const void Texture2D::BindToUnit(const GLint textureUnit)
 	{
-		glActiveTexture(GL_TEXTURE0 + unit);	// Activate the texture unit first before binding texture
+		glActiveTexture(GL_TEXTURE0 + textureUnit);	// Activate the texture unit first before binding texture
 		glBindTexture(GL_TEXTURE_2D, _id);
 
-		_boundUnit = unit;
+		_boundUnit = textureUnit;
 	}
 
 	const void Texture2D::UnbindFromUnit()
@@ -77,21 +74,15 @@ namespace GLEngine
 		glGenerateTextureMipmap(_id);
 	}
 
-	void Texture2D::SetData(unsigned char * data)
-	{
-		glBindTexture(GL_TEXTURE_2D, _id);
-
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, _width, _height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-
-		glBindTexture(GL_TEXTURE_2D, 0);
-	}
-
 	const bool Texture2D::operator==(const Texture2D & otherTexture)
 	{
 		return _id == otherTexture.GetId() && _path == otherTexture.GetPath();
 	}
-	void Texture2D::Generate(int width, int height, unsigned char * data)
+	void Texture2D::Generate(int width, int height, const void * data)
 	{
+		_width = width;
+		_height = height;
+
 		glGenTextures(1, &_id);
 
 		glBindTexture(GL_TEXTURE_2D, _id);

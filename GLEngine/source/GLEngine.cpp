@@ -194,9 +194,9 @@ int main()
 	PerspectiveCamera* camera = new PerspectiveCamera(0.1f, 800.0f, 20.0f, (float)height / (float)width);
 
 	// Post processes.
-	camera->AddPostProcess(new LensPostProcess(width, height, graphicsResourceManager->GetFrameBufferManager()));
-	//camera->AddPostProcess(new BloomPostProcess(width, height, graphicsResourceManager->GetFrameBufferManager()));
-	camera->AddPostProcess(new GammaCorrectionPostProcess(width, height, graphicsResourceManager->GetFrameBufferManager()));
+	//camera->AddPostProcess(new LensPostProcess(width, height, graphicsResourceManager->GetTextureManager()));
+	camera->AddPostProcess(new BloomPostProcess(width, height, graphicsResourceManager->GetTextureManager()));
+	//camera->AddPostProcess(new GammaCorrectionPostProcess(width, height, graphicsResourceManager->GetTextureManager()));
 
 	Texture2D* diffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/suzanne_paint.png");
 

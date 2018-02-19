@@ -19,6 +19,9 @@ namespace GLEngine
 		// Tells OpenGL to unbind the texture id from the unit while also setting the texture's internal state to "not bound".
 		virtual const void UnbindFromUnit()=0;
 
+		// Binds an IMAGE texture, that can also be used as a compute shader output.
+		void BindImageTexture(GLint imageUnit, GLint level, GLboolean layered, GLint layer, GLenum access, GLenum format);
+
 		const bool operator==(const Texture& otherTexture);
 
 	protected:

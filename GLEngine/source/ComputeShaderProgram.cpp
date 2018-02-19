@@ -56,4 +56,19 @@ namespace GLEngine
 	{
 	}
 
+	void ComputeShaderProgram::UseAndDispatch(GLuint num_groups_x, GLuint num_groups_y, GLuint num_groups_z, const GraphicsDeviceManager& graphicsDeviceManager)
+	{
+		if (num_groups_x <= graphicsDeviceManager.GetMaxWorkGroupsCount_x() &&
+			num_groups_y <= graphicsDeviceManager.GetMaxWorkGroupsCount_y() &&
+			num_groups_z <= graphicsDeviceManager.GetMaxWorkGroupsCount_z())
+		{
+			Use();
+			glDispatchCompute(num_groups_x, num_groups_y, num_groups_z);
+		}
+		else
+		{
+			throw new std::invalid_argument("Work group count for this compute dispatch exceeds maximum number of groups.");
+		}
+	}
+
 }

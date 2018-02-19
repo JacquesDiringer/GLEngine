@@ -70,6 +70,21 @@ namespace GLEngine
 		return GetShader("..\\GLEngine\\resource\\Shaders\\Common\\ScreenSpace.vert", "..\\GLEngine\\resource\\Shaders\\Common\\DrawTexture.frag");
 	}
 
+	ComputeShaderProgram* GraphicsResourceManager::GetComputeShader(string computeShaderPath)
+	{
+		auto foundShader = _loadedShaders.find(computeShaderPath);
+
+		if (foundShader == _loadedShaders.end())
+		{
+			ComputeShaderProgram* newShader = new ComputeShaderProgram(computeShaderPath);
+			_loadedShaders.insert(std::pair<string, ShaderProgram*>(computeShaderPath, newShader));
+
+			return newShader;
+		}
+
+		return dynamic_cast<ComputeShaderProgram*>((*foundShader).second);
+	}
+
 	VertexArrayObject * GraphicsResourceManager::GetScreenVAO()
 	{
 		if (_screenVAO == nullptr)

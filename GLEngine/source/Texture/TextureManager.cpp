@@ -16,6 +16,9 @@ namespace GLEngine
 		{
 			_textureUnits.push_back(NULL);
 		}
+
+		// Image units, completely separated from texture units.
+		_imageTextureUnits = vector<Texture*>();
 	}
 
 	TextureManager::~TextureManager()
@@ -89,5 +92,10 @@ namespace GLEngine
 				_textureUnits[unitId] = NULL;
 			}
 		}
+	}
+
+	void TextureManager::BindImageTexture(GLint imageUnit, Texture * texture, GLint level, GLboolean layered, GLint layer, GLenum access, GLenum format)
+	{
+		texture->BindImageTexture(imageUnit, level, layered, layer, access, format);
 	}
 }

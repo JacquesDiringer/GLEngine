@@ -282,6 +282,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="resource\Shaders\ImageProcessing\Bloom.frag" />
+    <None Include="resource\Shaders\ImageProcessing\Bloom_ComputeShader" />
     <None Include="resource\Shaders\ImageProcessing\GammaCorrection.frag" />
     <None Include="resource\Shaders\ImageProcessing\Ghosting.frag" />
     <None Include="resource\Shaders\DeferredShading\Combiner\PBRCombiner.frag" />

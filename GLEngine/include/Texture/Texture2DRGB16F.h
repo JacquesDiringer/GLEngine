@@ -8,16 +8,16 @@ namespace GLEngine
 	{
 	public:
 		Texture2DRGB16F(string path);
-		Texture2DRGB16F(int width, int height, unsigned char* data);
+		Texture2DRGB16F(int width, int height, const void* data);
 		Texture2DRGB16F(GLuint id, int width, int height);
 		~Texture2DRGB16F();
 
 		// Sets the pixel data for the texture.
 		// Should be called prior to any other texture assignation to units, since it will change the bound texture.
-		virtual void SetData(unsigned char* data);
+		virtual void SetData(const void* data);
 
 	protected:
-		virtual void Generate(int width, int height, unsigned char* data);
+		virtual void Generate(int width, int height, const void* data);
 	};
 
 

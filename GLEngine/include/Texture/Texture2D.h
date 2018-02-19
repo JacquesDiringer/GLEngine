@@ -18,7 +18,7 @@ namespace GLEngine
 	{
 	public:
 		Texture2D(string path);
-		Texture2D(int width, int height, unsigned char* data);
+		Texture2D(int width, int height, const void* data);
 		Texture2D(GLuint id, int width, int height);
 		virtual ~Texture2D();
 
@@ -28,7 +28,7 @@ namespace GLEngine
 		const int GetHeight() const { return _height; }
 
 		// Binds the teture to te specified unit while keeping track of the bound unit.
-		const void BindToUnit(const GLint unit);
+		const void BindToUnit(const GLint textureUnit);
 		// Tells OpenGL to unbind the texture id from the unit while also setting the texture's internal state to "not bound".
 		const void UnbindFromUnit();
 
@@ -39,7 +39,7 @@ namespace GLEngine
 
 		// Sets the pixel data for the texture.
 		// Should be called prior to any other texture assignation to units, since it will change the bound texture.
-		virtual void SetData(unsigned char* data);
+		virtual void SetData(const void* data) = 0;
 
 		const bool operator==(const Texture2D& otherTexture);
 
@@ -47,6 +47,6 @@ namespace GLEngine
 		string _path;
 		int _width, _height;
 
-		virtual void Generate(int width, int height, unsigned char* data);
+		virtual void Generate(int width, int height, const void* data);
 	};
 }

@@ -7,6 +7,14 @@ namespace GLEngine
 	GraphicsDeviceManager::GraphicsDeviceManager()
 	{
 		_booleanStates = unordered_map<GLenum, GLboolean>();
+
+		glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_COUNT, 0, &_maxWorkGroupsCount_x);
+		glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_COUNT, 1, &_maxWorkGroupsCount_y);
+		glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_COUNT, 2, &_maxWorkGroupsCount_z);
+
+		glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_SIZE, 0, &_maxWorkGroupsSize_x);
+		glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_SIZE, 1, &_maxWorkGroupsSize_y);
+		glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_SIZE, 2, &_maxWorkGroupsSize_z);
 	}
 
 

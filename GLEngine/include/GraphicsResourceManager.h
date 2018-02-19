@@ -3,6 +3,7 @@
 #include <unordered_map>
 
 #include <ShaderProgram.h>
+#include <ComputeShaderProgram.h>
 #include <VertexArrayObject.h>
 #include <Mesh\OBJLoader.h>
 #include <FrameBuffer\FrameBufferManager.h>
@@ -40,6 +41,8 @@ namespace GLEngine
 		ShaderProgram* GetEnvmapConvolutionShader();
 
 		ShaderProgram* GetTextureDrawShader();
+
+		ComputeShaderProgram* GetComputeShader(string computeShaderPath);
 
 		VertexArrayObject* GetScreenVAO();
 		VertexArrayObject* GetSphereVAO();

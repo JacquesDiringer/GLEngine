@@ -4,11 +4,11 @@
 
 namespace GLEngine
 {
-	PostProcess::PostProcess(int width, int height, FrameBufferManager* frameBufferManager)
+	PostProcess::PostProcess(int width, int height, TextureManager* textureManager)
+		: _textureManager(textureManager)
 	{
-		_processedFrameBuffer = new RGB16FBuffer(width, height, frameBufferManager);
+		_outputTexture = new Texture2DRGB16F(width, height, (void*)NULL);
 	}
-
 
 	PostProcess::~PostProcess()
 	{

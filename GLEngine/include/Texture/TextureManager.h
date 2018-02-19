@@ -34,10 +34,13 @@ namespace GLEngine
 		// Unbind textures from every available units.
 		const void FreeUnits();
 
+		void BindImageTexture(GLint imageUnit, Texture* texture, GLint level, GLboolean layered, GLint layer, GLenum access, GLenum format);
+
 	private:
 		// Textures2D are the only ones that are loaded from disk, therefore the only ones we are keeping a track of for performance purposes.
 		unordered_map<string, Texture2D*> _loadedTexture2DLibrary;
 		vector <Texture*> _textureUnits;
+		vector <Texture*> _imageTextureUnits;
 		GLint _maxTextureUnits;
 	};
 }

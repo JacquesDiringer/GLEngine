@@ -7,12 +7,12 @@
 
 namespace GLEngine
 {
-	LensPostProcess::LensPostProcess(int width, int height, FrameBufferManager* frameBufferManager)
-		: PostProcess(width, height, frameBufferManager)
+	LensPostProcess::LensPostProcess(int width, int height, TextureManager* textureManager)
+		: PostProcess(width, height, textureManager)
 	{
-		_downscaledGhostBuffer = new RGB16FBuffer(width, height, frameBufferManager);
-		_bluxXBuffer = new RGB16FBuffer(width, height, frameBufferManager);
-		_bluxYBuffer = new RGB16FBuffer(width, height, frameBufferManager);
+		_downscaledGhostTexture = new Texture2DRGB16F(width, height, (void*)NULL);
+		_bluxXTexture = new Texture2DRGB16F(width, height, (void*)NULL);
+		_bluxYTexture = new Texture2DRGB16F(width, height, (void*)NULL);
 
 		_pixelSize = Vector2(1 / (float)width, 1 / (float)height);
 
@@ -68,7 +68,7 @@ namespace GLEngine
 				ghostingShader->GetUniform("uPixelSize")->SetValue(_pixelSize);
 
 				// Change the frame buffer to the one for the downscaled ghosts.
-				_downscaledGhostBuffer->Bind();
+				textureManager->BindImageTexture(0, _downscaledGhostTexture, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGB16F);
 
 				// Clear it before we draw.
 				glClear(GL_COLOR_BUFFER_BIT);
@@ -86,7 +86,7 @@ namespace GLEngine
 				// Blur on the X axis pass.
 
 				// Set the input texture.
-				blurXYShader->GetUniform("inputTex")->SetValue(textureManager->AssignTextureToUnit(_downscaledGhostBuffer->GetBoundTexture()));
+				blurXYShader->GetUniform("inputTex")->SetValue(textureManager->AssignTextureToUnit(_downscaledGhostTexture));
 
 				// Set the pixel size.
 				blurXYShader->GetUniform("uPixelSize")->SetValue(_pixelSize);
@@ -98,7 +98,7 @@ namespace GLEngine
 				blurXYShader->GetUniform("uSamplesCount")->SetValue(_blurSamplesCount);
 
 				// Change the frame buffer to the one for the blur X.
-				_bluxXBuffer->Bind();
+				textureManager->BindImageTexture(0, _bluxXTexture, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGB16F);
 
 				// Clear it before we draw.
 				glClear(GL_COLOR_BUFFER_BIT);
@@ -111,13 +111,13 @@ namespace GLEngine
 				// Less uniform need to be set, since they already have been set on the X axis pass.
 
 				// Set the input texture.
-				blurXYShader->GetUniform("inputTex")->SetValue(textureManager->AssignTextureToUnit(_bluxXBuffer->GetBoundTexture()));
+				blurXYShader->GetUniform("inputTex")->SetValue(textureManager->AssignTextureToUnit(_bluxXTexture));
 
 				// Set the X samples axis.
 				blurXYShader->GetUniform("uSamplingAxis")->SetValue(Vector2(0, 2));
 
 				// Change the frame buffer to the one for the blur X.
-				_bluxYBuffer->Bind();
+				textureManager->BindImageTexture(0, _bluxYTexture, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGB16F);
 
 				// Clear it before we draw.
 				glClear(GL_COLOR_BUFFER_BIT);
@@ -136,7 +136,7 @@ namespace GLEngine
 				frameBufferManager->Bind(outputFrameBuffer);
 
 				combinerShader->GetUniform("emissiveGTexture")->SetValue(_inputTexture->GetBoundUnit());
-				combinerShader->GetUniform("lightingTexture")->SetValue(textureManager->AssignTextureToUnit(_bluxYBuffer->GetBoundTexture()));
+				combinerShader->GetUniform("lightingTexture")->SetValue(textureManager->AssignTextureToUnit(_bluxYTexture));
 				// Draw the surface.
 				glDrawElements(GL_TRIANGLES, screenVAO->GetElementsCount(), GL_UNSIGNED_INT, 0);
 			}

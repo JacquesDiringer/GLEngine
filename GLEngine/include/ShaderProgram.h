@@ -25,7 +25,7 @@ namespace GLEngine
 		virtual void Use();
 
 		// Accessors
-		Uniform* GetUniform(string name);
+		Uniform* GetUniform(string name) const;
 
 	protected:
 		void PopulateUniforms();

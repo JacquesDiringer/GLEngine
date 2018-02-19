@@ -156,7 +156,7 @@ namespace GLEngine
 
 			if (currentPostProcessId < postProcessesCount - 1)
 			{
-				currentPostProcess->BindFrameBuffer();
+				currentPostProcess->BindInternalTextureAsOutput();
 			}
 			else
 			{

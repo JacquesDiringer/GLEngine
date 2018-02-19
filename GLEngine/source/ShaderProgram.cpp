@@ -78,7 +78,6 @@ namespace GLEngine
 
 		_shaderProgramId = shaderProgram;
 
-
 		// Make a list of the uniforms in the shader.
 		PopulateUniforms();
 	}
@@ -94,7 +93,7 @@ namespace GLEngine
 		glUseProgram(_shaderProgramId);
 	}
 
-	Uniform * ShaderProgram::GetUniform(string name)
+	Uniform * ShaderProgram::GetUniform(string name) const
 	{
 		 auto iterator = _uniforms.find(name);
 		 if (iterator != _uniforms.end())
