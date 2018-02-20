@@ -64,6 +64,8 @@ namespace GLEngine
 		{
 			Use();
 			glDispatchCompute(num_groups_x, num_groups_y, num_groups_z);
+
+			glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
 		}
 		else
 		{

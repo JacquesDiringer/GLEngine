@@ -196,7 +196,7 @@ int main()
 	// Post processes.
 	//camera->AddPostProcess(new LensPostProcess(width, height, graphicsResourceManager->GetTextureManager()));
 	camera->AddPostProcess(new BloomPostProcess(width, height, graphicsResourceManager->GetTextureManager()));
-	//camera->AddPostProcess(new GammaCorrectionPostProcess(width, height, graphicsResourceManager->GetTextureManager()));
+	camera->AddPostProcess(new GammaCorrectionPostProcess(width, height, graphicsResourceManager->GetTextureManager()));
 
 	Texture2D* diffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/suzanne_paint.png");
 

@@ -1,7 +1,7 @@
 #pragma once
 #include <Render\Renderable.h>
-#include <FrameBuffer\RGB16FBuffer.h>
 #include <FrameBuffer\FrameBufferManager.h>
+#include <Texture\Texture2D.h>
 
 namespace GLEngine
 {

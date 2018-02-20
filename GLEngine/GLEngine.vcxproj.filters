@@ -306,6 +306,9 @@
     <ClInclude Include="include\ComputeShaderProgram.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Texture\Texture2DRGBA16F.h">
+      <Filter>Header Files\Texture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Actor\Actor.cpp">
@@ -472,6 +475,9 @@
     </ClCompile>
     <ClCompile Include="source\ComputeShaderProgram.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Texture\Texture2DRGBA16F.cpp">
+      <Filter>Source Files\Texture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

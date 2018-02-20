@@ -1,5 +1,6 @@
 #include <stdafx.h>
 #include <Render\PostProcesses\LensPostProcess.h>
+#include <Texture\Texture2DRGBA16F.h>
 
 #include <cmath>
 #include <algorithm>
@@ -10,9 +11,9 @@ namespace GLEngine
 	LensPostProcess::LensPostProcess(int width, int height, TextureManager* textureManager)
 		: PostProcess(width, height, textureManager)
 	{
-		_downscaledGhostTexture = new Texture2DRGB16F(width, height, (void*)NULL);
-		_bluxXTexture = new Texture2DRGB16F(width, height, (void*)NULL);
-		_bluxYTexture = new Texture2DRGB16F(width, height, (void*)NULL);
+		_downscaledGhostTexture = new Texture2DRGBA16F(width, height, (void*)NULL);
+		_bluxXTexture = new Texture2DRGBA16F(width, height, (void*)NULL);
+		_bluxYTexture = new Texture2DRGBA16F(width, height, (void*)NULL);
 
 		_pixelSize = Vector2(1 / (float)width, 1 / (float)height);
 

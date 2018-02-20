@@ -187,6 +187,7 @@
     <ClInclude Include="include\Render\RenderingElements.h" />
     <ClInclude Include="include\Render\RenderManager.h" />
     <ClInclude Include="include\RenderQueue\RenderQueue.h" />
+    <ClInclude Include="include\Texture\Texture2DRGBA16F.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="include\SceneGraph\SceneElement.h" />
     <ClInclude Include="include\SceneGraph\SceneManager.h" />
@@ -266,6 +267,7 @@
     <ClCompile Include="source\Texture\Texture2D.cpp" />
     <ClCompile Include="source\Texture\Texture2DRGB16F.cpp" />
     <ClCompile Include="source\Texture\Texture2DRGB8.cpp" />
+    <ClCompile Include="source\Texture\Texture2DRGBA16F.cpp" />
     <ClCompile Include="source\Texture\Texture3D.cpp" />
     <ClCompile Include="source\Texture\TextureManager.cpp" />
     <ClCompile Include="source\Actor\ThirdViewOrientationActor.cpp" />
