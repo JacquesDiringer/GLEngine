@@ -225,7 +225,7 @@ int main()
 
 	Texture2D* planediffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Copper_Plates_Copper_Plates_diffuse.jpg");
 	Texture2D* planespecularTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Copper_Plates_Copper_Plates_specular.jpg");
-	Texture2D* planeroughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Copper_Plates_Copper_Plates_roughness.jpg");
+	Texture2D* planeroughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Copper_Plates_Copper_Plates_roughness - Copy.jpg");
 
 	// Cool copper plates
 	/*Texture2D* planediffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Copper_Plates_Copper_Plates_diffuse.jpg");

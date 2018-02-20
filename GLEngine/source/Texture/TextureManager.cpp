@@ -1,5 +1,6 @@
 #include <stdafx.h>
 #include <Texture\TextureManager.h>
+#include <Texture\Texture2DRGB8.h>
 
 namespace GLEngine
 {
@@ -37,7 +38,7 @@ namespace GLEngine
 		else
 		{
 			// Create the texture.
-			Texture2D* result = new Texture2D(texPath);
+			Texture2D* result = new Texture2DRGB8(texPath);
 
 			// Store it in the dictionary.
 			_loadedTexture2DLibrary.insert(std::pair<string, Texture2D*>(texPath, result));
