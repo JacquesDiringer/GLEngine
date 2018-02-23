@@ -15,7 +15,7 @@ void main()
 	ivec2 pixel_coords = ivec2(gl_GlobalInvocationID.xy);
 
 	ivec2 texSize = textureSize(inputTex, 0);
-	vec2 texCoordinates = pixel_coords / texSize;
+	vec2 texCoordinates = vec2(pixel_coords) / vec2(texSize);
 
   
 	// Bloom algorithm.
@@ -37,8 +37,6 @@ void main()
 		}
 	}
 
-	outputPixel.r = 1;
-  
   // output to a specific pixel in the image
   imageStore(img_output, pixel_coords, outputPixel);
 }
