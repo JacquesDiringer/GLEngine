@@ -1,5 +1,7 @@
 #include <stdafx.h>
 #include <FrameBuffer\GBuffer.h>
+#include <Texture\Texture2DRGB16F.h>
+#include <Texture\Texture2DRGBA16F.h>
 
 namespace GLEngine
 {
@@ -27,7 +29,7 @@ namespace GLEngine
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		// Link the texture to the framebuffer color attachment 0.
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, geometryTextureId, 0);
-		_geometryTexture = new Texture2D(geometryTextureId, width, height);
+		_geometryTexture = new Texture2DRGBA16F(geometryTextureId, width, height);
 
 		// This texture will hold the diffuse color on RGB
 		// No alpha yet.
@@ -39,7 +41,7 @@ namespace GLEngine
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		// Link the texture to the framebuffer color attachment 1.
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, diffuseTextureId, 0);
-		_diffuseTexture = new Texture2D(diffuseTextureId, width, height);
+		_diffuseTexture = new Texture2DRGB16F(diffuseTextureId, width, height);
 
 		// This texture will hold the specular color on RGB
 		// The roughness on the alpha.
@@ -51,7 +53,7 @@ namespace GLEngine
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		// Link the texture to the framebuffer color attachment 2.
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT2, GL_TEXTURE_2D, specularRoughnessTextureId, 0);
-		_specularRoughnessTexture = new Texture2D(specularRoughnessTextureId, width, height);
+		_specularRoughnessTexture = new Texture2DRGBA16F(specularRoughnessTextureId, width, height);
 
 		// This texture will hold the emissive color on RGB
 		// No alpha yet.
@@ -63,7 +65,7 @@ namespace GLEngine
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		// Link the texture to the framebuffer color attachment 3.
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT3, GL_TEXTURE_2D, emissiveTextureId, 0);
-		_emissiveTexture = new Texture2D(emissiveTextureId, width, height);
+		_emissiveTexture = new Texture2DRGB16F(emissiveTextureId, width, height);
 
 		// Enable drawing in these 4 color attachment
 		GLuint attachments[4] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2, GL_COLOR_ATTACHMENT3 };

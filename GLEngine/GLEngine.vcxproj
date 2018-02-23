@@ -23,7 +23,7 @@
     <ProjectGuid>{D20F2C95-E178-4C23-A3EC-7DA92173BE41}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>GLEngine</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
