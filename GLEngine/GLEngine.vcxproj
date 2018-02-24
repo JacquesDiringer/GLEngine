@@ -283,7 +283,6 @@
     <ResourceCompile Include="GLEngine.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="resource\Shaders\ImageProcessing\Bloom.frag" />
     <None Include="resource\Shaders\ImageProcessing\Bloom_ComputeShader" />
     <None Include="resource\Shaders\ImageProcessing\GammaCorrection.frag" />
     <None Include="resource\Shaders\ImageProcessing\Ghosting.frag" />

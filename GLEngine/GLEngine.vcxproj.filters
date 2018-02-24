@@ -489,9 +489,6 @@
     <None Include="resource\Shaders\Common\ScreenSpace.vert">
       <Filter>Resource Files\Shaders\Common</Filter>
     </None>
-    <None Include="resource\Shaders\ImageProcessing\Bloom.frag">
-      <Filter>Resource Files\Shaders\ImageProcessing</Filter>
-    </None>
     <None Include="resource\Shaders\ImageProcessing\GammaCorrection.frag">
       <Filter>Resource Files\Shaders\ImageProcessing</Filter>
     </None>
