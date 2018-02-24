@@ -31,7 +31,7 @@ namespace GLEngine
 		//textureManager->BindImageTexture(0, _outputTexture, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA16F);
 
 		// Dispatch the compute work groups.
-		bloomShader->UseAndDispatch(_outputTexture->GetWidth(), _outputTexture->GetHeight(), 1, *graphicsResourceManager->GetGraphicsDeviceManager());
+		bloomShader->UseAndDispatch(_outputTexture->GetWidth()/32, _outputTexture->GetHeight()/32, 1, *graphicsResourceManager->GetGraphicsDeviceManager());
 
 		// Free texture units.
 		textureManager->FreeUnits();
