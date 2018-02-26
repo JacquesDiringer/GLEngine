@@ -148,6 +148,19 @@ void MoveCamera()
 	//_globalTargetPosition.X(cos(glfwGetTime() * 5.0));
 }
 
+void GLErrorCallback(GLenum source,
+	GLenum type,
+	GLuint id,
+	GLenum severity,
+	GLsizei length,
+	const GLchar* message,
+	const void* userParam)
+{
+	fprintf(stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x, message = %s\n",
+		(type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : ""),
+		type, severity, message);
+}
+
 int main()
 {
 	// GLFW initialization
@@ -183,6 +196,10 @@ int main()
 	int width, height;
 	glfwGetFramebufferSize(window, &width, &height);
 
+	// During init, enable debug output
+	glEnable(GL_DEBUG_OUTPUT);
+	glDebugMessageCallback((GLDEBUGPROC)GLErrorCallback, 0);
+
 	glViewport(0, 0, width, height);
 
 	// Graphics Resource Manager.
@@ -192,10 +209,10 @@ int main()
 	TextureManager* textureManager = graphicsResourceManager->GetTextureManager();
 
 	PerspectiveCamera* camera = new PerspectiveCamera(0.1f, 800.0f, 20.0f, (float)height / (float)width);
-
+	
 	// Post processes.
-	//camera->AddPostProcess(new LensPostProcess(width, height, graphicsResourceManager->GetTextureManager()));
-	camera->AddPostProcess(new BloomPostProcess(width, height, graphicsResourceManager->GetTextureManager()));
+	camera->AddPostProcess(new LensPostProcess(width, height, graphicsResourceManager->GetTextureManager()));
+	//camera->AddPostProcess(new BloomPostProcess(width, height, graphicsResourceManager->GetTextureManager()));
 	camera->AddPostProcess(new GammaCorrectionPostProcess(width, height, graphicsResourceManager->GetTextureManager()));
 
 	Texture2D* diffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/suzanne_paint.png");

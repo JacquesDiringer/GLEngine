@@ -115,9 +115,6 @@
     <Text Include="resource\Shaders\Common\DrawTexture.frag">
       <Filter>Resource Files\Shaders\Common</Filter>
     </Text>
-    <Text Include="resource\Shaders\ImageProcessing\BlurXY.frag">
-      <Filter>Resource Files\Shaders\ImageProcessing</Filter>
-    </Text>
     <Text Include="resource\Shaders\ImageProcessing\EnvironmentMapConvolution.frag">
       <Filter>Resource Files\Shaders\ImageProcessing</Filter>
     </Text>
@@ -135,6 +132,9 @@
     </Text>
     <Text Include="resource\Shaders\DeferredShading\Lighting\EnvironmentMapLight.frag">
       <Filter>Resource Files\Shaders\DeferredShading\Lighting</Filter>
+    </Text>
+    <Text Include="resource\Shaders\ImageProcessing\BlurXY">
+      <Filter>Resource Files\Shaders\ImageProcessing</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>
@@ -492,9 +492,6 @@
     <None Include="resource\Shaders\ImageProcessing\GammaCorrection.frag">
       <Filter>Resource Files\Shaders\ImageProcessing</Filter>
     </None>
-    <None Include="resource\Shaders\ImageProcessing\Ghosting.frag">
-      <Filter>Resource Files\Shaders\ImageProcessing</Filter>
-    </None>
     <None Include="resource\Shaders\DeferredShading\Combiner\PBRCombiner.frag">
       <Filter>Resource Files\Shaders\DeferredShading\Combiner</Filter>
     </None>
@@ -508,6 +505,12 @@
       <Filter>Resource Files\Shaders\DeferredShading\Lighting</Filter>
     </None>
     <None Include="resource\Shaders\ImageProcessing\Bloom_ComputeShader">
+      <Filter>Resource Files\Shaders\ImageProcessing</Filter>
+    </None>
+    <None Include="resource\Shaders\ImageProcessing\Ghosting">
+      <Filter>Resource Files\Shaders\ImageProcessing</Filter>
+    </None>
+    <None Include="resource\Shaders\ImageProcessing\Combiner">
       <Filter>Resource Files\Shaders\ImageProcessing</Filter>
     </None>
   </ItemGroup>

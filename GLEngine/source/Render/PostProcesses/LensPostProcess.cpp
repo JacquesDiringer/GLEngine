@@ -35,114 +35,106 @@ namespace GLEngine
 		_inputTexture->SetFiltering(GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
 
 		TextureManager* textureManager = graphicsResourceManager->GetTextureManager();
+		GraphicsDeviceManager* graphicsDeviceManager = graphicsResourceManager->GetGraphicsDeviceManager();
 
-		FrameBufferManager* frameBufferManager = graphicsResourceManager->GetFrameBufferManager();
+		// Ghosts pass.
 
-		const FrameBuffer* outputFrameBuffer = frameBufferManager->GetBoundFrameBuffer();
-		if (frameBufferManager->IsDefaultFrameBufferBound())
-		{
-			outputFrameBuffer = nullptr;
-		}
+		// Get the ghost shader.
+		ComputeShaderProgram* ghostingShader = graphicsResourceManager->GetComputeShader("..\\GLEngine\\resource\\Shaders\\ImageProcessing\\Ghosting");
+		
+		// Use it's program so that we can set uniforms.
+		ghostingShader->Use();
 
-		// Bind the screen VAO.
-		VertexArrayObject* screenVAO = graphicsResourceManager->GetScreenVAO();
-		screenVAO->Bind();
-		{
+		// Set the ouput texture size.
+		ghostingShader->GetUniform("texSize")->SetValue(Vector2(_downscaledGhostTexture->GetWidth(), _downscaledGhostTexture->GetHeight()));
+			
+		// Set the input texture.
+		ghostingShader->GetUniform("inputTex")->SetValue(textureManager->AssignTextureToUnit(_inputTexture));
 
-			// Ghosts pass.
+		// Load/find and set the lens flare chromatic aberration texture.
+		Texture2D* lensChromaticAberrationTex = textureManager->GetTexture("..\\GLEngine\\resource\\Textures\\lensChromaticAberration.png");
+		ghostingShader->GetUniform("lensChromaticAberrationTex")->SetValue(textureManager->AssignTextureToUnit(lensChromaticAberrationTex));
 
-			// Bind the ghost shader.
-			ShaderProgram* ghostingShader = graphicsResourceManager->GetShader("..\\GLEngine\\resource\\Shaders\\Common\\ScreenSpace.vert", "..\\GLEngine\\resource\\Shaders\\ImageProcessing\\Ghosting.frag");
-			ghostingShader->Use();
-			{
-				// Set the input texture.
-				ghostingShader->GetUniform("inputTex")->SetValue(textureManager->AssignTextureToUnit(_inputTexture));
+		// Set the mip level for ghosts fetching.
+		ghostingShader->GetUniform("uMipLevelForGhosts")->SetValue(_mipLevelForGhosts);
 
-				// Load/find and set the lens flare chromatic aberration texture.
-				Texture2D* lensChromaticAberrationTex = textureManager->GetTexture("..\\GLEngine\\resource\\Textures\\lensChromaticAberration.png");
-				ghostingShader->GetUniform("lensChromaticAberrationTex")->SetValue(textureManager->AssignTextureToUnit(lensChromaticAberrationTex));
+		// Set the pixel size.
+		ghostingShader->GetUniform("uPixelSize")->SetValue(_pixelSize);
 
-				// Set the mip level for ghosts fetching.
-				ghostingShader->GetUniform("uMipLevelForGhosts")->SetValue(_mipLevelForGhosts);
+		// Change the frame buffer to the one for the downscaled ghosts.
+		textureManager->BindImageTexture(0, _downscaledGhostTexture, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA16F);
 
-				// Set the pixel size.
-				ghostingShader->GetUniform("uPixelSize")->SetValue(_pixelSize);
-
-				// Change the frame buffer to the one for the downscaled ghosts.
-				textureManager->BindImageTexture(0, _downscaledGhostTexture, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGB16F);
-
-				// Clear it before we draw.
-				glClear(GL_COLOR_BUFFER_BIT);
-
-				// Draw the surface.
-				glDrawElements(GL_TRIANGLES, screenVAO->GetElementsCount(), GL_UNSIGNED_INT, 0);
-			}
-
-			// Bi axial blur X passes.
-
-			// Bind the blur shader.
-			ShaderProgram* blurXYShader = graphicsResourceManager->GetShader("..\\GLEngine\\resource\\Shaders\\Common\\ScreenSpace.vert", "..\\GLEngine\\resource\\Shaders\\ImageProcessing\\BlurXY.frag");
-			blurXYShader->Use();
-			{
-				// Blur on the X axis pass.
-
-				// Set the input texture.
-				blurXYShader->GetUniform("inputTex")->SetValue(textureManager->AssignTextureToUnit(_downscaledGhostTexture));
-
-				// Set the pixel size.
-				blurXYShader->GetUniform("uPixelSize")->SetValue(_pixelSize);
-
-				// Set the X samples axis.
-				blurXYShader->GetUniform("uSamplingAxis")->SetValue(Vector2(2,0));
-
-				// Set the samples count.
-				blurXYShader->GetUniform("uSamplesCount")->SetValue(_blurSamplesCount);
-
-				// Change the frame buffer to the one for the blur X.
-				textureManager->BindImageTexture(0, _bluxXTexture, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGB16F);
-
-				// Clear it before we draw.
-				glClear(GL_COLOR_BUFFER_BIT);
-
-				// Draw the surface.
-				glDrawElements(GL_TRIANGLES, screenVAO->GetElementsCount(), GL_UNSIGNED_INT, 0);
+		// Dispatch the compute work groups.
+		ghostingShader->UseAndDispatch(_downscaledGhostTexture->GetWidth()/32, _downscaledGhostTexture->GetHeight()/32, 1, *graphicsDeviceManager);
 
 
-				// Blur on the Y axis pass.
-				// Less uniform need to be set, since they already have been set on the X axis pass.
+		// Bi axial blur X passes.
 
-				// Set the input texture.
-				blurXYShader->GetUniform("inputTex")->SetValue(textureManager->AssignTextureToUnit(_bluxXTexture));
+		// Get the blur shader.
+		ComputeShaderProgram* blurXYShader = graphicsResourceManager->GetComputeShader("..\\GLEngine\\resource\\Shaders\\ImageProcessing\\BlurXY");
 
-				// Set the X samples axis.
-				blurXYShader->GetUniform("uSamplingAxis")->SetValue(Vector2(0, 2));
+		// Use it's program so that we can set uniforms.
+		blurXYShader->Use();
 
-				// Change the frame buffer to the one for the blur X.
-				textureManager->BindImageTexture(0, _bluxYTexture, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGB16F);
+		// Set the ouput texture size.
+		blurXYShader->GetUniform("texSize")->SetValue(Vector2(_bluxXTexture->GetWidth(), _bluxXTexture->GetHeight()));
 
-				// Clear it before we draw.
-				glClear(GL_COLOR_BUFFER_BIT);
+		// Blur on the X axis pass.
 
-				// Draw the surface.
-				glDrawElements(GL_TRIANGLES, screenVAO->GetElementsCount(), GL_UNSIGNED_INT, 0);
-			}
+		// Set the input texture.
+		blurXYShader->GetUniform("inputTex")->SetValue(textureManager->AssignTextureToUnit(_downscaledGhostTexture));
 
-			// Combination pass with the actual rendering and the lens effects.
+		// Set the pixel size.
+		blurXYShader->GetUniform("uPixelSize")->SetValue(_pixelSize);
 
-			// Bind the combiner shader.
-			ShaderProgram* combinerShader = graphicsResourceManager->GetPbrCombinerShader();
-			combinerShader->Use();
-			{
-				// Bind the output frame buffer.
-				frameBufferManager->Bind(outputFrameBuffer);
+		// Set the X samples axis.
+		blurXYShader->GetUniform("uSamplingAxis")->SetValue(Vector2(2,0));
 
-				combinerShader->GetUniform("emissiveGTexture")->SetValue(_inputTexture->GetBoundUnit());
-				combinerShader->GetUniform("lightingTexture")->SetValue(textureManager->AssignTextureToUnit(_bluxYTexture));
-				// Draw the surface.
-				glDrawElements(GL_TRIANGLES, screenVAO->GetElementsCount(), GL_UNSIGNED_INT, 0);
-			}
-		}
-		screenVAO->UnBind();
+		// Set the samples count.
+		blurXYShader->GetUniform("uSamplesCount")->SetValue(_blurSamplesCount);
+
+		// Change the frame buffer to the one for the blur X.
+		textureManager->BindImageTexture(0, _bluxXTexture, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA16F);
+
+		// Dispatch the compute work groups.
+		blurXYShader->UseAndDispatch(_bluxXTexture->GetWidth() / 32, _bluxXTexture->GetHeight() / 32, 1, *graphicsDeviceManager);
+
+
+		// Blur on the Y axis pass.
+		// Less uniform need to be set, since they already have been set on the X axis pass.
+
+		// Set the input texture.
+		blurXYShader->GetUniform("inputTex")->SetValue(textureManager->AssignTextureToUnit(_bluxXTexture));
+
+		// Set the X samples axis.
+		blurXYShader->GetUniform("uSamplingAxis")->SetValue(Vector2(0, 2));
+
+		// Change the frame buffer to the one for the blur X.
+		textureManager->BindImageTexture(0, _bluxYTexture, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA16F);
+
+		// Dispatch the compute work groups.
+		blurXYShader->UseAndDispatch(_bluxYTexture->GetWidth() / 32, _bluxYTexture->GetHeight() / 32, 1, *graphicsDeviceManager);
+
+
+		// Combination pass with the actual rendering and the lens effects.
+
+		// Get the combiner shader.
+		ComputeShaderProgram* combinerShader = graphicsResourceManager->GetComputeShader("..\\GLEngine\\resource\\Shaders\\ImageProcessing\\Combiner");
+
+		// Use it's program so that we can set uniforms.
+		combinerShader->Use();
+
+		// Set the ouput texture size.
+		combinerShader->GetUniform("texSize")->SetValue(Vector2(_outputTexture->GetWidth(), _outputTexture->GetHeight()));
+
+		// Bind the output image.
+		textureManager->BindImageTexture(0, _outputTexture, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA16F);
+
+		combinerShader->GetUniform("inputTex0")->SetValue(_inputTexture->GetBoundUnit());
+		combinerShader->GetUniform("inputTex1")->SetValue(textureManager->AssignTextureToUnit(_bluxYTexture));
+
+		// Dispatch the compute work groups.
+		combinerShader->UseAndDispatch(_outputTexture->GetWidth() / 32, _outputTexture->GetHeight() / 32, 1, *graphicsDeviceManager);
 
 		_inputTexture->SetFiltering(GL_NEAREST, GL_NEAREST);
 

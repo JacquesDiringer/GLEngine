@@ -149,7 +149,7 @@
     </Text>
     <Text Include="resource\Shaders\DeferredShading\GBuffer\InstancedVertexShader.vert" />
     <Text Include="ReadMe.txt" />
-    <Text Include="resource\Shaders\ImageProcessing\BlurXY.frag" />
+    <Text Include="resource\Shaders\ImageProcessing\BlurXY" />
     <Text Include="resource\Shaders\DeferredShading\GBuffer\VertexShader.vert">
       <DeploymentContent>false</DeploymentContent>
     </Text>
@@ -284,8 +284,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="resource\Shaders\ImageProcessing\Bloom_ComputeShader" />
+    <None Include="resource\Shaders\ImageProcessing\Combiner" />
     <None Include="resource\Shaders\ImageProcessing\GammaCorrection.frag" />
-    <None Include="resource\Shaders\ImageProcessing\Ghosting.frag" />
+    <None Include="resource\Shaders\ImageProcessing\Ghosting" />
     <None Include="resource\Shaders\DeferredShading\Combiner\PBRCombiner.frag" />
     <None Include="resource\Shaders\DeferredShading\Lighting\PointLight.frag" />
     <None Include="resource\Shaders\DeferredShading\Lighting\PointLight.vert" />

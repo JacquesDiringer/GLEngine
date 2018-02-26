@@ -1,0 +1,34 @@
+#version 430
+layout(local_size_x = 32, local_size_y = 32, local_size_z = 1) in;
+layout(rgba16f, binding = 0) uniform image2D img_output;
+
+// Size of the texture as a uniform, to avoir calling textureSize.
+uniform vec2 texSize;
+uniform sampler2D inputTex;
+uniform vec2 uPixelSize;
+uniform vec2 uSamplingAxis;
+uniform int uSamplesCount = 5;
+
+
+void main()
+{
+	// get index in global work group i.e x,y position
+	ivec2 pixel_coords = ivec2(gl_GlobalInvocationID.xy);
+
+	vec2 texCoordinates = vec2(pixel_coords) / texSize;
+
+	vec4 outputPixel = vec4(0, 0, 0, 1);
+
+	int halfSamplesCount = int(uSamplesCount*0.5f);
+
+	for(int i = -halfSamplesCount; i < halfSamplesCount; ++i)
+	{
+		vec2 warpedTexCoords = texCoordinates + i * uPixelSize * uSamplingAxis;
+		outputPixel.xyz += textureLod(inputTex, warpedTexCoords, 0.0f).xyz;	
+	}
+
+	outputPixel.xyz /= uSamplesCount;
+
+	// output to a specific pixel in the image
+	imageStore(img_output, pixel_coords, outputPixel);
+}
