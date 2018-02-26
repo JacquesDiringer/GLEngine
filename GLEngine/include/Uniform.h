@@ -22,7 +22,7 @@ namespace GLEngine
 	class Uniform
 	{
 	public:
-		Uniform(string name, GLuint location, GLenum type);
+		Uniform(string name, GLint location, GLenum type);
 		~Uniform();
 
 		// The following will throw an invalid_argument exception if the argument's type does not correspond to the uniform type in the shader.
@@ -35,7 +35,7 @@ namespace GLEngine
 
 	private:
 		string _name;
-		GLuint _location;
+		GLint _location;
 		GLenum _type;
 	};
 }

@@ -4,7 +4,7 @@
 
 namespace GLEngine
 {
-	Uniform::Uniform(string name, GLuint location, GLenum type)
+	Uniform::Uniform(string name, GLint location, GLenum type)
 		: _name(name), _location(location), _type(type)
 	{
 		// void

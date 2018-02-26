@@ -118,9 +118,12 @@ namespace GLEngine
 
 		for (int uniformIndex = 0; uniformIndex < count; uniformIndex++)
 		{
+			// First, get the name of the uniform.
 			glGetActiveUniform(_shaderProgramId, (GLuint)uniformIndex, bufSize, &length, &size, &type, name);
+			//Then use this name to get the uniform location (this is different from it's index in the active uniforms list).
+			GLint uniformLocation = glGetUniformLocation(_shaderProgramId, name);
 
-			_uniforms.insert(std::pair<string, Uniform*>(string(name), new Uniform(name, (GLuint)uniformIndex, type)));
+			_uniforms.insert(std::pair<string, Uniform*>(string(name), new Uniform(name, uniformLocation, type)));
 		}
 	}
 }
