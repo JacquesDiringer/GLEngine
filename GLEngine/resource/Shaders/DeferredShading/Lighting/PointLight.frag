@@ -113,4 +113,7 @@ void main()
 	// Divide by the square of the distance from the light to the surface.
 	// For distance attenuation.
 	color.xyz /= pow(lightDistance, 2);
+
+	// Make sure we never write negative lighting values.
+	color.xyz = max(color.xyz, vec3(0));
 }
