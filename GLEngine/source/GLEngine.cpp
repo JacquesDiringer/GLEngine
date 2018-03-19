@@ -197,8 +197,16 @@ int main()
 	glfwGetFramebufferSize(window, &width, &height);
 
 	// During init, enable debug output
-	glEnable(GL_DEBUG_OUTPUT);
+	/*glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 	glDebugMessageCallback((GLDEBUGPROC)GLErrorCallback, 0);
+
+	GLuint unusedIds = 0;
+	glDebugMessageControl(GL_DONT_CARE,
+		GL_DONT_CARE,
+		GL_DONT_CARE,
+		0,
+		&unusedIds,
+		true);*/
 
 	glViewport(0, 0, width, height);
 
@@ -211,7 +219,7 @@ int main()
 	PerspectiveCamera* camera = new PerspectiveCamera(0.1f, 800.0f, 20.0f, (float)height / (float)width);
 	
 	// Post processes.
-	camera->AddPostProcess(new LensPostProcess(width, height, graphicsResourceManager->GetTextureManager()));
+	//camera->AddPostProcess(new LensPostProcess(width, height, graphicsResourceManager->GetTextureManager()));
 	//camera->AddPostProcess(new BloomPostProcess(width, height, graphicsResourceManager->GetTextureManager()));
 	camera->AddPostProcess(new GammaCorrectionPostProcess(width, height, graphicsResourceManager->GetTextureManager()));
 
