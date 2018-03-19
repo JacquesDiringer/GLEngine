@@ -81,7 +81,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>C:\Utils\glew-2.0.0\glew-2.0.0\include;C:\Utils\GLFW\glfw-3.2.1\glfw-3.2.1\include;C:\Utils\SOIL\include;$(ProjectDir)\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Utils\GLFW\glfw-3.2.1\CMake_result\src\Debug;C:\Utils\glew-2.0.0\Cmake_result\lib\Release;C:\Utils\SOIL\lib\Win32\Release;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Utils\GLFW\glfw-3.2.1\CMake_result\src\Debug;C:\Utils\glew-2.0.0\Cmake_result\lib\Release;C:\Utils\SOIL\lib\Win32\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
