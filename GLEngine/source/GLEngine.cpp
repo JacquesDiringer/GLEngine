@@ -44,15 +44,16 @@
 
 using namespace GLEngine;
 
-Vector3 _globalCameraPosition = Vector3(0, 0, 5);
+Vector3 _globalCameraPosition = Vector3(0, 0, 0);
+Vector3 _globalCameraForwardVector = Vector3(0, 0, 1);
 Vector3 _globalCameraSpeed = Vector3(0, 0, 0);
 Vector3 _globalTargetPosition = Vector3(0, 0, 0);
 
-float _globalAcceleration = 0.002f;
-float _globalFriction = 0.02f;
+float _globalAcceleration = 0.01f;
+float _globalFriction = 0.1f;
 float _sphereRadius = 8.0f;
 float _thetaSpeed = 0, _phiSpeed = 0;
-float _theta = 0, _phi = 0;
+float _theta = 1.7f, _phi = 0;
 
 bool _zPressed = false, _sPressed = false, _qPressed = false, _dPressed = false;
 
@@ -103,46 +104,40 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 void MoveCamera()
 {
+	// Mouse rotation for first person.
+	_phi += 0.005f * _cursorDifference.X();
+	_theta += 0.005f * _cursorDifference.Y();
+
+	_globalCameraForwardVector.X(_sphereRadius * cosf(_theta) * cosf(_phi));
+	_globalCameraForwardVector.Y(_sphereRadius * sinf(_theta));
+	_globalCameraForwardVector.Z(_sphereRadius * cosf(_theta) * sinf(_phi));
+
+	// Keyboard handling for first person movements.
 	if (_zPressed)
 	{
-		_globalCameraSpeed = _globalCameraSpeed + Vector3(0, 0, -_globalAcceleration);
-		_thetaSpeed += _globalAcceleration;
+		_globalCameraSpeed = _globalCameraSpeed + _globalCameraForwardVector * _globalAcceleration;
 	}
 
 	if (_sPressed)
 	{
-		_globalCameraSpeed = _globalCameraSpeed + Vector3(0, 0, _globalAcceleration);
-		_thetaSpeed -= _globalAcceleration;
+		_globalCameraSpeed = _globalCameraSpeed - _globalCameraForwardVector * _globalAcceleration;
 	}
 
 	if (_dPressed)
 	{
-		_globalCameraSpeed = _globalCameraSpeed + Vector3(_globalAcceleration, 0, 0);
-		_phiSpeed -= _globalAcceleration;
+		_globalCameraSpeed = _globalCameraSpeed - Vector3::Cross(Vector3(0, 1, 0), _globalCameraForwardVector) * _globalAcceleration;
 	}
 
 	if (_qPressed)
 	{
-		_globalCameraSpeed = _globalCameraSpeed + Vector3(-_globalAcceleration, 0, 0);
-		_phiSpeed += _globalAcceleration;
+		_globalCameraSpeed = _globalCameraSpeed + Vector3::Cross(Vector3(0, 1, 0), _globalCameraForwardVector) * _globalAcceleration;
 	}
 
+	// Add friction.
 	_globalCameraSpeed = _globalCameraSpeed * (1 - _globalFriction);
 
-	// Mouse movement for third person.
-	 _phiSpeed += 0.02f * _globalAcceleration * _cursorDifference.X();
-	 _thetaSpeed += 0.02f * _globalAcceleration * _cursorDifference.Y();
-
-	// 3rd view camera.
-	_theta += _thetaSpeed;
-	_phi += _phiSpeed;
-
-	_thetaSpeed = _thetaSpeed * (1 - _globalFriction);
-	_phiSpeed = _phiSpeed * (1 - _globalFriction);
-
-	_globalCameraPosition.X(_sphereRadius * cosf(_theta) * cosf(_phi));
-	_globalCameraPosition.Y(_sphereRadius * sinf(_theta));
-	_globalCameraPosition.Z(_sphereRadius * cosf(_theta) * sinf(_phi));
+	// Update position accordig to the speed.
+	_globalCameraPosition = _globalCameraPosition + _globalCameraSpeed;
 }
 
 void GLErrorCallback(GLenum source,
@@ -338,16 +333,23 @@ int main()
 	//arrowsNode->AddSubElement(new ThirdViewOrientationActor(extremityNode));
 
 	// Camera addition under a scene node.
-	//SceneNode* cameraNode = sceneManager->GetRootNode()->CreateChild();
-	SceneNode* cameraNode = sceneManager->GetRootNode()->CreateChild();
-	//SceneNode* cameraNode = extremityNode->CreateChild();
-	cameraNode->SetRelativeTransformation(Matrix4::CreateTranslation(Vector3(0, 0, 4)));
-	cameraNode->AddSubElement(camera);
-	//cameraNode->AddSubElement(new ThirdViewOrientationActor(extremityNode));
-	cameraNode->AddSubElement(new ThirdViewOrientationActor(sceneManager->GetRootNode()));
+	// Logic goes like this.
+	//									cameraMainNode
+	//									/			  \
+	//					cameraRotatingNode			cameraTargetNode
+	//					/				\
+	//		PerspectiveCamera			ThirdViewOrientationActor(cameraTargetNode)
 
-	/*extremityNode->AddSubElement(camera);
-	extremityNode->AddSubElement(new ThirdViewOrientationActor(rotationNode));*/
+	// The cameraMainNode hold both the target node and the actual camera node.
+	// It is the node that will get translated around in the scene.
+	SceneNode* cameraMainNode = sceneManager->GetRootNode()->CreateChild();
+
+	SceneNode* cameraTargetNode = cameraMainNode->CreateChild();
+	cameraTargetNode->SetRelativeTransformation(Matrix4::CreateTranslation(Vector3(0, 0, 4)));
+
+	SceneNode* cameraRotatingNode = cameraMainNode->CreateChild();
+	cameraRotatingNode->AddSubElement(camera);
+	cameraRotatingNode->AddSubElement(new ThirdViewOrientationActor(cameraTargetNode));
 
 
 	// Point light.
@@ -416,8 +418,8 @@ int main()
 		MoveCamera();
 
 		// Update camera matrix.
-		cameraNode->SetRelativeTransformation(Matrix4::CreateTranslation(_globalCameraPosition));
-		//camera->SetPositionAndTarget(_globalCameraPosition, _globalTargetPosition);
+		cameraMainNode->SetRelativeTransformation(Matrix4::CreateTranslation(_globalCameraPosition));
+		cameraTargetNode->SetRelativeTransformation(Matrix4::CreateTranslation(_globalCameraForwardVector));
 
 		//Scene graph update.
 		sceneManager->Update();
