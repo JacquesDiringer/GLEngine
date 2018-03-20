@@ -33,6 +33,7 @@
 #include <Render\Lighting\PointLight.h>
 #include <Render\PostProcesses\GammaCorrectionPostProcess.h>
 #include <Render\PostProcesses\LensPostProcess.h>
+#include <Math\Vector2.h>
 
 // Maths
 #include <Math\Matrix4.h>
@@ -54,6 +55,9 @@ float _thetaSpeed = 0, _phiSpeed = 0;
 float _theta = 0, _phi = 0;
 
 bool _zPressed = false, _sPressed = false, _qPressed = false, _dPressed = false;
+
+Vector2 _previousCursorPosition = Vector2();
+Vector2 _cursorDifference = Vector2();
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
@@ -124,13 +128,10 @@ void MoveCamera()
 	}
 
 	_globalCameraSpeed = _globalCameraSpeed * (1 - _globalFriction);
-	_globalCameraSpeed = _globalCameraSpeed * (1 - _globalFriction);
 
-	// Arrow translation
-	/*_globalCameraPosition.X(_globalCameraPosition.X() + _globalCameraSpeed.X());
-	_globalCameraPosition.Y(_globalCameraPosition.Y() + _globalCameraSpeed.Y());
-	_globalCameraPosition.Z(_globalCameraPosition.Z() + _globalCameraSpeed.Z());*/
-
+	// Mouse movement for third person.
+	 _phiSpeed += 0.02f * _globalAcceleration * _cursorDifference.X();
+	 _thetaSpeed += 0.02f * _globalAcceleration * _cursorDifference.Y();
 
 	// 3rd view camera.
 	_theta += _thetaSpeed;
@@ -142,10 +143,6 @@ void MoveCamera()
 	_globalCameraPosition.X(_sphereRadius * cosf(_theta) * cosf(_phi));
 	_globalCameraPosition.Y(_sphereRadius * sinf(_theta));
 	_globalCameraPosition.Z(_sphereRadius * cosf(_theta) * sinf(_phi));
-
-
-	// Tests
-	//_globalTargetPosition.X(cos(glfwGetTime() * 5.0));
 }
 
 void GLErrorCallback(GLenum source,
@@ -159,6 +156,21 @@ void GLErrorCallback(GLenum source,
 	fprintf(stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x, message = %s\n",
 		(type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : ""),
 		type, severity, message);
+}
+
+Vector2 UpdateCursorPosition(GLFWwindow * window)
+{
+	double xpos, ypos;
+	glfwGetCursorPos(window, &xpos, &ypos);
+
+	_cursorDifference = Vector2(xpos - _previousCursorPosition.X(), ypos - _previousCursorPosition.Y());
+
+	//std::cout << "new location : x= " << _cursorDifference.X() << "; y= " << _cursorDifference.Y() << std::endl;
+
+	_previousCursorPosition.X(xpos);
+	_previousCursorPosition.Y(ypos);
+
+	return _cursorDifference;
 }
 
 int main()
@@ -182,6 +194,10 @@ int main()
 
 	// Key callback function
 	glfwSetKeyCallback(window, key_callback);
+
+	// Cursor handling.
+	// Hide the cursor and keep it inside the window boundaries at all times.
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 
 	// GLEW intialization
@@ -393,6 +409,8 @@ int main()
 		double timeAtMainLoopStart = glfwGetTime();
 
 		glfwPollEvents();
+
+		UpdateCursorPosition(window);
 
 		// Move the camera "physic" model.
 		MoveCamera();
