@@ -309,6 +309,9 @@
     <ClInclude Include="include\Texture\Texture2DRGBA16F.h">
       <Filter>Header Files\Texture</Filter>
     </ClInclude>
+    <ClInclude Include="include\GLEngineObjectInstanciater.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Actor\Actor.cpp">
@@ -478,6 +481,9 @@
     </ClCompile>
     <ClCompile Include="source\Texture\Texture2DRGBA16F.cpp">
       <Filter>Source Files\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GLEngineObjectInstanciater.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

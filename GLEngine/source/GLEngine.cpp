@@ -42,6 +42,10 @@
 #include <Mesh\OBJLoader.h>
 
 
+// Generator
+
+
+
 using namespace GLEngine;
 
 Vector3 _globalCameraPosition = Vector3(0, 0, 0);
@@ -224,9 +228,13 @@ int main()
 	// Graphics Resource Manager.
 	GraphicsResourceManager* graphicsResourceManager = new GraphicsResourceManager(width, height);
 
+	// Render setting.
+	RenderManager* renderManager = new RenderManager(width, height, graphicsResourceManager);
+
 	// Texture manager.
 	TextureManager* textureManager = graphicsResourceManager->GetTextureManager();
 
+	// Camera
 	PerspectiveCamera* camera = new PerspectiveCamera(0.1f, 800.0f, 20.0f, (float)height / (float)width);
 	
 	// Post processes.
@@ -234,103 +242,10 @@ int main()
 	//camera->AddPostProcess(new BloomPostProcess(width, height, graphicsResourceManager->GetTextureManager()));
 	camera->AddPostProcess(new GammaCorrectionPostProcess(width, height, graphicsResourceManager->GetTextureManager()));
 
-	Texture2D* diffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/suzanne_paint.png");
-
-	//Texture2D* specularTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/black_white_checker.jpg");
-	Texture2D* specularTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/suzanne_paint_rougness2_invert.png");
-
-	//Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/black_white_checker.jpg");
-	//Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/concreteWallTile.jpg");
-	//Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/rougnessPlastic.jpg");
-	//Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/suzanne_paint_rougness.png");
-	//Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/suzanne_paint_rougness2.png");
-	Texture2D* roughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/suzanne_paint_rougness2 - Copie (2).png");
-
-	Texture2D* cylinderdiffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Copper_Plates_Copper_Plates_diffuse.jpg");
-	Texture2D* cylinderspecularTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Copper_Plates_Copper_Plates_specular.jpg");
-	Texture2D* cylinderroughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Copper_Plates_Copper_Plates_diffuse.jpg");
-
-	/*Texture2D* planediffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/bucherTile_bucherTile_diffuse.jpg");
-	Texture2D* planespecularTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/bucherTile_bucherTile_specular.jpg");
-	Texture2D* planeroughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/bucherTile_bucherTile_roughness.jpg");*/
-
-	// Cool tiles
-	/*Texture2D* planediffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Ceramic_mat_Ceramic_test_diffuse.jpg");
-	Texture2D* planespecularTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Copper_Plates_Copper_Plates_roughness - Copie.jpg");
-	Texture2D* planeroughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Ceramic_mat_Ceramic_test_roughness.jpg");*/
-
-	Texture2D* planediffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Copper_Plates_Copper_Plates_diffuse.jpg");
-	Texture2D* planespecularTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Copper_Plates_Copper_Plates_specular.jpg");
-	Texture2D* planeroughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Copper_Plates_Copper_Plates_roughness - Copy.jpg");
-
-	// Cool copper plates
-	/*Texture2D* planediffuseTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Copper_Plates_Copper_Plates_diffuse.jpg");
-	Texture2D* planespecularTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Copper_Plates_Copper_Plates_specular.jpg");
-	Texture2D* planeroughnessTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/Copper_Plates_Copper_Plates_roughness.jpg");*/
-
-	Texture2D* rgbTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/test_envmap2.png");
-	Texture2D* grayTexture = textureManager->GetTexture("C:/Utils/GLEngineMedia/rougnessPlastic.jpg");
-
-
-	// Models testing
-	OBJLoader* testLoader = new OBJLoader();
-
-	// Plane resource.
-	OBJMesh* planeMesh = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/plane.obj");
-	planeMesh->InitializeVao();
-	Model* planeModel = new Model(planeMesh, planediffuseTexture, planespecularTexture, planeroughnessTexture);
-
-	// Grudge cylinder resource.
-	OBJMesh* grudgeCylinderMesh = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/grudge_cylinder.obj");
-	grudgeCylinderMesh->InitializeVao();
-	Model* grudgeCylinderModel = new Model(grudgeCylinderMesh, cylinderdiffuseTexture, cylinderspecularTexture, cylinderroughnessTexture);
-
-	// Suzanne resource.
-	//OBJMesh* testMesh = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/suzanne_sharp.obj");
-	OBJMesh* testMesh = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/suzanne_smooth.obj");
-	testMesh->InitializeVao();
-	Model* suzanneModel = new Model(testMesh, diffuseTexture, specularTexture, roughnessTexture);
-
-	// Sphere resource.
-	OBJMesh* testMesh1 = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/sphere.obj");
-	testMesh1->InitializeVao();
-	Model* sphereModel1 = new Model(testMesh1, diffuseTexture, specularTexture, roughnessTexture);
-
-	// Arrows resource.
-	OBJMesh* arrowsMesh = (OBJMesh*)testLoader->LoadModel("C:/Utils/GLEngineMedia/grudge_cylinder.obj");
-	arrowsMesh->InitializeVao();
-	Model* cylinderModel = new Model(arrowsMesh, rgbTexture, grayTexture, grayTexture);
-
-	//Texture2D* texEnvmapTest = textureManager->GetTexture("C:/Utils/GLEngineMedia/parking_lot_2k.jpg");
-	//Texture2D* texEnvmapTest = textureManager->GetTexture("C:/Utils/GLEngineMedia/pubimage(8).jpg");
-	Texture2D* texEnvmapTest = textureManager->GetTexture("C:/Utils/GLEngineMedia/redCliffs.jpg");
-	EnvironmentMapSky* envmapTest = new EnvironmentMapSky(texEnvmapTest);
-
 	// Scene setting
 
 	SceneManager* sceneManager = new SceneManager();
 	sceneManager->SetCurrentCamera(camera);
-
-	sceneManager->GetRootNode()->AddSubElement(new Model(planeModel));
-
-	SceneNode* skyNode = sceneManager->GetRootNode()->CreateChild();
-	skyNode->AddSubElement(envmapTest);
-
-	SceneNode* rotationNode = sceneManager->GetRootNode()->CreateChild();
-	rotationNode->SetRelativeTransformation(Matrix4::CreateTranslation(Vector3(0, 0.5f, 0)));
-	//rotationNode->AddSubElement(new Model(testModel1));
-
-	SpinnerActor* testSpinner0 = new SpinnerActor(Matrix4::CreateRotationY(-0.5f));
-	rotationNode->AddSubElement(testSpinner0);
-
-	SceneNode* extremityNode = rotationNode->CreateChild();
-	extremityNode->SetRelativeTransformation(Matrix4::CreateTranslation(Vector3(2, 0.5f, 0)));
-	extremityNode->AddSubElement(new Model(suzanneModel));
-
-	SceneNode* arrowsNode = sceneManager->GetRootNode()->CreateChild();
-	arrowsNode->SetRelativeTransformation(Matrix4::CreateTranslation(Vector3(1, 2.0f, 0)));
-	//arrowsNode->AddSubElement(new Model(arrowsModel));
-	//arrowsNode->AddSubElement(new ThirdViewOrientationActor(extremityNode));
 
 	// Camera addition under a scene node.
 	// Logic goes like this.
@@ -351,47 +266,11 @@ int main()
 	cameraRotatingNode->AddSubElement(camera);
 	cameraRotatingNode->AddSubElement(new ThirdViewOrientationActor(cameraTargetNode));
 
+	// Sky
+	Texture2D* texEnvmapTest = textureManager->GetTexture("C:/Utils/GLEngineMedia/redCliffs.jpg");
+	EnvironmentMapSky* envmapTest = new EnvironmentMapSky(texEnvmapTest);
 
-	// Point light.
-	PointLight* testPointLight = new PointLight(Vector3(20, 20, 20), 10);
-	PointLight* testPointLight1 = new PointLight(Vector3(20, 20, 20), 10);
-	PointLight* testPointLight2 = new PointLight(Vector3(20, 20, 20), 10);
-
-	// Point light node.
-	//SceneNode* pointLightNode = sceneManager->GetRootNode()->CreateChild();
-	SceneNode* pointLightNode = extremityNode->CreateChild();
-	pointLightNode->SetRelativeTransformation(Matrix4::CreateTranslation(Vector3(0, 0.5f, 3)));
-	pointLightNode->AddSubElement(testPointLight);
-
-	SceneNode* pointLightNode1 = extremityNode->CreateChild();
-	pointLightNode1->SetRelativeTransformation(Matrix4::CreateTranslation(Vector3(0, 0.5f, 4)));
-	pointLightNode1->AddSubElement(testPointLight1);
-
-	SceneNode* pointLightNode2 = extremityNode->CreateChild();
-	pointLightNode2->SetRelativeTransformation(Matrix4::CreateTranslation(Vector3(0, 0.5f, 5)));
-	pointLightNode2->AddSubElement(testPointLight2);
-
-	SceneNode* nodeToDelete;
-
-	// Instancing tests, array.
-	/*for (int i = 0; i < 20; i++)
-	{
-		for (int j = 0; j < 20; j++)
-		{
-			SceneNode* currentNode = sceneManager->GetRootNode()->CreateChild();
-			currentNode->SetRelativeTransformation(Matrix4::CreateTranslation(new Vector3(i * 3, 0, j * 3)));
-			currentNode->AddSubElement(new Model(grudgeCylinderModel));
-			if (i == 2 && j == 0)
-			{
-				nodeToDelete = currentNode;
-			}
-		}
-	}
-
-	nodeToDelete->RemoveFromParentNode();*/
-
-	// Render setting.
-	RenderManager* renderManager = new RenderManager(width, height, graphicsResourceManager);
+	sceneManager->GetRootNode()->AddSubElement(envmapTest);
 
 	// Game loop
 	int frameCount = 0;

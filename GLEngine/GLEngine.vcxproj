@@ -72,16 +72,16 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Utils\GLFW\glfw-3.2.1\glfw-3.2.1\include;C:\Utils\glew-2.0.0\glew-2.0.0\include;C:\Utils\SOIL\include;$(ProjectDir)\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Utils\glew-2.0.0\Cmake_result\lib\Debug;C:\Utils\GLFW\glfw-3.2.1\CMake_result\src\Debug;C:\Utils\SOIL\lib\Win32\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Utils\GLFW\glfw-3.2.1\glfw-3.2.1\include;C:\Utils\glew-2.0.0\glew-2.0.0\include;C:\Utils\SOIL\include;$(ProjectDir)\include;C:\Utils\LODGenerator\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Utils\glew-2.0.0\Cmake_result\lib\Debug;C:\Utils\GLFW\glfw-3.2.1\CMake_result\src\Debug;C:\Utils\SOIL\lib\Win32\Debug;C:\Utils\LODGenerator\lib\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Utils\glew-2.0.0\glew-2.0.0\include;C:\Utils\GLFW\glfw-3.2.1\glfw-3.2.1\include;C:\Utils\SOIL\include;$(ProjectDir)\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Utils\GLFW\glfw-3.2.1\CMake_result\src\Debug;C:\Utils\glew-2.0.0\Cmake_result\lib\Release;C:\Utils\SOIL\lib\Win32\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Utils\glew-2.0.0\glew-2.0.0\include;C:\Utils\GLFW\glfw-3.2.1\glfw-3.2.1\include;C:\Utils\SOIL\include;$(ProjectDir)\include;C:\Utils\LODGenerator\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Utils\GLFW\glfw-3.2.1\CMake_result\src\Debug;C:\Utils\glew-2.0.0\Cmake_result\lib\Release;C:\Utils\SOIL\lib\Win32\Debug;C:\Utils\LODGenerator\lib\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -95,8 +95,11 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>opengl32.lib;libglew32d.lib;glfw3.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;libglew32d.lib;glfw3.lib;SOIL.lib;Generator.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>copy "C:\Utils\LODGenerator\lib\Debug" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -122,8 +125,11 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>opengl32.lib;libglew32.lib;glfw3.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;libglew32.lib;glfw3.lib;SOIL.lib;Generator.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>copy "C:\Utils\LODGenerator\lib\Release" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -155,6 +161,7 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\GLEngineObjectInstanciater.h" />
     <ClInclude Include="include\Actor\Actor.h" />
     <ClInclude Include="include\ComputeShaderProgram.h" />
     <ClInclude Include="include\Render\PostProcesses\BloomPostProcess.h" />
@@ -214,6 +221,7 @@
     <ClInclude Include="include\VertexArrayObject.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\GLEngineObjectInstanciater.cpp" />
     <ClCompile Include="source\Actor\Actor.cpp" />
     <Text Include="resource\Shaders\DeferredShading\GBuffer\EnvironmentMapFragmentShader.frag">
       <FileType>Document</FileType>
