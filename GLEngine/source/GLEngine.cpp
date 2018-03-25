@@ -276,17 +276,6 @@ int main()
 	int frameCount = 0;
 	while (!glfwWindowShouldClose(window))
 	{
-		/*if (frameCount % 2 == 0)
-		{
-			nodeToDelete = sceneManager->GetRootNode()->CreateChild();
-			nodeToDelete->AddSubElement(new Model(grudgeCylinderModel));
-		}
-		else
-		{
-			nodeToDelete->RemoveFromParentNode();
-			delete(nodeToDelete);
-		}*/
-
 		double timeAtMainLoopStart = glfwGetTime();
 
 		glfwPollEvents();
