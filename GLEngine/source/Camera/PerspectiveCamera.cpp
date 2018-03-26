@@ -10,16 +10,16 @@ namespace GLEngine
 	PerspectiveCamera::PerspectiveCamera(float near, float far, float fov, float ratio)
 	{
 		// View matrix initialization.
-		_view = Matrix4::Identity();
+		_view = GLEngineMath::Matrix4::Identity();
 
 		// IView matrix initialization.
-		_iView = Matrix4::Identity();
+		_iView = GLEngineMath::Matrix4::Identity();
 
 		// Projection matrix initialization.
 		fov = 3.14159265358979323846 * fov / 180.0f;
 		float width = 2.0f * near * tanf(fov * 0.5f);
 		float height = width * ratio;
-		_projection = Matrix4::CreateSymetricProjectionFrustum(near, far, height, width);
+		_projection = GLEngineMath::Matrix4::CreateSymetricProjectionFrustum(near, far, height, width);
 
 		// Set the inverse of the projection.
 		_iProjection = _projection;
@@ -38,7 +38,7 @@ namespace GLEngine
 		SceneNode* parentNode = GetParentNode();
 		if (parentNode != nullptr)
 		{
-			Matrix4 newView = parentNode->GetWorldTransformation();
+			GLEngineMath::Matrix4 newView = parentNode->GetWorldTransformation();
 			if (!(_iView == newView))
 			{
 				// Update the inverse of the view.
@@ -55,21 +55,21 @@ namespace GLEngine
 		}
 	}
 
-	const Matrix4& PerspectiveCamera::GetView()
+	const GLEngineMath::Matrix4& PerspectiveCamera::GetView()
 	{
 		UpdateViewAndIView();
 
 		return _view;
 	}
 
-	const Matrix4& PerspectiveCamera::GetIView()
+	const GLEngineMath::Matrix4& PerspectiveCamera::GetIView()
 	{
 		UpdateViewAndIView();
 
 		return _iView;
 	}
 
-	Vector3 PerspectiveCamera::GetPosition()
+	GLEngineMath::Vector3 PerspectiveCamera::GetPosition()
 	{
 		SceneNode* parentNode = GetParentNode();
 		if (parentNode != nullptr)

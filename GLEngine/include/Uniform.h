@@ -13,10 +13,6 @@
 
 using std::string;
 
-using Math::Vector2;
-using Math::Vector3;
-using Math::Matrix4;
-
 namespace GLEngine
 {
 	class Uniform
@@ -29,9 +25,9 @@ namespace GLEngine
 		void SetValue(GLuint unsignedIntegerValue);
 		void SetValue(GLint integerValue);
 		void SetValue(GLfloat floatingValue);
-		void SetValue(const Vector2& vector);
-		void SetValue(const Vector3& vector);
-		void SetValue(const Matrix4& matrix);
+		void SetValue(const GLEngineMath::Vector2& vector);
+		void SetValue(const GLEngineMath::Vector3& vector);
+		void SetValue(const GLEngineMath::Matrix4& matrix);
 
 	private:
 		string _name;

@@ -16,7 +16,7 @@ namespace GLEngine
 		Texture2D* _bluxXTexture = nullptr;
 		Texture2D* _bluxYTexture = nullptr;
 
-		Vector2 _pixelSize;
+		GLEngineMath::Vector2 _pixelSize;
 		float _mipLevelForGhosts;
 		int _blurSamplesCount;
 	};

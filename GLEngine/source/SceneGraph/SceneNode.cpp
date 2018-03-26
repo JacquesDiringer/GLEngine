@@ -6,8 +6,8 @@ namespace GLEngine
 	SceneNode::SceneNode()
 		: SceneElement()
 	{
-		_relativeTransformation = Matrix4::Identity();
-		_worldTransformation = Matrix4::Identity();
+		_relativeTransformation = GLEngineMath::Matrix4::Identity();
+		_worldTransformation = GLEngineMath::Matrix4::Identity();
 		SetIsUpToDate(false);
 		_subElements = vector<SceneElement*>();
 	}
@@ -24,13 +24,13 @@ namespace GLEngine
 		}
 	}
 
-	void SceneNode::SetRelativeTransformation(const Matrix4& newMatrix)
+	void SceneNode::SetRelativeTransformation(const GLEngineMath::Matrix4& newMatrix)
 	{
 		_relativeTransformation = newMatrix;
 		SetIsUpToDate(false);
 	}
 
-	const Matrix4& SceneNode::GetWorldTransformation()
+	const GLEngineMath::Matrix4& SceneNode::GetWorldTransformation()
 	{
 		if (!_worldMatrixIsUpToDate)
 		{
@@ -40,7 +40,7 @@ namespace GLEngine
 			}
 			else
 			{
-				_worldTransformation = Matrix4::Multiply((GetParentNode()->GetWorldTransformation()), _relativeTransformation);
+				_worldTransformation = GLEngineMath::Matrix4::Multiply((GetParentNode()->GetWorldTransformation()), _relativeTransformation);
 			}
 		}
 

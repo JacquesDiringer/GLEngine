@@ -4,7 +4,7 @@
 #include <math.h>
 
 
-namespace Math
+namespace GLEngineMath
 {
 	Vector3::Vector3()
 	{

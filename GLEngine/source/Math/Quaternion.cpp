@@ -2,7 +2,7 @@
 #include <Math\Quaternion.h>
 
 
-namespace Math
+namespace GLEngineMath
 {
 	Quaternion::Quaternion()
 	{

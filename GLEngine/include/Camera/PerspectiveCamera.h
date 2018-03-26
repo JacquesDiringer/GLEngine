@@ -7,9 +7,6 @@
 #include <SceneGraph\SceneElement.h>
 #include <SceneGraph\SceneElementVisitor.h>
 
-using Math::Matrix4;
-using Math::Vector3;
-
 using std::vector;
 
 namespace GLEngine
@@ -23,13 +20,13 @@ namespace GLEngine
 		PerspectiveCamera(float near, float far, float fov, float ratio);
 		~PerspectiveCamera();
 
-		const Matrix4& GetView();
-		const Matrix4& GetProjection() const { return _projection; }
+		const GLEngineMath::Matrix4& GetView();
+		const GLEngineMath::Matrix4& GetProjection() const { return _projection; }
 
-		const Matrix4& GetIView();
-		const Matrix4& GetIProjection() const { return _iProjection; }
+		const GLEngineMath::Matrix4& GetIView();
+		const GLEngineMath::Matrix4& GetIProjection() const { return _iProjection; }
 
-		Vector3 GetPosition();
+		GLEngineMath::Vector3 GetPosition();
 
 		virtual void Accept(SceneElementVisitor* visitor);
 
@@ -37,7 +34,7 @@ namespace GLEngine
 		const vector<PostProcess*>& GetPostProcesses() const { return _postProcesses; }
 
 	private:
-		Matrix4 _view,  _iView, _projection, _iProjection;
+		GLEngineMath::Matrix4 _view,  _iView, _projection, _iProjection;
 		vector<PostProcess*> _postProcesses;
 
 		void UpdateViewAndIView();

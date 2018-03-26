@@ -3,8 +3,8 @@
 #include <Math\Quaternion.h>
 #include <Math\Matrix4.h>
 
-using Math::Quaternion;
-using Math::Matrix4;
+using GLEngineMath::Quaternion;
+using GLEngineMath::Matrix4;
 
 namespace GLEngine
 {

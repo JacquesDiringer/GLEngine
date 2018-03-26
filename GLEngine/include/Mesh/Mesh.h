@@ -10,9 +10,6 @@
 using std::string;
 using std::vector;
 
-using Math::Vector2;
-using Math::Vector3;
-
 namespace GLEngine
 {
 	class Mesh
@@ -35,9 +32,9 @@ namespace GLEngine
 		void SetHasNormals(const bool value) { _hasNormals = value; }
 
 		virtual vector<int> GetElementsList() const = 0;
-		virtual vector<Vector3*> GetPositionsList() const = 0;
-		virtual vector<Vector2*> GetTextureCoordinatesList() const = 0;
-		virtual vector<Vector3*> GetNormalsList() const = 0;
+		virtual vector<GLEngineMath::Vector3*> GetPositionsList() const = 0;
+		virtual vector<GLEngineMath::Vector2*> GetTextureCoordinatesList() const = 0;
+		virtual vector<GLEngineMath::Vector3*> GetNormalsList() const = 0;
 
 	private:
 		VertexArrayObject* _vao;

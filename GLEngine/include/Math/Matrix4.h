@@ -3,7 +3,7 @@
 #include <Math\Vector3.h>
 #include <Math\Quaternion.h>
 
-namespace Math
+namespace GLEngineMath
 {
 	/// This class describes 4x4 translation, rotation, scale matrices
 	class Matrix4

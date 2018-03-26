@@ -130,7 +130,9 @@ bool GLEngineObjectInstanciater::AddSimpleObjectDisplayable(shared_ptr<Generator
 	GLEngine::SceneNode* lNode = _sceneManager->GetRootNode()->CreateChild();
 
 	// Set the position of the new SceneNode.
-	Math::Matrix4 modelWorldMatrix = newSimpleObjectDisplayable->GetWorldMatrix();
+	GLEngineMath::Matrix4 modelWorldMatrix = GLEngineMath::Matrix4(*reinterpret_cast<GLEngineMath::Matrix4*>(&(newSimpleObjectDisplayable->GetWorldMatrix())));
+	/*float* matrixArray = newSimpleObjectDisplayable->GetWorldMatrix();
+	GLEngineMath::Matrix4 modelWorldMatrix = GLEngineMath::Matrix4();*/
 	lNode->SetRelativeTransformation(modelWorldMatrix);
 
 	// Link the Model to the SceneNode.

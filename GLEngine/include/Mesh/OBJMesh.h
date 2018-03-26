@@ -10,9 +10,6 @@
 using std::unordered_map;
 using std::vector;
 
-using Math::Vector2;
-using Math::Vector3;
-
 namespace GLEngine
 {
 	typedef struct ObjTriangle
@@ -31,11 +28,11 @@ namespace GLEngine
 
 	typedef struct Vertex
 	{
-		Vector3* vertexCoords;
-		Vector2* textureCoords;
-		Vector3* normals;
+		GLEngineMath::Vector3* vertexCoords;
+		GLEngineMath::Vector2* textureCoords;
+		GLEngineMath::Vector3* normals;
 
-		Vertex(Vector3* vC, Vector2* tC, Vector3* n)
+		Vertex(GLEngineMath::Vector3* vC, GLEngineMath::Vector2* tC, GLEngineMath::Vector3* n)
 		{
 			vertexCoords = vC;
 			textureCoords = tC;
@@ -51,16 +48,16 @@ namespace GLEngine
 		~OBJMesh();
 
 		virtual vector<int> GetElementsList() const;
-		virtual vector<Vector3*> GetPositionsList() const;
-		virtual vector<Vector2*> GetTextureCoordinatesList() const;
-		virtual vector<Vector3*> GetNormalsList() const;
+		virtual vector<GLEngineMath::Vector3*> GetPositionsList() const;
+		virtual vector<GLEngineMath::Vector2*> GetTextureCoordinatesList() const;
+		virtual vector<GLEngineMath::Vector3*> GetNormalsList() const;
 
 		string GetObjectName() const { return _objectName; }
 		void SetObjectName(const string objectName) { _objectName = objectName; }
 
-		void AddVertexCoord(Vector3 vertexCoord) { _vertexCoords.push_back(vertexCoord); }
-		void AddTextureCoord(Vector2 textureCoord) { _textureCoords.push_back(textureCoord); }
-		void AddNormal(Vector3 normal) { _normals.push_back(normal); }
+		void AddVertexCoord(GLEngineMath::Vector3 vertexCoord) { _vertexCoords.push_back(vertexCoord); }
+		void AddTextureCoord(GLEngineMath::Vector2 textureCoord) { _textureCoords.push_back(textureCoord); }
+		void AddNormal(GLEngineMath::Vector3 normal) { _normals.push_back(normal); }
 
 		void AddVertexCoordTriangle(ObjTriangle triangle) { _vertexCoordTriangles.push_back(triangle); }
 		void AddTextureCoordTriangle(ObjTriangle triangle) { _textureCoordTriangles.push_back(triangle); }
@@ -72,9 +69,9 @@ namespace GLEngine
 
 	private:
 		string _objectName;
-		vector<Vector3> _vertexCoords;
-		vector<Vector2> _textureCoords;
-		vector<Vector3> _normals;
+		vector<GLEngineMath::Vector3> _vertexCoords;
+		vector<GLEngineMath::Vector2> _textureCoords;
+		vector<GLEngineMath::Vector3> _normals;
 
 		vector<ObjTriangle> _vertexCoordTriangles;
 		vector<ObjTriangle> _textureCoordTriangles;

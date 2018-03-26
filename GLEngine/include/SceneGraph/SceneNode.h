@@ -7,7 +7,6 @@
 #include <SceneGraph\SceneElementVisitor.h>
 
 using std::vector;
-using Math::Matrix4;
 
 namespace GLEngine
 {
@@ -18,10 +17,10 @@ namespace GLEngine
 		SceneNode();
 		~SceneNode();
 
-		const Matrix4& GetRelativeTransformation()const { return _relativeTransformation; }
-		void SetRelativeTransformation(const Matrix4& newMatrix);
+		const GLEngineMath::Matrix4& GetRelativeTransformation()const { return _relativeTransformation; }
+		void SetRelativeTransformation(const GLEngineMath::Matrix4& newMatrix);
 
-		const Matrix4& GetWorldTransformation();
+		const GLEngineMath::Matrix4& GetWorldTransformation();
 
 		vector<SceneElement*>* GetSubElements() { return &_subElements; }
 
@@ -42,8 +41,8 @@ namespace GLEngine
 		void RemoveChild(SceneElement* elementToRemove);
 
 	private:
-		Matrix4 _relativeTransformation;
-		Matrix4 _worldTransformation;
+		GLEngineMath::Matrix4 _relativeTransformation;
+		GLEngineMath::Matrix4 _worldTransformation;
 		bool _worldMatrixIsUpToDate;
 		vector<SceneElement*> _subElements;
 	};

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Math
+namespace GLEngineMath
 {
 	class Vector2
 	{

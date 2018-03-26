@@ -4,8 +4,8 @@
 #include <SceneGraph\SceneNode.h>
 #include <Math\Vector3.h>
 
-using Math::Matrix4;
-using Math::Vector3;
+using GLEngineMath::Matrix4;
+using GLEngineMath::Vector3;
 
 namespace GLEngine
 {

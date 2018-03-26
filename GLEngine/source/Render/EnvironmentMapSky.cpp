@@ -35,7 +35,7 @@ namespace GLEngine
 
 		shaderProgram->GetUniform("projection")->SetValue(currentCamera->GetProjection());
 		shaderProgram->GetUniform("view")->SetValue(currentCamera->GetView());
-		shaderProgram->GetUniform("world")->SetValue(Matrix4::CreateTranslation(currentCamera->GetPosition()));
+		shaderProgram->GetUniform("world")->SetValue(GLEngineMath::Matrix4::CreateTranslation(currentCamera->GetPosition()));
 
 		// Textures
 		graphicsResourceManager->GetTextureManager()->AssignTextureToUnit(_environmentMap);

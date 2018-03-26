@@ -7,9 +7,9 @@ namespace GLEngine
 {
 	OBJMesh::OBJMesh()
 	{
-		_vertexCoords = vector<Vector3>();
-		_normals = vector<Vector3>();
-		_textureCoords = vector<Vector2>();
+		_vertexCoords = vector<GLEngineMath::Vector3>();
+		_normals = vector<GLEngineMath::Vector3>();
+		_textureCoords = vector<GLEngineMath::Vector2>();
 
 		_vertexCoordTriangles = vector<ObjTriangle>();
 		_normalTriangles = vector<ObjTriangle>();
@@ -38,9 +38,9 @@ namespace GLEngine
 		return result;
 	}
 
-	vector<Vector3*> OBJMesh::GetPositionsList() const
+	vector<GLEngineMath::Vector3*> OBJMesh::GetPositionsList() const
 	{
-		vector<Vector3*> result = vector<Vector3*>();
+		vector<GLEngineMath::Vector3*> result = vector<GLEngineMath::Vector3*>();
 
 		for each (Vertex currentVertex in _finalVerticesList)
 		{
@@ -50,9 +50,9 @@ namespace GLEngine
 		return result;
 	}
 
-	vector<Vector2*> OBJMesh::GetTextureCoordinatesList() const
+	vector<GLEngineMath::Vector2*> OBJMesh::GetTextureCoordinatesList() const
 	{
-		vector<Vector2*> result = vector<Vector2*>();
+		vector<GLEngineMath::Vector2*> result = vector<GLEngineMath::Vector2*>();
 
 		for each (Vertex currentVertex in _finalVerticesList)
 		{
@@ -62,9 +62,9 @@ namespace GLEngine
 		return result;
 	}
 
-	vector<Vector3*> OBJMesh::GetNormalsList() const
+	vector<GLEngineMath::Vector3*> OBJMesh::GetNormalsList() const
 	{
-		vector<Vector3*> result = vector<Vector3*>();
+		vector<GLEngineMath::Vector3*> result = vector<GLEngineMath::Vector3*>();
 
 		for each (Vertex currentVertex in _finalVerticesList)
 		{
@@ -146,9 +146,9 @@ namespace GLEngine
 		else
 		{
 			// Determine the attributes of the new vertex.
-			Vector3* vertexCoordinates = &_vertexCoords[vertexId - 1];
-			Vector2* textureCoordinates = textureCoordsId != -1 ? &_textureCoords[textureCoordsId - 1] : NULL;
-			Vector3* normal = normalId != -1 ? &_normals[normalId - 1] : NULL;
+			GLEngineMath::Vector3* vertexCoordinates = &_vertexCoords[vertexId - 1];
+			GLEngineMath::Vector2* textureCoordinates = textureCoordsId != -1 ? &_textureCoords[textureCoordsId - 1] : NULL;
+			GLEngineMath::Vector3* normal = normalId != -1 ? &_normals[normalId - 1] : NULL;
 
 			// Add this vertex to the final vertex list.
 			_finalVerticesList.push_back( Vertex(vertexCoordinates, textureCoordinates, normal));

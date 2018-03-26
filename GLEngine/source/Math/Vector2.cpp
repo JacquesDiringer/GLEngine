@@ -3,7 +3,7 @@
 
 #include <math.h>
 
-namespace Math
+namespace GLEngineMath
 {
 	Vector2::Vector2()
 	{

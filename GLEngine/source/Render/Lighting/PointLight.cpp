@@ -4,12 +4,12 @@
 
 namespace GLEngine
 {
-	PointLight::PointLight(Vector3 power, float range)
+	PointLight::PointLight(GLEngineMath::Vector3 power, float range)
 		: _power(power), _range(range)
 	{
 	}
 
-	PointLight::PointLight(Vector3 power, float range, Texture2D* projectedTex)
+	PointLight::PointLight(GLEngineMath::Vector3 power, float range, Texture2D* projectedTex)
 		: _power(power), _range(range), _projectedTex(projectedTex)
 	{
 	}
@@ -52,7 +52,7 @@ namespace GLEngine
 			shaderProgram->Use();
 
 			// Set the pixel size, to be able to fetch in the G-Buffer
-			Vector2 pixelSize = Vector2(1 / (float)graphicsResourceManager->GetViewportWidth(), 1 / (float)graphicsResourceManager->GetViewportHeight());
+			GLEngineMath::Vector2 pixelSize = GLEngineMath::Vector2(1 / (float)graphicsResourceManager->GetViewportWidth(), 1 / (float)graphicsResourceManager->GetViewportHeight());
 			shaderProgram->GetUniform("pixelSize")->SetValue(pixelSize);
 
 			// Bind the G-Buffer textures.
@@ -66,12 +66,12 @@ namespace GLEngine
 			// Set the world, view, projection matrices.
 			shaderProgram->GetUniform("projection")->SetValue(sceneManager->GetCurrentCamera()->GetProjection());
 			shaderProgram->GetUniform("view")->SetValue(sceneManager->GetCurrentCamera()->GetView());
-			Matrix4 scaledWorldTransformation = parentNode->GetWorldTransformation() * Matrix4::CreateScale(_range);
+			GLEngineMath::Matrix4 scaledWorldTransformation = parentNode->GetWorldTransformation() * GLEngineMath::Matrix4::CreateScale(_range);
 			shaderProgram->GetUniform("world")->SetValue(scaledWorldTransformation);
 
 			if (_projectedTex != nullptr)
 			{
-				Matrix4 iWorld = parentNode->GetWorldTransformation();
+				GLEngineMath::Matrix4 iWorld = parentNode->GetWorldTransformation();
 				iWorld.InvertRT();
 				shaderProgram->GetUniform("iWorld")->SetValue(iWorld);
 			}

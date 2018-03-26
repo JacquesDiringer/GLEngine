@@ -48,10 +48,10 @@
 
 using namespace GLEngine;
 
-Vector3 _globalCameraPosition = Vector3(0, 0, 0);
-Vector3 _globalCameraForwardVector = Vector3(0, 0, 1);
-Vector3 _globalCameraSpeed = Vector3(0, 0, 0);
-Vector3 _globalTargetPosition = Vector3(0, 0, 0);
+GLEngineMath::Vector3 _globalCameraPosition = GLEngineMath::Vector3(0, 0, 0);
+GLEngineMath::Vector3 _globalCameraForwardVector = GLEngineMath::Vector3(0, 0, 1);
+GLEngineMath::Vector3 _globalCameraSpeed = GLEngineMath::Vector3(0, 0, 0);
+GLEngineMath::Vector3 _globalTargetPosition = GLEngineMath::Vector3(0, 0, 0);
 
 float _globalAcceleration = 0.01f;
 float _globalFriction = 0.1f;
@@ -61,8 +61,8 @@ float _theta = 1.7f, _phi = 0;
 
 bool _zPressed = false, _sPressed = false, _qPressed = false, _dPressed = false;
 
-Vector2 _previousCursorPosition = Vector2();
-Vector2 _cursorDifference = Vector2();
+GLEngineMath::Vector2 _previousCursorPosition = GLEngineMath::Vector2();
+GLEngineMath::Vector2 _cursorDifference = GLEngineMath::Vector2();
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
@@ -129,12 +129,12 @@ void MoveCamera()
 
 	if (_dPressed)
 	{
-		_globalCameraSpeed = _globalCameraSpeed - Vector3::Cross(Vector3(0, 1, 0), _globalCameraForwardVector) * _globalAcceleration;
+		_globalCameraSpeed = _globalCameraSpeed - GLEngineMath::Vector3::Cross(GLEngineMath::Vector3(0, 1, 0), _globalCameraForwardVector) * _globalAcceleration;
 	}
 
 	if (_qPressed)
 	{
-		_globalCameraSpeed = _globalCameraSpeed + Vector3::Cross(Vector3(0, 1, 0), _globalCameraForwardVector) * _globalAcceleration;
+		_globalCameraSpeed = _globalCameraSpeed + GLEngineMath::Vector3::Cross(GLEngineMath::Vector3(0, 1, 0), _globalCameraForwardVector) * _globalAcceleration;
 	}
 
 	// Add friction.
@@ -157,12 +157,12 @@ void GLErrorCallback(GLenum source,
 		type, severity, message);
 }
 
-Vector2 UpdateCursorPosition(GLFWwindow * window)
+GLEngineMath::Vector2 UpdateCursorPosition(GLFWwindow * window)
 {
 	double xpos, ypos;
 	glfwGetCursorPos(window, &xpos, &ypos);
 
-	_cursorDifference = Vector2(xpos - _previousCursorPosition.X(), ypos - _previousCursorPosition.Y());
+	_cursorDifference = GLEngineMath::Vector2(xpos - _previousCursorPosition.X(), ypos - _previousCursorPosition.Y());
 
 	//std::cout << "new location : x= " << _cursorDifference.X() << "; y= " << _cursorDifference.Y() << std::endl;
 
@@ -260,7 +260,7 @@ int main()
 	SceneNode* cameraMainNode = sceneManager->GetRootNode()->CreateChild();
 
 	SceneNode* cameraTargetNode = cameraMainNode->CreateChild();
-	cameraTargetNode->SetRelativeTransformation(Matrix4::CreateTranslation(Vector3(0, 0, 4)));
+	cameraTargetNode->SetRelativeTransformation(Matrix4::CreateTranslation(GLEngineMath::Vector3(0, 0, 4)));
 
 	SceneNode* cameraRotatingNode = cameraMainNode->CreateChild();
 	cameraRotatingNode->AddSubElement(camera);

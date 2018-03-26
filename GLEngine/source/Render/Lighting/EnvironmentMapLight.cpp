@@ -89,7 +89,7 @@ namespace GLEngine
 		convolutionShader->Use();
 
 		// Fetch vector in the envmap.
-		Vector3 currentFetchVector = Vector3();
+		GLEngineMath::Vector3 currentFetchVector = GLEngineMath::Vector3();
 
 		// Bind the screen VAO.
 		VertexArrayObject* screenVAO = graphicsResourceManager->GetScreenVAO();

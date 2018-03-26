@@ -15,7 +15,7 @@ namespace GLEngine
 		_bluxXTexture = new Texture2DRGBA16F(width, height, (void*)NULL);
 		_bluxYTexture = new Texture2DRGBA16F(width, height, (void*)NULL);
 
-		_pixelSize = Vector2(1 / (float)width, 1 / (float)height);
+		_pixelSize = GLEngineMath::Vector2(1 / (float)width, 1 / (float)height);
 
 		// The level of mip map is calculated by taking the deepest level of mip map (log2) minus N.
 		_mipLevelForGhosts = std::max(log2f(std::max(width, height)) - 7, 0.0f);
@@ -46,7 +46,7 @@ namespace GLEngine
 		ghostingShader->Use();
 
 		// Set the ouput texture size.
-		ghostingShader->GetUniform("texSize")->SetValue(Vector2(_downscaledGhostTexture->GetWidth(), _downscaledGhostTexture->GetHeight()));
+		ghostingShader->GetUniform("texSize")->SetValue(GLEngineMath::Vector2(_downscaledGhostTexture->GetWidth(), _downscaledGhostTexture->GetHeight()));
 			
 		// Set the input texture.
 		ghostingShader->GetUniform("inputTex")->SetValue(textureManager->AssignTextureToUnit(_inputTexture));
@@ -77,7 +77,7 @@ namespace GLEngine
 		blurXYShader->Use();
 
 		// Set the ouput texture size.
-		blurXYShader->GetUniform("texSize")->SetValue(Vector2(_bluxXTexture->GetWidth(), _bluxXTexture->GetHeight()));
+		blurXYShader->GetUniform("texSize")->SetValue(GLEngineMath::Vector2(_bluxXTexture->GetWidth(), _bluxXTexture->GetHeight()));
 
 		// Blur on the X axis pass.
 
@@ -88,7 +88,7 @@ namespace GLEngine
 		blurXYShader->GetUniform("uPixelSize")->SetValue(_pixelSize);
 
 		// Set the X samples axis.
-		blurXYShader->GetUniform("uSamplingAxis")->SetValue(Vector2(2,0));
+		blurXYShader->GetUniform("uSamplingAxis")->SetValue(GLEngineMath::Vector2(2,0));
 
 		// Set the samples count.
 		blurXYShader->GetUniform("uSamplesCount")->SetValue(_blurSamplesCount);
@@ -107,7 +107,7 @@ namespace GLEngine
 		blurXYShader->GetUniform("inputTex")->SetValue(textureManager->AssignTextureToUnit(_bluxXTexture));
 
 		// Set the X samples axis.
-		blurXYShader->GetUniform("uSamplingAxis")->SetValue(Vector2(0, 2));
+		blurXYShader->GetUniform("uSamplingAxis")->SetValue(GLEngineMath::Vector2(0, 2));
 
 		// Change the frame buffer to the one for the blur X.
 		textureManager->BindImageTexture(0, _bluxYTexture, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA16F);
@@ -125,7 +125,7 @@ namespace GLEngine
 		combinerShader->Use();
 
 		// Set the ouput texture size.
-		combinerShader->GetUniform("texSize")->SetValue(Vector2(_outputTexture->GetWidth(), _outputTexture->GetHeight()));
+		combinerShader->GetUniform("texSize")->SetValue(GLEngineMath::Vector2(_outputTexture->GetWidth(), _outputTexture->GetHeight()));
 
 		// Bind the output image.
 		textureManager->BindImageTexture(0, _outputTexture, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA16F);

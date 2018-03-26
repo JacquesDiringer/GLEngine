@@ -92,15 +92,15 @@ namespace GLEngine
 			vector<int> elements = vector<int>{	0, 1, 3,
 											1, 2, 3};
 
-			vector<Vector3*> positions = vector<Vector3*>{	new Vector3(-1, -1, -1),
-														new Vector3(1, -1, -1),
-														new Vector3(1, 1, -1), 
-														new Vector3(-1, 1, -1) };
+			vector<GLEngineMath::Vector3*> positions = vector<GLEngineMath::Vector3*>{	new GLEngineMath::Vector3(-1, -1, -1),
+														new GLEngineMath::Vector3(1, -1, -1),
+														new GLEngineMath::Vector3(1, 1, -1), 
+														new GLEngineMath::Vector3(-1, 1, -1) };
 
-			vector<Vector2*> textureCoordinates = vector<Vector2*>{	new Vector2(0, 0),
-																new Vector2(1, 0),
-																new Vector2(1, 1),
-																new Vector2(0, 1) };
+			vector<GLEngineMath::Vector2*> textureCoordinates = vector<GLEngineMath::Vector2*>{	new GLEngineMath::Vector2(0, 0),
+																new GLEngineMath::Vector2(1, 0),
+																new GLEngineMath::Vector2(1, 1),
+																new GLEngineMath::Vector2(0, 1) };
 
 			_screenVAO = new VertexArrayObject(elements, positions, textureCoordinates);
 		}

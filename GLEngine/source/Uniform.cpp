@@ -63,7 +63,7 @@ namespace GLEngine
 		}
 	}
 
-	void Uniform::SetValue(const Vector2& vector)
+	void Uniform::SetValue(const GLEngineMath::Vector2& vector)
 	{
 		if (_type == GL_FLOAT_VEC2)
 		{
@@ -75,7 +75,7 @@ namespace GLEngine
 		}
 	}
 
-	void Uniform::SetValue(const Vector3& vector)
+	void Uniform::SetValue(const GLEngineMath::Vector3& vector)
 	{
 		if (_type == GL_FLOAT_VEC3)
 		{
@@ -87,7 +87,7 @@ namespace GLEngine
 		}
 	}
 
-	void Uniform::SetValue(const Matrix4& matrix)
+	void Uniform::SetValue(const GLEngineMath::Matrix4& matrix)
 	{
 		if (_type == GL_FLOAT_MAT4)
 		{

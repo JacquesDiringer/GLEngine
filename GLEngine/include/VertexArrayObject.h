@@ -10,19 +10,17 @@
 #include <Math\Vector3.h>
 
 using std::vector;
-using Math::Vector2;
-using Math::Vector3;
 
 namespace GLEngine
 {
 	class VertexArrayObject
 	{
 	public:
-		VertexArrayObject(vector<int> elements, vector<Vector3*> positions, vector<Vector3*> normals);
-		VertexArrayObject(vector<int> elements, vector<Vector3*> positions, vector<Vector3*> normals, vector<Vector3*> tangents, vector<Vector3*> biTangents);
-		VertexArrayObject(vector<int> elements, vector<Vector3*> positions, vector<Vector2*> uvCoordinates);
-		VertexArrayObject(vector<int> elements, vector<Vector3*> positions, vector<Vector3*> normals, vector<Vector2*> uvCoordinates);
-		VertexArrayObject(vector<int> elements, vector<Vector3*> positions, vector<Vector3*> normals, vector<Vector3*> tangents, vector<Vector3*> biTangents, vector<Vector2*> uvCoordinates);
+		VertexArrayObject(vector<int> elements, vector<GLEngineMath::Vector3*> positions, vector<GLEngineMath::Vector3*> normals);
+		VertexArrayObject(vector<int> elements, vector<GLEngineMath::Vector3*> positions, vector<GLEngineMath::Vector3*> normals, vector<GLEngineMath::Vector3*> tangents, vector<GLEngineMath::Vector3*> biTangents);
+		VertexArrayObject(vector<int> elements, vector<GLEngineMath::Vector3*> positions, vector<GLEngineMath::Vector2*> uvCoordinates);
+		VertexArrayObject(vector<int> elements, vector<GLEngineMath::Vector3*> positions, vector<GLEngineMath::Vector3*> normals, vector<GLEngineMath::Vector2*> uvCoordinates);
+		VertexArrayObject(vector<int> elements, vector<GLEngineMath::Vector3*> positions, vector<GLEngineMath::Vector3*> normals, vector<GLEngineMath::Vector3*> tangents, vector<GLEngineMath::Vector3*> biTangents, vector<GLEngineMath::Vector2*> uvCoordinates);
 		~VertexArrayObject();
 
 		int GetElementsCount() const { return _elementsCount; }

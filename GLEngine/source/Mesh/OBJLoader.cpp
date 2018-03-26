@@ -43,15 +43,15 @@ namespace GLEngine
 					string vertexType(vertexTypeChar);
 					if (vertexType == "v")
 					{
-						objModel->AddVertexCoord(Vector3(x, y, z));
+						objModel->AddVertexCoord(GLEngineMath::Vector3(x, y, z));
 					}
 					else if (vertexType == "vn")
 					{
-						objModel->AddNormal(Vector3(x, y, z));
+						objModel->AddNormal(GLEngineMath::Vector3(x, y, z));
 					}
 					else if (vertexType == "vt")
 					{
-						objModel->AddTextureCoord(Vector2(x, y));
+						objModel->AddTextureCoord(GLEngineMath::Vector2(x, y));
 					}
 				}
 				else if (currentLine[0] == 'f')
