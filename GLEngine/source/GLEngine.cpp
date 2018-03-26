@@ -3,6 +3,8 @@
 
 #include <stdafx.h>
 
+#include <thread>
+#include <chrono>
 #include <iostream>
 #include <string>
 #define _USE_MATH_DEFINES
@@ -33,17 +35,21 @@
 #include <Render\Lighting\PointLight.h>
 #include <Render\PostProcesses\GammaCorrectionPostProcess.h>
 #include <Render\PostProcesses\LensPostProcess.h>
-#include <Math\Vector2.h>
-
-// Maths
-#include <Math\Matrix4.h>
 
 // Models
 #include <Mesh\OBJLoader.h>
 
 
 // Generator
+#include <GLEngineObjectInstanciater.h>
+#include <SceneGraphManager.h>
+#include <LevelFactory.h>
+#include <DependenceTreeDataModel.h>
 
+
+// Maths
+#include <Math\Matrix4.h>
+#include <Math\Vector2.h>
 
 
 using namespace GLEngine;
@@ -172,6 +178,67 @@ GLEngineMath::Vector2 UpdateCursorPosition(GLFWwindow * window)
 	return _cursorDifference;
 }
 
+void RefreshGenerator(Generator::SceneGraphManager* sceneManager, Math::Vector3 cameraPos)
+{
+	sceneManager->Update(cameraPos, Math::Vector3(0, 0, 0));
+}
+
+
+void generatorUpdate(GLEngineObjectInstanciater& instanciater,
+					Generator::SceneGraphManager& sceneManager,
+					std::thread& proceduralGeneratorThread,
+					bool& threadInitialized,
+					float& timeSinceLastUpdate,
+					const GLEngineMath::Vector3& cameraPosition)
+{
+	// Flush refresh
+	//if (timeSinceLastUpdate > 0.5 && _ogreInstanciater->IsFlushCompleted())
+	{
+		Math::Vector3 cameraPos = Math::Vector3(cameraPosition.X(), cameraPosition.Y(), cameraPosition.Z());
+
+		if (threadInitialized)
+		{
+			proceduralGeneratorThread.join();
+		}
+
+		std::chrono::high_resolution_clock::time_point tpSceneManager0 = std::chrono::high_resolution_clock::now();
+
+		sceneManager.Flush();
+
+		/*high_resolution_clock::time_point tpSceneManager1 = high_resolution_clock::now();
+		auto sceneManagerDuration = duration_cast<microseconds>(tpSceneManager1 - tpSceneManager0).count();*/
+		//std::cout << "Scene manager " << sceneManagerDuration << std::endl;
+
+		proceduralGeneratorThread = std::thread(RefreshGenerator, &sceneManager, cameraPos);
+
+		threadInitialized = true;
+		timeSinceLastUpdate = 0;
+	}
+
+	//std::chrono::high_resolution_clock::time_point tpOgreInstanciater0 = std::chrono::high_resolution_clock::now();
+
+	instanciater.Flush(30000000, 30000000);
+
+	/*high_resolution_clock::time_point tpOgreInstanciater1 = high_resolution_clock::now();
+	auto ogreInstanciaterDuration = duration_cast<microseconds>(tpOgreInstanciater1 - tpOgreInstanciater0).count();
+	std::cout << "Instanciater : " << ogreInstanciaterDuration << std::endl;*/
+}
+
+void InitializeFileReadingTestScene(Generator::SceneGraphManager& sceneManager)
+{
+	DataModel::DependenceTreeDataModel dependenceTree = DataModel::DependenceTreeDataModel();
+	Generator::LevelFactory* rootFactory = dependenceTree.Read("C:/Utils/GeneratorScenes/demo0/main.txt");
+	//Generator::LevelFactory* rootFactory = dependenceTree.Read("C:/Utils/GeneratorScenes/test0/mainScene.txt");
+	//Generator::LevelFactory* rootFactory = dependenceTree.Read("simpleScene.txt");
+
+	//SimpleObjectFactory* testCubeA = new SimpleObjectFactory("A_Brick.mesh", "1d_debug.png", 0, NULL);
+
+	shared_ptr<Generator::SimpleObjectDisplayable> object0 = make_shared<Generator::SimpleObjectDisplayable>("A_Brick.mesh", "debug_texture.png");
+	shared_ptr<Generator::Item> item0 = std::make_shared<Generator::Item>(Math::Matrix4(Math::Vector3(0, 0, 0)), shared_ptr<Generator::Item>(), 100000.0f, object0, rootFactory);
+	item0->SetId(10);
+	sceneManager.QueueAddItem(item0);
+}
+
 int main()
 {
 	// GLFW initialization
@@ -260,7 +327,7 @@ int main()
 	SceneNode* cameraMainNode = sceneManager->GetRootNode()->CreateChild();
 
 	SceneNode* cameraTargetNode = cameraMainNode->CreateChild();
-	cameraTargetNode->SetRelativeTransformation(Matrix4::CreateTranslation(GLEngineMath::Vector3(0, 0, 4)));
+	cameraTargetNode->SetRelativeTransformation(GLEngineMath::Matrix4::CreateTranslation(GLEngineMath::Vector3(0, 0, 4)));
 
 	SceneNode* cameraRotatingNode = cameraMainNode->CreateChild();
 	cameraRotatingNode->AddSubElement(camera);
@@ -271,6 +338,17 @@ int main()
 	EnvironmentMapSky* envmapTest = new EnvironmentMapSky(texEnvmapTest);
 
 	sceneManager->GetRootNode()->AddSubElement(envmapTest);
+
+
+	// Environment generator initialization.
+	GLEngineObjectInstanciater glEngineInstanciater = GLEngineObjectInstanciater(sceneManager, textureManager);
+	Generator::SceneGraphManager generatorSceneManager = Generator::SceneGraphManager(&glEngineInstanciater);
+	InitializeFileReadingTestScene(generatorSceneManager);
+
+	// Variable necessary to the generator update.
+	std::thread proceduralGeneratorThread;
+	bool threadIntialized = false;
+	float timeSinceLastUpdate = 0.0f;
 
 	// Game loop
 	int frameCount = 0;
@@ -286,8 +364,16 @@ int main()
 		MoveCamera();
 
 		// Update camera matrix.
-		cameraMainNode->SetRelativeTransformation(Matrix4::CreateTranslation(_globalCameraPosition));
-		cameraTargetNode->SetRelativeTransformation(Matrix4::CreateTranslation(_globalCameraForwardVector));
+		cameraMainNode->SetRelativeTransformation(GLEngineMath::Matrix4::CreateTranslation(_globalCameraPosition));
+		cameraTargetNode->SetRelativeTransformation(GLEngineMath::Matrix4::CreateTranslation(_globalCameraForwardVector));
+
+		// Use the environment generator to instanciate new objects.
+		generatorUpdate(glEngineInstanciater,
+						generatorSceneManager,
+						proceduralGeneratorThread,
+						threadIntialized,
+						timeSinceLastUpdate,
+						_globalCameraPosition);
 
 		//Scene graph update.
 		sceneManager->Update();

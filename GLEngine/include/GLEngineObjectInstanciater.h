@@ -12,7 +12,8 @@
 
 using std::unordered_map;
 
-class GLEngineObjectInstanciater : Generator::Instanciater
+class GLEngineObjectInstanciater
+	: public Generator::Instanciater
 {
 public:
 	GLEngineObjectInstanciater(GLEngine::SceneManager* sceneManager, GLEngine::TextureManager* textureManager);
