@@ -22,8 +22,11 @@ namespace GLEngine
 		auto unusedBufferIterator = _unusedArrayBuffers.begin();
 		if (_unusedArrayBuffers.size() > 0)
 		{
-			while (requestedSize > (*unusedBufferIterator).first &&
-				(*unusedBufferIterator).second.size() > 0) {
+			while (	unusedBufferIterator != _unusedArrayBuffers.end() &&
+					requestedSize > (*unusedBufferIterator).first &&
+					(*unusedBufferIterator).second.size() > 0)
+			{
+				++unusedBufferIterator;
 			}
 		}
 
