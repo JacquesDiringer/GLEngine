@@ -20,7 +20,7 @@ public:
 	~GLEngineObjectInstanciater();
 
 	// Add the objects to display to a pending buffer.
-	virtual void UpdateDisplayables(vector<shared_ptr<Generator::Displayable>> toAdd, vector<shared_ptr<Generator::Displayable>> toRemove);
+	virtual void UpdateDisplayables(const vector<shared_ptr<Generator::Displayable>>& toAdd, const vector<shared_ptr<Generator::Displayable>>& toRemove);
 
 	// Uses the pending buffer to add and remove objects from the scene.
 	void Flush(int addCount, int removeCount);

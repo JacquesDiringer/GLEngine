@@ -65,7 +65,7 @@ float _sphereRadius = 8.0f;
 float _thetaSpeed = 0, _phiSpeed = 0;
 float _theta = 1.7f, _phi = 0;
 
-bool _zPressed = false, _sPressed = false, _qPressed = false, _dPressed = false;
+bool _zPressed = false, _sPressed = false, _qPressed = false, _dPressed = false, _majPressed = false;
 
 GLEngineMath::Vector2 _previousCursorPosition = GLEngineMath::Vector2();
 GLEngineMath::Vector2 _cursorDifference = GLEngineMath::Vector2();
@@ -93,6 +93,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	{
 		_qPressed = true;
 	}
+	if (key == GLFW_KEY_LEFT_SHIFT && action == GLFW_PRESS)
+	{
+		_majPressed = true;
+	}
 
 	if (key == GLFW_KEY_W && action == GLFW_RELEASE)
 	{
@@ -110,6 +114,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	{
 		_qPressed = false;
 	}
+	if (key == GLFW_KEY_LEFT_SHIFT && action == GLFW_RELEASE)
+	{
+		_majPressed = false;
+	}
 }
 
 void MoveCamera()
@@ -122,25 +130,32 @@ void MoveCamera()
 	_globalCameraForwardVector.Y(_sphereRadius * sinf(_theta));
 	_globalCameraForwardVector.Z(_sphereRadius * cosf(_theta) * sinf(_phi));
 
+	// Acceleration multiplier.
+	float accelerationMultiplier = 1.0f;
+	if (_majPressed)
+	{
+		accelerationMultiplier = 100.0f;
+	}
+
 	// Keyboard handling for first person movements.
 	if (_zPressed)
 	{
-		_globalCameraSpeed = _globalCameraSpeed + _globalCameraForwardVector * _globalAcceleration;
+		_globalCameraSpeed = _globalCameraSpeed + _globalCameraForwardVector * _globalAcceleration * accelerationMultiplier;
 	}
 
 	if (_sPressed)
 	{
-		_globalCameraSpeed = _globalCameraSpeed - _globalCameraForwardVector * _globalAcceleration;
+		_globalCameraSpeed = _globalCameraSpeed - _globalCameraForwardVector * _globalAcceleration * accelerationMultiplier;
 	}
 
 	if (_dPressed)
 	{
-		_globalCameraSpeed = _globalCameraSpeed - GLEngineMath::Vector3::Cross(GLEngineMath::Vector3(0, 1, 0), _globalCameraForwardVector) * _globalAcceleration;
+		_globalCameraSpeed = _globalCameraSpeed - GLEngineMath::Vector3::Cross(GLEngineMath::Vector3(0, 1, 0), _globalCameraForwardVector) * _globalAcceleration * accelerationMultiplier;
 	}
 
 	if (_qPressed)
 	{
-		_globalCameraSpeed = _globalCameraSpeed + GLEngineMath::Vector3::Cross(GLEngineMath::Vector3(0, 1, 0), _globalCameraForwardVector) * _globalAcceleration;
+		_globalCameraSpeed = _globalCameraSpeed + GLEngineMath::Vector3::Cross(GLEngineMath::Vector3(0, 1, 0), _globalCameraForwardVector) * _globalAcceleration * accelerationMultiplier;
 	}
 
 	// Add friction.
@@ -227,13 +242,14 @@ void generatorUpdate(GLEngineObjectInstanciater& instanciater,
 void InitializeFileReadingTestScene(Generator::SceneGraphManager& sceneManager)
 {
 	DataModel::DependenceTreeDataModel dependenceTree = DataModel::DependenceTreeDataModel();
-	Generator::LevelFactory* rootFactory = dependenceTree.Read("C:/Utils/GeneratorScenes/demo0/main.txt");
+	Generator::LevelFactory* rootFactory = dependenceTree.Read("C:/Utils/GeneratorScenes/demo0_GLEngine/main.txt");
+	//Generator::LevelFactory* rootFactory = dependenceTree.Read("C:/Utils/GeneratorScenes/test0/simpleScene.txt");
 	//Generator::LevelFactory* rootFactory = dependenceTree.Read("C:/Utils/GeneratorScenes/test0/mainScene.txt");
 	//Generator::LevelFactory* rootFactory = dependenceTree.Read("simpleScene.txt");
 
 	//SimpleObjectFactory* testCubeA = new SimpleObjectFactory("A_Brick.mesh", "1d_debug.png", 0, NULL);
 
-	shared_ptr<Generator::SimpleObjectDisplayable> object0 = make_shared<Generator::SimpleObjectDisplayable>("A_Brick.mesh", "debug_texture.png");
+	shared_ptr<Generator::SimpleObjectDisplayable> object0 = make_shared<Generator::SimpleObjectDisplayable>("C:/Utils/GLEngineMedia/GeneratorMedia/ABrick.obj", "C:/Utils/OgreMedia/textures/debug_texture.png");
 	shared_ptr<Generator::Item> item0 = std::make_shared<Generator::Item>(Math::Matrix4(Math::Vector3(0, 0, 0)), shared_ptr<Generator::Item>(), 100000.0f, object0, rootFactory);
 	item0->SetId(10);
 	sceneManager.QueueAddItem(item0);
@@ -302,7 +318,7 @@ int main()
 	TextureManager* textureManager = graphicsResourceManager->GetTextureManager();
 
 	// Camera
-	PerspectiveCamera* camera = new PerspectiveCamera(0.1f, 800.0f, 20.0f, (float)height / (float)width);
+	PerspectiveCamera* camera = new PerspectiveCamera(0.1f, 10000.0f, 20.0f, (float)height / (float)width);
 	
 	// Post processes.
 	//camera->AddPostProcess(new LensPostProcess(width, height, graphicsResourceManager->GetTextureManager()));

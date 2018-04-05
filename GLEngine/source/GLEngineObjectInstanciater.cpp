@@ -7,6 +7,8 @@
 #include <iostream>
 #include <utility>
 
+#include <intrin.h>
+
 GLEngineObjectInstanciater::GLEngineObjectInstanciater(GLEngine::SceneManager* sceneManager, GLEngine::TextureManager* textureManager)
 	: _sceneManager(sceneManager), _textureManager(textureManager)
 {
@@ -20,7 +22,7 @@ GLEngineObjectInstanciater::~GLEngineObjectInstanciater()
 	delete _meshLoader;
 }
 
-void GLEngineObjectInstanciater::UpdateDisplayables(vector<shared_ptr<Generator::Displayable>> toAdd, vector<shared_ptr<Generator::Displayable>> toRemove)
+void GLEngineObjectInstanciater::UpdateDisplayables(const vector<shared_ptr<Generator::Displayable>>& toAdd, const vector<shared_ptr<Generator::Displayable>>& toRemove)
 {
 	int iteratorId = 0;
 	for each (shared_ptr<Generator::Displayable> currentDisplayable in toAdd)
@@ -92,7 +94,14 @@ bool GLEngineObjectInstanciater::AddDisplayable(shared_ptr<Generator::Displayabl
 
 	if (simpleObject != nullptr)
 	{
-		return AddSimpleObjectDisplayable(simpleObject);
+		try
+		{
+			return AddSimpleObjectDisplayable(simpleObject);
+		}
+		catch (const std::exception&)
+		{
+			__debugbreak();
+		}
 	}
 	return false;
 }
@@ -118,8 +127,12 @@ bool GLEngineObjectInstanciater::RemoveDisplayable(shared_ptr<Generator::Display
 	return RemoveSimpleObjectDisplayable(findIterator);
 }
 
+static int _addCounter = 0;
+
 bool GLEngineObjectInstanciater::AddSimpleObjectDisplayable(shared_ptr<Generator::SimpleObjectDisplayable> newSimpleObjectDisplayable)
 {
+	++_addCounter;
+
 	string modelPath = newSimpleObjectDisplayable->GetModelName();
 	string diffuseTexturePath = newSimpleObjectDisplayable->GetTextureName();
 
@@ -141,7 +154,10 @@ bool GLEngineObjectInstanciater::AddSimpleObjectDisplayable(shared_ptr<Generator
 	// Remember the associated ogre node, to be able to remove it later
 	_sceneDisplayablesNodes.insert(std::pair<shared_ptr<Generator::Displayable>, GLEngine::SceneNode*>(newSimpleObjectDisplayable, lNode));
 
-	//std::cout << "Added : " << newSimpleObjectDisplayable->GetTextureName() << std::endl;
+	if (_addCounter % 100 == 0)
+	{
+		std::cout << "Added " << _addCounter <<" : " << newSimpleObjectDisplayable->GetModelName() << std::endl;
+	}
 
 	return true;
 }
@@ -173,11 +189,20 @@ GLEngine::Model * GLEngineObjectInstanciater::GetModel(const string modelPath, c
 	{
 		// Load the mesh of the future Model.
 		GLEngine::Mesh* loadedMesh = _meshLoader->LoadModel(modelPath);
+		loadedMesh->InitializeVao();
 
 		// Load the textures of the future Model.
-		GLEngine::Texture2D* diffuseTexture = _textureManager->GetTexture(diffuseTexturePath);
-		GLEngine::Texture2D* specularTexture = _textureManager->GetTexture("genericSpecular");
-		GLEngine::Texture2D* roughnessTexture = _textureManager->GetTexture("genericRoughness");
+		GLEngine::Texture2D* diffuseTexture;
+		try
+		{
+			diffuseTexture = _textureManager->GetTexture(diffuseTexturePath);
+		}
+		catch (const std::exception&)
+		{
+			__debugbreak();
+		}
+		GLEngine::Texture2D* specularTexture = _textureManager->GetTexture("C:/Utils/GLEngineMedia/genericSpecular.jpg");
+		GLEngine::Texture2D* roughnessTexture = _textureManager->GetTexture("C:/Utils/GLEngineMedia/genericRoughness.jpg");
 
 		// Create the new Model.
 		GLEngine::Model* newModel = new GLEngine::Model(loadedMesh, diffuseTexture, specularTexture, roughnessTexture);
