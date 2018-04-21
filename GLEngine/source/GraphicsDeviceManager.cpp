@@ -8,13 +8,13 @@ namespace GLEngine
 	{
 		_booleanStates = unordered_map<GLenum, GLboolean>();
 
-		glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_COUNT, 0, &_maxWorkGroupsCount_x);
-		glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_COUNT, 1, &_maxWorkGroupsCount_y);
-		glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_COUNT, 2, &_maxWorkGroupsCount_z);
+		glGetIntegeri_v((GLenum)GL_MAX_COMPUTE_WORK_GROUP_COUNT, (GLuint)0, &_maxWorkGroupsCount_x);
+		glGetIntegeri_v((GLenum)GL_MAX_COMPUTE_WORK_GROUP_COUNT, (GLuint)1, &_maxWorkGroupsCount_y);
+		glGetIntegeri_v((GLenum)GL_MAX_COMPUTE_WORK_GROUP_COUNT, (GLuint)2, &_maxWorkGroupsCount_z);
 
-		glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_SIZE, 0, &_maxWorkGroupsSize_x);
-		glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_SIZE, 1, &_maxWorkGroupsSize_y);
-		glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_SIZE, 2, &_maxWorkGroupsSize_z);
+		glGetIntegeri_v((GLenum)GL_MAX_COMPUTE_WORK_GROUP_SIZE, (GLuint)0, &_maxWorkGroupsSize_x);
+		glGetIntegeri_v((GLenum)GL_MAX_COMPUTE_WORK_GROUP_SIZE, (GLuint)1, &_maxWorkGroupsSize_y);
+		glGetIntegeri_v((GLenum)GL_MAX_COMPUTE_WORK_GROUP_SIZE, (GLuint)2, &_maxWorkGroupsSize_z);
 	}
 
 

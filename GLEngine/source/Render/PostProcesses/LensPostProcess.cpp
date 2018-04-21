@@ -40,7 +40,7 @@ namespace GLEngine
 		// Ghosts pass.
 
 		// Get the ghost shader.
-		ComputeShaderProgram* ghostingShader = graphicsResourceManager->GetComputeShader("..\\GLEngine\\resource\\Shaders\\ImageProcessing\\Ghosting");
+		ComputeShaderProgram* ghostingShader = graphicsResourceManager->GetComputeShader("C:\\Utils\\GLEngine\\resource\\Shaders\\ImageProcessing\\Ghosting");
 		
 		// Use it's program so that we can set uniforms.
 		ghostingShader->Use();
@@ -52,7 +52,7 @@ namespace GLEngine
 		ghostingShader->GetUniform("inputTex")->SetValue(textureManager->AssignTextureToUnit(_inputTexture));
 
 		// Load/find and set the lens flare chromatic aberration texture.
-		Texture2D* lensChromaticAberrationTex = textureManager->GetTexture("..\\GLEngine\\resource\\Textures\\lensChromaticAberration.png");
+		Texture2D* lensChromaticAberrationTex = textureManager->GetTexture("C:\\Utils\\GLEngine\\resource\\Textures\\lensChromaticAberration.png");
 		ghostingShader->GetUniform("lensChromaticAberrationTex")->SetValue(textureManager->AssignTextureToUnit(lensChromaticAberrationTex));
 
 		// Set the mip level for ghosts fetching.
@@ -71,7 +71,7 @@ namespace GLEngine
 		// Bi axial blur X passes.
 
 		// Get the blur shader.
-		ComputeShaderProgram* blurXYShader = graphicsResourceManager->GetComputeShader("..\\GLEngine\\resource\\Shaders\\ImageProcessing\\BlurXY");
+		ComputeShaderProgram* blurXYShader = graphicsResourceManager->GetComputeShader("C:\\Utils\\GLEngine\\resource\\Shaders\\ImageProcessing\\BlurXY");
 
 		// Use it's program so that we can set uniforms.
 		blurXYShader->Use();
@@ -119,7 +119,7 @@ namespace GLEngine
 		// Combination pass with the actual rendering and the lens effects.
 
 		// Get the combiner shader.
-		ComputeShaderProgram* combinerShader = graphicsResourceManager->GetComputeShader("..\\GLEngine\\resource\\Shaders\\ImageProcessing\\Combiner");
+		ComputeShaderProgram* combinerShader = graphicsResourceManager->GetComputeShader("C:\\Utils\\GLEngine\\resource\\Shaders\\ImageProcessing\\Combiner");
 
 		// Use it's program so that we can set uniforms.
 		combinerShader->Use();

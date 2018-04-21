@@ -37,37 +37,37 @@ namespace GLEngine
 
 	ShaderProgram * GraphicsResourceManager::GetModelPBRShader()
 	{
-		return GetShader("..\\GLEngine\\resource\\Shaders\\DeferredShading\\GBuffer\\VertexShader.vert", "..\\GLEngine\\resource\\Shaders\\DeferredShading\\GBuffer\\ModelShader.frag");
+		return GetShader("C:\\Utils\\GLEngine\\resource\\Shaders\\DeferredShading\\GBuffer\\VertexShader.vert", "C:\\Utils\\GLEngine\\resource\\Shaders\\DeferredShading\\GBuffer\\ModelShader.frag");
 	}
 
 	ShaderProgram * GraphicsResourceManager::GetModelPBRInstancedShader()
 	{
-		return GetShader("..\\GLEngine\\resource\\Shaders\\DeferredShading\\GBuffer\\InstancedVertexShader.vert", "..\\GLEngine\\resource\\Shaders\\DeferredShading\\GBuffer\\ModelShader.frag");
+		return GetShader("C:\\Utils\\GLEngine\\resource\\Shaders\\DeferredShading\\GBuffer\\InstancedVertexShader.vert", "C:\\Utils\\GLEngine\\resource\\Shaders\\DeferredShading\\GBuffer\\ModelShader.frag");
 	}
 
 	ShaderProgram * GraphicsResourceManager::GetEnvmapShader()
 	{
-		return GetShader("..\\GLEngine\\resource\\Shaders\\DeferredShading\\GBuffer\\VertexShader.vert", "..\\GLEngine\\resource\\Shaders\\DeferredShading\\GBuffer\\EnvironmentMapFragmentShader.frag");
+		return GetShader("C:\\Utils\\GLEngine\\resource\\Shaders\\DeferredShading\\GBuffer\\VertexShader.vert", "C:\\Utils\\GLEngine\\resource\\Shaders\\DeferredShading\\GBuffer\\EnvironmentMapFragmentShader.frag");
 	}
 
 	ShaderProgram * GraphicsResourceManager::GetEnvmapLightShader()
 	{
-		return GetShader("..\\GLEngine\\resource\\Shaders\\Common\\ScreenSpace.vert", "..\\GLEngine\\resource\\Shaders\\DeferredShading\\Lighting\\EnvironmentMapLight.frag");
+		return GetShader("C:\\Utils\\GLEngine\\resource\\Shaders\\Common\\ScreenSpace.vert", "C:\\Utils\\GLEngine\\resource\\Shaders\\DeferredShading\\Lighting\\EnvironmentMapLight.frag");
 	}
 
 	ShaderProgram * GraphicsResourceManager::GetPbrCombinerShader()
 	{
-		return GetShader("..\\GLEngine\\resource\\Shaders\\Common\\ScreenSpace.vert", "..\\GLEngine\\resource\\Shaders\\DeferredShading\\Combiner\\PBRCombiner.frag");
+		return GetShader("C:\\Utils\\GLEngine\\resource\\Shaders\\Common\\ScreenSpace.vert", "C:\\Utils\\GLEngine\\resource\\Shaders\\DeferredShading\\Combiner\\PBRCombiner.frag");
 	}
 
 	ShaderProgram * GraphicsResourceManager::GetEnvmapConvolutionShader()
 	{
-		return GetShader("..\\GLEngine\\resource\\Shaders\\Common\\ScreenSpace.vert", "..\\GLEngine\\resource\\Shaders\\ImageProcessing\\EnvironmentMapConvolution.frag");
+		return GetShader("C:\\Utils\\GLEngine\\resource\\Shaders\\Common\\ScreenSpace.vert", "C:\\Utils\\GLEngine\\resource\\Shaders\\ImageProcessing\\EnvironmentMapConvolution.frag");
 	}
 
 	ShaderProgram * GraphicsResourceManager::GetTextureDrawShader()
 	{
-		return GetShader("..\\GLEngine\\resource\\Shaders\\Common\\ScreenSpace.vert", "..\\GLEngine\\resource\\Shaders\\Common\\DrawTexture.frag");
+		return GetShader("C:\\Utils\\GLEngine\\resource\\Shaders\\Common\\ScreenSpace.vert", "C:\\Utils\\GLEngine\\resource\\Shaders\\Common\\DrawTexture.frag");
 	}
 
 	ComputeShaderProgram* GraphicsResourceManager::GetComputeShader(string computeShaderPath)
@@ -112,7 +112,7 @@ namespace GLEngine
 	{
 		if (_sphereVAO == nullptr)
 		{
-			OBJMesh* sphereMesh = (OBJMesh*)_objLoader->LoadModel("..\\GLEngine\\resource\\Meshes\\sphere_UVs.obj");
+			OBJMesh* sphereMesh = (OBJMesh*)_objLoader->LoadModel("C:\\Utils\\GLEngine\\resource\\Meshes\\sphere_UVs.obj");
 			sphereMesh->InitializeVao();
 
 			_sphereVAO = sphereMesh->GetVao();

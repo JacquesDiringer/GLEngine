@@ -9,11 +9,17 @@
 
 using std::vector;
 
+#ifdef GLENGINE_EXPORTS
+#define GLENGINE_API __declspec(dllexport)
+#else
+#define GLENGINE_API __declspec(dllimport)
+#endif
+
 namespace GLEngine
 {
 	class PostProcess;
 
-	class PerspectiveCamera
+	class GLENGINE_API PerspectiveCamera
 		: public SceneElement
 	{
 	public:

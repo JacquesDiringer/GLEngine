@@ -6,9 +6,15 @@
 
 using std::string;
 
+#ifdef GLENGINE_EXPORTS
+#define GLENGINE_API __declspec(dllexport)
+#else
+#define GLENGINE_API __declspec(dllimport)
+#endif
+
 namespace GLEngine
 {
-	class MeshLoader
+	class GLENGINE_API MeshLoader
 	{
 	public:
 		MeshLoader();

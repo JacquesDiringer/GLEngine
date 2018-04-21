@@ -11,9 +11,15 @@
 
 using std::string;
 
+#ifdef GLENGINE_EXPORTS
+#define GLENGINE_API __declspec(dllexport)
+#else
+#define GLENGINE_API __declspec(dllimport)
+#endif
+
 namespace GLEngine
 {
-	class Texture2D :
+	class GLENGINE_API Texture2D :
 		public Texture
 	{
 	public:

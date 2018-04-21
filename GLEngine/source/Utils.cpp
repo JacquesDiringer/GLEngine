@@ -30,6 +30,7 @@ namespace GLEngine
 		{
 			throw new std::invalid_argument("Could not find file.");
 		}
+		
 		return fileSource;
 	}
 

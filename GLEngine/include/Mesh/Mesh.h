@@ -10,9 +10,15 @@
 using std::string;
 using std::vector;
 
+#ifdef GLENGINE_EXPORTS
+#define GLENGINE_API __declspec(dllexport)
+#else
+#define GLENGINE_API __declspec(dllimport)
+#endif
+
 namespace GLEngine
 {
-	class Mesh
+	class GLENGINE_API Mesh
 	{
 	public:
 		Mesh();

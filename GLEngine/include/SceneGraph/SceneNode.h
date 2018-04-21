@@ -8,9 +8,15 @@
 
 using std::vector;
 
+#ifdef GLENGINE_EXPORTS
+#define GLENGINE_API __declspec(dllexport)
+#else
+#define GLENGINE_API __declspec(dllimport)
+#endif
+
 namespace GLEngine
 {
-	class SceneNode
+	class GLENGINE_API SceneNode
 		: public SceneElement
 	{
 	public:

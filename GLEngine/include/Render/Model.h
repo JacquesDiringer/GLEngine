@@ -5,9 +5,15 @@
 #include <ShaderProgram.h>
 #include <Texture\Texture2D.h>
 
+#ifdef GLENGINE_EXPORTS
+#define GLENGINE_API __declspec(dllexport)
+#else
+#define GLENGINE_API __declspec(dllimport)
+#endif
+
 namespace GLEngine
 {
-	class Model :
+	class GLENGINE_API Model :
 		public Renderable, public SceneElement
 	{
 	public:

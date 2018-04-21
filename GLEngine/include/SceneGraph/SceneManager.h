@@ -4,11 +4,17 @@
 #include <Camera\PerspectiveCamera.h>
 #include <SceneGraph\UpdateVisitor.h>
 
+#ifdef GLENGINE_EXPORTS
+#define GLENGINE_API __declspec(dllexport)
+#else
+#define GLENGINE_API __declspec(dllimport)
+#endif
+
 namespace GLEngine
 {
 	class RenderingElements;
 
-	class SceneManager
+	class GLENGINE_API SceneManager
 	{
 	public:
 		SceneManager();

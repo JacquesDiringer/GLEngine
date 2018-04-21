@@ -3,10 +3,16 @@
 #include <Math\Vector3.h>
 #include <Math\Quaternion.h>
 
+#ifdef GLENGINE_EXPORTS
+#define GLENGINE_API __declspec(dllexport)
+#else
+#define GLENGINE_API __declspec(dllimport)
+#endif
+
 namespace GLEngineMath
 {
 	/// This class describes 4x4 translation, rotation, scale matrices
-	class Matrix4
+	class GLENGINE_API Matrix4
 	{
 	public:
 		Matrix4();

@@ -15,9 +15,15 @@ using std::string;
 using std::vector;
 using std::unordered_map;
 
+#ifdef GLENGINE_EXPORTS
+#define GLENGINE_API __declspec(dllexport)
+#else
+#define GLENGINE_API __declspec(dllimport)
+#endif
+
 namespace GLEngine
 {
-	class TextureManager
+	class GLENGINE_API TextureManager
 	{
 	public:
 		TextureManager();

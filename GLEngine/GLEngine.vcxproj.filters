@@ -312,6 +312,9 @@
     <ClInclude Include="include\GLEngineObjectInstanciater.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GLEngine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Actor\Actor.cpp">

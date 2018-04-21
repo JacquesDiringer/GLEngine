@@ -1,11 +1,17 @@
 #pragma once
 
+#ifdef GLENGINE_EXPORTS
+#define GLENGINE_API __declspec(dllexport)
+#else
+#define GLENGINE_API __declspec(dllimport)
+#endif
+
 namespace GLEngine
 {
 	class SceneElementVisitor;
 	class SceneNode;
 
-	class SceneElement
+	class GLENGINE_API SceneElement
 	{
 	public:
 		SceneElement();

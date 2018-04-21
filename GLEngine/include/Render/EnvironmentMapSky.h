@@ -7,9 +7,15 @@
 #include <Texture\Texture2D.h>
 #include <SceneGraph\SceneManager.h>
 
+#ifdef GLENGINE_EXPORTS
+#define GLENGINE_API __declspec(dllexport)
+#else
+#define GLENGINE_API __declspec(dllimport)
+#endif
+
 namespace GLEngine
 {
-	class EnvironmentMapSky :
+	class GLENGINE_API EnvironmentMapSky :
 		public Renderable, public SceneElement
 	{
 	public:

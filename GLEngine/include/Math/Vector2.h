@@ -1,8 +1,14 @@
 #pragma once
 
+#ifdef GLENGINE_EXPORTS
+#define GLENGINE_API __declspec(dllexport)
+#else
+#define GLENGINE_API __declspec(dllimport)
+#endif
+
 namespace GLEngineMath
 {
-	class Vector2
+	class GLENGINE_API Vector2
 	{
 	public:
 		Vector2();

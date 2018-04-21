@@ -12,9 +12,15 @@
 
 using std::unordered_map;
 
+#ifdef GLENGINE_EXPORTS
+#define GLENGINE_API __declspec(dllexport)
+#else
+#define GLENGINE_API __declspec(dllimport)
+#endif
+
 namespace GLEngine
 {
-	class GraphicsResourceManager
+	class GLENGINE_API GraphicsResourceManager
 	{
 	public:
 		GraphicsResourceManager(int viewportWidth, int viewportHeight);

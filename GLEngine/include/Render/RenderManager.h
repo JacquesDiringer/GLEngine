@@ -9,9 +9,15 @@
 #include <FrameBuffer\GBuffer.h>
 #include <FrameBuffer\RGB16FBuffer.h>
 
+#ifdef GLENGINE_EXPORTS
+#define GLENGINE_API __declspec(dllexport)
+#else
+#define GLENGINE_API __declspec(dllimport)
+#endif
+
 namespace GLEngine
 {
-	class RenderManager
+	class GLENGINE_API RenderManager
 	{
 	public:
 		RenderManager(int width, int height, GraphicsResourceManager* graphicsResourceManager);

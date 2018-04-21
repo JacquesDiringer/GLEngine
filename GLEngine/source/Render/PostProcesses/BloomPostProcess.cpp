@@ -21,7 +21,7 @@ namespace GLEngine
 		FrameBufferManager* frameBufferManager = graphicsResourceManager->GetFrameBufferManager();
 
 		// Get the bloom shader.
-		ComputeShaderProgram* bloomShader = graphicsResourceManager->GetComputeShader("..\\GLEngine\\resource\\Shaders\\ImageProcessing\\Bloom_ComputeShader");
+		ComputeShaderProgram* bloomShader = graphicsResourceManager->GetComputeShader("C:\\Utils\\GLEngine\\resource\\Shaders\\ImageProcessing\\Bloom_ComputeShader");
 
 		// Use it's program so that we can set uniforms.
 		bloomShader->Use();
