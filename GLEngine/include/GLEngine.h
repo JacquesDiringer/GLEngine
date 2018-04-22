@@ -1,9 +1,5 @@
 #pragma once
 
-// GLEW
-#define GLEW_STATIC
-#include<GL\glew.h>
-
 #ifdef GLENGINE_EXPORTS
 #define GLENGINE_API __declspec(dllexport)
 #else
@@ -18,7 +14,15 @@ namespace GLEngine
 		GLEngine();
 		~GLEngine();
 
-		void InitializeContext();
+		void InitializeContext(int width, int height, bool* keys);
+
+		// GLFW functions.
+		int GLFWWindowShouldClose();
+		double GLFWGetTime();
+		void GLFWPollEvents();
+		void GLFWSwapBuffers();
+		void GLFWTerminate();
+		void GLFWGetCursorPos(double * xPos, double * yPos);
 
 	private:
 	};

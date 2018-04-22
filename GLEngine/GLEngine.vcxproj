@@ -72,16 +72,16 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Utils\GLFW\glfw-3.2.1\glfw-3.2.1\include;C:\Utils\glew-2.0.0\glew-2.0.0\include;C:\Utils\SOIL\include;$(ProjectDir)\include;C:\Utils\LODGenerator\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Utils\GLFW\glfw-3.2.1\CMake_result\src\Debug;C:\Utils\glew-2.0.0\Cmake_result\lib\$(Configuration);C:\Utils\SOIL\lib\Win32\$(Configuration);C:\Utils\LODGenerator\lib\$(Configuration);$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Utils\GLFW\glfw-3.2.1\glfw-3.2.1\include;C:\Utils\glew-2.0.0\glew-2.0.0\include;C:\Utils\SOIL\include;$(ProjectDir)\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Utils\GLFW\glfw-3.2.1\CMake_result\src\Debug;C:\Utils\glew-2.0.0\Cmake_result\lib\$(Configuration);C:\Utils\SOIL\lib\Win32\$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Utils\GLFW\glfw-3.2.1\glfw-3.2.1\include;C:\Utils\glew-2.0.0\glew-2.0.0\include;C:\Utils\SOIL\include;$(ProjectDir)\include;C:\Utils\LODGenerator\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Utils\GLFW\glfw-3.2.1\CMake_result\src\Debug;C:\Utils\glew-2.0.0\Cmake_result\lib\$(Configuration);C:\Utils\SOIL\lib\Win32\Debug;C:\Utils\LODGenerator\lib\$(Configuration);$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Utils\GLFW\glfw-3.2.1\glfw-3.2.1\include;C:\Utils\glew-2.0.0\glew-2.0.0\include;C:\Utils\SOIL\include;$(ProjectDir)\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Utils\GLFW\glfw-3.2.1\CMake_result\src\Debug;C:\Utils\glew-2.0.0\Cmake_result\lib\$(Configuration);C:\Utils\SOIL\lib\Win32\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -95,7 +95,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>Generator.lib;DataModel.lib;SOIL.lib;opengl32.lib;glfw3.lib;libglew32d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SOIL.lib;opengl32.lib;glfw3.lib;libglew32d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy "$(OutDir)" "C:\Utils\GLEngine\lib\$(Configuration)\"</Command>
@@ -125,7 +125,7 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>Generator.lib;DataModel.lib;SOIL.lib;opengl32.lib;glfw3.lib;libglew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SOIL.lib;opengl32.lib;glfw3.lib;libglew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy "$(OutDir)" "C:\Utils\GLEngine\lib\$(Configuration)\"</Command>
@@ -162,7 +162,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLEngine.h" />
-    <ClInclude Include="include\GLEngineObjectInstanciater.h" />
     <ClInclude Include="include\Actor\Actor.h" />
     <ClInclude Include="include\ComputeShaderProgram.h" />
     <ClInclude Include="include\Render\PostProcesses\BloomPostProcess.h" />
@@ -222,7 +221,6 @@
     <ClInclude Include="include\VertexArrayObject.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\GLEngineObjectInstanciater.cpp" />
     <ClCompile Include="source\Actor\Actor.cpp" />
     <Text Include="resource\Shaders\DeferredShading\GBuffer\EnvironmentMapFragmentShader.frag">
       <FileType>Document</FileType>
