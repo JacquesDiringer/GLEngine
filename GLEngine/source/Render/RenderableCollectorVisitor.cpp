@@ -16,6 +16,11 @@ namespace GLEngine
 	void RenderableCollectorVisitor::Visit(Model * modelToVisit)
 	{
 		_collectedElements->PushModel(modelToVisit);
+
+		// Add the amount of vertices, primitives and objects to the total, for statistic purposes.
+		_totalVertexCount += modelToVisit->GetResource()->GetVao()->GetVertexCount();
+		_totalPrimitiveCount += modelToVisit->GetResource()->GetVao()->GetElementsCount();
+		_totalObjectCount++;
 	}
 
 	void RenderableCollectorVisitor::Visit(EnvironmentMapSky * skyToVisit)
@@ -54,6 +59,11 @@ namespace GLEngine
 		_collectedElements->Clear();
 
 		_collectedElements->SetSky(nullptr);
+
+		// Reset statistics data.
+		_totalVertexCount = 0;
+		_totalPrimitiveCount = 0;
+		_totalObjectCount = 0;
 
 		return true;
 	}

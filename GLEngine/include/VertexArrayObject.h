@@ -24,6 +24,7 @@ namespace GLEngine
 		~VertexArrayObject();
 
 		int GetElementsCount() const { return _elementsCount; }
+		int GetVertexCount() const { return _vertexCount; }
 
 		// VertexArrayObject has to be bound before these twis function is called.
 		// TODO: However, there is no tracking of what has been bound, this should change in the future
@@ -39,6 +40,6 @@ namespace GLEngine
 	private:
 		GLuint _vaoId;
 		bool _bound = false;
-		int _elementsCount;
+		int _elementsCount, _vertexCount;
 	};
 }

@@ -32,6 +32,15 @@ namespace GLEngine
 		sceneManager->GetRootNode()->Accept(_collectorVisitor);
 		RenderingElements* collection = _collectorVisitor->GetCollectedElements();
 
+		if (_frameCount % 10 == 0)
+		{
+			// Print collected elements statistics.
+			std::cout << "Object count : " << _collectorVisitor->GetTotalObjectCount() << std::endl;
+			std::cout << "Vertex count : " << _collectorVisitor->GetTotalVertexCount() << std::endl;
+			std::cout << "Primitive count : " << _collectorVisitor->GetTotalPrimitiveCount() << std::endl;
+		}
+		_frameCount++;
+
 		// Attach the G-Buffer.
 		_gBuffer->Bind();
 

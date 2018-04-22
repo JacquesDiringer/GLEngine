@@ -46,5 +46,7 @@ namespace GLEngine
 
 		// Intializes buffers for deferred rendering.
 		void InitializeFrameBuffers(GraphicsResourceManager* graphicsResourceManager);
+
+		mutable int _frameCount = 0;
 	};
 }

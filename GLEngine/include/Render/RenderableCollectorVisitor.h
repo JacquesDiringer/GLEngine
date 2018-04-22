@@ -14,6 +14,10 @@ namespace GLEngine
 
 		RenderingElements* GetCollectedElements() const { return _collectedElements; }
 
+		int GetTotalPrimitiveCount() const { return _totalPrimitiveCount; }
+		int GetTotalVertexCount() const { return _totalVertexCount; }
+		int GetTotalObjectCount() const { return _totalObjectCount; }
+
 		// Visitor pattern.
 		virtual void Visit(Model* modelToVisit);
 		virtual void Visit(EnvironmentMapSky* skyToVisit);
@@ -26,5 +30,6 @@ namespace GLEngine
 
 	private:
 		RenderingElements* _collectedElements = nullptr;
+		int _totalPrimitiveCount, _totalVertexCount, _totalObjectCount;
 	};
 }

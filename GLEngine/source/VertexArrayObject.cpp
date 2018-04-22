@@ -6,7 +6,9 @@ namespace GLEngine
 {
 	VertexArrayObject::VertexArrayObject(vector<int> elements, vector<GLEngineMath::Vector3*> positions, vector<GLEngineMath::Vector3*> normals)
 	{
+		// Store primitive and vertex counts for statistics purposes.
 		_elementsCount = elements.size();
+		_vertexCount = positions.size();
 
 		if (positions.size() != normals.size())
 		{
@@ -97,12 +99,16 @@ namespace GLEngine
 
 	VertexArrayObject::VertexArrayObject(vector<int> elements, vector<GLEngineMath::Vector3*> positions, vector<GLEngineMath::Vector3*> normals, vector<GLEngineMath::Vector3*> tangents, vector<GLEngineMath::Vector3*> biTangents)
 	{
+		// Store primitive and vertex counts for statistics purposes.
 		_elementsCount = elements.size();
+		_vertexCount = positions.size();
 	}
 
 	VertexArrayObject::VertexArrayObject(vector<int> elements, vector<GLEngineMath::Vector3*> positions, vector<GLEngineMath::Vector2*> uvCoordinates)
 	{
+		// Store primitive and vertex counts for statistics purposes.
 		_elementsCount = elements.size();
+		_vertexCount = positions.size();
 
 		if (positions.size() != uvCoordinates.size())
 		{
@@ -192,7 +198,9 @@ namespace GLEngine
 
 	VertexArrayObject::VertexArrayObject(vector<int> elements, vector<GLEngineMath::Vector3*> positions, vector<GLEngineMath::Vector3*> normals, vector<GLEngineMath::Vector2*> uvCoordinates)
 	{
+		// Store primitive and vertex counts for statistics purposes.
 		_elementsCount = elements.size();
+		_vertexCount = positions.size();
 
 		if (positions.size() != uvCoordinates.size())
 		{
@@ -293,7 +301,9 @@ namespace GLEngine
 
 	VertexArrayObject::VertexArrayObject(vector<int> elements, vector<GLEngineMath::Vector3*> positions, vector<GLEngineMath::Vector3*> normals, vector<GLEngineMath::Vector3*> tangents, vector<GLEngineMath::Vector3*> biTangents, vector<GLEngineMath::Vector2*> uvCoordinates)
 	{
+		// Store primitive and vertex counts for statistics purposes.
 		_elementsCount = elements.size();
+		_vertexCount = positions.size();
 	}
 
 	VertexArrayObject::~VertexArrayObject()
