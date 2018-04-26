@@ -24,6 +24,23 @@ namespace GLEngine
 	{
 	}
 
+	void OBJMesh::ComputeBoundSphereRadius() const
+	{
+		for (Vertex currentVertex : _finalVerticesList)
+		{
+			GLEngineMath::Vector3* vertexPosition = currentVertex.vertexCoords;
+
+			float vertexLength = (*vertexPosition).Length();
+
+			// The bounding sphere shares the same center than the center of the mesh.
+			// Therefore, we can simply check if the current vertice is outside the sphere by comparing it's distance to the origin (i.e. it's length).
+			if (vertexLength > _boundingSphereRadius)
+			{
+				_boundingSphereRadius = vertexLength;
+			}
+		}
+	}
+
 	vector<int> OBJMesh::GetElementsList() const
 	{
 		vector<int> result = vector<int>();

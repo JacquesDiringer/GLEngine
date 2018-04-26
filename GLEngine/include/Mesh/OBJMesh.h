@@ -47,6 +47,8 @@ namespace GLEngine
 		OBJMesh();
 		~OBJMesh();
 
+		virtual void ComputeBoundSphereRadius() const;
+
 		virtual vector<int> GetElementsList() const;
 		virtual vector<GLEngineMath::Vector3*> GetPositionsList() const;
 		virtual vector<GLEngineMath::Vector2*> GetTextureCoordinatesList() const;

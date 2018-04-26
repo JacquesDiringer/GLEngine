@@ -76,4 +76,9 @@ namespace GLEngine
 			throw new std::exception("A Renderable must have a parent SceneNode to be rendered.");
 		}
 	}
+
+	float Model::GetBoundingSphereRadius() const
+	{
+		return _resource!= nullptr ? _resource->GetBoundingSphereRadius() : _mesh->GetBoundingSphereRadius();
+	}
 }

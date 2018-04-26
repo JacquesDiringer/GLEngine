@@ -16,6 +16,8 @@ namespace GLEngine
 	{
 		Mesh* modelResult = InitFromFileContent(Utils::ReadFile(path));
 		modelResult->SetPath(path);
+		modelResult->InitializeVao();
+		modelResult->ComputeBoundSphereRadius();
 
 		return modelResult;
 	}

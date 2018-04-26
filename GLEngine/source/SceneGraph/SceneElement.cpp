@@ -16,6 +16,31 @@ namespace GLEngine
 		RemoveFromParentNode();
 	}
 
+	const GLEngineMath::Vector3& SceneElement::GetRelativePosition() const
+	{
+		return GLEngineMath::Vector3();
+	}
+
+	float SceneElement::GetBoundingSphereRadius()
+	{
+		if (!_isBoundingUpToDate)
+		{
+			UpdateBoundings();
+		}
+
+		return 0.0f;
+	}
+
+	void SceneElement::SetIsBoundingUpToDate(bool value)
+	{
+		_isBoundingUpToDate = value;
+	}
+
+	void SceneElement::UpdateBoundings()
+	{
+		_isBoundingUpToDate = true;
+	}
+
 	void SceneElement::SetIsUpToDate(const bool value)
 	{
 		// Void

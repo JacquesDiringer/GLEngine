@@ -28,6 +28,7 @@ namespace GLEngine
 	{
 		_relativeTransformation = newMatrix;
 		SetIsUpToDate(false);
+		SetIsBoundingUpToDate(false);
 	}
 
 	const GLEngineMath::Matrix4& SceneNode::GetWorldTransformation()
@@ -47,6 +48,50 @@ namespace GLEngine
 		SetIsUpToDate(true);
 
 		return _worldTransformation;
+	}
+
+	const GLEngineMath::Vector3 & SceneNode::GetRelativePosition() const
+	{
+		return _relativeTransformation.Position();
+	}
+
+	float SceneNode::GetBoundingSphereRadius()
+	{
+		if (!_isBoundingUpToDate)
+		{
+			UpdateBoundings();
+		}
+
+		return _boundingSphereRadius;
+	}
+
+	void SceneNode::SetIsBoundingUpToDate(bool value)
+	{
+		if (value != _isBoundingUpToDate)
+		{
+			if (!value)
+			{
+				GetParentNode()->SetIsBoundingUpToDate(value);
+			}
+
+			_isBoundingUpToDate = value;
+		}
+	}
+
+	void SceneNode::UpdateBoundings()
+	{
+		for (SceneElement* currentElement : _subElements)
+		{
+			// The radius of the bounding sphere of the scene node will correspond to the minimum radius necessary to contain all sub element's bounding spheres.
+			float currentElementRequiredRadius = currentElement->GetRelativePosition().Length() + currentElement->GetBoundingSphereRadius();
+			if (currentElementRequiredRadius > _boundingSphereRadius)
+			{
+				_boundingSphereRadius = currentElementRequiredRadius;
+			}
+		}
+
+		// Set the up to date boolean to true.
+		SetIsBoundingUpToDate(true);
 	}
 
 	void SceneNode::AddSubElement(SceneElement * element)

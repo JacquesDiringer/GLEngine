@@ -113,7 +113,6 @@ namespace GLEngine
 		if (_sphereVAO == nullptr)
 		{
 			OBJMesh* sphereMesh = (OBJMesh*)_objLoader->LoadModel("C:\\Utils\\GLEngine\\resource\\Meshes\\sphere_UVs.obj");
-			sphereMesh->InitializeVao();
 
 			_sphereVAO = sphereMesh->GetVao();
 		}

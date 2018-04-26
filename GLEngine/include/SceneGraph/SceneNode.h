@@ -28,6 +28,15 @@ namespace GLEngine
 
 		const GLEngineMath::Matrix4& GetWorldTransformation();
 
+		// Position relative to parent.
+		virtual const GLEngineMath::Vector3& GetRelativePosition() const;
+
+		virtual float GetBoundingSphereRadius();
+
+		virtual void SetIsBoundingUpToDate(bool value);
+
+		virtual void UpdateBoundings();
+
 		vector<SceneElement*>* GetSubElements() { return &_subElements; }
 
 		// Adds children.
@@ -51,5 +60,6 @@ namespace GLEngine
 		GLEngineMath::Matrix4 _worldTransformation;
 		bool _worldMatrixIsUpToDate;
 		vector<SceneElement*> _subElements;
+		float _boundingSphereRadius;
 	};
 }

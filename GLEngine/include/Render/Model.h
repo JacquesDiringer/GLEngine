@@ -35,6 +35,8 @@ namespace GLEngine
 		Texture2D* GetSpecular() { return _specularTexture; }
 		Texture2D* GetRoughness() { return _roughnessTexture; }
 
+		virtual float GetBoundingSphereRadius() const;
+
 	private:
 		Model* _resource = nullptr;
 		Mesh* _mesh;

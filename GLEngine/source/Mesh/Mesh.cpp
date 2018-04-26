@@ -35,4 +35,14 @@ namespace GLEngine
 			throw new std::exception("VAO not implemented.");
 		}
 	}
+
+	float Mesh::GetBoundingSphereRadius() const
+	{
+		if (_boundingSphereRadius <= 0)
+		{
+			ComputeBoundSphereRadius();
+		}
+
+		return _boundingSphereRadius;
+	}
 }
