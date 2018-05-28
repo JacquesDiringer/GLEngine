@@ -16,13 +16,11 @@
 namespace GLEngine
 {
 	class GLENGINE_API EnvironmentMapSky :
-		public Renderable, public SceneElement
+		public Renderable
 	{
 	public:
 		EnvironmentMapSky(Texture2D* environmentMap);
 		~EnvironmentMapSky();
-
-		virtual void Accept(SceneElementVisitor* visitor);
 
 		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager) const;
 

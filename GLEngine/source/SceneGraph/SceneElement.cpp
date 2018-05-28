@@ -16,7 +16,7 @@ namespace GLEngine
 		RemoveFromParentNode();
 	}
 
-	const GLEngineMath::Vector3& SceneElement::GetRelativePosition() const
+	const GLEngineMath::Vector3 SceneElement::GetRelativePosition() const
 	{
 		return GLEngineMath::Vector3();
 	}

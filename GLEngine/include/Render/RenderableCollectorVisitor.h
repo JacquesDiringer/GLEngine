@@ -18,7 +18,10 @@ namespace GLEngine
 		int GetTotalVertexCount() const { return _totalVertexCount; }
 		int GetTotalObjectCount() const { return _totalObjectCount; }
 
+		void SetCamera(PerspectiveCamera * camera) { _camera = camera; }
+
 		// Visitor pattern.
+		virtual void Visit(SceneNode* sceneNodeToVisit);
 		virtual void Visit(Model* modelToVisit);
 		virtual void Visit(EnvironmentMapSky* skyToVisit);
 		virtual void Visit(PointLight* pointLightToVisit);
@@ -29,6 +32,10 @@ namespace GLEngine
 		bool CheckAndResetCollection();
 
 	private:
+		bool PointIsInFrustum(SceneNode& node) const;
+
+	private:
+		PerspectiveCamera * _camera;
 		RenderingElements* _collectedElements = nullptr;
 		int _totalPrimitiveCount, _totalVertexCount, _totalObjectCount;
 	};

@@ -25,7 +25,7 @@ namespace GLEngine
 		void SetParentNode(SceneNode* parent) { _parentNode = parent; }
 
 		// Position relative to parent. Should be a null vector excepting for SceneNodes.
-		virtual const GLEngineMath::Vector3& GetRelativePosition() const;
+		virtual const GLEngineMath::Vector3 GetRelativePosition() const;
 
 		virtual float GetBoundingSphereRadius();
 

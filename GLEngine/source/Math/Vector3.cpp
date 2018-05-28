@@ -36,6 +36,11 @@ namespace GLEngineMath
 
 	float Vector3::Distance(const Vector3 a, const Vector3 b)
 	{
+		if (a == b)
+		{
+			return 0.0f;
+		}
+
 		return sqrtf(
 			pow(a.X() - b.X(), 2) +
 			pow(a.Y() - b.Y(), 2) +
@@ -59,7 +64,10 @@ namespace GLEngineMath
 
 	float Vector3::Length() const
 	{
-		return Vector3::Distance(*this, Vector3());
+		return sqrtf(
+			pow(_x, 2) +
+			pow(_y, 2) +
+			pow(_z, 2));
 	}
 
 	Vector3 Vector3::operator+(const Vector3 b)
@@ -99,7 +107,7 @@ namespace GLEngineMath
 			Z() * multiplier);
 	}
 
-	bool Vector3::operator==(const Vector3 other)
+	bool Vector3::operator==(const Vector3 other) const
 	{
 		return _x == other.X() && _y == other.Y() && _z == other.Z();
 	}

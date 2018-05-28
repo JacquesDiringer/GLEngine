@@ -25,6 +25,8 @@ namespace GLEngine
 		_iProjection = _projection;
 		_iProjection.Invert();
 
+		_viewProjection = _projection * _view;
+
 		_postProcesses = vector<PostProcess*>();
 	}
 
@@ -47,6 +49,9 @@ namespace GLEngine
 				newView.InvertRT();
 				// Update the view.
 				_view = newView;
+
+				// Update the viewProjection.
+				_viewProjection = _projection * _view;
 			}
 		}
 		else

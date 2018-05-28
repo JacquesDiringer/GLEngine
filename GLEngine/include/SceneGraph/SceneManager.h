@@ -22,6 +22,9 @@ namespace GLEngine
 
 		SceneNode* GetRootNode() const { return _rootNode; }
 
+		EnvironmentMapSky* GetSky() const { return _sky; }
+		void SetSky(EnvironmentMapSky* sky) { _sky = sky; }
+
 		void SetCurrentCamera(PerspectiveCamera* camera) { _currentCamera = camera; }
 		PerspectiveCamera* GetCurrentCamera() { return _currentCamera; }
 
@@ -30,6 +33,7 @@ namespace GLEngine
 
 	private:
 		SceneNode* _rootNode;
+		EnvironmentMapSky* _sky;
 		PerspectiveCamera* _currentCamera;
 		UpdateVisitor* _updateVisitor;
 	};

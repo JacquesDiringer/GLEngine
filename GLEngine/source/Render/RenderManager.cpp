@@ -28,6 +28,8 @@ namespace GLEngine
 	{
 		TextureManager* textureManager = graphicsResourceManager->GetTextureManager();
 
+		// Set the current camera for the renderables collector, for frustum culling.
+		_collectorVisitor->SetCamera(sceneManager->GetCurrentCamera());
 		// Triggers renderable elements collection.
 		sceneManager->GetRootNode()->Accept(_collectorVisitor);
 		RenderingElements* collection = _collectorVisitor->GetCollectedElements();
@@ -50,7 +52,7 @@ namespace GLEngine
 		// Render elements in the right order.
 
 		// Sky goes first.
-		EnvironmentMapSky* sky = collection->GetSky();
+		EnvironmentMapSky* sky = sceneManager->GetSky();
 		if (sky != nullptr)
 		{
 			_skyRenderQueue->AddRenderable(sky);

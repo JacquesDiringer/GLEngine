@@ -107,7 +107,13 @@ namespace GLEngineMath
 
 	Vector3 Matrix4::Multiply(const Matrix4& a, const Vector3& position)
 	{
-		return Matrix4::Multiply(a, Matrix4::CreateTranslation(position)).Position();
+		// We consider that position.W = 1.
+		float x = a._m00*position.X() + a._m01*position.Y() + a._m02*position.Z() + a._m03;
+		float y = a._m10*position.X() + a._m11*position.Y() + a._m12*position.Z() + a._m13;
+		float z = a._m20*position.X() + a._m21*position.Y() + a._m22*position.Z() + a._m23;
+		float w = a._m30*position.X() + a._m31*position.Y() + a._m32*position.Z() + a._m33;
+
+		return Vector3(x/w, y/w, z/w);
 	}
 
 	void Matrix4::Transpose()

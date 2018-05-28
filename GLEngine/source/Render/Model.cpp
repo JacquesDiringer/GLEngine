@@ -77,7 +77,7 @@ namespace GLEngine
 		}
 	}
 
-	float Model::GetBoundingSphereRadius() const
+	float Model::GetBoundingSphereRadius()
 	{
 		return _resource!= nullptr ? _resource->GetBoundingSphereRadius() : _mesh->GetBoundingSphereRadius();
 	}

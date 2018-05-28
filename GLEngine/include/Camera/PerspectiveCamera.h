@@ -32,6 +32,8 @@ namespace GLEngine
 		const GLEngineMath::Matrix4& GetIView();
 		const GLEngineMath::Matrix4& GetIProjection() const { return _iProjection; }
 
+		const GLEngineMath::Matrix4& GetViewProjection() const { return _viewProjection; }
+
 		GLEngineMath::Vector3 GetPosition();
 
 		virtual void Accept(SceneElementVisitor* visitor);
@@ -40,7 +42,7 @@ namespace GLEngine
 		const vector<PostProcess*>& GetPostProcesses() const { return _postProcesses; }
 
 	private:
-		GLEngineMath::Matrix4 _view,  _iView, _projection, _iProjection;
+		GLEngineMath::Matrix4 _view,  _iView, _projection, _iProjection, _viewProjection;
 		vector<PostProcess*> _postProcesses;
 
 		void UpdateViewAndIView();

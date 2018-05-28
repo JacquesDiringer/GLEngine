@@ -17,17 +17,12 @@ namespace GLEngine
 		void PushPointLight(PointLight* pointLight);
 		PointLight* PopPointLight();
 
-		EnvironmentMapSky* GetSky() const { return _sky; }
-		void SetSky(EnvironmentMapSky* sky) { _sky = sky; }
-
 		void PushModel(Model* model);
 		vector<InstancedModel*> GetNextInstancedModels();
 
 		void Clear();
 
 	private:
-		EnvironmentMapSky* _sky;
-
 		// Stores the resource model pointer as a key, and the list of scene nodes with this model to draw as a key.
 		unordered_map<Model*, InstancedModel> _instancedModels;
 

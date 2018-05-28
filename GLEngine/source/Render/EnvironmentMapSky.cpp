@@ -18,11 +18,6 @@ namespace GLEngine
 	{
 	}
 
-	void EnvironmentMapSky::Accept(SceneElementVisitor * visitor)
-	{
-		visitor->Visit(this);
-	}
-
 	void EnvironmentMapSky::Render(SceneManager * sceneManager, GraphicsResourceManager* graphicsResourceManager) const
 	{
 		ShaderProgram* shaderProgram = graphicsResourceManager->GetEnvmapShader();

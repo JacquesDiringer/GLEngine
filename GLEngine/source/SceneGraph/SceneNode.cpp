@@ -50,7 +50,7 @@ namespace GLEngine
 		return _worldTransformation;
 	}
 
-	const GLEngineMath::Vector3 & SceneNode::GetRelativePosition() const
+	const GLEngineMath::Vector3 SceneNode::GetRelativePosition() const
 	{
 		return _relativeTransformation.Position();
 	}
@@ -71,7 +71,11 @@ namespace GLEngine
 		{
 			if (!value)
 			{
-				GetParentNode()->SetIsBoundingUpToDate(value);
+				SceneNode* parentNode = GetParentNode();
+				if (parentNode != nullptr)
+				{
+					parentNode->SetIsBoundingUpToDate(value);
+				}
 			}
 
 			_isBoundingUpToDate = value;

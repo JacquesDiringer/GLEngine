@@ -29,7 +29,7 @@ namespace GLEngine
 		const GLEngineMath::Matrix4& GetWorldTransformation();
 
 		// Position relative to parent.
-		virtual const GLEngineMath::Vector3& GetRelativePosition() const;
+		virtual const GLEngineMath::Vector3 GetRelativePosition() const;
 
 		virtual float GetBoundingSphereRadius();
 
@@ -60,6 +60,6 @@ namespace GLEngine
 		GLEngineMath::Matrix4 _worldTransformation;
 		bool _worldMatrixIsUpToDate;
 		vector<SceneElement*> _subElements;
-		float _boundingSphereRadius;
+		float _boundingSphereRadius = 0;
 	};
 }
