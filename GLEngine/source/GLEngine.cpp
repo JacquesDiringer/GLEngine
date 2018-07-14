@@ -40,7 +40,7 @@
 #include <Math\Matrix4.h>
 #include <Math\Vector2.h>
 
-#include "..\GLEngine.h"
+#include <GLEngine.h>
 
 namespace GLEngine
 {
