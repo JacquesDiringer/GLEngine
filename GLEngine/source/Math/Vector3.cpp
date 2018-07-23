@@ -34,7 +34,7 @@ namespace GLEngineMath
 		return *this;
 	}
 
-	float Vector3::Distance(const Vector3 a, const Vector3 b)
+	float Vector3::Distance(const Vector3& a, const Vector3& b)
 	{
 		if (a == b)
 		{
@@ -47,7 +47,7 @@ namespace GLEngineMath
 			pow(a.Z() - b.Z(), 2));
 	}
 
-	Vector3 Vector3::Add(const Vector3 a, const Vector3 b)
+	Vector3 Vector3::Add(const Vector3& a, const Vector3& b)
 	{
 		return Vector3(
 			a.X() + b.X(),
@@ -55,7 +55,12 @@ namespace GLEngineMath
 			a.Z() + b.Z());
 	}
 
-	Vector3 Vector3::Cross(const Vector3 left, const Vector3 right)
+	float Vector3::Dot(const Vector3 & a, const Vector3 & b)
+	{
+		return a.X() * b.X() + a.Y() * b.Y() + a.Z() * b.Z();
+	}
+
+	Vector3 Vector3::Cross(const Vector3& left, const Vector3& right)
 	{
 		return Vector3(	left.Y() * right.Z() - left.Z() * right.Y(),
 						left.Z() * right.X() - left.X() * right.Z(),
@@ -70,7 +75,7 @@ namespace GLEngineMath
 			pow(_z, 2));
 	}
 
-	Vector3 Vector3::operator+(const Vector3 b)
+	Vector3 Vector3::operator+(const Vector3& b) const
 	{
 		return Vector3(
 			X() + b.X(),
@@ -78,12 +83,12 @@ namespace GLEngineMath
 			Z() + b.Z());
 	}
 
-	Vector3 Vector3::operator-(const Vector3 right) const
+	Vector3 Vector3::operator-(const Vector3& right) const
 	{
 		return Vector3(X() - right.X(), Y() - right.Y(), Z() - right.Z());
 	}
 
-	Vector3 Vector3::Multiply(const Vector3 a, const Vector3 b)
+	Vector3 Vector3::Multiply(const Vector3& a, const Vector3& b)
 	{
 		return Vector3(
 			a.X() * b.X(),
@@ -91,7 +96,7 @@ namespace GLEngineMath
 			a.Z() * b.Z());
 	}
 
-	Vector3 Vector3::operator*(const Vector3 b)
+	Vector3 Vector3::operator*(const Vector3 b) const
 	{
 		return Vector3(
 			X() * b.X(),
@@ -99,7 +104,7 @@ namespace GLEngineMath
 			Z() * b.Z());
 	}
 
-	Vector3 Vector3::operator*(const float multiplier)
+	Vector3 Vector3::operator*(const float multiplier) const
 	{
 		return Vector3(
 			X() * multiplier,
@@ -107,12 +112,12 @@ namespace GLEngineMath
 			Z() * multiplier);
 	}
 
-	bool Vector3::operator==(const Vector3 other) const
+	bool Vector3::operator==(const Vector3& other) const
 	{
 		return _x == other.X() && _y == other.Y() && _z == other.Z();
 	}
 
-	bool Vector3::operator<(const Vector3 other) const
+	bool Vector3::operator<(const Vector3& other) const
 	{
 		if (_x != other.X())
 		{
