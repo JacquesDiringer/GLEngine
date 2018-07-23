@@ -72,16 +72,16 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Utils\GLFW\glfw-3.2.1\glfw-3.2.1\include;C:\Utils\glew-2.0.0\glew-2.0.0\include;C:\Utils\SOIL\include;$(ProjectDir)\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Utils\GLFW\glfw-3.2.1\CMake_result\src\Debug;C:\Utils\glew-2.0.0\Cmake_result\lib\$(Configuration);C:\Utils\SOIL\lib\Win32\$(Configuration);$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Utils\GLFW\glfw-3.2.1\glfw-3.2.1\include;C:\Utils\glew-2.0.0\glew-2.0.0\include;$(ProjectDir)\include;C:\Utils\STBImage;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Utils\GLFW\glfw-3.2.1\CMake_result\src\Debug;C:\Utils\glew-2.0.0\Cmake_result\lib\$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Utils\GLFW\glfw-3.2.1\glfw-3.2.1\include;C:\Utils\glew-2.0.0\glew-2.0.0\include;C:\Utils\SOIL\include;$(ProjectDir)\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Utils\GLFW\glfw-3.2.1\CMake_result\src\Debug;C:\Utils\glew-2.0.0\Cmake_result\lib\$(Configuration);C:\Utils\SOIL\lib\Win32\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Utils\GLFW\glfw-3.2.1\glfw-3.2.1\include;C:\Utils\glew-2.0.0\glew-2.0.0\include;$(ProjectDir)\include;C:\Utils\STBImage;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Utils\GLFW\glfw-3.2.1\CMake_result\src\Debug;C:\Utils\glew-2.0.0\Cmake_result\lib\$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -95,7 +95,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>SOIL.lib;opengl32.lib;glfw3.lib;libglew32d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;libglew32d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy "$(OutDir)" "C:\Utils\GLEngine\lib\$(Configuration)\"</Command>
@@ -125,7 +125,7 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>SOIL.lib;opengl32.lib;glfw3.lib;libglew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;libglew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy "$(OutDir)" "C:\Utils\GLEngine\lib\$(Configuration)\"</Command>

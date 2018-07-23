@@ -1,14 +1,17 @@
 #include <stdafx.h>
 #include <Texture\Texture2D.h>
 
+#define STB_IMAGE_IMPLEMENTATION
+#include <STB\stb_image.h>
+
 namespace GLEngine
 {
 	Texture2D::Texture2D(string path)
 	{
 		_boundUnit = -1;
 
-		int imageWidth, imageHeight;
-		unsigned char* image = SOIL_load_image(path.c_str(), &imageWidth, &imageHeight, 0, SOIL_LOAD_RGB);
+		int imageWidth, imageHeight, nrChannels;
+		unsigned char* image = stbi_load(path.c_str(), &imageWidth, &imageHeight, &nrChannels, 0);
 
 		if (image == NULL)
 		{
@@ -19,7 +22,7 @@ namespace GLEngine
 		Generate(imageWidth, imageHeight, image);
 
 		// Free SOIL memory
-		SOIL_free_image_data(image);
+		stbi_image_free(image);
 
 		_path = path;
 	}

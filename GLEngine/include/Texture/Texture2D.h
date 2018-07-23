@@ -7,8 +7,6 @@
 #define GLEW_STATIC
 #include<GL\glew.h>
 
-#include <SOIL.h>
-
 using std::string;
 
 #ifdef GLENGINE_EXPORTS
