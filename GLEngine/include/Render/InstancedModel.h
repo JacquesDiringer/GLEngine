@@ -27,7 +27,7 @@ namespace GLEngine
 		Model* _resource;
 		vector<SceneNode*> _instancesNodes;
 		// Minimum entity number necessary to trigger instanciation.
-		int _instanciationThreshold = 100;
+		int _instanciationThreshold = 10;
 	};
 }
 
