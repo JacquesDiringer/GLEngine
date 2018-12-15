@@ -21,8 +21,8 @@ namespace GLEngine
 
 		virtual void Accept(SceneElementVisitor* visitor) = 0;
 
-		SceneNode* GetParentNode() const { return _parentNode; }
-		void SetParentNode(SceneNode* parent) { _parentNode = parent; }
+		SceneElement* GetParent() const { return _parent; }
+		void SetParent(SceneElement* parent) { _parent = parent; }
 
 		// Position relative to parent. Should be a null vector excepting for SceneNodes.
 		virtual const GLEngineMath::Vector3 GetRelativePosition() const;
@@ -38,10 +38,14 @@ namespace GLEngine
 
 		void RemoveFromParentNode();
 
+		// Remove a sub element from the children.
+		// This function should only be used from a SceneElement.
+		virtual void RemoveChild(SceneElement* elementToRemove);
+
 	protected:
 		bool _isBoundingUpToDate = false;
 
 	private:
-		SceneNode* _parentNode = nullptr;
+		SceneElement * _parent = nullptr;
 	};
 }

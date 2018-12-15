@@ -17,7 +17,7 @@ namespace GLEngineMath
 		Vector3(float x, float y, float z);
 		~Vector3();
 
-		Vector3 Normalize();
+		Vector3& Normalize();
 		static float Distance(const Vector3& a, const Vector3& b);
 		static Vector3 Add(const Vector3& a, const Vector3& b);
 		static float Dot(const Vector3& a, const Vector3& b);
@@ -29,7 +29,7 @@ namespace GLEngineMath
 		Vector3 operator*(const Vector3 b) const;
 		Vector3 operator*(const float multiplier) const;
 		bool operator==(const Vector3& other) const;
-		bool operator<(const Vector3& other) const; // Necessary operator to be able to but Vector3 in a map structure.
+		bool operator<(const Vector3& other) const; // Necessary operator to be able to put Vector3 in a map structure.
 
 
 		// Properties

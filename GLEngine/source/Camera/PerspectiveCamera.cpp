@@ -37,7 +37,7 @@ namespace GLEngine
 
 	void PerspectiveCamera::UpdateViewAndIView()
 	{
-		SceneNode* parentNode = GetParentNode();
+		SceneNode* parentNode = dynamic_cast<SceneNode*>(GetParent());
 		if (parentNode != nullptr)
 		{
 			GLEngineMath::Matrix4 newView = parentNode->GetWorldTransformation();
@@ -76,7 +76,7 @@ namespace GLEngine
 
 	GLEngineMath::Vector3 PerspectiveCamera::GetPosition()
 	{
-		SceneNode* parentNode = GetParentNode();
+		SceneNode* parentNode = dynamic_cast<SceneNode*>(GetParent());
 		if (parentNode != nullptr)
 		{
 			return parentNode->GetWorldTransformation().Position();

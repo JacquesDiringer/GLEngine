@@ -52,6 +52,9 @@ namespace GLEngineMath
 		// Operators
 		bool operator== (Matrix4 const &other) const;
 
+		// Returns true if all it's values are non degenerate.
+		bool IsValid() const;
+
 
 	private:
 		float _m00, _m01, _m02, _m03;

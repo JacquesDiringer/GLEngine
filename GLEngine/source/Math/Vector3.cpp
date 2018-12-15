@@ -23,7 +23,7 @@ namespace GLEngineMath
 	{
 	}
 
-	Vector3 Vector3::Normalize()
+	Vector3& Vector3::Normalize()
 	{
 		float length = Length();
 

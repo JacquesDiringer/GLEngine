@@ -53,7 +53,7 @@ namespace GLEngine
 
 		// Remove a sub element from the children.
 		// This function should only be used from a SceneElement.
-		void RemoveChild(SceneElement* elementToRemove);
+		virtual void RemoveChild(SceneElement* elementToRemove);
 
 	private:
 		GLEngineMath::Matrix4 _relativeTransformation;

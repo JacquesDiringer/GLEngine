@@ -2,6 +2,7 @@
 #include <Render\Model.h>
 #include <SceneGraph\SceneNode.h>
 #include <SceneGraph\SceneManager.h>
+#include <iostream>
 
 // GLEW
 #define GLEW_STATIC
@@ -33,7 +34,12 @@ namespace GLEngine
 	{
 		if (_resource != nullptr)
 		{
-			_resource->RenderResource(sceneManager, graphicsResourceManager, GetParentNode());
+			SceneNode * parentNode = dynamic_cast<SceneNode*>(GetParent());
+
+			if (parentNode != nullptr)
+			{
+				_resource->RenderResource(sceneManager, graphicsResourceManager, parentNode);
+			}
 		}
 	}
 

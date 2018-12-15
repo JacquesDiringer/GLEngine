@@ -7,7 +7,7 @@ namespace GLEngine
 {
 	SceneElement::SceneElement()
 	{
-		_parentNode = nullptr;
+		_parent = nullptr;
 	}
 
 
@@ -48,13 +48,18 @@ namespace GLEngine
 
 	void SceneElement::RemoveFromParentNode()
 	{
-		if (_parentNode != nullptr)
+		if (_parent != nullptr)
 		{
 			// Go in the parent and delete this child from the children vector.
-			_parentNode->RemoveChild(this);
+			_parent->RemoveChild(this);
 
 			// Delete the link to the parent
-			_parentNode = nullptr;
+			_parent = nullptr;
 		}
+	}
+
+	void SceneElement::RemoveChild(SceneElement * elementToRemove)
+	{
+		// Void
 	}
 }

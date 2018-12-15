@@ -8,6 +8,8 @@ namespace GLEngine
 	class EnvironmentMapSky;
 	class PointLight;
 	class PerspectiveCamera;
+	class CellArray;
+	class Cell;
 
 	class SceneElementVisitor
 	{
@@ -23,5 +25,7 @@ namespace GLEngine
 		virtual void Visit(PointLight* pointLightToVisit) = 0;
 		virtual void Visit(Actor* actorToVisit) = 0;
 		virtual void Visit(PerspectiveCamera* cameraToVisit) = 0;
+		virtual void Visit(CellArray* cellArrayToVisit);
+		virtual void Visit(Cell* cellToVisit);
 	};
 }

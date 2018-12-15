@@ -161,6 +161,8 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\SceneGraph\Cell.h" />
+    <ClInclude Include="include\SceneGraph\CellArray.h" />
     <ClInclude Include="GLEngine.h" />
     <ClInclude Include="include\Actor\Actor.h" />
     <ClInclude Include="include\ComputeShaderProgram.h" />
@@ -221,6 +223,8 @@
     <ClInclude Include="include\VertexArrayObject.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\SceneGraph\Cell.cpp" />
+    <ClCompile Include="source\SceneGraph\CellArray.cpp" />
     <ClCompile Include="source\Actor\Actor.cpp" />
     <Text Include="resource\Shaders\DeferredShading\GBuffer\EnvironmentMapFragmentShader.frag">
       <FileType>Document</FileType>

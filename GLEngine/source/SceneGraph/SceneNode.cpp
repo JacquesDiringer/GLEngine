@@ -1,5 +1,6 @@
 #include <stdafx.h>
 #include <SceneGraph\SceneNode.h>
+#include <iostream>
 
 namespace GLEngine
 {
@@ -35,13 +36,15 @@ namespace GLEngine
 	{
 		if (!_worldMatrixIsUpToDate)
 		{
-			if (GetParentNode() == nullptr)
+
+			SceneNode* parentNode = dynamic_cast<SceneNode*>(GetParent());
+			if (parentNode == nullptr)
 			{
 				_worldTransformation = _relativeTransformation;
 			}
 			else
 			{
-				_worldTransformation = GLEngineMath::Matrix4::Multiply((GetParentNode()->GetWorldTransformation()), _relativeTransformation);
+				_worldTransformation = GLEngineMath::Matrix4::Multiply(parentNode->GetWorldTransformation(), _relativeTransformation);
 			}
 		}
 
@@ -71,7 +74,7 @@ namespace GLEngine
 		{
 			if (!value)
 			{
-				SceneNode* parentNode = GetParentNode();
+				SceneNode* parentNode = dynamic_cast<SceneNode*>(GetParent());
 				if (parentNode != nullptr)
 				{
 					parentNode->SetIsBoundingUpToDate(value);
@@ -84,6 +87,8 @@ namespace GLEngine
 
 	void SceneNode::UpdateBoundings()
 	{
+		_boundingSphereRadius = 0.0f;
+
 		for (SceneElement* currentElement : _subElements)
 		{
 			// The radius of the bounding sphere of the scene node will correspond to the minimum radius necessary to contain all sub element's bounding spheres.
@@ -104,7 +109,7 @@ namespace GLEngine
 		_subElements.push_back(element);
 
 		// Set the parent node of the new element so that it point at this instance.
-		element->SetParentNode(this);
+		element->SetParent(this);
 	}
 
 	void SceneNode::Accept(SceneElementVisitor * visitor)

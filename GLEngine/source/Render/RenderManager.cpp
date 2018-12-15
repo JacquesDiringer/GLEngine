@@ -40,6 +40,9 @@ namespace GLEngine
 			std::cout << "Object count : " << _collectorVisitor->GetTotalObjectCount() << std::endl;
 			std::cout << "Vertex count : " << _collectorVisitor->GetTotalVertexCount() << std::endl;
 			std::cout << "Primitive count : " << _collectorVisitor->GetTotalPrimitiveCount() << std::endl;
+			std::cout << "Cell count : " << _collectorVisitor->GetTotalCellsCount() << std::endl;
+			std::cout << "Cell not rendered count : " << _collectorVisitor->GetTotalCellsNotRendered() << std::endl;
+			std::cout << std::endl;
 		}
 		_frameCount++;
 

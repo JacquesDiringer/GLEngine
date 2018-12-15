@@ -1,5 +1,6 @@
 #include <stdafx.h>
 #include <Render\RenderingElements.h>
+#include <iostream>
 
 using std::pair;
 
@@ -38,10 +39,10 @@ namespace GLEngine
 	{
 		// Instanced rendering vector.
 		Model* resourceModel = model->GetResource();
-		SceneNode* parentNode = model->GetParentNode();
+		SceneNode* parentNode = dynamic_cast<SceneNode*>(model->GetParent());
 
 		auto modelIterator = _instancedModels.find(resourceModel);
-		if (modelIterator != _instancedModels.end())
+		if (modelIterator != _instancedModels.end() && parentNode != nullptr)
 		{
 			// If the Model already has it's instanced version, just add this instance.
 			modelIterator->second.AddInstance(parentNode);
