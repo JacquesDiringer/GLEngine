@@ -29,11 +29,6 @@ namespace GLEngine
 
 	void SceneElementVisitor::Visit(CellArray * cellArrayToVisit)
 	{
-		// Before starting to visit, mark all sub elements from all cells as not visited.
-		cellArrayToVisit->ResetVisitedCells();
-
-		//std::cout << "Cell array size : " << cellArrayToVisit->GetSubCells().size() << std::endl;
-
 		// Then visit them
 		for (auto currentPair : cellArrayToVisit->GetSubCells())
 		{
@@ -45,14 +40,26 @@ namespace GLEngine
 	{
 		for each (Cell::VisitableNode* currentElement in cellToVisit->GetSubNodes())
 		{
+
 			// Visit only if it has not already been visited by another cell.
-			if (!currentElement->visited)
+			if (currentElement->lastFrameVisited != _currentFrameId)
 			{
 				currentElement->node->Accept(this);
 
 				// Mark the element as visited.
-				currentElement->visited = true;
+				currentElement->lastFrameVisited = _currentFrameId;
 			}
+		}
+	}
+
+	void SceneElementVisitor::IncrementCurrentFrameId()
+	{
+		_currentFrameId++;
+
+		// Make sure we never reach the maximum value of a short.
+		if (_currentFrameId > 1000)
+		{
+			_currentFrameId = 0;
 		}
 	}
 }

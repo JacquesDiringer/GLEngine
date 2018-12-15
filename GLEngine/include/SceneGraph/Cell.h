@@ -21,12 +21,12 @@ namespace GLEngine
 		// Visitable element structure.
 		struct VisitableNode
 		{
-			bool visited;
+			short lastFrameVisited;
 			SceneNode* node;
 
 			VisitableNode(SceneNode* nodePtr)
 			{
-				visited = false;
+				lastFrameVisited = 0;
 				node = nodePtr;
 			}
 		};
@@ -43,9 +43,6 @@ namespace GLEngine
 		void DeleteSubNode(VisitableNode * visitableNode);
 		list<VisitableNode*>& GetSubNodes() { return _subNodes; }
 		bool IsEmpty() const { return _subNodes.size() == 0; }
-
-		// This reverts the state of the visitable elements to unvisited.
-		void ResetVisitedElements();
 
 		const GLEngineMath::Vector3& GetPosition() const { return _position; }
 		float GetSize() const { return _size; }

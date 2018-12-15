@@ -27,5 +27,11 @@ namespace GLEngine
 		virtual void Visit(PerspectiveCamera* cameraToVisit) = 0;
 		virtual void Visit(CellArray* cellArrayToVisit);
 		virtual void Visit(Cell* cellToVisit);
+
+		// Switch from an odd frame to an even one, then back.
+		void IncrementCurrentFrameId();
+
+	protected:
+		short _currentFrameId = 0;
 	};
 }

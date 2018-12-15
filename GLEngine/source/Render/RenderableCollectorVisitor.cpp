@@ -84,6 +84,9 @@ namespace GLEngine
 		_totalCellsCount = 0;
 		_totalCellsNotRendered = 0;
 
+		// Switch from an odd frame to an even one, then back.
+		IncrementCurrentFrameId();
+
 		return true;
 	}
 

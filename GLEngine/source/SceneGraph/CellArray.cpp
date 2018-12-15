@@ -31,14 +31,6 @@ namespace GLEngine
 		visitor->Visit(this);
 	}
 
-	void CellArray::ResetVisitedCells()
-	{
-		for(auto currentPair : _subCells)
-		{
-			currentPair.second->ResetVisitedElements();
-		}
-	}
-
 	inline float CellArray::ClosestCellCoordinate(float initialCoordinate) const
 	{
 		return std::roundf(initialCoordinate / _cellsSize) * _cellsSize;

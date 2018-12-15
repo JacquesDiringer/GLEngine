@@ -26,8 +26,6 @@ namespace GLEngine
 		virtual void Accept(SceneElementVisitor* visitor);
 
 		std::map<GLEngineMath::Vector3, Cell*>& GetSubCells() { return _subCells; }
-		// This reverts the state of the visitable elements to unvisited.
-		void ResetVisitedCells();
 
 		// Returns the position of the closest cell.
 		inline float ClosestCellCoordinate(float initialCoordinate) const;
