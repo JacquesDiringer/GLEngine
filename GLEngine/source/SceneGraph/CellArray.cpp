@@ -11,14 +11,14 @@ namespace GLEngine
 		: _cellsSize(0.0f)
 	{
 		_subCells = std::map<GLEngineMath::Vector3, Cell*>();
-		_visitableNodes = std::list<Cell::VisitableNode*>();
+		_visitableNodesMap = std::unordered_map<SceneNode*, Cell::VisitableNode*>();
 	}
-
+	
 	CellArray::CellArray(float cellsSize)
 		: _cellsSize(cellsSize)
 	{
 		_subCells = std::map<GLEngineMath::Vector3, Cell*>();
-		_visitableNodes = std::list<Cell::VisitableNode*>();
+		_visitableNodesMap = std::unordered_map<SceneNode*, Cell::VisitableNode*>();
 	}
 
 
@@ -61,7 +61,7 @@ namespace GLEngine
 
 		// Create the VisitableNode instance that is going to be shared accross Cells.
 		Cell::VisitableNode* newVisitableNode = new Cell::VisitableNode(node);
-		_visitableNodes.push_back(newVisitableNode);
+		_visitableNodesMap.insert(std::pair<SceneNode*, Cell::VisitableNode*>(node, newVisitableNode));
 
 		// Browse the cells and determinne whether it exists or not.
 		for (float currentXCell = xMinCell; currentXCell <= xMaxCell; currentXCell += _cellsSize)
@@ -123,7 +123,8 @@ namespace GLEngine
 						// If it exists, delete the node from it.
 						Cell * foundCell = it->second;
 
-						foundCell->DeleteSubNode(FindCorrespondingNode(node));
+						Cell::VisitableNode * correspondingNode = FindCorrespondingNode(node);
+						foundCell->DeleteSubNode(correspondingNode);
 
 						if (foundCell->IsEmpty())
 						{
@@ -172,22 +173,14 @@ namespace GLEngine
 
 	Cell::VisitableNode * CellArray::FindCorrespondingNode(SceneNode * node) const
 	{
-		Cell::VisitableNode* result = nullptr;
+		auto findIt = _visitableNodesMap.find(node);
 
-		for (auto currentVisitable : _visitableNodes)
-		{
-			if (currentVisitable->node == node)
-			{
-				result = currentVisitable;
-			}
-		}
-
-		if (result == nullptr)
+		if (findIt == _visitableNodesMap.end())
 		{
 			throw new std::exception("Corresponding visitable node could not be found.");
 		}
 
-		return result;
+		return findIt->second;
 	}
 
 }

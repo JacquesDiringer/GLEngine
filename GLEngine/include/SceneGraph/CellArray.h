@@ -4,7 +4,7 @@
 #include <SceneGraph\Cell.h>
 
 #include <map>
-#include <list>
+#include <unordered_map>
 
 #ifdef GLENGINE_EXPORTS
 #define GLENGINE_API __declspec(dllexport)
@@ -52,8 +52,8 @@ namespace GLEngine
 		// Size of the sub cells.
 		float _cellsSize;
 
-		// A list of the visitable nodes stored in the cells.
-		// Should be equal to the number of SceneNodes stored in the CellArray.
-		std::list<Cell::VisitableNode*> _visitableNodes;
+		// An unordered map (hash table) of the visitable nodes stored in the cells.
+		// Count should be equal to the number of SceneNodes stored in the CellArray.
+		std::unordered_map<SceneNode*, Cell::VisitableNode*> _visitableNodesMap;
 	};
 }
