@@ -154,23 +154,23 @@ namespace GLEngine
 
 		// Post processes rendering.
 		int currentPostProcessId = 0;
-		Texture2D* previousPostProcessResult;
 		for each (PostProcess* currentPostProcess in postProcesses)
 		{
-			if (currentPostProcessId == 0)
-			{
-				// If this is the first post process being computed, use the combine frame buffer as the input texture.
-				currentPostProcess->SetInputTexture(_combineBuffer->GetBoundTexture());
-			}
-			else
-			{
-				// Otherwise, take the result of the previous post process.
-				currentPostProcess->SetInputTexture(previousPostProcessResult);
-			}
+			bool evenPostProcess = currentPostProcessId % 2 == 0;
 
+			// First bind the next framebuffer.
 			if (currentPostProcessId < postProcessesCount - 1)
 			{
-				currentPostProcess->BindInternalTextureAsOutput();
+				// If we are currently rendering an even post process.
+				if (evenPostProcess)
+				{
+					_postProcessEvenBuffer->Bind();
+				}
+				// If we are currently rendering an odd post process.
+				else
+				{
+					_postProcessOddBuffer->Bind();
+				}
 			}
 			else
 			{
@@ -179,11 +179,25 @@ namespace GLEngine
 				graphicsResourceManager->GetFrameBufferManager()->SetDefaultFrameBuffer();
 			}
 
+
+
+			if (currentPostProcessId == 0)
+			{
+				// If this is the first post process being computed, use the combine frame buffer as the input texture.
+				currentPostProcess->SetInputTexture(_combineBuffer->GetBoundTexture());
+			}
+			else
+			{
+				// Fetch the previous texture in the right post process frame buffer.
+				Texture2D* previouslyResultTexture = !evenPostProcess ? _postProcessEvenBuffer->GetBoundTexture() : _postProcessOddBuffer->GetBoundTexture();
+
+				// Otherwise, take the result of the previous post process.
+				currentPostProcess->SetInputTexture(previouslyResultTexture);
+			}
+
 			// Actually compute the post process.
 			currentPostProcess->Render(sceneManager, graphicsResourceManager);
 
-			// In case we need to pass it to the next one, remember the result.
-			previousPostProcessResult = currentPostProcess->GetProcessedResult();
 
 			++currentPostProcessId;
 		}
@@ -204,6 +218,8 @@ namespace GLEngine
 		_gBuffer = new GBuffer(_viewportWidth, _viewportHeight, graphicsResourceManager->GetFrameBufferManager());
 		_lightingBuffer = new RGB16FBuffer(_viewportWidth, _viewportHeight, _gBuffer->GetDepthBuffer(), graphicsResourceManager->GetFrameBufferManager());
 		_combineBuffer = new RGB16FBuffer(_viewportWidth, _viewportHeight, graphicsResourceManager->GetFrameBufferManager());
+		_postProcessEvenBuffer = new RGB16FBuffer(_viewportWidth, _viewportHeight, graphicsResourceManager->GetFrameBufferManager());
+		_postProcessOddBuffer = new RGB16FBuffer(_viewportWidth, _viewportHeight, graphicsResourceManager->GetFrameBufferManager());
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}

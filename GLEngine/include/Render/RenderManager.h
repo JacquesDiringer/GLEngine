@@ -25,6 +25,8 @@ namespace GLEngine
 
 		void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager) const;
 
+		Texture2D* GetGBufferGeometryTexture() const { return _gBuffer->GetGeomtryTexture(); }
+
 	private:
 		int _viewportWidth, _viewportHeight;
 		RenderableCollectorVisitor* _collectorVisitor;
@@ -40,6 +42,10 @@ namespace GLEngine
 
 		// Combine frame buffer. Render obtained before post processing.
 		RGB16FBuffer* _combineBuffer;
+
+		// Post processes ping pong buffers.
+		// We need 2 buffers to swap between them when there are more than one post process.
+		RGB16FBuffer * _postProcessEvenBuffer, * _postProcessOddBuffer;
 
 		// Environment map light Renderable that will be consistent from one frame to an other, should only need to be calculated once.
 		mutable EnvironmentMapLight* _environmentMapLight = nullptr;

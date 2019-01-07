@@ -15,7 +15,6 @@ namespace GLEngine
 		virtual void Render(SceneManager* sceneManager, GraphicsResourceManager* graphicsResourceManager) const = 0;
 
 		void BindInternalTextureAsOutput() const { _textureManager->BindImageTexture(0, _outputTexture, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA16F); }
-		Texture2D* GetProcessedResult() { return _outputTexture; }
 
 		void SetInputTexture(Texture2D* inputTexture) { _inputTexture = inputTexture; };
 

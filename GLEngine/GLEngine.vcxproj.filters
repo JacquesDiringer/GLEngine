@@ -318,6 +318,9 @@
     <ClInclude Include="include\SceneGraph\CellArray.h">
       <Filter>Header Files\SceneGraph</Filter>
     </ClInclude>
+    <ClInclude Include="include\Render\PostProcesses\FogPostProcess.h">
+      <Filter>Header Files\Render\PostProcesses</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Actor\Actor.cpp">
@@ -494,8 +497,8 @@
     <ClCompile Include="source\SceneGraph\CellArray.cpp">
       <Filter>Source Files\SceneGraph</Filter>
     </ClCompile>
-    <ClCompile Include="CELLARRAY.CPP">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="source\Render\PostProcesses\FogPostProcess.cpp">
+      <Filter>Source Files\Render\PostProcesses</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -529,6 +532,9 @@
       <Filter>Resource Files\Shaders\ImageProcessing</Filter>
     </None>
     <None Include="resource\Shaders\ImageProcessing\Combiner">
+      <Filter>Resource Files\Shaders\ImageProcessing</Filter>
+    </None>
+    <None Include="resource\Shaders\ImageProcessing\Fog.frag">
       <Filter>Resource Files\Shaders\ImageProcessing</Filter>
     </None>
   </ItemGroup>

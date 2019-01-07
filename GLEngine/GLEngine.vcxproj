@@ -161,6 +161,7 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Render\PostProcesses\FogPostProcess.h" />
     <ClInclude Include="include\SceneGraph\Cell.h" />
     <ClInclude Include="include\SceneGraph\CellArray.h" />
     <ClInclude Include="GLEngine.h" />
@@ -223,6 +224,7 @@
     <ClInclude Include="include\VertexArrayObject.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\Render\PostProcesses\FogPostProcess.cpp" />
     <ClCompile Include="source\SceneGraph\Cell.cpp" />
     <ClCompile Include="source\SceneGraph\CellArray.cpp" />
     <ClCompile Include="source\Actor\Actor.cpp" />
@@ -296,6 +298,7 @@
   <ItemGroup>
     <None Include="resource\Shaders\ImageProcessing\Bloom_ComputeShader" />
     <None Include="resource\Shaders\ImageProcessing\Combiner" />
+    <None Include="resource\Shaders\ImageProcessing\Fog.frag" />
     <None Include="resource\Shaders\ImageProcessing\GammaCorrection.frag" />
     <None Include="resource\Shaders\ImageProcessing\Ghosting" />
     <None Include="resource\Shaders\DeferredShading\Combiner\PBRCombiner.frag" />
