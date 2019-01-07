@@ -29,6 +29,11 @@ namespace GLEngine
 			// Set the depth texture.
 			fogShader->GetUniform("depthTex")->SetValue(textureManager->AssignTextureToUnit(_gBufferGeometryTexture));
 
+			// Set the matrices used to compute the world position of pixels.
+			fogShader->GetUniform("iProjection")->SetValue(sceneManager->GetCurrentCamera()->GetIProjection());
+			fogShader->GetUniform("iView")->SetValue(sceneManager->GetCurrentCamera()->GetIView());
+			fogShader->GetUniform("cameraPosition")->SetValue(sceneManager->GetCurrentCamera()->GetPosition());
+
 			// Bind the screen VAO.
 			VertexArrayObject* screenVAO = graphicsResourceManager->GetScreenVAO();
 			screenVAO->Bind();
