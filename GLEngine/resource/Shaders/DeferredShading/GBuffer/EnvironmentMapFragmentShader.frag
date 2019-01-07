@@ -1,5 +1,7 @@
 #version 330 core
 
+#define FLT_MAX 3.402823466e+38
+
 const float PI = 3.14159265359f;
 const float INVPI = 0.31830988618f;
 
@@ -27,7 +29,8 @@ void main()
 	// Remove gamma correction.
 	finalColor = pow(finalColor, vec3(2.2f));
 
-	geometryGTexture = vec4(0, 0, 0, 1);
+	// The distance will be the max value of a 16 bits float, since the geometry texture has a RGBAF16 pixel format.
+	geometryGTexture = vec4(0, 0, 0, FLT_MAX);
 	diffuseGTexture = vec3(0, 0, 0);
 	specularRoughnessGTexture = vec4(0, 0, 0, 0);
     emissiveGTexture = finalColor;
