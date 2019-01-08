@@ -1,13 +1,14 @@
 #version 330 core
 
-#define FOG_STEP_COUNT 20
+#define FOG_STEP_COUNT 10
 
 in vec2 texCoordinates;
 
 out vec4 color;
 
-uniform float fogSMaxDistance = 2000.0f;
-uniform vec3 fogCoolor = vec3(0.3f, 0.3f, 0.3f);
+uniform float atmosphericMaxDistance = 20000.0f;
+uniform vec3 atmosphericColor = vec3(0.0f, 0.45f, 1.0f);
+uniform vec3 smogColor = vec3(0.3f, 0.3f, 0.3f);
 
 uniform sampler2D inputTex;
 // This is the geometry texture of the G Buffer, therefore the depth has to be fetched in the alpha channel.
@@ -50,7 +51,11 @@ void main()
 
 	smogFogSum /= FOG_STEP_COUNT;
 
-	texColor = mix(texColor, fogCoolor, clamp(smogFogSum, 0, 1));
+	// Mix with the atmospheric haze.
+	texColor = mix(texColor, atmosphericColor, clamp(depth / atmosphericMaxDistance, 0, 1));
+
+	// Mix with the smog color.
+	texColor = mix(texColor, smogColor, clamp(smogFogSum, 0, 1));
 
 	color = vec4(texColor, 1);
 }
