@@ -4,13 +4,15 @@
 
 namespace GLEngine
 {
-	Actor::Actor()
-		: SceneElement()
+	Actor::Actor(SceneManager& sceneManager)
+		: SceneElement(), _sceneManager(sceneManager)
 	{
+		_sceneManager.AddActor(this);
 	}
 
 	Actor::~Actor()
 	{
+		_sceneManager.RemoveActor(this);
 	}
 
 	void Actor::Accept(SceneElementVisitor * visitor)

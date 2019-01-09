@@ -13,8 +13,8 @@ namespace GLEngine
 		public Actor
 	{
 	public:
-		ThirdViewOrientationActor();
-		ThirdViewOrientationActor(SceneNode* target);
+		ThirdViewOrientationActor(SceneManager& sceneManager);
+		ThirdViewOrientationActor(SceneManager& sceneManager, SceneNode* target);
 		~ThirdViewOrientationActor();
 
 		virtual void Increment(float deltaTime);

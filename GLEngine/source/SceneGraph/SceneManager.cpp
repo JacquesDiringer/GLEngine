@@ -1,6 +1,7 @@
 #include <stdafx.h>
 #include <SceneGraph\SceneManager.h>
 #include <Render\RenderingElements.h>
+#include <Actor\Actor.h>
 
 
 namespace GLEngine
@@ -9,6 +10,8 @@ namespace GLEngine
 	{
 		_rootNode = new SceneNode();
 		_updateVisitor = new UpdateVisitor();
+
+		_actorElements = std::unordered_set<Actor*>();
 	}
 
 
@@ -21,7 +24,10 @@ namespace GLEngine
 		// Store the time span since last update, to be able to give a delta time to SceneElements to update.
 		_updateVisitor->RegisterTime();
 
-		// Update, starting from the root node.
-		_rootNode->Accept(_updateVisitor);
+		// Only browse through the Actor elements for update.
+		for (Actor * currentActor : _actorElements)
+		{
+			currentActor->Accept(_updateVisitor);
+		}
 	}
 }

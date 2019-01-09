@@ -9,12 +9,13 @@ using GLEngineMath::Vector3;
 
 namespace GLEngine
 {
-	ThirdViewOrientationActor::ThirdViewOrientationActor()
+	ThirdViewOrientationActor::ThirdViewOrientationActor(SceneManager& sceneManager)
+		: Actor(sceneManager)
 	{
 	}
 
-	ThirdViewOrientationActor::ThirdViewOrientationActor(SceneNode * target)
-		: _target(target)
+	ThirdViewOrientationActor::ThirdViewOrientationActor(SceneManager& sceneManager, SceneNode * target)
+		: Actor(sceneManager), _target(target)
 	{
 	}
 

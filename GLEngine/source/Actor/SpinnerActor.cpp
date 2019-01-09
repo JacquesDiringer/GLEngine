@@ -7,17 +7,18 @@
 
 namespace GLEngine
 {
-	SpinnerActor::SpinnerActor()
+	SpinnerActor::SpinnerActor(SceneManager& sceneManager)
+		: Actor(sceneManager)
 	{
 	}
 
-	SpinnerActor::SpinnerActor(const Quaternion& quaternion)
-		: Actor(), _quaternion(quaternion), _quaternionConstructor(true)
+	SpinnerActor::SpinnerActor(SceneManager& sceneManager, const Quaternion& quaternion)
+		: Actor(sceneManager), _quaternion(quaternion), _quaternionConstructor(true)
 	{
 	}
 
-	SpinnerActor::SpinnerActor(const Matrix4& rotationMatrix)
-		: Actor(), _rotationMatrix(rotationMatrix), _quaternionConstructor(false)
+	SpinnerActor::SpinnerActor(SceneManager& sceneManager, const Matrix4& rotationMatrix)
+		: Actor(sceneManager), _rotationMatrix(rotationMatrix), _quaternionConstructor(false)
 	{
 	}
 

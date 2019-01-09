@@ -12,9 +12,9 @@ namespace GLEngine
 		public Actor
 	{
 	public:
-		SpinnerActor();
-		SpinnerActor(const Quaternion& quaternion);
-		SpinnerActor(const Matrix4& rotationMatrix);
+		SpinnerActor(SceneManager& sceneManager);
+		SpinnerActor(SceneManager& sceneManager, const Quaternion& quaternion);
+		SpinnerActor(SceneManager& sceneManager, const Matrix4& rotationMatrix);
 		~SpinnerActor();
 
 		virtual void Increment(float deltaTime);

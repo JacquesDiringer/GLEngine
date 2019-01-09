@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SceneGraph\SceneElement.h>
+#include <SceneGraph\SceneManager.h>
 
 #ifdef GLENGINE_EXPORTS
 #define GLENGINE_API __declspec(dllexport)
@@ -14,12 +15,15 @@ namespace GLEngine
 		public SceneElement
 	{
 	public:
-		Actor();
-		~Actor();
+		Actor(SceneManager& sceneManager);
+		virtual ~Actor();
 
 		virtual void Accept(SceneElementVisitor* visitor);
 
 		virtual void Increment(float deltaTime) = 0;
+
+	private:
+		SceneManager& _sceneManager;
 	};
 
 }
