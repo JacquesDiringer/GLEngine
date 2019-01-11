@@ -45,8 +45,6 @@ namespace GLEngine
 		GLEngineMath::Matrix4 _view,  _iView, _projection, _iProjection, _viewProjection;
 		vector<PostProcess*> _postProcesses;
 
-		SceneNode* _parentNode = nullptr;
-
 		void UpdateViewAndIView();
 	};
 }

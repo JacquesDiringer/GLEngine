@@ -28,7 +28,7 @@ namespace GLEngine
 
 	void SpinnerActor::Increment(float deltaTime)
 	{
-		SceneNode* parentNode = dynamic_cast<SceneNode*>(GetParent());
+		SceneNode* parentNode = GetParentNode();
 
 		if (parentNode != nullptr)
 		{

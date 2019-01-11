@@ -25,7 +25,7 @@ namespace GLEngine
 
 	void PointLight::Render(SceneManager * sceneManager, GraphicsResourceManager * graphicsResourceManager) const
 	{
-		SceneNode* parentNode = dynamic_cast<SceneNode*>(GetParent());
+		SceneNode* parentNode = GetParentNode();
 
 		if (parentNode != nullptr)
 		{

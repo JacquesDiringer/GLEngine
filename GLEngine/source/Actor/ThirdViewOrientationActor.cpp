@@ -25,7 +25,7 @@ namespace GLEngine
 
 	void ThirdViewOrientationActor::Increment(float deltaTime)
 	{
-		SceneNode* parentNode = dynamic_cast<SceneNode*>(GetParent());
+		SceneNode* parentNode = GetParentNode();
 
 		if (parentNode != nullptr)
 		{
@@ -33,7 +33,7 @@ namespace GLEngine
 			// We invert the matrix because the algorithm that constructed it is actually the one used to compute the view matrix of the camera (this later leads to an other inversion, to recover the view matrix, this silly non optimized double computation needs to be fixed).
 			relativeTransformation.InvertRT();
 
-			SceneNode* grandParentNode = dynamic_cast<SceneNode*>(parentNode->GetParent());
+			SceneNode* grandParentNode = parentNode->GetParentNode();
 			Matrix4 grandParentWorldMatrix;
 			if (grandParentNode != nullptr)
 			{

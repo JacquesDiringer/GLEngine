@@ -16,6 +16,16 @@ namespace GLEngine
 		RemoveFromParentNode();
 	}
 
+	SceneNode * SceneElement::GetParentNode() const
+	{
+		if (_parentNode == nullptr)
+		{
+			_parentNode = dynamic_cast<SceneNode*>(GetParent());
+		}
+
+		return _parentNode;
+	}
+
 	const GLEngineMath::Vector3 SceneElement::GetRelativePosition() const
 	{
 		return GLEngineMath::Vector3();

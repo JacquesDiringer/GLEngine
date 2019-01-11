@@ -39,12 +39,7 @@ namespace GLEngine
 
 			if (_parentNode == nullptr)
 			{
-				_parentNode = dynamic_cast<SceneNode*>(GetParent());
-
-				if (_parentNode == nullptr)
-				{
-					_isRootNode = true;
-				}
+				GetParentNode();
 			}
 			if (_isRootNode)
 			{
@@ -82,7 +77,7 @@ namespace GLEngine
 		{
 			if (!value)
 			{
-				SceneNode* parentNode = dynamic_cast<SceneNode*>(GetParent());
+				SceneNode* parentNode = GetParentNode();
 				if (parentNode != nullptr)
 				{
 					parentNode->SetIsBoundingUpToDate(value);
@@ -153,5 +148,23 @@ namespace GLEngine
 		// Find the child in the children vector and remove it.
 		vector<SceneElement*>::iterator findIterator = std::find(_subElements.begin(), _subElements.end(), elementToRemove);
 		_subElements.erase(findIterator);
+	}
+
+	SceneNode * SceneNode::GetParentNode() const
+	{
+		if (!_isRootNode)
+		{
+			if (_parentNode == nullptr)
+			{
+				_parentNode = dynamic_cast<SceneNode*>(GetParent());
+
+				if (_parentNode == nullptr)
+				{
+					_isRootNode = true;
+				}
+			}
+		}
+
+		return _parentNode;
 	}
 }

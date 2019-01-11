@@ -37,8 +37,6 @@ namespace GLEngine
 
 		virtual float GetBoundingSphereRadius();
 
-		SceneNode* GetParentNode() const;
-
 	private:
 		Model* _resource = nullptr;
 		Mesh* _mesh;
@@ -46,7 +44,5 @@ namespace GLEngine
 		Texture2D *_diffuseTexture = nullptr;
 		Texture2D *_specularTexture = nullptr;
 		Texture2D *_roughnessTexture = nullptr;
-
-		mutable SceneNode* _parentNode = nullptr;
 	};
 }

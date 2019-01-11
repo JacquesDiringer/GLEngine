@@ -34,7 +34,7 @@ namespace GLEngine
 	{
 		if (_resource != nullptr)
 		{
-			SceneNode * parentNode = dynamic_cast<SceneNode*>(GetParent());
+			SceneNode * parentNode =GetParentNode();
 
 			if (parentNode != nullptr)
 			{
@@ -86,15 +86,5 @@ namespace GLEngine
 	float Model::GetBoundingSphereRadius()
 	{
 		return _resource!= nullptr ? _resource->GetBoundingSphereRadius() : _mesh->GetBoundingSphereRadius();
-	}
-
-	SceneNode * Model::GetParentNode() const
-	{
-		if (_parentNode == nullptr)
-		{
-			_parentNode = dynamic_cast<SceneNode*>(GetParent());
-		}
-
-		return _parentNode;
 	}
 }

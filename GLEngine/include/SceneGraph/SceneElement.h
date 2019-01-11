@@ -24,6 +24,9 @@ namespace GLEngine
 		SceneElement* GetParent() const { return _parent; }
 		void SetParent(SceneElement* parent) { _parent = parent; }
 
+		// Ensures that the dynamic_cast to get the parent node is done only once.
+		virtual SceneNode* GetParentNode() const;
+
 		// Position relative to parent. Should be a null vector excepting for SceneNodes.
 		virtual const GLEngineMath::Vector3 GetRelativePosition() const;
 
@@ -44,6 +47,7 @@ namespace GLEngine
 
 	protected:
 		bool _isBoundingUpToDate = false;
+		mutable SceneNode* _parentNode = nullptr;
 
 	private:
 		SceneElement * _parent = nullptr;

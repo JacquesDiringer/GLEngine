@@ -55,6 +55,9 @@ namespace GLEngine
 		// This function should only be used from a SceneElement.
 		virtual void RemoveChild(SceneElement* elementToRemove);
 
+		// Ensures that the dynamic_cast to get the parent node is done only once.
+		SceneNode* GetParentNode() const;
+
 	private:
 		GLEngineMath::Matrix4 _relativeTransformation;
 		GLEngineMath::Matrix4 _worldTransformation;
@@ -62,7 +65,6 @@ namespace GLEngine
 		vector<SceneElement*> _subElements;
 		float _boundingSphereRadius = 0;
 
-		SceneNode* _parentNode = nullptr;
-		bool _isRootNode = false;
+		mutable bool _isRootNode = false;
 	};
 }

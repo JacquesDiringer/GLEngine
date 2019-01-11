@@ -40,7 +40,7 @@ namespace GLEngine
 		// Cache the SceneNode parent if found.
 		if (_parentNode == nullptr)
 		{
-			_parentNode = dynamic_cast<SceneNode*>(GetParent());
+			GetParentNode();
 
 			if(_parentNode == nullptr)
 			{
@@ -79,7 +79,7 @@ namespace GLEngine
 
 	GLEngineMath::Vector3 PerspectiveCamera::GetPosition()
 	{
-		SceneNode* parentNode = dynamic_cast<SceneNode*>(GetParent());
+		SceneNode* parentNode = GetParentNode();
 		if (parentNode != nullptr)
 		{
 			return parentNode->GetWorldTransformation().Position();

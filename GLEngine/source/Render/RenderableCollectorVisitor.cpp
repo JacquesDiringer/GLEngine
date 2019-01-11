@@ -18,8 +18,8 @@ namespace GLEngine
 	void RenderableCollectorVisitor::Visit(SceneNode * sceneNodeToVisit)
 	{
 		// Frustum culling happens here.
-		if (NodeIsInFrustum(*sceneNodeToVisit))
-		//if (true)
+		//if (NodeIsInFrustum(*sceneNodeToVisit))
+		if (true)
 		{
 			SceneElementVisitor::Visit(sceneNodeToVisit);
 		}
