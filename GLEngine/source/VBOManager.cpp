@@ -95,7 +95,7 @@ namespace GLEngine
 
 		// Find the corresponding id and it's size.
 		// Then remove them from the used buffers map.
-		for each (auto bufferMapElement in _usedArrayBuffers)
+		for (auto bufferMapElement : _usedArrayBuffers)
 		{
 			unordered_set<GLuint>& currentVector = bufferMapElement.second;
 			if (currentVector.find(bufferToFree) != currentVector.end())

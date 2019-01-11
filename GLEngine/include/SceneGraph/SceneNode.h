@@ -61,5 +61,8 @@ namespace GLEngine
 		bool _worldMatrixIsUpToDate;
 		vector<SceneElement*> _subElements;
 		float _boundingSphereRadius = 0;
+
+		SceneNode* _parentNode = nullptr;
+		bool _isRootNode = false;
 	};
 }

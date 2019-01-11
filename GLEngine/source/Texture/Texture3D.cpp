@@ -23,7 +23,7 @@ namespace GLEngine
 		GLfloat * data = new GLfloat[3 * _width * _height * _depth];
 
 		int texture2DIndex = 0;
-		for each (Texture2D* currentTexture2D in composerList)
+		for (Texture2D* currentTexture2D : composerList)
 		{
 			if (_width == currentTexture2D->GetWidth() && _height == currentTexture2D->GetHeight())
 			{

@@ -49,6 +49,29 @@ namespace GLEngineMath
 		_m33 = other->_m33;
 	}
 
+	void Matrix4::CopyFromValuesArray(const float * values)
+	{
+		_m00 = values[0];
+		_m01 = values[1];
+		_m02 = values[2];
+		_m03 = values[3];
+
+		_m10 = values[4];
+		_m11 = values[5];
+		_m12 = values[6];
+		_m13 = values[7];
+
+		_m20 = values[8];
+		_m21 = values[9];
+		_m22 = values[10];
+		_m23 = values[11];
+
+		_m30 = values[12];
+		_m31 = values[13];
+		_m32 = values[14];
+		_m33 = values[15];
+	}
+
 	Matrix4 Matrix4::Identity()
 	{
 		return Matrix4();
@@ -61,40 +84,48 @@ namespace GLEngineMath
 
 	Matrix4 Matrix4::Multiply(const Matrix4& a, const Matrix4& b)
 	{
-		float m00 = a._m00*b._m00 + a._m01*b._m10 + a._m02*b._m20 + a._m03*b._m30;
-		float m01 = a._m00*b._m01 + a._m01*b._m11 + a._m02*b._m21 + a._m03*b._m31;
-		float m02 = a._m00*b._m02 + a._m01*b._m12 + a._m02*b._m22 + a._m03*b._m32;
-		float m03 = a._m00*b._m03 + a._m01*b._m13 + a._m02*b._m23 + a._m03*b._m33;
+		return a*b;
+	}
 
-		float m10 = a._m10*b._m00 + a._m11*b._m10 + a._m12*b._m20 + a._m13*b._m30;
-		float m11 = a._m10*b._m01 + a._m11*b._m11 + a._m12*b._m21 + a._m13*b._m31;
-		float m12 = a._m10*b._m02 + a._m11*b._m12 + a._m12*b._m22 + a._m13*b._m32;
-		float m13 = a._m10*b._m03 + a._m11*b._m13 + a._m12*b._m23 + a._m13*b._m33;
+	void Matrix4::Multiply(const Matrix4 & a, const Matrix4 & b, Matrix4 & result)
+	{
+		const float values[] = {
+		a._m00 * b._m00 + a._m01 * b._m10 + a._m02 * b._m20 + a._m03 * b._m30,
+		a._m00 * b._m01 + a._m01 * b._m11 + a._m02 * b._m21 + a._m03 * b._m31,
+		a._m00 * b._m02 + a._m01 * b._m12 + a._m02 * b._m22 + a._m03 * b._m32,
+		a._m00 * b._m03 + a._m01 * b._m13 + a._m02 * b._m23 + a._m03 * b._m33,
+		
+		a._m10 * b._m00 + a._m11 * b._m10 + a._m12 * b._m20 + a._m13 * b._m30,
+		a._m10 * b._m01 + a._m11 * b._m11 + a._m12 * b._m21 + a._m13 * b._m31,
+		a._m10 * b._m02 + a._m11 * b._m12 + a._m12 * b._m22 + a._m13 * b._m32,
+		a._m10 * b._m03 + a._m11 * b._m13 + a._m12 * b._m23 + a._m13 * b._m33,
+		
+		a._m20 * b._m00 + a._m21 * b._m10 + a._m22 * b._m20 + a._m23 * b._m30,
+		a._m20 * b._m01 + a._m21 * b._m11 + a._m22 * b._m21 + a._m23 * b._m31,
+		a._m20 * b._m02 + a._m21 * b._m12 + a._m22 * b._m22 + a._m23 * b._m32,
+		a._m20 * b._m03 + a._m21 * b._m13 + a._m22 * b._m23 + a._m23 * b._m33,
+		
+		a._m30 * b._m00 + a._m31 * b._m10 + a._m32 * b._m20 + a._m33 * b._m30,
+		a._m30 * b._m01 + a._m31 * b._m11 + a._m32 * b._m21 + a._m33 * b._m31,
+		a._m30 * b._m02 + a._m31 * b._m12 + a._m32 * b._m22 + a._m33 * b._m32,
+		a._m30 * b._m03 + a._m31 * b._m13 + a._m32 * b._m23 + a._m33 * b._m33
+		};
 
-		float m20 = a._m20*b._m00 + a._m21*b._m10 + a._m22*b._m20 + a._m23*b._m30;
-		float m21 = a._m20*b._m01 + a._m21*b._m11 + a._m22*b._m21 + a._m23*b._m31;
-		float m22 = a._m20*b._m02 + a._m21*b._m12 + a._m22*b._m22 + a._m23*b._m32;
-		float m23 = a._m20*b._m03 + a._m21*b._m13 + a._m22*b._m23 + a._m23*b._m33;
-
-		float m30 = a._m30*b._m00 + a._m31*b._m10 + a._m32*b._m20 + a._m33*b._m30;
-		float m31 = a._m30*b._m01 + a._m31*b._m11 + a._m32*b._m21 + a._m33*b._m31;
-		float m32 = a._m30*b._m02 + a._m31*b._m12 + a._m32*b._m22 + a._m33*b._m32;
-		float m33 = a._m30*b._m03 + a._m31*b._m13 + a._m32*b._m23 + a._m33*b._m33;
-
-		return Matrix4(m00, m01, m02, m03,
-			m10, m11, m12, m13,
-			m20, m21, m22, m23,
-			m30, m31, m32, m33);
+		result.CopyFromValuesArray(values);
 	}
 
 	Matrix4 Matrix4::operator*(const Matrix4& b) const
 	{
-		return Matrix4::Multiply((*this), b);
+		Matrix4 result = Matrix4();
+
+		Multiply(*this, b, result);
+
+		return result;
 	}
 
-	Vector3 Matrix4::operator*(const Vector3& b) const
+	Vector3 Matrix4::operator*(const Vector3& position) const
 	{
-		return Matrix4::Multiply((*this), b);
+		return Multiply(*this, position);
 	}
 
 	Matrix4 Matrix4::operator*(float b) const
@@ -107,56 +138,81 @@ namespace GLEngineMath
 
 	Vector3 Matrix4::Multiply(const Matrix4& a, const Vector3& position)
 	{
-		// We consider that position.W = 1.
-		float x = a._m00*position.X() + a._m01*position.Y() + a._m02*position.Z() + a._m03;
-		float y = a._m10*position.X() + a._m11*position.Y() + a._m12*position.Z() + a._m13;
-		float z = a._m20*position.X() + a._m21*position.Y() + a._m22*position.Z() + a._m23;
-		float w = a._m30*position.X() + a._m31*position.Y() + a._m32*position.Z() + a._m33;
+		Vector3 result = Vector3();
 
-		return Vector3(x/w, y/w, z/w);
+		Multiply(a, position, result);
+
+		return result;
+	}
+
+	void Matrix4::Multiply(const Matrix4& a, const Vector3& position, Vector3& result)
+	{
+		float pX = position.X();
+		float pY = position.Y();
+		float pZ = position.Z();
+
+		// We consider that position.W = 1.
+		float w = a._m30 * pX;
+		w += a._m31 * pY;
+		w += a._m32 * pZ;
+		w += a._m33;
+
+		float x = a._m00 * pX;
+		x += a._m01 * pY;
+		x += a._m02 * pZ;
+		x += a._m03;
+		x /= w;
+
+		float y = a._m10 * pX;
+		y += a._m11 * pY;
+		y += a._m12 * pZ;
+		y += a._m13;
+		y /= w;
+
+		float z = a._m20 * pX;
+		z += a._m21 * pY;
+		z += a._m22 * pZ;
+		z += a._m23;
+		z /= w;
+
+		result.X(x);
+		result.Y(y);
+		result.Z(z);
 	}
 
 	void Matrix4::Transpose()
 	{
-		float m00 = this->_m00;
 		float m01 = this->_m01;
 		float m02 = this->_m02;
 		float m03 = this->_m03;
 		 			
 		float m10 = this->_m10;
-		float m11 = this->_m11;
 		float m12 = this->_m12;
 		float m13 = this->_m13;
 		 			
 		float m20 = this->_m20;
 		float m21 = this->_m21;
-		float m22 = this->_m22;
 		float m23 = this->_m23;
 		 			
 		float m30 = this->_m30;
 		float m31 = this->_m31;
 		float m32 = this->_m32;
-		float m33 = this->_m33;
 
-		this->_m00 = m00;
 		this->_m01 = m10;
 		this->_m02 = m20;
 		this->_m03 = m30;
 				  
 		this->_m10 = m01;
-		this->_m11 = m11;
 		this->_m12 = m21;
 		this->_m13 = m31;
 				   
 		this->_m20 = m02;
 		this->_m21 = m12;
-		this->_m22 = m22;
 		this->_m23 = m32;
 				   
 		this->_m30 = m03;
 		this->_m31 = m13;
 		this->_m32 = m23;
-		this->_m33 = m33;
 	}
 
 	void Matrix4::Invert()
@@ -412,27 +468,55 @@ namespace GLEngineMath
 	{
 		float* result = new float[16];
 
-		result[0] = _m00;
-		result[1] = _m01;
-		result[2] = _m02;
-		result[3] = _m03;
-
-		result[4] = _m10;
-		result[5] = _m11;
-		result[6] = _m12;
-		result[7] = _m13;
-
-		result[8] = _m20;
-		result[9] = _m21;
-		result[10] = _m22;
-		result[11] = _m23;
-
-		result[12] = _m30;
-		result[13] = _m31;
-		result[14] = _m32;
-		result[15] = _m33;
+		GetArrayCopy(result);
 
 		return result;
+	}
+
+	void Matrix4::GetArrayCopy(float* arrayToFill) const
+	{
+		arrayToFill[0] = _m00;
+		arrayToFill[1] = _m01;
+		arrayToFill[2] = _m02;
+		arrayToFill[3] = _m03;
+
+		arrayToFill[4] = _m10;
+		arrayToFill[5] = _m11;
+		arrayToFill[6] = _m12;
+		arrayToFill[7] = _m13;
+
+		arrayToFill[8] = _m20;
+		arrayToFill[9] = _m21;
+		arrayToFill[10] = _m22;
+		arrayToFill[11] = _m23;
+
+		arrayToFill[12] = _m30;
+		arrayToFill[13] = _m31;
+		arrayToFill[14] = _m32;
+		arrayToFill[15] = _m33;
+	}
+
+	void Matrix4::GetTransposedArrayCopy(float* arrayToFill) const
+	{
+		arrayToFill[0] = _m00;
+		arrayToFill[1] = _m10;
+		arrayToFill[2] = _m20;
+		arrayToFill[3] = _m30;
+
+		arrayToFill[4] = _m01;
+		arrayToFill[5] = _m11;
+		arrayToFill[6] = _m21;
+		arrayToFill[7] = _m31;
+
+		arrayToFill[8] = _m02;
+		arrayToFill[9] = _m12;
+		arrayToFill[10] = _m22;
+		arrayToFill[11] = _m32;
+
+		arrayToFill[12] = _m03;
+		arrayToFill[13] = _m13;
+		arrayToFill[14] = _m23;
+		arrayToFill[15] = _m33;
 	}
 
 	bool Matrix4::operator== (Matrix4 const &other) const

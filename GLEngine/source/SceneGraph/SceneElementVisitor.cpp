@@ -21,7 +21,7 @@ namespace GLEngine
 	void SceneElementVisitor::Visit(SceneNode * sceneNodeToVisit)
 	{
 		// Visit the sub elements.
-		for each (SceneElement* currentSubElement in *sceneNodeToVisit->GetSubElements())
+		for (SceneElement* currentSubElement : *sceneNodeToVisit->GetSubElements())
 		{
 			currentSubElement->Accept(this);
 		}
@@ -38,7 +38,7 @@ namespace GLEngine
 
 	void SceneElementVisitor::Visit(Cell * cellToVisit)
 	{
-		for each (Cell::VisitableNode* currentElement in cellToVisit->GetSubNodes())
+		for (Cell::VisitableNode* currentElement : cellToVisit->GetSubNodes())
 		{
 
 			// Visit only if it has not already been visited by another cell.

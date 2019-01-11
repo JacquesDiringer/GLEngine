@@ -23,8 +23,10 @@ namespace GLEngineMath
 		static float Dot(const Vector3& a, const Vector3& b);
 		static Vector3 Cross(const Vector3& left, const Vector3& right);
 		float Length() const;
-		Vector3 operator+(const Vector3& b) const;
+		Vector3 operator+(const Vector3& right) const;
+		Vector3 operator+=(const Vector3& right);
 		Vector3 operator-(const Vector3& right) const;
+		Vector3 operator-=(const Vector3& right);
 		static Vector3 Multiply(const Vector3& a, const Vector3& b);
 		Vector3 operator*(const Vector3 b) const;
 		Vector3 operator*(const float multiplier) const;

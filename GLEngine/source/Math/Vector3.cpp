@@ -75,17 +75,35 @@ namespace GLEngineMath
 			pow(_z, 2));
 	}
 
-	Vector3 Vector3::operator+(const Vector3& b) const
+	Vector3 Vector3::operator+(const Vector3& right) const
 	{
 		return Vector3(
-			X() + b.X(),
-			Y() + b.Y(),
-			Z() + b.Z());
+			X() + right.X(),
+			Y() + right.Y(),
+			Z() + right.Z());
+	}
+
+	Vector3 Vector3::operator+=(const Vector3 & right)
+	{
+		_x += right.X();
+		_y += right.Y();
+		_z += right.Z();
+
+		return *this;
 	}
 
 	Vector3 Vector3::operator-(const Vector3& right) const
 	{
 		return Vector3(X() - right.X(), Y() - right.Y(), Z() - right.Z());
+	}
+
+	Vector3 Vector3::operator-=(const Vector3 & right)
+	{
+		_x -= right.X();
+		_y -= right.Y();
+		_z -= right.Z();
+
+		return *this;
 	}
 
 	Vector3 Vector3::Multiply(const Vector3& a, const Vector3& b)

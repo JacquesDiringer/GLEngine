@@ -21,13 +21,16 @@ namespace GLEngineMath
 		~Matrix4();
 		
 		void CopyFromMatrix4(const Matrix4* other);
+		void CopyFromValuesArray(const float * values);
 
 		static Matrix4 Identity();
 		static Matrix4 Multiply(const Matrix4& a, const Matrix4& b);
+		static void Multiply(const Matrix4& a, const Matrix4& b, Matrix4& result);
 		Matrix4 operator* (const Matrix4& b) const;
 		Vector3 operator* (const Vector3& b) const;
 		Matrix4 operator* (float b) const;
 		static Vector3 Multiply(const Matrix4& a, const Vector3& position);
+		static void Multiply(const Matrix4& a, const Vector3& position, Vector3& result);
 		void Transpose();
 		// Inverts a generic invertible matrix.
 		void Invert();
@@ -48,6 +51,8 @@ namespace GLEngineMath
 		Vector3 Position() const;
 		Quaternion ComputeQuaternion();
 		float* GetArray() const;
+		void GetArrayCopy(float* arrayToFill) const;
+		void GetTransposedArrayCopy(float* arrayToFill) const;
 
 		// Operators
 		bool operator== (Matrix4 const &other) const;

@@ -94,22 +94,26 @@ namespace GLEngine
 	{
 		float boundingRadius = node.GetBoundingSphereRadius();
 
-		GLEngineMath::Vector3& projectedPointMinViewSpace = GLEngineMath::Matrix4::Multiply(_camera->GetView(), node.GetWorldTransformation().Position()) - GLEngineMath::Vector3(boundingRadius, boundingRadius, -boundingRadius);
-		GLEngineMath::Vector3& projectedPointMaxViewSpace = GLEngineMath::Matrix4::Multiply(_camera->GetView(), node.GetWorldTransformation().Position()) + GLEngineMath::Vector3(boundingRadius, boundingRadius, -boundingRadius);
+		GLEngineMath::Vector3 boundingRadiusVector = GLEngineMath::Vector3(boundingRadius, boundingRadius, -boundingRadius);
 
-		GLEngineMath::Vector3& projectedPointMin = GLEngineMath::Matrix4::Multiply(_camera->GetProjection(), projectedPointMinViewSpace);
-		GLEngineMath::Vector3& projectedPointMax = GLEngineMath::Matrix4::Multiply(_camera->GetProjection(), projectedPointMaxViewSpace);
+		GLEngineMath::Matrix4::Multiply(_camera->GetView(), node.GetWorldTransformation().Position(), _projectedPointMinViewSpace);
+		_projectedPointMinViewSpace -= boundingRadiusVector;
+		GLEngineMath::Matrix4::Multiply(_camera->GetView(), node.GetWorldTransformation().Position(), _projectedPointMaxViewSpace);
+		_projectedPointMaxViewSpace += boundingRadiusVector;
+
+		GLEngineMath::Matrix4::Multiply(_camera->GetProjection(), _projectedPointMinViewSpace, _projectedPointMin);
+		GLEngineMath::Matrix4::Multiply(_camera->GetProjection(), _projectedPointMaxViewSpace, _projectedPointMax);
 
 		return
 			// Test first if the points are not behind the camera.
 			// When a coordinate in projection space,= is tested, we have to first make sure that it doesn't lie behind the camera, otherwise the projected coordinates are degenerated.
 
-			(projectedPointMinViewSpace.Z() > 0 || projectedPointMin.Z() < 1) && // Far plane
-			(projectedPointMaxViewSpace.Z() < 0 && projectedPointMax.Z() > -1) && // Near plane
-			(projectedPointMaxViewSpace.Z() > 0 || projectedPointMax.X() > -1) && // Left plane
-			(projectedPointMinViewSpace.Z() > 0 || projectedPointMin.X() < 1) && // Right plane
-			(projectedPointMaxViewSpace.Z() > 0 || projectedPointMax.Y() > -1) && // Bottom plane
-			(projectedPointMinViewSpace.Z() > 0 || projectedPointMin.Y() < 1); // Top plane
+			(_projectedPointMinViewSpace.Z() > 0 || _projectedPointMin.Z() < 1) && // Far plane
+			(_projectedPointMaxViewSpace.Z() < 0 && _projectedPointMax.Z() > -1) && // Near plane
+			(_projectedPointMaxViewSpace.Z() > 0 || _projectedPointMax.X() > -1) && // Left plane
+			(_projectedPointMinViewSpace.Z() > 0 || _projectedPointMin.X() < 1) && // Right plane
+			(_projectedPointMaxViewSpace.Z() > 0 || _projectedPointMax.Y() > -1) && // Bottom plane
+			(_projectedPointMinViewSpace.Z() > 0 || _projectedPointMin.Y() < 1); // Top plane
 	}
 
 	bool RenderableCollectorVisitor::CellIsInFrustum(const Cell & cell) const
@@ -117,21 +121,25 @@ namespace GLEngine
 		// Radius of the sphere containing the cell.
 		float sphereRadius = cell.GetSize() * sqrtf(3.0f);
 
-		GLEngineMath::Vector3& projectedPointMinViewSpace = GLEngineMath::Matrix4::Multiply(_camera->GetView(), cell.GetPosition()) - GLEngineMath::Vector3(sphereRadius, sphereRadius, -sphereRadius);
-		GLEngineMath::Vector3& projectedPointMaxViewSpace = GLEngineMath::Matrix4::Multiply(_camera->GetView(), cell.GetPosition()) + GLEngineMath::Vector3(sphereRadius, sphereRadius, -sphereRadius);
+		GLEngineMath::Vector3 sphereRadiusVector = GLEngineMath::Vector3(sphereRadius, sphereRadius, -sphereRadius);
 
-		GLEngineMath::Vector3& projectedPointMin = GLEngineMath::Matrix4::Multiply(_camera->GetProjection(), projectedPointMinViewSpace);
-		GLEngineMath::Vector3& projectedPointMax = GLEngineMath::Matrix4::Multiply(_camera->GetProjection(), projectedPointMaxViewSpace);
+		GLEngineMath::Matrix4::Multiply(_camera->GetView(), cell.GetPosition(), _projectedPointMinViewSpace);
+		_projectedPointMinViewSpace -= sphereRadiusVector;
+		GLEngineMath::Matrix4::Multiply(_camera->GetView(), cell.GetPosition(), _projectedPointMaxViewSpace);
+		_projectedPointMaxViewSpace += sphereRadiusVector;
+
+		GLEngineMath::Matrix4::Multiply(_camera->GetProjection(), _projectedPointMinViewSpace, _projectedPointMin);
+		GLEngineMath::Matrix4::Multiply(_camera->GetProjection(), _projectedPointMaxViewSpace, _projectedPointMax);
 
 		return
 			// Test first if the points are not behind the camera.
 			// When a coordinate in projection space,= is tested, we have to first make sure that it doesn't lie behind the camera, otherwise the projected coordinates are degenerated.
 
-			(projectedPointMinViewSpace.Z() > 0 || projectedPointMin.Z() < 1) && // Far plane
-			(projectedPointMaxViewSpace.Z() < 0 && projectedPointMax.Z() > -1) && // Near plane
-			(projectedPointMaxViewSpace.Z() > 0 || projectedPointMax.X() > -1) && // Left plane
-			(projectedPointMinViewSpace.Z() > 0 || projectedPointMin.X() < 1) && // Right plane
-			(projectedPointMaxViewSpace.Z() > 0 || projectedPointMax.Y() > -1) && // Bottom plane
-			(projectedPointMinViewSpace.Z() > 0 || projectedPointMin.Y() < 1); // Top plane
+			(_projectedPointMinViewSpace.Z() > 0 || _projectedPointMin.Z() < 1) && // Far plane
+			(_projectedPointMaxViewSpace.Z() < 0 && _projectedPointMax.Z() > -1) && // Near plane
+			(_projectedPointMaxViewSpace.Z() > 0 || _projectedPointMax.X() > -1) && // Left plane
+			(_projectedPointMinViewSpace.Z() > 0 || _projectedPointMin.X() < 1) && // Right plane
+			(_projectedPointMaxViewSpace.Z() > 0 || _projectedPointMax.Y() > -1) && // Bottom plane
+			(_projectedPointMinViewSpace.Z() > 0 || _projectedPointMin.Y() < 1); // Top plane
 	}
 }

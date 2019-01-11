@@ -9,13 +9,15 @@
 namespace GLEngine
 {
 	InstancedModel::InstancedModel()
+		: Renderable()
 	{
-		// Void
+		_tempWorldArray = new GLfloat[16];
 	}
 
 	InstancedModel::InstancedModel(Model * resource)
-		: Renderable(), _resource(resource)
+		: InstancedModel()
 	{
+		_resource = resource;
 		_instancesNodes = vector<SceneNode*>();
 	}
 
@@ -29,7 +31,7 @@ namespace GLEngine
 		if (_instancesNodes.size() < _instanciationThreshold)
 		{
 			// No instanciation.
-			for each (SceneNode* currentNode in _instancesNodes)
+			for (SceneNode* currentNode : _instancesNodes)
 			{
 				_resource->RenderResource(sceneManager, graphicsResourceManager, currentNode);
 			}
@@ -41,19 +43,13 @@ namespace GLEngine
 			VBOManager* vboManager = graphicsResourceManager->GetVBOManager();
 
 			// Concatenate all node matrices in one array.
-			GLfloat* instanceMatricesArray = new GLfloat[16 * _instancesNodes.size()];
+			float* instanceMatricesArray = new float[16 * _instancesNodes.size()];
 			int instanceMatricesArrayIndex = 0;
-			for each (SceneNode* currentNode in _instancesNodes)
+			for (SceneNode* currentNode : _instancesNodes)
 			{
-				GLfloat* worldArray = currentNode->GetWorldTransformation().GetArray();
+				// Copy the transposed matrices values in the instance matrix array.
+				currentNode->GetWorldTransformation().GetTransposedArrayCopy(&instanceMatricesArray[16 * instanceMatricesArrayIndex]);
 
-				for (int worldArrayIndex = 0; worldArrayIndex < 16; worldArrayIndex++)
-				{
-					int transposedIndex = 4 * (worldArrayIndex % 4) + floorf(worldArrayIndex / 4);
-					instanceMatricesArray[16 * instanceMatricesArrayIndex + worldArrayIndex] = worldArray[transposedIndex];
-				}
-
-				delete worldArray; // will be deleted by the delete instanceMatricesArray ?
 				++instanceMatricesArrayIndex;
 			}
 

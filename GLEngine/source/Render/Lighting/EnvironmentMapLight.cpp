@@ -182,7 +182,7 @@ namespace GLEngine
 		Texture3D* result = new Texture3D(textures2DToAggregate);
 
 		// Free temporary 2D textures id's.
-		for each (Texture2D* currentTextureToFree in textures2DToAggregate)
+		for (Texture2D* currentTextureToFree : textures2DToAggregate)
 		{
 			delete(currentTextureToFree);
 		}

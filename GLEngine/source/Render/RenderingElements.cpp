@@ -9,7 +9,7 @@ namespace GLEngine
 {
 	RenderingElements::RenderingElements()
 	{
-		_instancedModels = unordered_map<Model*, InstancedModel>();
+		_instancedModels = map<Model*, InstancedModel>();
 		_pointLights = vector<PointLight*>();
 	}
 
@@ -39,7 +39,7 @@ namespace GLEngine
 	{
 		// Instanced rendering vector.
 		Model* resourceModel = model->GetResource();
-		SceneNode* parentNode = dynamic_cast<SceneNode*>(model->GetParent());
+		SceneNode* parentNode = model->GetParentNode();
 
 		auto modelIterator = _instancedModels.find(resourceModel);
 		if (modelIterator != _instancedModels.end() && parentNode != nullptr)
@@ -52,7 +52,7 @@ namespace GLEngine
 			// Add the new Model as a new InstancedModel in the map.
 			InstancedModel newModelVector = InstancedModel(resourceModel);
 			newModelVector.AddInstance(parentNode);
-			_instancedModels[resourceModel] = newModelVector;
+			_instancedModels.insert(pair<Model*, InstancedModel>(resourceModel, newModelVector));
 		}
 	}
 
@@ -60,7 +60,7 @@ namespace GLEngine
 	{
 		vector<InstancedModel*> result = vector<InstancedModel*>();
 
-		for (unordered_map<Model*, InstancedModel>::iterator mapIt = _instancedModels.begin(); mapIt != _instancedModels.end(); mapIt++)
+		for (map<Model*, InstancedModel>::iterator mapIt = _instancedModels.begin(); mapIt != _instancedModels.end(); mapIt++)
 		{
 			result.push_back(&mapIt->second);
 		}

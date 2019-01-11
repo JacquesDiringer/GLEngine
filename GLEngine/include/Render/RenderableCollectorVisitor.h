@@ -43,5 +43,11 @@ namespace GLEngine
 		RenderingElements* _collectedElements = nullptr;
 		int _totalPrimitiveCount, _totalVertexCount, _totalObjectCount, _totalCellsCount;
 		int _totalCellsNotRendered;
+
+		mutable GLEngineMath::Vector3 _projectedPointMinViewSpace = GLEngineMath::Vector3();
+		mutable GLEngineMath::Vector3 _projectedPointMaxViewSpace = GLEngineMath::Vector3();
+		
+		mutable GLEngineMath::Vector3 _projectedPointMin = GLEngineMath::Vector3();
+		mutable GLEngineMath::Vector3 _projectedPointMax = GLEngineMath::Vector3();
 	};
 }

@@ -18,7 +18,7 @@ namespace GLEngine
 	{
 		SetGpuState(graphicsResourceManager);
 
-		for each (Renderable* currentRenderable in _renderables)
+		for (Renderable* currentRenderable : _renderables)
 		{
 			currentRenderable->Render(sceneManager, graphicsResourceManager);
 		}

@@ -71,7 +71,7 @@ namespace GLEngine
 		// Then the models.
 		// Fill the models render queue.
 		vector<InstancedModel*> instancedModelVector = collection->GetNextInstancedModels();
-		for each (InstancedModel* currentInstancedModel in instancedModelVector)
+		for (InstancedModel* currentInstancedModel : instancedModelVector)
 		{
 			_modelsRenderQueue->AddRenderable(currentInstancedModel);
 		}
@@ -154,7 +154,7 @@ namespace GLEngine
 
 		// Post processes rendering.
 		int currentPostProcessId = 0;
-		for each (PostProcess* currentPostProcess in postProcesses)
+		for (PostProcess* currentPostProcess : postProcesses)
 		{
 			bool evenPostProcess = currentPostProcessId % 2 == 0;
 

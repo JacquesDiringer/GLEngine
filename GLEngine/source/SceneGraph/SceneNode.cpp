@@ -19,7 +19,7 @@ namespace GLEngine
 		// Delete all children.
 		// This will also remove them from the children vector, while removing the link to the parent at the same time.
 		vector<SceneElement*> childrenToDelete = vector<SceneElement*>(_subElements);
-		for each (SceneElement* currentChild in childrenToDelete)
+		for (SceneElement* currentChild : childrenToDelete)
 		{
 			delete(currentChild);
 		}
@@ -37,18 +37,26 @@ namespace GLEngine
 		if (!_worldMatrixIsUpToDate)
 		{
 
-			SceneNode* parentNode = dynamic_cast<SceneNode*>(GetParent());
-			if (parentNode == nullptr)
+			if (_parentNode == nullptr)
+			{
+				_parentNode = dynamic_cast<SceneNode*>(GetParent());
+
+				if (_parentNode == nullptr)
+				{
+					_isRootNode = true;
+				}
+			}
+			if (_isRootNode)
 			{
 				_worldTransformation = _relativeTransformation;
 			}
 			else
 			{
-				_worldTransformation = GLEngineMath::Matrix4::Multiply(parentNode->GetWorldTransformation(), _relativeTransformation);
+				GLEngineMath::Matrix4::Multiply(_parentNode->GetWorldTransformation(), _relativeTransformation, _worldTransformation);
 			}
-		}
 
-		SetIsUpToDate(true);
+			SetIsUpToDate(true);
+		}
 
 		return _worldTransformation;
 	}
@@ -124,7 +132,7 @@ namespace GLEngine
 		// If false, invalidate sub scene nodes.
 		if (!value)
 		{
-			for each (SceneElement* currentElement in _subElements)
+			for (SceneElement* currentElement : _subElements)
 			{
 				currentElement->SetIsUpToDate(value);
 			}

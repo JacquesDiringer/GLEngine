@@ -38,7 +38,7 @@ namespace GLEngine
 	void NoAlphaRenderQueue::ClearRenderables()
 	{
 		// Delete all objects in the list.
-		for each (Renderable* currentRenderable in _renderables)
+		for (Renderable* currentRenderable : _renderables)
 		{
 			currentRenderable->~Renderable();
 		}

@@ -28,6 +28,8 @@ namespace GLEngine
 		vector<SceneNode*> _instancesNodes;
 		// Minimum entity number necessary to trigger instanciation.
 		int _instanciationThreshold = 10;
+
+		GLfloat* _tempWorldArray;
 	};
 }
 

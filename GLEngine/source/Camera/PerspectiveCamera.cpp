@@ -37,26 +37,29 @@ namespace GLEngine
 
 	void PerspectiveCamera::UpdateViewAndIView()
 	{
-		SceneNode* parentNode = dynamic_cast<SceneNode*>(GetParent());
-		if (parentNode != nullptr)
+		// Cache the SceneNode parent if found.
+		if (_parentNode == nullptr)
 		{
-			GLEngineMath::Matrix4 newView = parentNode->GetWorldTransformation();
-			if (!(_iView == newView))
+			_parentNode = dynamic_cast<SceneNode*>(GetParent());
+
+			if(_parentNode == nullptr)
 			{
-				// Update the inverse of the view.
-				_iView = newView;
-
-				newView.InvertRT();
-				// Update the view.
-				_view = newView;
-
-				// Update the viewProjection.
-				_viewProjection = _projection * _view;
+				throw new std::exception("Camera should have a parent node.");
 			}
 		}
-		else
+		
+		GLEngineMath::Matrix4 newView = _parentNode->GetWorldTransformation();
+		if (!(_iView == newView))
 		{
-			throw new std::exception("Camera should have a parent node.");
+			// Update the inverse of the view.
+			_iView = newView;
+
+			newView.InvertRT();
+			// Update the view.
+			_view = newView;
+
+			// Update the viewProjection.
+			_viewProjection = _projection * _view;
 		}
 	}
 
