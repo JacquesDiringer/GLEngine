@@ -5,6 +5,8 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 
+//#define MAP_WORLD_MATRIX_BUFFER
+
 
 namespace GLEngine
 {
@@ -42,6 +44,31 @@ namespace GLEngine
 
 			VBOManager* vboManager = graphicsResourceManager->GetVBOManager();
 
+
+#ifdef MAP_WORLD_MATRIX_BUFFER
+
+			// Create or fetch the instances matrix VBO.
+			GLsizeiptr requestedSize = _instancesNodes.size() * 16 * sizeof(GLfloat);
+			GLuint instancesWorldVBO = vboManager->RequestBuffer(requestedSize);
+
+			// Buffer mapping method for world matrix transfer to GPU.
+			glBindBuffer(GL_ARRAY_BUFFER, instancesWorldVBO);
+			{
+				float* mappedBufferPointer = (float*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+
+				int instanceMatricesArrayIndex = 0;
+				for (SceneNode* currentNode : _instancesNodes)
+				{
+					// Copy the transposed matrices values in the instance matrix array.
+					currentNode->GetWorldTransformation().GetTransposedArrayCopy(&mappedBufferPointer[16 * instanceMatricesArrayIndex]);
+
+					++instanceMatricesArrayIndex;
+				}
+				glUnmapBuffer(GL_ARRAY_BUFFER);
+			}
+
+#else
+
 			// Concatenate all node matrices in one array.
 			float* instanceMatricesArray = new float[16 * _instancesNodes.size()];
 			int instanceMatricesArrayIndex = 0;
@@ -52,6 +79,8 @@ namespace GLEngine
 
 				++instanceMatricesArrayIndex;
 			}
+
+#endif
 
 
 			// Create or fetch the instances matrix VBO.
