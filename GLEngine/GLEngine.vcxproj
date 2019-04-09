@@ -98,7 +98,8 @@
       <AdditionalDependencies>opengl32.lib;glfw3.lib;libglew32d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(OutDir)" "C:\Utils\GLEngine\lib\$(Configuration)\"</Command>
+      <Command>copy "$(OutDir)" "C:\Utils\GLEngine\lib\$(Configuration)\"
+xcopy "$(ProjectDir)include\*" "C:\Utils\GLEngine\include\" /Y /S</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -128,7 +129,8 @@
       <AdditionalDependencies>opengl32.lib;glfw3.lib;libglew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(OutDir)" "C:\Utils\GLEngine\lib\$(Configuration)\"</Command>
+      <Command>copy "$(OutDir)" "C:\Utils\GLEngine\lib\$(Configuration)\"
+xcopy "$(ProjectDir)include\*" "C:\Utils\GLEngine\include\" /Y /S</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
